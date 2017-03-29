@@ -1,10 +1,15 @@
 {
-  "name": "projekt-effekt",
+  "name": "projekt-effect",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "client/app.js",
+  "engines": {
+    "node": ">=0.12"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint '*'",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -L server/app"
   },
   "repository": {
     "type": "git",
@@ -15,5 +20,27 @@
   "bugs": {
     "url": "https://github.com/1DV611/effect-reklambyra/issues"
   },
-  "homepage": "https://github.com/1DV611/effect-reklambyra#readme"
+  "homepage": "https://github.com/1DV611/effect-reklambyra#readme",
+  "dependencies": {
+    "express": "^4.15.0",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.1",
+    "request": "^2.80.0",
+    "request-promise": "^4.2.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "morgan": "^1.8.1",
+    "jscs": "^3.0.7",
+    "jshint": "^2.9.4",
+    "eslint": "^3.16.1",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
+    "nodemon": "^1.11.0"
+  }
 }
+
+
