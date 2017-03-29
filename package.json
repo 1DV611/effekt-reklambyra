@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/1DV611/effect-reklambyra/issues"
   },
-  "homepage": "https://github.com/1DV611/effect-reklambyra#readme"
+  "homepage": "https://github.com/1DV611/effect-reklambyra#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
 }
