@@ -7,7 +7,7 @@
     "browser": true,
     "node": true
   },
-  "extends": "airbnb",
+  "extends": "airbnb/legacy",
   "rules": {
     "func-names": ["error", "never"],
     "no-console": "off",

@@ -9,29 +9,51 @@
   "scripts": {
     "lint": "eslint '*'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -L server/app"
+    "start": "nodemon -L server/app eslint '*'"
 
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/1DV611/effect-reklambyra.git"
   },
-  "author": "Tobias Meri Lars Peter Rasmus",
+  "contributors": [
+    {
+      "name": "Peter Andersson",
+      "email": "pa222ku@student.lnu.se"
+    },
+    {
+      "name": "Rasmus Karlsson",
+      "email": "rk222gg@student.lnu.se"
+    },
+    {
+      "name": "Tobias Johansson",
+      "email": "tj22fe@student.lnu.se"
+    },
+    {
+      "name": "Lars Wöldern",
+      "email": "lw222ii@student.lnu.se"
+    },
+    {
+      "name": "Meri Stakovska",
+      "email": "ms224dm@student.lnu.se"
+    }
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/1DV611/effect-reklambyra/issues"
   },
   "homepage": "https://github.com/1DV611/effect-reklambyra#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.15.2",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.1",
     "request": "^2.80.0",
     "request-promise": "^4.2.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "body-parser": "^1.16.1",
+    "morgan": "^1.8.1"
   },
   "devDependencies": {
-    "morgan": "^1.8.1",
     "nodemon": "^1.11.0",
     "jscs": "^3.0.7",
     "jshint": "^2.9.4",
