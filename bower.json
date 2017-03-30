@@ -1,0 +1,17 @@
+{
+  "name": "projekt-effekt",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "Tobias Meri Lars Peter Rasmus"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/1DV611/effect-reklambyra",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

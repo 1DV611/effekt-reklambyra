@@ -17,6 +17,15 @@
   },
   "homepage": "https://github.com/1DV611/effect-reklambyra#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "body-parser": "^1.17.1",
+    "connect-ensure-login": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.2",
+    "passport": "^0.3.2",
+    "passport-auth0": "^0.6.0",
+    "serve-favicon": "^2.4.2"
   }
 }
