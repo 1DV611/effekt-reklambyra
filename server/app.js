@@ -48,7 +48,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(morgan('combined'));
+app.use(logger('combined'));
 app.use(session({
   secret: 'hemlis!!',
   resave: true,
