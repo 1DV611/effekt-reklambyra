@@ -1,0 +1,16 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 5,
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": "airbnb/legacy",
+  "rules": {
+    "func-names": ["error", "never"],
+    "no-console": "off",
+    "import/prefer-default-export": "off"
+  }
+}

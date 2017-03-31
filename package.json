@@ -1,16 +1,43 @@
 {
-  "name": "projekt-effekt",
+  "name": "projekt-effect",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "client/app.js",
+  "engines": {
+    "node": ">=0.12"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint '*'",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -L server/app eslint '*'"
+
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/1DV611/effect-reklambyra.git"
   },
-  "author": "Tobias Meri Lars Peter Rasmus",
+  "contributors": [
+    {
+      "name": "Peter Andersson",
+      "email": "pa222ku@student.lnu.se"
+    },
+    {
+      "name": "Rasmus Karlsson",
+      "email": "rk222gg@student.lnu.se"
+    },
+    {
+      "name": "Tobias Johansson",
+      "email": "tj22fe@student.lnu.se"
+    },
+    {
+      "name": "Lars Wöldern",
+      "email": "lw222ii@student.lnu.se"
+    },
+    {
+      "name": "Meri Stakovska",
+      "email": "ms224dm@student.lnu.se"
+    }
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/1DV611/effect-reklambyra/issues"
@@ -27,5 +54,22 @@
     "passport": "^0.3.2",
     "passport-auth0": "^0.6.0",
     "serve-favicon": "^2.4.2"
+    "request": "^2.80.0",
+    "request-promise": "^4.2.0",
+    "path": "^0.12.7",
+    "morgan": "^1.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "jscs": "^3.0.7",
+    "jshint": "^2.9.4",
+    "eslint": "^3.16.1",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0"
   }
 }
+
+
