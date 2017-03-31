@@ -44,13 +44,19 @@
   },
   "homepage": "https://github.com/1DV611/effect-reklambyra#readme",
   "dependencies": {
+    "body-parser": "^1.17.1",
+    "connect-ensure-login": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^4.0.0",
     "express": "^4.15.2",
     "express-handlebars": "^3.0.0",
-    "express-session": "^1.15.1",
+    "express-session": "^1.15.2",
+    "passport": "^0.3.2",
+    "passport-auth0": "^0.6.0",
+    "serve-favicon": "^2.4.2"
     "request": "^2.80.0",
     "request-promise": "^4.2.0",
     "path": "^0.12.7",
-    "body-parser": "^1.16.1",
     "morgan": "^1.8.1"
   },
   "devDependencies": {
