@@ -73,7 +73,7 @@ app.use('/user', user);
 
 // Fånga och ge error till handler
 app.use(function (req, res, next) {
-  let err = new Error('Not Found');
+  var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -97,6 +97,5 @@ app.use(function (err, req, res, next) {
     error: {},
   });
 });
-
 
 module.exports = app;
