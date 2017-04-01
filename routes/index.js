@@ -13,8 +13,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/login',
-    function (req, res)
-    {
+    function (req, res) {
       res.render('login', { env: env });
     });
 
