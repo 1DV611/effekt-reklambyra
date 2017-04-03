@@ -2,7 +2,7 @@
   "name": "projekt-effect",
   "version": "1.0.0",
   "description": "",
-  "main": "client/app.js",
+  "main": "www.js",
   "engines": {
     "node": ">=0.12"
   },
