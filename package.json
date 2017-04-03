@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "eslint '*'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -L server/app eslint '*'"
+    "start": "nodemon -L www.js eslint '*'"
   },
   "repository": {
     "type": "git",
