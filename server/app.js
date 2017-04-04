@@ -16,7 +16,7 @@ const http = require('http');
 dotenv.load();
 
 // Routes
-const routes = require('../routes/index');
+const routes = require('../routes/start');
 const user = require('../routes/user');
 
 const port = process.env.port || 3000;
