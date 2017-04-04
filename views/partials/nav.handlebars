@@ -1,4 +1,13 @@
-<nav>
-    <div id="nav-left">Effect Reklambyrå AB</div>
-    <div id="nav-right">Text</div>
+<nav class="navbar navbar-inverse navbar-fixed-top navbar-white">
+    <div class="container">
+        <div class="navbar-header">
+            <img src="effect_46.png" />
+        </div>
+        {{#if user.nickname}}
+        <div id="nav-profile" class="navbar-right">
+            {{user.nickname}}
+            <img class="img-circle img-profile" src="{{user.picture}}" />
+        </div>
+        {{/if}}
+    </div>
 </nav>

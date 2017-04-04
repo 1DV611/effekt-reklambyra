@@ -64,7 +64,7 @@ const hbs = exphbs.create({
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-app.use(express.static(path.join(__dirname, 'client')));
+app.use(express.static(path.join(__dirname, '/../client/')));
 app.use('/bower_components', express.static(__dirname + '/../bower_components'));
 app.use('/css', express.static(__dirname + '/../client/css'));
 app.use(favicon((__dirname + '/../client/favicon.ico')));
