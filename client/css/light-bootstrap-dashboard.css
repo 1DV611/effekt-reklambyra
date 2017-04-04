@@ -89,7 +89,7 @@ body,
   background: rgba(203, 203, 210, 0.15);
   position: relative;
   z-index: 2;
-  width: calc(100% - 260px);
+  width: 100%;
   min-height: 100%;
 }
 .main-panel > .content {
