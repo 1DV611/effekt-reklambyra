@@ -4,3 +4,6 @@ node_modules
 01-login
 bower_components
 .env
+/.env
+client/images/
+client/js/

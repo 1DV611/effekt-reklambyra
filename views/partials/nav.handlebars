@@ -1,18 +1,18 @@
-<nav class="navbar navbar-inverse navbar-fixed-top navbar-white">
-    <div class="container">
-        <div class="navbar-header">
+<nav class="navbar navbar-fixed">
+        <div class="navbar-header nav-content-left">
             <img src="effect_46.png" />
         </div>
+        <div class="collapse navbar-collapse">
         {{#if user.nickname}}
-        <div id="nav-profile" class="navbar-right">
-            {{user.nickname}}
-            <img class="img-circle img-profile" src="{{user.picture}}" />
-        </div>
+        <ul class="nav navbar-nav navbar-right nav-content-right">
+                <li><a href="#" class="btn btn-default">Logga ut</a></li>
+                <li class="profile-picture">
+                    <img class="img-circle img-profile" src="{{user.picture}}" title="{{user.nickname}}" />
+                </li>
+            </ul>
         {{/if}}
-    </div>
+        </div>
 </nav>
 
 
-<li>
-    <a>Test</a>
-</li>
+

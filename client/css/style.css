@@ -1,23 +1,23 @@
-body {
-    padding-top: 130px;
-    background-color: #1d8db9;
+.nav-content {
+    width: 100vw;
+    margin:auto;
+    float:none;
 }
 
-main {
-    text-align: center;
-    margin: auto;
-}
-
-#nav-profile {
-    display: inline-block;
-    color: #979797;
-}
-
-.navbar-white {
-    padding: 20px;
+.nav-content-left {
+    text-align: left;
     background-color: white;
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-    font-size: medium;
+    padding-top:2%;
+    padding-left:2%;
+
+}
+
+.nav-content-right {
+    text-align: right;
+    background-color: white;
+    padding-top:2%;
+    padding-right:2%;
+
 }
 
 .img-circle {
@@ -25,6 +25,21 @@ main {
 }
 
 .img-profile {
-    height: 55px;
-    width: 55px;
+    margin:0;
+    height: 55%;
+    width: 55%;
 }
+
+.profile-picture{
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.login-content-place {
+    margin: auto;
+    width: 50vw;
+    height: 50vh;
+    text-align: center;
+}
+
