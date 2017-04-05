@@ -8,9 +8,9 @@ var options = {
       },
   };
 
-describe('my awesome website', function () {
-    it('should do some chai assertions', function () {
-        browser.url('http://webdriver.io');
-        browser.getTitle().should.be.equal('blah');
+describe('first page', function () {
+    it('have the same title as effectreklam.se', function () {
+        browser.url('http://localhost:3000');
+        browser.getTitle().should.be.equal('Effect Reklambyrå');
       });
   });

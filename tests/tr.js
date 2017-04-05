@@ -1,6 +1,6 @@
 var Launcher = require('webdriverio').Launcher;
 
-var wdio = new Launcher('./wdio.conf.js');
+var wdio = new Launcher('./tests/wdio.conf.js');
 
 wdio.run().then(function (code) {
     process.exit(code);

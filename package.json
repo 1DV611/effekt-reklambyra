@@ -8,7 +8,7 @@
   },
   "scripts": {
     "lint": "eslint '*'",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tests/run_tests.sh",
     "start": "nodemon -L www.js eslint '*'"
   },
   "repository": {
