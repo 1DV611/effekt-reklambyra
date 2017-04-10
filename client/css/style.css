@@ -1,44 +1,45 @@
-html {
-    position: absolute;
-    height: 100%;
-    width: 100%;
+.nav-content {
+    width: 100vw;
+    margin:auto;
+    float:none;
 }
 
-body {
-    position: relative;
-    width: 100%;
-    background-color: white;
-    color: #464646;
-    font-family: arial, helvetica, serif;
-    margin: 0;
-    padding: 0;
-    overflow: visible;
-}
-
-nav {
-    margin: auto;
-    padding-top: 10px;
-    background-color: grey;
-    display: table;
-    height: 80px;
-    width: 100%;
-    -webkit-box-shadow: 0 0 8px 2px #000000;
-    -moz-box-shadow: 0 0 8px 2px #000000;
-    box-shadow: 0 0 8px 2px #000000;
-}
-
-#nav-left{
-    padding-left: 45px;
-    display: table-cell;
+.nav-content-left {
     text-align: left;
-    width: 50%;
+    background-color: white;
+    padding-top:2%;
+    padding-left:2%;
+
 }
 
-#nav-right {
-    padding-right: 45px;
-    display: table-cell;
+.nav-content-right {
     text-align: right;
-    width: 50%;
+    background-color: white;
+    padding-top:2%;
+    padding-right:2%;
+
 }
 
+.img-circle {
+    border-radius: 50%;
+}
+
+.img-profile {
+    margin:0;
+    height: 55%;
+    width: 55%;
+}
+
+.profile-picture{
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.login-content-place {
+    margin: auto;
+    width: 50vw;
+    height: 50vh;
+    text-align: center;
+}
 

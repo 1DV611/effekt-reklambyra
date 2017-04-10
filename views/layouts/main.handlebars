@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 {{>head}}
+
 {{>nav}}
-{{{body}}}
+
+<div class="wrapper">
+    <!--
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+    -->
+    <div class="main-panel">
+        <div class="content">
+            {{{body}}}
+        </div>
+    </div>
+</div>
+
+{{>footer}}
+
 </html>

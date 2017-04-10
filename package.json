@@ -2,14 +2,14 @@
   "name": "projekt-effect",
   "version": "1.0.0",
   "description": "",
-  "main": "client/app.js",
+  "main": "www.js",
   "engines": {
     "node": ">=0.12"
   },
   "scripts": {
     "lint": "eslint '*'",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -L server/app eslint '*'"
+    "test": "tests/run_tests.sh",
+    "start": "nodemon -L www.js eslint '*'"
   },
   "repository": {
     "type": "git",
@@ -44,6 +44,7 @@
   "homepage": "https://github.com/1DV611/effect-reklambyra#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "chart.js": "^2.5.0",
     "connect-ensure-login": "^0.1.1",
     "cookie-parser": "^1.4.3",
     "dotenv": "^4.0.0",
@@ -59,14 +60,22 @@
     "serve-favicon": "^2.4.2"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0",
-    "jscs": "^3.0.7",
-    "jshint": "^2.9.4",
+    "bower": "^1.8.0",
+    "chai": "^3.5.0",
+    "debug": "^2.6.3",
     "eslint": "^3.16.1",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-config-airbnb-base": "^11.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.0"
+    "eslint-plugin-react": "^6.10.0",
+    "jscs": "^3.0.7",
+    "jshint": "^2.9.4",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
+    "selenium-webdriver": "^3.3.0",
+    "wdio-mocha-framework": "^0.5.9",
+    "wdio-spec-reporter": "^0.1.0",
+    "webdriverio": "^4.6.2"
   }
 }

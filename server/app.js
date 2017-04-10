@@ -16,7 +16,7 @@ const http = require('http');
 dotenv.load();
 
 // Routes
-const routes = require('../routes/index');
+const routes = require('../routes/start');
 const user = require('../routes/user');
 
 const port = process.env.port || 3000;
@@ -64,8 +64,9 @@ const hbs = exphbs.create({
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-app.use(express.static(path.join(__dirname, 'client')));
+app.use(express.static(path.join(__dirname, '/../client/')));
 app.use('/bower_components', express.static(__dirname + '/../bower_components'));
+app.use('/css', express.static(__dirname + '/../client/css'));
 app.use(favicon((__dirname + '/../client/favicon.ico')));
 
 app.use('/', routes);
@@ -73,7 +74,7 @@ app.use('/user', user);
 
 // Fånga och ge error till handler
 app.use(function (req, res, next) {
-  let err = new Error('Not Found');
+  var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -97,6 +98,5 @@ app.use(function (err, req, res, next) {
     error: {},
   });
 });
-
 
 module.exports = app;
