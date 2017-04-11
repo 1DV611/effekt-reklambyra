@@ -35,4 +35,29 @@ router.get('/charts',
         res.render('user', { env: env });
     });
 
+
+router.get('admin/dashboard', function (req, res) {
+  res.render('admin/dashboard', { env: env });
+});
+
+router.get('/admin/preview', function (req, res) {
+  res.render('admin/preview', { env: env });
+});
+
+router.get('/admin/reports', function (req, res) {
+  res.render('admin/reports', { env: env });
+});
+
+router.get('/admin/report/:id', function (req, res) {
+  res.render('admin/report', { env: env });
+});
+
+router.get('/user/reports', function (req, res) {
+  res.render('user/reports', { env: env });
+});
+
+router.get('/user/report/:id', function (req, res) {
+  res.render('user/report', { env: env });
+});
+
 module.exports = router;

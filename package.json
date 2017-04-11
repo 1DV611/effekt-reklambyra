@@ -44,6 +44,7 @@
   "homepage": "https://github.com/1DV611/effect-reklambyra#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "chart.js": "^2.5.0",
     "connect-ensure-login": "^0.1.1",
     "cookie-parser": "^1.4.3",
     "dotenv": "^4.0.0",
