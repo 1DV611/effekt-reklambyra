@@ -1,11 +1,15 @@
 <nav class="navbar navbar-fixed">
         <div class="navbar-header nav-content-left">
-            <img src="effect_46.png" />
+            <img src="/effect_46.png" />
         </div>
         <div class="collapse navbar-collapse">
-        {{#if user.nickname}}
-        <ul class="nav navbar-nav navbar-right nav-content-right">
-                <li><a href="#" class="btn btn-default">Logga ut</a></li>
+        {{#if user}}
+            <ul class="nav navbar-nav navbar-left nav-content-left">
+                <li><a href="/user/dashboard">Dashboard</a></li>
+                <li><a href="/user/reports">Reports</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right nav-content-right">
+                <li><a href="/logout" class="btn btn-default">Logga ut</a></li>
                 <li class="profile-picture">
                     <img class="img-circle img-profile" src="{{user.picture}}" title="{{user.nickname}}" />
                 </li>
