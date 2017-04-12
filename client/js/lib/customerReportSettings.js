@@ -65,7 +65,7 @@ function customerReportSettings(req, res, next) {
     }
   };
 
-  res.render('preview', { user: req.user, form: JSON.stringify(form, null, '4') });
+  res.render('preview', { user: req.user, form: JSON.stringify(form) });
 }
 
 module.exports = customerReportSettings;
