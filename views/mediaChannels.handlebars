@@ -1,23 +1,39 @@
+<select name="allowedConnections" id="channelSelection">
+    <option value="twitter">Twitter</option>
+    <option value="facebook">Facebook</option>
+    <option value="linkedin">LinkedIn</option>
+    <option value="google-oauth2">Google</option>
+</select>
+
 <div id="root" style="width: 280px; margin: 40px auto; padding: 10px;">
     <script>
 
-        var options = {
-            auth: {
-                redirectUrl: 'http://localhost:3000/mediaChannels'
-                , responseType: 'code'
-                , params: {
-                    scope: 'openid name email picture'
-                }
-            },
-            allowSignUp: false,
-            theme: {
-                logo: 'http://effectmedia.effecttv.se/2015/06/effect_46.png'
-            },
-            allowedConnections: ['twitter', 'facebook', 'linkedin', 'google-oauth2']
+        var showLock = function () {
+
+          var selectedChannel = document.getElementById('channelSelection').value;
+          console.log(selectedChannel);
+
+            var options = {
+                auth: {
+                    redirectUrl: 'http://localhost:3000/mediaChannels'
+                    , responseType: 'code'
+                    , params: {
+                        scope: 'openid name email picture'
+                    }
+                },
+                allowSignUp: false,
+                theme: {
+                    logo: 'http://effectmedia.effecttv.se/2015/06/effect_46.png'
+                },
+                allowedConnections: [selectedChannel]
+
+            };
+
+            var lock = new Auth0Lock('{{env.AUTH0_CLIENT_ID}}', '{{env.AUTH0_DOMAIN}}', options);
+            lock.show()
 
         };
 
-        var lock = new Auth0Lock('{{env.AUTH0_CLIENT_ID}}', '{{env.AUTH0_DOMAIN}}', options);
-        lock.show();
     </script>
+    <button onclick="showLock()">Auth</button>
 </div>

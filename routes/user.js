@@ -8,4 +8,8 @@ router.get('/', ensureLoggedIn, function (req, res, next) {
   res.render('user', { user: req.user });
 });
 
+router.get('/mediaChannels', ensureLoggedIn, function (req, res, next) {
+  res.render('mediaChannels', { user: req.user });
+});
+
 module.exports = router;
