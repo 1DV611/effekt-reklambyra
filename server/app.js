@@ -46,7 +46,7 @@ passport.deserializeUser(function (user, done) {
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(logger('combined'));
 app.use(session({
@@ -67,6 +67,7 @@ app.set('view engine', 'handlebars');
 app.use(express.static(path.join(__dirname, '/../client/')));
 app.use('/bower_components', express.static(__dirname + '/../bower_components'));
 app.use('/css', express.static(__dirname + '/../client/css'));
+app.use('/js', express.static(__dirname + '/../client/js'));
 app.use(favicon((__dirname + '/../client/favicon.ico')));
 
 app.use('/', routes);

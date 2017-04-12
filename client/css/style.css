@@ -1,3 +1,7 @@
+.main-panel {
+    width: 100%;
+}
+
 .nav-content {
     width: 100vw;
     margin:auto;
@@ -43,3 +47,61 @@
     text-align: center;
 }
 
+.dashboard-content-place {
+    text-align: left;
+}
+
+.report-settings {
+    padding: 2%;
+}
+
+.social-container {
+    display: table;
+    width: 100%;
+    float:none;
+}
+
+.social-name {
+    padding-left: 1%;
+    display: table-cell;
+    width: 10%;
+}
+
+.social-features {
+    display: table-cell;
+    width: 82%;
+    text-align: left;
+    vertical-align:middle;
+}
+
+.social-features span {
+    padding-right: 1%;
+}
+
+.social-features.span input {
+    padding-right: 1%;
+}
+
+.left-button-div {
+    text-align: right;
+}
+
+.customer-container {
+    display: table;
+    width: 100%;
+    margin: auto;
+    float: none;
+    padding-bottom: 2%;
+}
+
+.customer-label {
+    padding: 1%;
+    display: table-cell;
+    width: 10%;
+}
+
+.customer-name {
+    padding: 2%;
+    display: table-cell;
+    width: 90%;
+}

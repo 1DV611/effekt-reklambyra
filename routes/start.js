@@ -33,4 +33,11 @@ router.get('/callback',
       res.redirect(req.session.returnTo || '/user');
     });
 
+// Test out charts:
+
+router.get('/charts',
+    function (req, res) {
+        res.render('user', { env: env });
+    });
+
 module.exports = router;
