@@ -23,21 +23,36 @@ describe('first page', function () {
 describe('not authenticated user', function () {
   it('accessing /user should get redirected to /login', function () {
     browser.url(baseUrl + 'user');
-    browser.waitUntil(function() {
-	    return browser.getUrl().should.be.equal(baseUrl + 'login');
+    browser.waitUntil(function () {
+      return browser.getUrl().should.be.equal(baseUrl + 'login');
     });
   });
   it('accessing /user/dashboard should get redirected to /login', function () {
     browser.url(baseUrl + 'user/dashboard');
-    browser.waitUntil(function() {
-	    return browser.getUrl().should.be.equal(baseUrl + 'login');
+    browser.waitUntil(function () {
+      return browser.getUrl().should.be.equal(baseUrl + 'login');
     });
   });
   it('accessing /user/reports should get redirected to /login', function () {
     browser.url(baseUrl + 'user/reports');
-    browser.waitUntil(function() {
-	    return browser.getUrl().should.be.equal(baseUrl + 'login');
+    browser.waitUntil(function () {
+      return browser.getUrl().should.be.equal(baseUrl + 'login');
     });
+  });
+});
+
+describe('user', function () {
+  it('should recieve an error message when entering bad credentials', function () {
+    browser.url(baseUrl + 'login');
+    browser.waitForVisible('.auth0-lock-input-email', 5000);
+    var email = $('.auth0-lock-input-email .auth0-lock-input');
+    email.setValue('user@example.com');
+    var password = $('.auth0-lock-input-password .auth0-lock-input');
+    password.setValue('asdf');
+    var submit = $('.auth0-lock-submit');
+    submit.click();
+    browser.waitForVisible('.auth0-global-message', 5000);
+    $('.auth0-global-message span span').getText().should.be.equal('WRONG EMAIL OR PASSWORD.');
   });
 });
 
@@ -52,8 +67,7 @@ describe('admin', function () {
     var submit = $('.auth0-lock-submit');
     submit.click();
     browser.waitForVisible('.profile-picture', 5000);
-    browser.getUrl().should.be.equal(baseUrl + 'user');
+    browser.getUrl().should.contain(baseUrl + 'user');
   });
 });
-
 
