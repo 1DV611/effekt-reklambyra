@@ -20,6 +20,27 @@ describe('first page', function () {
   });
 });
 
+describe('not authenticated user', function () {
+  it('accessing /user should get redirected to /login', function () {
+    browser.url(baseUrl + 'user');
+    browser.waitUntil(function() {
+	    return browser.getUrl().should.be.equal(baseUrl + 'login');
+    });
+  });
+  it('accessing /user/dashboard should get redirected to /login', function () {
+    browser.url(baseUrl + 'user/dashboard');
+    browser.waitUntil(function() {
+	    return browser.getUrl().should.be.equal(baseUrl + 'login');
+    });
+  });
+  it('accessing /user/reports should get redirected to /login', function () {
+    browser.url(baseUrl + 'user/reports');
+    browser.waitUntil(function() {
+	    return browser.getUrl().should.be.equal(baseUrl + 'login');
+    });
+  });
+});
+
 describe('admin', function () {
   it('should able to login', function () {
     browser.url(baseUrl + 'login');
@@ -34,3 +55,5 @@ describe('admin', function () {
     browser.getUrl().should.be.equal(baseUrl + 'user');
   });
 });
+
+
