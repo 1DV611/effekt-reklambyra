@@ -1,18 +1,13 @@
 .main-panel {
     width: 100%;
-    -webkit-animation-name: random;
-    -webkit-animation-duration: 120s;
-    -webkit-animation-delay: 120s;
-    animation-name: random;
-    animation-duration: 4s;
-    animation-delay: 2s;
+    background-color: #1d8eba;
 }
 
 @keyframes random {
     25% { background-color: #ec68a2; }
     25% { background-color: #a7b719; }
     25% { background-color: #727272; }
-    25% { background-color: #1d8eba; }
+    25% {  }
 }
 .nav-content-left {
     text-align: left;

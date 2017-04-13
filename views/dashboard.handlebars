@@ -1,5 +1,6 @@
 <div class="card dashboard-content-place">
 
+    <!--- Choose a customer --->
     <div class="report-settings">
         <form id="customer-statistics" method="post" action="/user/preview">
         <div class="customer-container">
@@ -7,13 +8,17 @@
                 <span>Kund </span>
             </div>
             <div class="customer-input">
-                <input class="form-control" id="customer" name="customer" type="text" placeholder="kundens namn - autocomplete" />
+                <input class="form-control" id="customer" name="customer" type="text" placeholder="kundens namn - autocomplete" value="byggaute" />
             </div>
         </div>
+
+            <!--- If existing customer is choosen display only divs of social media that are activated, all checked --->
+
+            {{#if user.adwords.active}}
             <div class="social-container">
                 <div class="social-name"><span>Adwords</span></div>
                 <div class="social-switch">
-                    <input id="adwords" name="adwords" class="cmn-toggle cmn-toggle-round" type="checkbox" checked>
+                    <input id="adwords" name="adwords" class="cmn-toggle cmn-toggle-round" type="checkbox">
                     <label for="adwords"></label>
                 </div>
                 <div class="social-features">
@@ -36,50 +41,53 @@
                     <label for="facebookLikes">Gilla </label>
                 </div>
             </div>
+            {{/if}}
             <div class="social-container">
                 <div class="social-name"><span>Youtube</span></div>
                 <div class="social-switch">
-                    <input id="youtube" name="youtube" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                    <input id="youtube" name="youtube" class="cmn-toggle cmn-toggle-round" type="checkbox" checked>
                     <label for="youtube"></label>
                 </div>
                 <div class="social-features">
-                    <input id="youtube-views" name="youtubeViews" type="checkbox">
+                    <input id="youtube-views" name="youtubeViews" type="checkbox" checked>
                     <label for="youtubeViews">Visningar </label>
                 </div>
             </div>
             <div class="social-container">
                 <div class="social-name"><span>Tynt/33across</span></div>
                 <div class="social-switch">
-                    <input id="tynt" name="tynt" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                    <input id="tynt" name="tynt" class="cmn-toggle cmn-toggle-round" type="checkbox" checked>
                     <label for="tynt"></label>
                 </div>
                 <div class="social-features">
-                    <input id="tynt-copied" name="tyntCopied" type="checkbox">
+                    <input id="tynt-copied" name="tyntCopied" type="checkbox" checked>
                     <label for="tyntCopied">Kopierat innehåll </label>
                 </div>
             </div>
             <div class="social-container">
                 <div class="social-name"><span>AddThis</span></div>
                 <div class="social-switch">
-                    <input id="addthis" name="addthis" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                    <input id="addthis" name="addthis" class="cmn-toggle cmn-toggle-round" type="checkbox" checked>
                     <label for="addthis"></label>
                 </div>
                 <div class="social-features">
-                    <input id="addthis-click" name="addthisClick" type="checkbox">
+                    <input id="addthis-click" name="addthisClick" type="checkbox" checked>
                     <label for="addthisClick">Klick </label>
                 </div>
             </div>
             <div class="social-container">
                 <div class="social-name"><span>Twitter</span></div>
                 <div class="social-switch">
-                    <input id="twitter" name="twitter" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                    <input id="twitter" name="twitter" class="cmn-toggle cmn-toggle-round" type="checkbox" checked>
                     <label for="twitter"></label>
                 </div>
                 <div class="social-features">
-                    <input id="twitter-views" name="twitterViews" type="checkbox">
+                    <input id="twitter-views" name="twitterViews" type="checkbox" checked>
                     <label for="twitterViews">Följare </label>
                 </div>
             </div>
+
+            {{#if user.linkedin.active}}
             <div class="social-container">
                 <div class="social-name"><span>LinkedIn</span></div>
                 <div class="social-switch">
@@ -126,6 +134,7 @@
                     <label for="analyticsAverageVisitedPerPages">Genomsnittligt antal besökta sidor </label>
                 </div>
             </div>
+            {{/if}}
             <div class="left-button-div">
                 <input class="btn btn-default" type="submit" value="Preview"/>
             </div>
