@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-
 const dotenv = require('dotenv');
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
