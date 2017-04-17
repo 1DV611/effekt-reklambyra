@@ -1,0 +1,120 @@
+<div class="card dashboard-content-place">
+
+    <div class="report-settings">
+        <form id="customer-statistics" method="post" action="/user/preview">
+        <div class="customer-container">
+            <div class="customer-label">
+                <span>Kund: </span>
+            </div>
+            <div class="customer-input">
+                <input class="form-control" id="customer" name="customer" type="text" placeholder="kundens namn - autocomplete" />
+            </div>
+        </div>
+            <div class="social-container">
+                <div class="social-name"><span>Adwords</span></div>
+                <div class="social-switch">
+                    <input id="adwords" name="adwords" class="cmn-toggle cmn-toggle-round" type="checkbox" checked>
+                    <label for="adwords"></label>
+                </div>
+                <div class="social-features">
+                    <span>Klick: </span><input id="adwords-click" name="adwordsClick" type="checkbox">
+                    <span>CPC: </span><input id="adwords-cpc" name="adwordsCpc" type="checkbox">
+                    <span>Visningar: </span><input id="adwords-views" name="adwordsViews" type="checkbox">
+                </div>
+            </div>
+            <div class="social-container">
+                <div class="social-name"><span>Facebook</span></div>
+                <div class="social-switch">
+                    <input id="facebook" onclick="linkPasswordAccount('facebook')" name="facebook" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                    <label for="facebook"></label>
+                </div>
+                <div class="social-features">
+                    <span>Gilla: </span><input id="facebook-likes" name="facebookLikes" type="checkbox">
+                </div>
+            </div>
+            <div class="social-container">
+                <div class="social-name"><span>Youtube</span></div>
+                <div class="social-switch">
+                    <input id="youtube" onclick="linkPasswordAccount('google-oauth2')" name="youtube" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                    <label for="youtube"></label>
+                </div>
+                <div class="social-features">
+                    <span>Visningar: </span><input id="youtube-views" name="youtubeViews" type="checkbox">
+                </div>
+            </div>
+            <div class="social-container">
+                <div class="social-name"><span>Tynt/33across</span></div>
+                <div class="social-switch">
+                    <input id="tynt" name="tynt" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                    <label for="tynt"></label>
+                </div>
+                <div class="social-features">
+                    <span>Kopierat innehåll: </span><input id="tynt-copied" name="tyntCopied" type="checkbox">
+                </div>
+            </div>
+            <div class="social-container">
+                <div class="social-name"><span>AddThis</span></div>
+                <div class="social-switch">
+                    <input id="addthis" name="addthis" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                    <label for="addthis"></label>
+                </div>
+                <div class="social-features">
+                    <span>Klick: </span><input id="addthis-click" name="addthisClick" type="checkbox">
+                </div>
+            </div>
+            <div class="social-container">
+                <div class="social-name"><span>Twitter</span></div>
+                <div class="social-switch">
+                    <input id="twitter" name="twitter" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                    <label for="twitter"></label>
+                </div>
+                <div class="social-features">
+                    <span>Följare: </span><input id="twitter-views" name="twitterViews" type="checkbox">
+                </div>
+            </div>
+            <div class="social-container">
+                <div class="social-name"><span>Analytics</span></div>
+                <div class="social-switch">
+                    <input id="analytics" name="analytics" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                    <label for="analytics"></label>
+                </div>
+                <div class="social-features">
+                    <span>Visningar: </span><input id="analytics-views" name="analyticsViews" type="checkbox">
+                    <span>Unika visningar: </span><input id="analytics-unique-views" name="analyticsUniqueViews" type="checkbox">
+                    <span>4 starkaste ingångskanalerna: </span><input id="analytics-4-strongest-redirects" name="analyticsStrongestRedirects" type="checkbox">
+                    <span>4 mest besökta sidorna: </span><input id="analytics-4-most-visited-pages" name="analyticsMostVisitedPages" type="checkbox">
+                    <span>Genomsnittlig tid på sidan: </span><input id="analytics-average-time" name="analyticsAverageTime" type="checkbox">
+                    <span>Genomsnittligt antal besökta sidor: </span><input id="analytics-average-visited-per-pages" name="analyticsAverageVisitedPerPages" type="checkbox">
+                </div>
+            </div>
+            <div class="social-container">
+                <div class="social-name"><span>LinkedIn</span></div>
+                <div class="social-switch">
+                    <input id="linkedin" name="linkedin" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                    <label for="linkedin"></label>
+                </div>
+                <div class="social-features">
+                    <span>Följare: </span><input id="linkedin-followers" name="linkedinFollowers" type="checkbox">
+                    <span>Interaktioner: </span><input id="linkedin-interactions" name="linkedinInteractions" type="checkbox">
+                </div>
+            </div>
+
+            <div class="social-container">
+                <div class="social-name"><span>Moz</span></div>
+                <div class="social-switch">
+                    <input id="moz" name="moz" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                    <label for="moz"></label>
+                </div>
+                <div class="social-features">
+                    <span>Keywords position (de 10 bästa): </span><input id="moz-keywords" name="mozKeywords" type="checkbox">
+                </div>
+            </div>
+            <div class="left-button-div">
+                <input class="btn btn-default" type="submit" value="Preview"/>
+            </div>
+        </form>
+        </div>
+
+    <a href="/google">Google</a>
+
+    </div>

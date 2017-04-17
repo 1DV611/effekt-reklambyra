@@ -7,8 +7,8 @@
     "node": ">=0.12"
   },
   "scripts": {
-    "lint": "eslint '*'",
-    "test": "tests/run_tests.sh",
+    "lint": "eslint ./; exit 0",
+    "test": "sh tests/run_tests.sh",
     "start": "nodemon -L www.js eslint '*'"
   },
   "repository": {
@@ -54,6 +54,7 @@
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
     "passport-auth0": "^0.6.0",
+    "passport-google-oauth": "^1.0.0",
     "path": "^0.12.7",
     "request": "^2.80.0",
     "request-promise": "^4.2.0",
