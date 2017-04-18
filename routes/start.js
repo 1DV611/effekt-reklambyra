@@ -22,6 +22,11 @@ router.get('/logout', function (req, res) {
   res.redirect('/');
 });
 
+router.get('/mediaChannels', function (req, res, next) {
+  res.render('mediaChannels', { env: env, user: req.user });
+});
+
+
 router.get('/callback',
     passport.authenticate('auth0', { failureRedirect: '/url-if-something-fails' }),
     function (req, res) {

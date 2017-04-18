@@ -11,7 +11,10 @@ router.get('/', ensureLoggedIn, function (req, res, next) {
   res.render('dashboard', { user: req.user });
 });
 
-router.get('/dashboard', ensureLoggedIn, function (req, res, next) {
+router.get('/mediaChannels', ensureLoggedIn, function (req, res, next) {
+  res.render('mediaChannels', { user: req.user });
+
+  router.get('/dashboard', ensureLoggedIn, function (req, res, next) {
 /*
   Skicka objekt med information från Auth0 om vilka sociala medier som är aktiverade för användaren
 */
@@ -30,6 +33,7 @@ router.get('/reports', ensureLoggedIn, function (req, res, next) {
 
 router.get('/report/:id', ensureLoggedIn, function (req, res, next) {
   res.render('report', { user: req.user });
+
 });
 
 module.exports = router;
