@@ -8,7 +8,7 @@ var customerReportSettings = require('../client/js/lib/customerReportSettings.js
 
 /* GET user profile. */
 router.get('/', ensureLoggedIn, function (req, res, next) {
-  res.render('user', { user: req.user });
+  res.render('dashboard', { user: req.user });
 });
 
 router.get('/dashboard', ensureLoggedIn, function (req, res, next) {
