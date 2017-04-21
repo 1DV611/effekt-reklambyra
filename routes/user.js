@@ -12,9 +12,9 @@ router.get('/', ensureLoggedIn, function (req, res, next) {
 });
 
 router.get('/dashboard', ensureLoggedIn, function (req, res, next) {
-/*
-  Skicka objekt med information från Auth0 om vilka sociala medier som är aktiverade för användaren
-*/
+  /*
+    Skicka objekt med information från Auth0 om vilka sociala medier som är aktiverade för användaren
+  */
   res.render('dashboard', { user: req.user });
 });
 

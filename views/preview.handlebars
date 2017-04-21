@@ -1,9 +1,7 @@
 <div class="card dashboard-content-place">
     <div class="report-settings">
-
-Data from dashboard-form:<br>
-{{form}}
-        <div id="root" style="width: 280px; margin: 40px auto; padding: 10px;">
+        <h1>{{form.[customer]}}</h1>
+        <div id="charts" style="width: 30%; margin-top: 50px; padding: 10px; float: left">
             <div class="card">
                 <canvas id="canvasBarChart" width="400" height="400"></canvas>
             </div>
@@ -59,7 +57,7 @@ Data from dashboard-form:<br>
                 var dataBarChart = {
                     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
                     datasets: [{
-                        label: '# of Votes',
+                        label: 'Clicks',
                         data: [12, 19, 3, 5, 2, 3],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -107,6 +105,18 @@ Data from dashboard-form:<br>
                 var pieChart = createChart('pie', canvasPieChart, dataPieAndDoughnut);
                 var doughnutChart = createChart('doughnut', canvasDoughnutChart, dataPieAndDoughnut);
             </script>
-        </div>
+            </div>
+            <div id="stats" style="width: 70%; margin: 40px auto; padding: 20px; float: right">
+                <div class="card" style="padding: 10px">
+                    {{#each form}}
+                        {{#if this.[active]}}
+                            <h2>{{this.[name]}}</h2>
+                            {{#each this.[features]}}
+                                <h3>{{this}}</h3>
+                            {{/each}}
+                        {{/if}}
+                    {{/each}}
+                </div>
+            </div>
     </div>
 </div>
