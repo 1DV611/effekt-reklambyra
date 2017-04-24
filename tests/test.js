@@ -13,13 +13,6 @@ var options = {
   }
 };
 
-describe('first page', function () {
-  it('should have the same title as effectreklam.se', function () {
-    browser.url(baseUrl);
-    browser.getTitle().should.be.equal('Effect Reklambyrå');
-  });
-});
-
 describe('not authenticated user', function () {
   it('accessing /user should get redirected to /login', function () {
     browser.url(baseUrl + 'user');
