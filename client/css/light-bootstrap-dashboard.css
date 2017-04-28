@@ -252,8 +252,12 @@ body,
 }
 .card .title {
   margin: 0;
-  color: #333333;
   font-weight: 300;
+  display: inline-block;
+  background: limegreen;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
 }
 .card .avatar {
   width: 30px;
