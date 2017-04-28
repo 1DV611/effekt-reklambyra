@@ -3,12 +3,21 @@
         <h1>{{form.[customer]}}</h1>
         <div id="charts" style="width: 30%; margin-top: 50px; padding: 10px; float: left">
             <div class="card">
+                <div class="header">
+                    <h2 class="title">Utveckling</h2>
+                </div>
                 <canvas id="canvasBarChart" width="400" height="400"></canvas>
             </div>
             <div class="card">
+                <div class="header">
+                    <h2 class="title">Mest besök</h2>
+                </div>
                 <canvas id="canvasPieChart" width="400" height="400"></canvas>
             </div>
             <div class="card">
+                <div class="header">
+                    <h2 class="title">Ingångskällor</h2>
+                </div>
                 <canvas id="canvasDoughnutChart" width="400" height="400"></canvas>
             </div>
             <script src="/js/Chart.min.js"></script>
