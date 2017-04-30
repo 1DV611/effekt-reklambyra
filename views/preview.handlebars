@@ -26,12 +26,49 @@
                 var canvasPieChart = document.querySelector("#canvasPieChart");
                 var canvasDoughnutChart = document.querySelector("#canvasDoughnutChart");
 
+
+                function createData(labels, values) {
+
+                    var data = {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Clicks',
+                            data: [12, 19, 3, 5, 2, 3, 4, 5],
+                            backgroundColor: [
+                                'black',
+                                'lightgrey',
+                                'darkgrey',
+                                'dimgray',
+                                'silver',
+                                'darkslategrey',
+                                'lightslategrey',
+                                'slategrey'
+                            ],
+                            borderColor: [
+                                'black',
+                                'black',
+                                'black',
+                                'black',
+                                'black',
+                                'black',
+                                'black',
+                                'black'
+                            ],
+                            borderWidth: 0.5
+                        }]
+                    };
+                    return data;
+                }
+
                 function createChart(type, canvas, data) {
                     var options;
 
                     switch (type) {
                         case 'bar':
                             options = {
+                                legend: {
+                                    display: false
+                                },
                                 scales: {
                                     yAxes: [{
                                         ticks: {
@@ -63,63 +100,14 @@
                     return myChart;
                 }
 
-                var dataBarChart = {
-                    labels: ["Black", "Lightgrey", "Darkgrey", "Dimgray", "Silver", "Darkslategrey", "Lightslategrey", "Slategrey"],
-                    datasets: [{
-                        label: 'Clicks',
-                        data: [12, 19, 3, 5, 2, 3, 4, 5],
-                        backgroundColor: [
-                            'black',
-                            'lightgrey',
-                            'darkgrey',
-                            'dimgray',
-                            'silver',
-                            'darkslategrey',
-                            'lightslategrey',
-                            'slategrey'
-                        ],
-                        borderColor: [
-                            'black',
-                            'black',
-                            'black',
-                            'black',
-                            'black',
-                            'black',
-                            'black',
-                            'black'
-                        ],
-                        borderWidth: 0.5
-                    }]
-                };
+                var labels = ["Black", "Lightgrey", "Darkgrey", "Dimgray", "Silver", "Darkslategrey", "Lightslategrey", "Slategrey"];
+                var values = [12, 19, 3, 5, 2, 3, 4, 5];
 
-                var dataPieAndDoughnut = {
-                    labels: [
-                        "Black",
-                        "Lightgrey",
-                        "Darkgrey",
-                        "Dimgrey",
-                    ],
-                    datasets: [
-                        {
-                            data: [300, 50, 100, 200],
-                            backgroundColor: [
-                                "black",
-                                "lightgrey",
-                                "darkgrey",
-                                "dimgrey"
-                            ],
-                            hoverBackgroundColor: [
-                                "black",
-                                "lightgrey",
-                                "darkgrey",
-                                "dimgrey"
-                            ]
-                        }]
-                };
+                var data = createData(labels, values);
 
-                var barChart = createChart('bar', canvasBarChart, dataBarChart);
-                var pieChart = createChart('pie', canvasPieChart, dataPieAndDoughnut);
-                var doughnutChart = createChart('doughnut', canvasDoughnutChart, dataPieAndDoughnut);
+                var barChart = createChart('bar', canvasBarChart, data);
+                var pieChart = createChart('pie', canvasPieChart, data);
+                var doughnutChart = createChart('doughnut', canvasDoughnutChart, data);
             </script>
             </div>
             <div id="stats" style="width: 70%; margin: 40px auto; padding: 20px; float: right">
