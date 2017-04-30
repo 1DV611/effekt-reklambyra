@@ -117,3 +117,21 @@
 .customer-input {
     font-variant: small-caps;
 }
+
+#charts {
+    width: 30%;
+    margin-top: 50px;
+    padding: 10px;
+}
+
+#stats{
+    width: 70%;
+    margin: 40px auto;
+    padding: 20px;
+}
+.toTheLeft {
+    float: left;
+}
+.toTheRight {
+    float: right;
+}

@@ -1,7 +1,7 @@
 <div class="card dashboard-content-place">
     <div class="report-settings">
-        <h1 style="font-family: Impact,serif">{{form.[customer]}}</h1>
-        <div id="charts" style="width: 30%; margin-top: 50px; padding: 10px; float: left">
+        <h1>{{form.[customer]}}</h1>
+        <div id="charts" class="toTheLeft">
             <div class="card">
                 <div class="header">
                     <h4 class="title">Utveckling</h4>
@@ -26,7 +26,6 @@
                 var canvasPieChart = document.querySelector("#canvasPieChart");
                 var canvasDoughnutChart = document.querySelector("#canvasDoughnutChart");
 
-
                 function createData(labels, values) {
 
                     var data = {
@@ -42,7 +41,7 @@
                                 'silver',
                                 'darkslategrey',
                                 'lightslategrey',
-                                'slategrey'
+                                'slategrey',
                             ],
                             borderColor: [
                                 'black',
@@ -52,10 +51,11 @@
                                 'black',
                                 'black',
                                 'black',
-                                'black'
+                                'black',
                             ],
-                            borderWidth: 0.5
-                        }]
+                            borderWidth: 0.5,
+                        },
+                        ],
                     };
                     return data;
                 }
@@ -67,34 +67,34 @@
                         case 'bar':
                             options = {
                                 legend: {
-                                    display: false
+                                    display: false,
                                 },
                                 scales: {
                                     yAxes: [{
                                         ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
+                                            beginAtZero: true,
+                                        },
+                                    },
+                                    ],
+                                },
                             };
                             break;
                         case 'pie':
                         case 'doughnut':
                         default:
                             options = {
-                                animation:{
-                                    animateScale:true
-                                }
+                                animation: {
+                                    animateScale: true,
+                                },
                             };
                             break;
 
                     }
 
-
                     var myChart = new Chart(canvas, {
                         type: type,
                         data: data,
-                        options: options
+                        options: options,
                     });
 
                     return myChart;
@@ -110,7 +110,7 @@
                 var doughnutChart = createChart('doughnut', canvasDoughnutChart, data);
             </script>
             </div>
-            <div id="stats" style="width: 70%; margin: 40px auto; padding: 20px; float: right">
+            <div id="stats" class="toTheRight">
                 <div class="card">
                     {{#each form}}
                         {{#if this.[active]}}
