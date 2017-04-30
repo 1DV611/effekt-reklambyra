@@ -1,6 +1,18 @@
 <div class="card dashboard-content-place">
     <div class="report-settings">
         <h1>{{form.[customer]}}</h1>
+        <div id="summary">
+            <h3>Sammanfattning:</h3>
+            <textarea id="summaryTextarea" class="form-control"></textarea>
+            <input type="input" id="summaryButton" class="btn btn-default toTheRight" value="Spara" onclick="saveSummary()">
+        </div>
+        <div id="recommendation">
+            <h3>Rekommendation:</h3>
+            <textarea id="recommendationTextarea" class="form-control"></textarea>
+            <input type="input" id="recommendationButton" class="btn btn-default toTheRight" value="Spara" onclick="saveRecommendation()">
+        </div>
+        <br>
+        <br>
         <div id="charts" class="toTheLeft">
             <div class="card">
                 <div class="header">
@@ -22,6 +34,41 @@
             </div>
             <script src="/js/Chart.min.js"></script>
             <script>
+
+                function saveSummary() {
+                    var summary = document.querySelector("#summary");
+                    var summaryTextarea = document.querySelector("#summaryTextarea");
+                    var summaryText = summaryTextarea.value;
+                    var summaryButton = document.querySelector("#summaryButton");
+
+                    summaryButton.classList.add("hidden");
+
+                    var text = document.createTextNode(summaryText);
+                    var pElement = document.createElement("p");
+                    pElement.appendChild(text);
+
+                    summary.appendChild(pElement);
+
+                    summaryTextarea.parentNode.removeChild(summaryTextarea);
+                }
+
+                function saveRecommendation() {
+                    var recommendation = document.querySelector("#recommendation");
+                    var recommendationTextarea = document.querySelector("#recommendationTextarea");
+                    var recommendationText = recommendationTextarea.value;
+                    var recommendationButton = document.querySelector("#recommendationButton");
+
+                    recommendationButton.classList.add("hidden");
+
+                    var text = document.createTextNode(recommendationText);
+                    var pElement = document.createElement("p");
+                    pElement.appendChild(text);
+
+                    recommendation.appendChild(pElement);
+
+                    recommendationTextarea.parentNode.removeChild(recommendationTextarea);
+                }
+
                 var canvasBarChart = document.querySelector("#canvasBarChart");
                 var canvasPieChart = document.querySelector("#canvasPieChart");
                 var canvasDoughnutChart = document.querySelector("#canvasDoughnutChart");
@@ -108,6 +155,7 @@
                 var barChart = createChart('bar', canvasBarChart, data);
                 var pieChart = createChart('pie', canvasPieChart, data);
                 var doughnutChart = createChart('doughnut', canvasDoughnutChart, data);
+
             </script>
             </div>
             <div id="stats" class="toTheRight">

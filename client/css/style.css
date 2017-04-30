@@ -135,3 +135,7 @@
 .toTheRight {
     float: right;
 }
+
+.hidden {
+    visibility: hidden;
+}
