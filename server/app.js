@@ -7,6 +7,7 @@ const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 const GoogleOauthStrategy = require('passport-google-oauth').OAuth2Strategy;
 const InstagramStrategy = require('passport-instagram');
+const LinkedinStrategy = require('passport-linkedin');
 
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -54,6 +55,15 @@ passport.use(new InstagramStrategy({
   clientID: process.env.INSTAGRAM_CLIENT_ID,
   clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
   callbackURL: process.env.BASE_URL + '/auth/instagram/callback',
+}, standardAuthCallback));
+
+// the consumerKey is actually called CLIENT ID in linkedins api console and the consumerSecret CLIENT SECRET.
+// there is no actual linkedin API key, the linkedin passport strategy is a bit dated and uses oauth 1.0.
+// https://github.com/jaredhanson/passport-linkedin
+passport.use(new LinkedinStrategy({
+  consumerKey: process.env.LINKEDIN_CLIENT_ID,
+  consumerSecret: process.env.LINKEDIN_CLIENT_SECRET,
+  callbackURL: process.env.BASE_URL + '/auth/linkedin/callback',
 }, standardAuthCallback));
 
 // minskar storleken på payload

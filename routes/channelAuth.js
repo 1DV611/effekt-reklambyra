@@ -4,10 +4,13 @@ const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 const router = express.Router();
 const googleAPI = require('../model/googleApi');
 const instagramAPI = require('../model/instagramAPI');
+const linkedinAPI = require('../model/linkedinAPI');
+const dotenv = require('dotenv');
+
+dotenv.load();
 
 let standardRedirectSettings = {
-  successRedirect: '/auth/social-channel-token',
-  failureRedirect: 'fail',
+  failureRedirect: process.env.BASE_URL + '/auth/fail',
 };
 
 //https://developers.google.com/identity/protocols/googlescopes
@@ -18,15 +21,27 @@ router.get('/google', passport.authenticate('google', {
 router.get('/google/callback', passport.authenticate('google', standardRedirectSettings));
 
 router.get('/instagram', passport.authenticate('instagram', {
-  scope: ['likes', 'basic', 'public_content', 'follower_list', 'comments', 'relationships'], state: 'a state'
+  scope: ['likes', 'basic', 'public_content', 'follower_list', 'comments', 'relationships'],
+  state: 'a state'
 }));
 
 router.get('/instagram/callback', passport.authenticate('instagram', standardRedirectSettings));
+
+router.get('/linkedin', passport.authenticate('linkedin', {
+  scope: ['r_basicprofile', 'w_share', 'r_emailaddress', 'rw_company_admin']
+}));
+
+router.get('linkedin/callback', passport.authenticate('linkedin', standardRedirectSettings));
 
 router.get('/social-channel-token', function (req, res, next) {
   sendToApi(req.user);
   res.redirect('/user/dashboard');
 });
+
+router.get('/fail', function (req, res, next) {
+  console.log('auth failed');
+});
+
 
 let sendToApi = function (profile) {
 
@@ -38,6 +53,10 @@ let sendToApi = function (profile) {
 
     case 'instagram':
       instagramAPI(profile.accessToken);
+      break;
+
+    case 'linkedin':
+      linkedinAPI(profile.accessToken);
       break;
   }
 
