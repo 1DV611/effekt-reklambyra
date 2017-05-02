@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 const GoogleOauthStrategy = require('passport-google-oauth').OAuth2Strategy;
+const InstagramStrategy = require('passport-instagram');
 
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -30,7 +31,9 @@ let standardAuthCallback = function (accessToken, refreshToken, extraParams, pro
   // extraParams.id_token har JWT
   // profile har användarens profilinfo
   profile.accessToken = accessToken;
+  profile.refreshToken = refreshToken;
   profile.id_token = extraParams.id_token;
+  profile.extraParams = extraParams;
   return done(null, profile);
 };
 
@@ -45,6 +48,12 @@ passport.use(new GoogleOauthStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: 'http://localhost:3000/auth/google/callback',
+}, standardAuthCallback));
+
+passport.use(new InstagramStrategy({
+  clientID: process.env.INSTAGRAM_CLIENT_ID,
+  clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
+  callbackURL: process.env.BASE_URL + '/auth/instagram/callback',
 }, standardAuthCallback));
 
 // minskar storleken på payload

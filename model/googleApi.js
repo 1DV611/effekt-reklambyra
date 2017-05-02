@@ -44,6 +44,7 @@ module.exports = function (token) {
   obj['metrics'] = 'views';
   obj['auth'] = oauth2Client;
 
+  // The api explorer is very useful: https://developers.google.com/apis-explorer
   youtubeAnalytics.reports.query(obj, standardCallback);
 
 
