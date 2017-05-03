@@ -10,7 +10,7 @@ const dotenv = require('dotenv');
 dotenv.load();
 
 let standardRedirectSettings = {
-  failureRedirect: process.env.BASE_URL + '/auth/fail',
+  failureRedirect: process.env.BASE_URL + '/auth/fail'
 };
 
 //https://developers.google.com/identity/protocols/googlescopes

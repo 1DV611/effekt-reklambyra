@@ -33,4 +33,8 @@ router.get('/report/:id', ensureLoggedIn, function (req, res, next) {
   res.render('report', { user: req.user });
 });
 
+router.get('/example', ensureLoggedIn, function (req, res, next) {
+  res.render('example', { user: req.user });
+});
+
 module.exports = router;
