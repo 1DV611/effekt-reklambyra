@@ -2,6 +2,7 @@ const googleAPI = require('./../../../model/googleApi');
 
 function customerReportSettings(req, res, next) {
   var form = {
+
     customer: req.body.customer || 'Kund',
     adwords: {
       active: req.body.adwords,
