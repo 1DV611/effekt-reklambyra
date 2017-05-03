@@ -1,3 +1,5 @@
+const googleAPI = require('./../../../model/googleApi');
+
 function customerReportSettings(req, res, next) {
   var form = {
     customer: req.body.customer || 'Kund',
@@ -65,7 +67,34 @@ function customerReportSettings(req, res, next) {
     }
   };
 
-  res.render('preview', { user: req.user, form: JSON.stringify(form) });
+  googleAPI(req.user.accessToken, function (results) {
+    if (req.body.youtube === 'on') {
+      if (req.body.youtubeViews === 'on' && results.youtubeViews) {
+        form.youtube.features.youtubeViews = results.youtubeViews;
+      }
+    }
+    if (req.body.analytics === 'on') {
+      if (req.body.analyticsViews === 'on' && results.analytics.analyticsViews) {
+        form.analytics.features.analyticsViews = results.analytics.analyticsViews;
+      }
+      if (req.body.analyticsUniqueViews === 'on' && results.analytics.analyticsUniqueViews) {
+        form.analytics.features.analyticsUniqueViews = results.analytics.analyticsUniqueViews;
+      }
+      if (req.body.analyticsStrongestRedirects === 'on' && results.analytics.analyticsStrongestRedirects) {
+        form.analytics.features.analyticsStrongestRedirects = results.analytics.analyticsStrongestRedirects;
+      }
+      if (req.body.analyticsMostVisitedPages === 'on' && results.analytics.analyticsMostVisitedPages) {
+        form.analytics.features.analyticsMostVisitedPages = results.analytics.analyticsMostVisitedPages;
+      }
+      if (req.body.analyticsAverageTime === 'on' && results.analytics.analyticsAverageTime) {
+        form.analytics.features.analyticsAverageTime = results.analytics.analyticsAverageTime;
+      }
+      if (req.body.analyticsAverageVisitedPerPages === 'on' && results.analytics.analyticsAverageVisitedPerPages) {
+        form.analytics.features.analyticsAverageVisitedPerPages = results.analytics.analyticsAverageVisitedPerPages;
+      }
+    }
+    res.render('preview', { user: req.user, form: JSON.stringify(form) });
+  });
 }
 
 module.exports = customerReportSettings;

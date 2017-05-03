@@ -101,9 +101,9 @@ app.use('/css', express.static(__dirname + '/../client/css'));
 app.use('/js', express.static(__dirname + '/../client/js'));
 app.use(favicon((__dirname + '/../client/favicon.ico')));
 
+app.use('/auth', socialChannels);
 app.use('/', routes);
 app.use('/user', user);
-app.use('/auth', socialChannels);
 
 // Fånga och ge error till handler
 app.use(function (req, res, next) {

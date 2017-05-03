@@ -15,10 +15,14 @@ let standardRedirectSettings = {
 
 //https://developers.google.com/identity/protocols/googlescopes
 router.get('/google', passport.authenticate('google', {
-  scope: ['profile', 'https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/adsense.readonly', 'https://www.googleapis.com/auth/youtube.readonly']
+  scope: ['profile', 'https://www.googleapis.com/auth/analytics.readonly', 'https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/adsense.readonly', 'https://www.googleapis.com/auth/youtube.readonly']
 }));
 
-router.get('/google/callback', passport.authenticate('google', standardRedirectSettings));
+router.get('/google/callback', function (req, res, next) {
+  passport.authenticate('google', standardRedirectSettings)(req, res, function () {
+    res.redirect('/auth/social-channel-token');
+  });
+});
 
 router.get('/instagram', passport.authenticate('instagram', {
   scope: ['likes', 'basic', 'public_content', 'follower_list', 'comments', 'relationships'],
@@ -34,6 +38,7 @@ router.get('/linkedin', passport.authenticate('linkedin', {
 router.get('linkedin/callback', passport.authenticate('linkedin', standardRedirectSettings));
 
 router.get('/social-channel-token', function (req, res, next) {
+  //console.log(req.user);
   sendToApi(req.user);
   res.redirect('/user/dashboard');
 });
@@ -44,9 +49,8 @@ router.get('/fail', function (req, res, next) {
 
 
 let sendToApi = function (profile) {
-
+  console.log(profile);
   switch (profile.provider) {
-
     case 'google':
       googleAPI(profile.accessToken);
       break;
@@ -56,6 +60,7 @@ let sendToApi = function (profile) {
       break;
 
     case 'linkedin':
+      console.log(profile);
       linkedinAPI(profile.accessToken);
       break;
   }
