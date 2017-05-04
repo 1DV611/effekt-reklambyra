@@ -4,7 +4,7 @@ const addGoogleResultsToFormObject = require('./addGoogleResultsToFormObject');
 function customerReportSettings(req, res, next) {
   var form = {
 
-    customer: req.body.customer || 'Customer',
+    customer: req.body.customer || 'ByggaUte',
     adwords: {
       active: req.body.adwords,
       features: {
@@ -32,10 +32,10 @@ function customerReportSettings(req, res, next) {
       }
     },
     youtube: {
-      active: req.body.youtube,
+      active: 'on',
       features: {
         youtubeViews: {
-          active: req.body.youtubeViews,
+          active: 'on',
           result: ''
         }
       }
@@ -68,30 +68,30 @@ function customerReportSettings(req, res, next) {
       }
     },
     analytics: {
-      active: req.body.analytics,
+      active: 'on',
       features: {
         analyticsViews: {
-          active: req.body.analyticsViews,
+          active: 'on',
           result: ''
         },
         analyticsUniqueViews: {
-          active: req.body.analyticsUniqueViews,
+          active: 'on',
           result: ''
         },
         analyticsStrongestRedirects: {
-          active: req.body.analyticsStrongestRedirects,
+          active: 'on',
           result: ''
         },
         analyticsMostVisitedPages: {
-          active: req.body.analyticsMostVisitedPages,
+          active: 'on',
           result: ''
         },
         analyticsAverageTime: {
-          active: req.body.analyticsAverageTime,
+          active: 'on',
           result: ''
         },
         analyticsAverageVisitedPerPages: {
-          active: req.body.analyticsAverageVisitedPerPages,
+          active: 'on',
           result: ''
         }
       }
@@ -122,42 +122,8 @@ function customerReportSettings(req, res, next) {
 
   googleAPI(req.user.accessToken, function (results) {
     addGoogleResultsToFormObject(form, results);
-    res.render('preview', { user: req.user, form: JSON.stringify(form) });
+    res.render('example', { user: req.user, form: JSON.stringify(form) });
   });
-
-  /**
-   * REMOVED
-   googleAPI(req.user.accessToken, function (results) {
-    if (req.body.youtube === 'on') {
-      if (req.body.youtubeViews === 'on' && results.youtubeViews) {
-        form.youtube.features.youtubeViews = results.youtubeViews;
-      }
-    }
-
-    if (req.body.analytics === 'on') {
-      if (req.body.analyticsViews === 'on' && results.analytics.analyticsViews) {
-        form.analytics.features.analyticsViews = results.analytics.analyticsViews;
-      }
-      if (req.body.analyticsUniqueViews === 'on' && results.analytics.analyticsUniqueViews) {
-        form.analytics.features.analyticsUniqueViews = results.analytics.analyticsUniqueViews;
-      }
-      if (req.body.analyticsStrongestRedirects === 'on' && results.analytics.analyticsStrongestRedirects) {
-        form.analytics.features.analyticsStrongestRedirects = results.analytics.analyticsStrongestRedirects;
-      }
-      if (req.body.analyticsMostVisitedPages === 'on' && results.analytics.analyticsMostVisitedPages) {
-        form.analytics.features.analyticsMostVisitedPages = results.analytics.analyticsMostVisitedPages;
-      }
-      if (req.body.analyticsAverageTime === 'on' && results.analytics.analyticsAverageTime) {
-        form.analytics.features.analyticsAverageTime = results.analytics.analyticsAverageTime;
-      }
-      if (req.body.analyticsAverageVisitedPerPages === 'on' && results.analytics.analyticsAverageVisitedPerPages) {
-        form.analytics.features.analyticsAverageVisitedPerPages = results.analytics.analyticsAverageVisitedPerPages;
-      }
-    }
-    res.render('preview', { user: req.user, form: JSON.stringify(form) });
-  });
-
-   **/
 }
 
 module.exports = customerReportSettings;

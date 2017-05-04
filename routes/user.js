@@ -4,7 +4,7 @@ const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 const router = express.Router();
 
 var customerReportSettings = require('../client/js/lib/customerReportSettings.js');
-
+var customerReportSettings2 = require('../client/js/lib/customerReportSettings2.js');
 
 /* GET user profile. */
 
@@ -21,6 +21,8 @@ router.get('/dashboard', ensureLoggedIn, function (req, res, next) {
 
 router.post('/preview', ensureLoggedIn, customerReportSettings);
 
+router.get('/example', ensureLoggedIn, customerReportSettings2);
+
 router.get('/preview', ensureLoggedIn, function (req, res, next) {
   res.render('preview', { user: req.user });
 });
@@ -33,8 +35,5 @@ router.get('/report/:id', ensureLoggedIn, function (req, res, next) {
   res.render('report', { user: req.user });
 });
 
-router.get('/example', ensureLoggedIn, function (req, res, next) {
-  res.render('example', { user: req.user });
-});
 
 module.exports = router;
