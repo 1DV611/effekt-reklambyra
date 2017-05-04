@@ -22,16 +22,17 @@ router.get('/google/callback', passport.authenticate('google', standardRedirectS
 
 router.get('/instagram', passport.authenticate('instagram', {
   scope: ['likes', 'basic', 'public_content', 'follower_list', 'comments', 'relationships'],
-  state: 'a state'
 }));
 
-router.get('/instagram/callback', passport.authenticate('instagram', standardRedirectSettings));
+router.get('/instagram/callback', passport.authenticate('instagram', standardRedirectSettings), function (req, res) {
+  sendToApi(req.user);
+});
 
 router.get('/linkedin', passport.authenticate('linkedin', {
   scope: ['r_basicprofile', 'w_share', 'r_emailaddress', 'rw_company_admin']
 }));
 
-router.get('linkedin/callback', passport.authenticate('linkedin', standardRedirectSettings));
+router.get('/linkedin/callback', passport.authenticate('linkedin', standardRedirectSettings));
 
 router.get('/social-channel-token', function (req, res, next) {
   sendToApi(req.user);
