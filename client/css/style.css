@@ -1,13 +1,14 @@
 .main-panel {
     width: 100%;
+    background-color: #1d8eba;
 }
 
-.nav-content {
-    width: 100vw;
-    margin:auto;
-    float:none;
+@keyframes random {
+    25% { background-color: #ec68a2; }
+    25% { background-color: #a7b719; }
+    25% { background-color: #727272; }
+    25% {  }
 }
-
 .nav-content-left {
     text-align: left;
     background-color: white;
@@ -64,18 +65,22 @@
 .social-name {
     padding-left: 1%;
     display: table-cell;
-    width: 10%;
+    width: 15%;
+    font-size: large;
+    font-weight: 400;
+    font-variant: small-caps;
+    vertical-align:middle;
 }
 
 .social-features {
     display: table-cell;
-    width: 82%;
+    width: 77%;
     text-align: left;
     vertical-align:middle;
 }
 
-.social-features span {
-    padding-right: 1%;
+.social-features label {
+    padding-right: 2%;
 }
 
 .social-features.span input {
@@ -98,10 +103,39 @@
     padding: 1%;
     display: table-cell;
     width: 10%;
+    font-size: large;
+    font-weight: 400;
+    font-variant: small-caps;
 }
 
 .customer-name {
     padding: 2%;
     display: table-cell;
     width: 90%;
+}
+
+.customer-input {
+    font-variant: small-caps;
+}
+
+#charts {
+    width: 30%;
+    margin-top: 50px;
+    padding: 10px;
+}
+
+#stats{
+    width: 70%;
+    margin: 40px auto;
+    padding: 20px;
+}
+.toTheLeft {
+    float: left;
+}
+.toTheRight {
+    float: right;
+}
+
+.hidden {
+    visibility: hidden;
 }
