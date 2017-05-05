@@ -3,11 +3,9 @@
 
         var options = {
             auth: {
-                redirectUrl: '{{env.AUTH0_CALLBACK_URL}}'
-                , responseType: 'code'
-                , params: {
-                    scope: 'openid name email picture'
-                }
+                redirectUrl: '{{env.AUTH0_CALLBACK_URL}}',
+                responseType: 'code',
+                params: 'something'
             },
             allowSignUp: false,
             theme: {
@@ -17,6 +15,25 @@
         };
 
         var lock = new Auth0Lock('{{env.AUTH0_CLIENT_ID}}', '{{env.AUTH0_DOMAIN}}', options);
+
+        lock.on("authenticated", function(authResult) {
+          console.log(authResult);
+          console.log('authenticated');
+
+            lock.getUserInfo(authResult.accessToken, function(error, profile) {
+
+                if (error) {
+                  //TODO remove/fix this before production
+                  console.error(error);
+                    return;
+                }
+
+                localStorage.setItem('idToken', authResult.idToken);
+                localStorage.setItem('accessToken', authResult.accessToken);
+                localStorage.setItem('profile', JSON.stringify(profile));
+            });
+        });
+
         lock.show();
     </script>
 </div>

@@ -1,12 +1,14 @@
 <nav class="navbar navbar-fixed">
-        <div class="navbar-header nav-content-left">
-            <img src="/effect_46.png" />
-        </div>
-        <div>
+    <div class="navbar-header nav-content-left">
+        <img src="/effect_46.png" />
+    </div>
+    <div>
         {{#if user}}
             <ul class="nav navbar-nav navbar-left nav-content-left">
                 <li><a href="/user/dashboard">Dashboard</a></li>
                 <li><a href="/user/reports">Reports</a></li>
+                <li><a href="/auth/google">Example Report</a></li>
+
             </ul>
             <ul class="nav navbar-nav navbar-right nav-content-right">
                 <li><a href="/logout" class="btn btn-default">Logga ut</a></li>
@@ -15,8 +17,7 @@
                 </li>
             </ul>
         {{/if}}
-        </div>
+    </div>
 </nav>
-
 
 

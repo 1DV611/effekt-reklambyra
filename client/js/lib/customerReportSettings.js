@@ -1,80 +1,130 @@
+const googleAPI = require('./../../../model/googleApi');
+const addGoogleResultsToFormObject = require('./addGoogleResultsToFormObject');
+
 function customerReportSettings(req, res, next) {
   var form = {
-    customer: req.body.customer || 'Kund',
+
+    customer: req.body.customer || 'Customer',
     adwords: {
-      name: 'Adwords',
       active: req.body.adwords,
       features: {
-        adwordsClick: req.body.adwordsClick,
-        adwordsCpc: req.body.adwordsCpc,
-        adwordsViews: req.body.adwordsViews,
-      },
+        adwordsClick: {
+          active: req.body.adwordsClick,
+          result: ''
+        },
+        adwordsCpc: {
+          active: req.body.adwordsCpc,
+          result: ''
+        },
+        adwordsViews: {
+          active: req.body.adwordsViews,
+          result: ''
+        }
+      }
     },
     facebook: {
-      name: 'Facebook',
       active: req.body.facebook,
       features: {
-        facebookLikes: req.body.facebookLikes,
-      },
+        facebookLikes: {
+          active: req.body.facebookLikes,
+          result: ''
+        }
+      }
     },
     youtube: {
-      name: 'Youtube',
       active: req.body.youtube,
       features: {
-        youtubeViews: req.body.youtubeViews,
-      },
+        youtubeViews: {
+          active: req.body.youtubeViews,
+          result: ''
+        }
+      }
     },
     tynt: {
-      name: 'Tynt',
       active: req.body.tynt,
       features: {
-        tyntCopied: req.body.tyntCopied,
-      },
+        tyntCopied: {
+          active: req.body.tyntCopied,
+          result: ''
+        }
+      }
     },
     addthis: {
-      name: 'Addthis',
       active: req.body.addthis,
       features: {
-        addthisClick: req.body.addthisClick,
-      },
+        addthisClick: {
+          active: req.body.addthisClick,
+          result: ''
+        }
+      }
     },
     twitter: {
-      name: 'Twitter',
       active: req.body.twitter,
       features: {
-        twitterViews: req.body.twitterViews,
-      },
+        twitterViews: {
+          active: req.body.twitterViews,
+          result: ''
+        }
+      }
     },
     analytics: {
-      name: 'Analytics',
       active: req.body.analytics,
       features: {
-        analyticsViews: req.body.analyticsViews,
-        analyticsUniqueViews: req.body.analyticsUniqueViews,
-        analyticsStrongestRedirects: req.body.analyticsStrongestRedirects,
-        analyticsMostVisitedPages: req.body.analyticsMostVisitedPages,
-        analyticsAverageTime: req.body.analyticsAverageTime,
-        analyticsAverageVisitedPerPages: req.body.analyticsAverageVisitedPerPages,
-      },
+        analyticsViews: {
+          active: req.body.analyticsViews,
+          result: ''
+        },
+        analyticsUniqueViews: {
+          active: req.body.analyticsUniqueViews,
+          result: ''
+        },
+        analyticsStrongestRedirects: {
+          active: req.body.analyticsStrongestRedirects,
+          result: ''
+        },
+        analyticsMostVisitedPages: {
+          active: req.body.analyticsMostVisitedPages,
+          result: ''
+        },
+        analyticsAverageTime: {
+          active: req.body.analyticsAverageTime,
+          result: ''
+        },
+        analyticsAverageVisitedPerPages: {
+          active: req.body.analyticsAverageVisitedPerPages,
+          result: ''
+        }
+      }
     },
     linkedin: {
-      name: 'Linkedin',
       active: req.body.linkedin,
       features: {
-        linkedinFollowers: req.body.linkedinFollowers,
-        linkedinInteractions: req.body.linkedinInteractions,
-      },
+        linkedinFollowers: {
+          active: req.body.linkedinFollowers,
+          result: ''
+        },
+        linkedinInteractions: {
+          active: req.body.linkedinInteractions,
+          result: ''
+        }
+      }
     },
     moz: {
-      name: 'Moz',
       active: req.body.moz,
       features: {
-        mozKeywords: req.body.mozKeywords,
-      },
-    },
+        mozKeywords: {
+          active: req.body.mozKeywords,
+          result: ''
+        }
+      }
+    }
   };
 
-  res.render('preview', { user: req.user, form: form });
+  googleAPI(req.user.accessToken, function (results) {
+    addGoogleResultsToFormObject(form, results);
+    res.render('preview', { user: req.user, form: form, json: JSON.stringify(form) });
+  });
+
 }
 
 module.exports = customerReportSettings;
