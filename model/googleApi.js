@@ -11,7 +11,7 @@ dotenv.load();
 // you can register your app and get google client id's and secret at: console.developers.google.com
 var CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 var CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-var REDIRECT_URL = 'http://localhost:3000/callback';
+var REDIRECT_URL = process.env.AUTH0_CALLBACK_URL;
 
 // api documentation:
 // http://google.github.io/google-api-nodejs-client/19.0.0/index.html
