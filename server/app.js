@@ -49,7 +49,7 @@ passport.use(new Auth0Strategy({
 passport.use(new GoogleOauthStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: process.env.BASE_URL + '/auth/google/callback',
+  callbackURL: process.env.GOOGLE_CALLBACK_URL,
 }, standardAuthCallback));
 
 passport.use(new InstagramStrategy({
