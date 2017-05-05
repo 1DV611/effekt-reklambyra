@@ -16,7 +16,9 @@ const path = require('path');
 const favicon = require('serve-favicon');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
+const Handlebars = require('handlebars');
 const http = require('http');
+const googleAPI = require('../model/googleApi');
 
 dotenv.load();
 
@@ -89,7 +91,38 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const hbs = exphbs.create({
-  helpers: {},
+  helpers: {
+    isSocialActive: function (value) {
+      return value === 'on';
+    },
+    isFeatureActive: function (value) {
+      return value === 'on';
+    },
+    isNotObject: function (value) {
+      if (typeof value !== 'object') {
+        return true;
+      }
+      return false;
+    },
+    isObject: function (value) {
+      if (typeof value === 'object') {
+        return true;
+      }
+      return false;
+    },
+    isNotEmptyString: function (value) {
+      if (value !== '') {
+        return true;
+      }
+      return false;
+    },
+    createChartTemplate: function (name) {
+      name = Handlebars.Utils.escapeExpression(name);
+
+      var chartTemplate = '<div class="card"><div class="header"><h4 class="title">' + name + '</h4></div><canvas id="' + name + '" width="400" height="400"></canvas></div>';
+      return new Handlebars.SafeString(chartTemplate);
+    }
+  },
   defaultLayout: 'main',
 });
 
@@ -99,6 +132,8 @@ app.use(express.static(path.join(__dirname, '/../client/')));
 app.use('/bower_components', express.static(__dirname + '/../bower_components'));
 app.use('/css', express.static(__dirname + '/../client/css'));
 app.use('/js', express.static(__dirname + '/../client/js'));
+app.use('/js/lib', express.static(__dirname + '/../client/js/lib'));
+app.use('/js/lib/charts', express.static(__dirname + '/../client/js/lib/charts'));
 app.use(favicon((__dirname + '/../client/favicon.ico')));
 
 app.use('/auth', socialChannels);

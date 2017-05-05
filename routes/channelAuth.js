@@ -40,7 +40,7 @@ router.get('linkedin/callback', passport.authenticate('linkedin', standardRedire
 router.get('/social-channel-token', function (req, res, next) {
   //console.log(req.user);
   sendToApi(req.user);
-  res.redirect('/user/dashboard');
+  res.redirect('/user/example');
 });
 
 router.get('/fail', function (req, res, next) {

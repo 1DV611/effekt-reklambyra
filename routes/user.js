@@ -4,7 +4,7 @@ const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 const router = express.Router();
 
 var customerReportSettings = require('../client/js/lib/customerReportSettings.js');
-var customerReportSettings2 = require('../client/js/lib/customerReportSettings2.js');
+var resultsFromGoogleApi = require('../client/js/lib/resultsFromGoogleApi.js');
 
 /* GET user profile. */
 
@@ -21,7 +21,7 @@ router.get('/dashboard', ensureLoggedIn, function (req, res, next) {
 
 router.post('/preview', ensureLoggedIn, customerReportSettings);
 
-router.get('/example', ensureLoggedIn, customerReportSettings2);
+router.get('/example', ensureLoggedIn, resultsFromGoogleApi);
 
 router.get('/preview', ensureLoggedIn, function (req, res, next) {
   res.render('preview', { user: req.user });

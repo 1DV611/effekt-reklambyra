@@ -52,6 +52,7 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.2",
     "googleapis": "^19.0.0",
+    "handlebars": "^4.0.8",
     "instagram-node": "^0.5.8",
     "morgan": "^1.8.1",
     "node-linkedin": "^0.5.4",
