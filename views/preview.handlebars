@@ -1,2 +1,86 @@
-Data from dashboard-form:<br>
-{{form}}
+<div class="card dashboard-content-place">
+    <div class="report-settings">
+
+        <h1>{{form.customer}}</h1>
+        <div id="summary">
+            <h3>Sammanfattning:</h3>
+            <textarea id="summaryTextarea" class="form-control"></textarea>
+            <input type="input" id="summaryButton" class="btn btn-default toTheRight" value="Spara" onclick="saveSummary()">
+        </div>
+        <div id="recommendation">
+            <h3>Rekommendation:</h3>
+            <textarea id="recommendationTextarea" class="form-control"></textarea>
+            <input type="input" id="recommendationButton" class="btn btn-default toTheRight" value="Spara" onclick="saveRecommendation()">
+        </div>
+        <br>
+        <br>
+        <div id="charts" class="toTheLeft">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Utveckling</h4>
+                </div>
+                <canvas id="canvasBarChart" width="400" height="400"></canvas>
+            </div>
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Mest besök</h4>
+                </div>
+                <canvas id="canvasPieChart" width="400" height="400"></canvas>
+            </div>
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Ingångskällor</h4>
+                </div>
+                <canvas id="canvasDoughnutChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+            <div id="stats" class="toTheRight">
+                    {{#each form}}
+                        {{#if this.active}}
+                            {{#each this.features}}
+                                {{#if this.active}}
+                                    {{ createChartTemplate @key }}
+                                {{/if}}
+                            {{/each}}
+                        {{/if}}
+                    {{/each}}
+            </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
+            <script src="/js/saveTextarea.js"></script>
+            <script src="/js/lib/charts/createChart.js"></script>
+            <script src="/js/lib/charts/createData.js"></script>
+            <script>
+
+                var canvasBarChart = document.querySelector("#canvasBarChart");
+                var canvasPieChart = document.querySelector("#canvasPieChart");
+                var canvasDoughnutChart = document.querySelector("#canvasDoughnutChart");
+
+                var labels = ["Black", "Lightgrey", "Darkgrey", "Dimgray", "Silver", "Darkslategrey", "Lightslategrey", "Slategrey"];
+                var values = [12, 19, 3, 5, 2, 3, 4, 5];
+
+                var data = createData(labels, values);
+
+                var barChart = createChart('bar', canvasBarChart, data);
+                var pieChart = createChart('pie', canvasPieChart, data);
+                var doughnutChart = createChart('doughnut', canvasDoughnutChart, data);
+
+                    {{#each form}}
+                        {{#if this.active}}
+                            {{#each this.features}}
+                                {{#if this.active}}
+                                var labels2 = [];
+                                var values2 = [];
+                                labels2.push('{{@key}}');
+                                values2.push('{{this.result}}');
+                                createChart('bar', {{ @key }}, createData(labels2, values2));
+                                {{/if}}
+                            {{/each}}
+                        {{/if}}
+                    {{/each}}
+
+            </script>
+    </div>
+</div>
+
+
+

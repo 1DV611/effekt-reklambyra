@@ -15,6 +15,7 @@
  */
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
+  font-family: Impact,serif;
   font-weight: 300;
   margin: 30px 0 15px;
 }
@@ -86,14 +87,14 @@ body,
 }
 
 .main-panel {
-  background: rgba(203, 203, 210, 0.15);
+  /**background: rgba(203, 203, 210, 0.15);**/
   position: relative;
   z-index: 2;
   width: 100%;
   min-height: 100%;
 }
 .main-panel > .content {
-  padding: 30px 15px;
+  padding: 30px 5px;
   min-height: calc(100% - 123px);
 }
 .main-panel > .footer {
@@ -121,6 +122,7 @@ body,
   font-size: 16px;
   border-radius: 0;
 }
+
 .navbar .navbar-brand {
   font-weight: 400;
   margin: 5px 0px;
@@ -156,6 +158,7 @@ body,
   background-color: white;
   line-height: 20px;
 }
+
 .footer nav > ul {
   list-style: none;
   margin: 0;
@@ -250,8 +253,12 @@ body,
 }
 .card .title {
   margin: 0;
-  color: #333333;
   font-weight: 300;
+  display: inline-block;
+  background: limegreen;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
 }
 .card .avatar {
   width: 30px;

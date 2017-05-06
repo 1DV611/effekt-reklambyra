@@ -14,15 +14,20 @@ dotenv.load();
 var standardRedirectSettings = {
   failureRedirect: process.env.BASE_URL + '/auth/fail',
   successRedirect: process.env.BASE_URL + '/auth/social-channel-token',
+
 };
 
 //https://developers.google.com/identity/protocols/googlescopes
 //you have to define correct scopes for the auth to work, you must also enable each API in google dev console, and select that scope, otherwise auth silently fails.
 router.get('/google', passport.authenticate('google', {
-  scope: ['profile', 'https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/adsense.readonly', 'https://www.googleapis.com/auth/youtube.readonly']
+  scope: ['profile', 'https://www.googleapis.com/auth/analytics.readonly', 'https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/adsense.readonly', 'https://www.googleapis.com/auth/youtube.readonly']
 }));
 
-router.get('/google/callback', passport.authenticate('google', standardRedirectSettings));
+router.get('/google/callback', function (req, res, next) {
+  passport.authenticate('google', standardRedirectSettings)(req, res, function () {
+    res.redirect('/auth/social-channel-token');
+  });
+});
 
 router.get('/instagram', passport.authenticate('instagram', {
   scope: ['likes', 'basic', 'public_content', 'follower_list', 'comments', 'relationships'],
@@ -43,8 +48,9 @@ router.get('/twitter/callback', passport.authenticate('twitter', standardRedirec
 
 // this is where all successful auths end up, req.user has the entire profile. req.user.accessToken = token
 router.get('/social-channel-token', function (req, res, next) {
+  //console.log(req.user);
   sendToApi(req.user);
-  res.redirect('/user/dashboard');
+  res.redirect('/user/example');
 });
 
 router.get('/fail', function (req, res, next) {
@@ -53,9 +59,8 @@ router.get('/fail', function (req, res, next) {
 
 //temporary to send each token onto the api
 let sendToApi = function (profile) {
-
+  console.log(profile);
   switch (profile.provider) {
-
     case 'google':
       googleAPI(profile.accessToken);
       break;
@@ -65,6 +70,7 @@ let sendToApi = function (profile) {
       break;
 
     case 'linkedin':
+      console.log(profile);
       linkedinAPI(profile.accessToken);
       break;
 

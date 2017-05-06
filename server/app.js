@@ -1,3 +1,4 @@
+
 var express = require('express');
 var app = express();
 
@@ -49,7 +50,7 @@ passport.use(new Auth0Strategy({
 passport.use(new GoogleOauthStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: 'http://localhost:3000/auth/google/callback',
+  callbackURL: process.env.GOOGLE_CALLBACK_URL,
 }, standardAuthCallback));
 
 passport.use(new InstagramStrategy({
@@ -95,8 +96,41 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-var hbs = exphbs.create({
-  helpers: {},
+
+const hbs = exphbs.create({
+  helpers: {
+    isSocialActive: function (value) {
+      return value === 'on';
+    },
+    isFeatureActive: function (value) {
+      return value === 'on';
+    },
+    isNotObject: function (value) {
+      if (typeof value !== 'object') {
+        return true;
+      }
+      return false;
+    },
+    isObject: function (value) {
+      if (typeof value === 'object') {
+        return true;
+      }
+      return false;
+    },
+    isNotEmptyString: function (value) {
+      if (value !== '') {
+        return true;
+      }
+      return false;
+    },
+    createChartTemplate: function (name) {
+      name = Handlebars.Utils.escapeExpression(name);
+
+      var chartTemplate = '<div class="card"><div class="header"><h4 class="title">' + name + '</h4></div><canvas id="' + name + '" width="400" height="400"></canvas></div>';
+      return new Handlebars.SafeString(chartTemplate);
+    }
+  },
+
   defaultLayout: 'main',
 });
 
@@ -106,11 +140,13 @@ app.use(express.static(path.join(__dirname, '/../client/')));
 app.use('/bower_components', express.static(__dirname + '/../bower_components'));
 app.use('/css', express.static(__dirname + '/../client/css'));
 app.use('/js', express.static(__dirname + '/../client/js'));
+app.use('/js/lib', express.static(__dirname + '/../client/js/lib'));
+app.use('/js/lib/charts', express.static(__dirname + '/../client/js/lib/charts'));
 app.use(favicon((__dirname + '/../client/favicon.ico')));
 
+app.use('/auth', socialChannels);
 app.use('/', routes);
 app.use('/user', user);
-app.use('/auth', socialChannels);
 
 // Fånga och ge error till handler
 app.use(function (req, res, next) {
