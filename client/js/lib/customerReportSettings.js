@@ -1,4 +1,4 @@
-const googleAPI = require('./../../../model/googleApi');
+const googleAPI = require('./../../../model/googleAPI');
 const addGoogleResultsToFormObject = require('./addGoogleResultsToFormObject');
 
 function customerReportSettings(req, res, next) {

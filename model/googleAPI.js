@@ -30,8 +30,8 @@ module.exports = function (token, callback) {
   if (!callback) {
     return;
   }
-  let promiseYoutube = new Promise((resolve, reject) => {
-    let obj = {};
+  var promiseYoutube = new Promise(function (resolve, reject) {
+    var obj = {};
     // using bracket notation since google requires dashes in some of their required params
     obj['end-date'] = '2017-05-01';
     obj['start-date'] = '2001-01-01';
@@ -49,8 +49,8 @@ module.exports = function (token, callback) {
     });
   });
 
-  let promiseAnalytics = new Promise((resolve, reject) => {
-    let obj = {};
+  var promiseAnalytics = new Promise(function(resolve, reject) {
+    var obj = {};
     obj['auth'] = oauth2Client;
     analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
       if (err) {
@@ -67,8 +67,8 @@ module.exports = function (token, callback) {
           reject(console.log(errData));
         }
         console.log(bodyData);
-        let results = bodyData.totalsForAllResults;
-        let dataObj = {
+        var results = bodyData.totalsForAllResults;
+        var dataObj = {
           analyticsViews: results['ga:pageviews'],
           analyticsUniqueViews: results['ga:uniquePageviews'],
           analyticsStrongestRedirects: '',
@@ -81,8 +81,8 @@ module.exports = function (token, callback) {
     });
   });
 
-  Promise.all([promiseYoutube, promiseAnalytics]).then(values => {
-    let returnObj = {
+  Promise.all([promiseYoutube, promiseAnalytics]).then(function (values) {
+    var returnObj = {
       youtubeViews: values[0],
       analytics: values[1],
     }
@@ -91,7 +91,7 @@ module.exports = function (token, callback) {
 };
 
 function getYoutubeViews() {
-  let obj = {};
+  var obj = {};
   // using bracket notation since google requires dashes in some of their required params
   obj['end-date'] = '2017-05-01';
   obj['start-date'] = '2001-01-01';
@@ -110,7 +110,7 @@ function getYoutubeViews() {
 }
 
 function getAnalyticsPageViews() {
-  let obj = {};
+  var obj = {};
   obj['auth'] = oauth2Client;
 
   analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {

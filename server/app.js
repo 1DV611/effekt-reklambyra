@@ -10,6 +10,7 @@ var GoogleOauthStrategy = require('passport-google-oauth').OAuth2Strategy;
 var InstagramStrategy = require('passport-instagram');
 var LinkedinStrategy = require('passport-linkedin');
 var TwitterStrategy = require('passport-twitter');
+var FacebookStrategy = require('passport-facebook');
 
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -50,7 +51,7 @@ passport.use(new Auth0Strategy({
 passport.use(new GoogleOauthStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: process.env.GOOGLE_CALLBACK_URL,
+  callbackURL: process.env.GOOGLE_CALLBACK_URL
 }, standardAuthCallback));
 
 passport.use(new InstagramStrategy({
@@ -73,6 +74,13 @@ passport.use(new TwitterStrategy({
   consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
   callbackURL: process.env.BASE_URL + '/auth/twitter/callback'
 }, standardAuthCallback));
+
+passport.use(new FacebookStrategy({
+  clientID: process.env.FACEBOOK_APP_ID,
+  clientSecret: process.env.FACEBOOK_APP_SECRET,
+  callbackURL: process.env.BASE_URL + '/auth/facebook/callback'
+}, standardAuthCallback));
+
 
 // minskar storleken på payload
 passport.serializeUser(function (user, done) {

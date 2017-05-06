@@ -2,10 +2,12 @@ var express = require('express');
 var passport = require('passport');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 var router = express.Router();
-var googleAPI = require('../model/googleApi');
+
+var googleAPI = require('../model/googleAPI');
 var instagramAPI = require('../model/instagramAPI');
 var linkedinAPI = require('../model/linkedinAPI');
 var twitterAPI = require('../model/twitterAPI');
+var facebookAPI = require('../model/facebookAPI');
 
 var dotenv = require('dotenv');
 dotenv.load();
@@ -14,7 +16,6 @@ dotenv.load();
 var standardRedirectSettings = {
   failureRedirect: process.env.BASE_URL + '/auth/fail',
   successRedirect: process.env.BASE_URL + '/auth/social-channel-token',
-
 };
 
 //https://developers.google.com/identity/protocols/googlescopes
@@ -45,10 +46,18 @@ router.get('/twitter', passport.authenticate('twitter'));
 
 router.get('/twitter/callback', passport.authenticate('twitter', standardRedirectSettings));
 
+router.get('/facebook', passport.authenticate('facebook'));
+
+router.get('/facebook/callback', passport.authenticate('facebook', standardRedirectSettings));
+
+//facebook also has a callback for when a user deauthorizes our application
+router.get('/facebook/deauth', function (req, res) {
+  console.log('fb deauth' + req.user);
+});
+
 
 // this is where all successful auths end up, req.user has the entire profile. req.user.accessToken = token
 router.get('/social-channel-token', function (req, res, next) {
-  //console.log(req.user);
   sendToApi(req.user);
   res.redirect('/user/example');
 });
@@ -58,7 +67,7 @@ router.get('/fail', function (req, res, next) {
 });
 
 //temporary to send each token onto the api
-let sendToApi = function (profile) {
+var sendToApi = function (profile) {
   console.log(profile);
   switch (profile.provider) {
     case 'google':
@@ -76,6 +85,10 @@ let sendToApi = function (profile) {
 
     case 'twitter':
       twitterAPI(profile.accessToken);
+      break;
+
+    case 'facebook':
+      facebookAPI(profile);
       break;
   }
 

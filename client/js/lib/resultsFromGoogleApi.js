@@ -1,4 +1,4 @@
-const googleAPI = require('./../../../model/googleApi');
+const googleAPI = require('./../../../model/googleAPI');
 
 function resultsFromGoogleApi(req, res, next) {
 
