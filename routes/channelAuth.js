@@ -75,7 +75,7 @@ var sendToApi = function (profile) {
       break;
 
     case 'instagram':
-      instagramAPI(profile.accessToken);
+      instagramAPI(profile);
       break;
 
     case 'linkedin':

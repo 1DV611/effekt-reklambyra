@@ -10,7 +10,9 @@ module.exports = function (profile) {
 
   graph.setAccessToken(token);
 
-  // the auth is working but this request returns no error but empty array, so probably an incorrectly formatted api call
+  // https://developers.facebook.com/docs/graph-api/reference/v2.9/object/likes
+
+  // that's pages user have liked.
   graph.get('/' + id + '/likes', function (err, res) {
     if (err) console.error(err);
 
