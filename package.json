@@ -59,10 +59,12 @@
     "passport-google-oauth": "^1.0.0",
     "passport-instagram": "^1.0.0",
     "passport-linkedin": "^1.0.0",
+    "passport-twitter": "^1.0.4",
     "path": "^0.12.7",
     "request": "^2.80.0",
     "request-promise": "^4.2.0",
-    "serve-favicon": "^2.4.2"
+    "serve-favicon": "^2.4.2",
+    "twitter": "^1.7.0"
   },
   "devDependencies": {
     "bower": "^1.8.0",

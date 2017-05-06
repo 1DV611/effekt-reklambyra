@@ -1,7 +1,7 @@
 'use strict';
-let dotenv = require('dotenv');
+var dotenv = require('dotenv');
 dotenv.load();
-let nodeLinkedin = require('node-linkedin')(process.env.LINKEDIN_CLIENT_ID, process.env.LINKEDIN_CLIENT_SECRET, process.env.BASE_URL + '/auth/linkedin/callback');
+var nodeLinkedin = require('node-linkedin')(process.env.LINKEDIN_CLIENT_ID, process.env.LINKEDIN_CLIENT_SECRET, process.env.BASE_URL + '/auth/linkedin/callback');
 
 
 module.exports = function (token) {

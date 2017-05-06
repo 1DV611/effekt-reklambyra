@@ -1,5 +1,5 @@
-let instagram = require('instagram-node').instagram();
-let dotenv = require('dotenv');
+var instagram = require('instagram-node').instagram();
+var dotenv = require('dotenv');
 
 dotenv.load();
 

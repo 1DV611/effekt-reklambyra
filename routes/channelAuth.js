@@ -1,19 +1,23 @@
-const express = require('express');
-const passport = require('passport');
-const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
-const router = express.Router();
-const googleAPI = require('../model/googleApi');
-const instagramAPI = require('../model/instagramAPI');
-const linkedinAPI = require('../model/linkedinAPI');
-const dotenv = require('dotenv');
+var express = require('express');
+var passport = require('passport');
+var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
+var router = express.Router();
+var googleAPI = require('../model/googleApi');
+var instagramAPI = require('../model/instagramAPI');
+var linkedinAPI = require('../model/linkedinAPI');
+var twitterAPI = require('../model/twitterAPI');
 
+var dotenv = require('dotenv');
 dotenv.load();
 
-let standardRedirectSettings = {
+// where to redirect after the callback from each provider. Using this as standard, can send in an object if you wish a particular provider handled differently.
+var standardRedirectSettings = {
   failureRedirect: process.env.BASE_URL + '/auth/fail',
+  successRedirect: process.env.BASE_URL + '/auth/social-channel-token',
 };
 
 //https://developers.google.com/identity/protocols/googlescopes
+//you have to define correct scopes for the auth to work, you must also enable each API in google dev console, and select that scope, otherwise auth silently fails.
 router.get('/google', passport.authenticate('google', {
   scope: ['profile', 'https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/adsense.readonly', 'https://www.googleapis.com/auth/youtube.readonly']
 }));
@@ -24,9 +28,7 @@ router.get('/instagram', passport.authenticate('instagram', {
   scope: ['likes', 'basic', 'public_content', 'follower_list', 'comments', 'relationships'],
 }));
 
-router.get('/instagram/callback', passport.authenticate('instagram', standardRedirectSettings), function (req, res) {
-  sendToApi(req.user);
-});
+router.get('/instagram/callback', passport.authenticate('instagram', standardRedirectSettings));
 
 router.get('/linkedin', passport.authenticate('linkedin', {
   scope: ['r_basicprofile', 'w_share', 'r_emailaddress', 'rw_company_admin']
@@ -34,6 +36,12 @@ router.get('/linkedin', passport.authenticate('linkedin', {
 
 router.get('/linkedin/callback', passport.authenticate('linkedin', standardRedirectSettings));
 
+router.get('/twitter', passport.authenticate('twitter'));
+
+router.get('/twitter/callback', passport.authenticate('twitter', standardRedirectSettings));
+
+
+// this is where all successful auths end up, req.user has the entire profile. req.user.accessToken = token
 router.get('/social-channel-token', function (req, res, next) {
   sendToApi(req.user);
   res.redirect('/user/dashboard');
@@ -43,7 +51,7 @@ router.get('/fail', function (req, res, next) {
   console.log('auth failed');
 });
 
-
+//temporary to send each token onto the api
 let sendToApi = function (profile) {
 
   switch (profile.provider) {
@@ -58,6 +66,10 @@ let sendToApi = function (profile) {
 
     case 'linkedin':
       linkedinAPI(profile.accessToken);
+      break;
+
+    case 'twitter':
+      twitterAPI(profile.accessToken);
       break;
   }
 

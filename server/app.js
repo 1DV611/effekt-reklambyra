@@ -1,33 +1,34 @@
-const express = require('express');
-const app = express();
+var express = require('express');
+var app = express();
 
-const dotenv = require('dotenv');
+var dotenv = require('dotenv');
 
-const passport = require('passport');
-const Auth0Strategy = require('passport-auth0');
-const GoogleOauthStrategy = require('passport-google-oauth').OAuth2Strategy;
-const InstagramStrategy = require('passport-instagram');
-const LinkedinStrategy = require('passport-linkedin');
+var passport = require('passport');
+var Auth0Strategy = require('passport-auth0');
+var GoogleOauthStrategy = require('passport-google-oauth').OAuth2Strategy;
+var InstagramStrategy = require('passport-instagram');
+var LinkedinStrategy = require('passport-linkedin');
+var TwitterStrategy = require('passport-twitter');
 
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const path = require('path');
-const favicon = require('serve-favicon');
-const session = require('express-session');
-const exphbs = require('express-handlebars');
-const http = require('http');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var path = require('path');
+var favicon = require('serve-favicon');
+var session = require('express-session');
+var exphbs = require('express-handlebars');
+var http = require('http');
 
 dotenv.load();
 
 // Routes
-const routes = require('../routes/start');
-const user = require('../routes/user');
-const socialChannels = require('../routes/channelAuth');
+var routes = require('../routes/start');
+var user = require('../routes/user');
+var socialChannels = require('../routes/channelAuth');
 
-const port = process.env.port || 3000;
+var port = process.env.port || 3000;
 
-let standardAuthCallback = function (accessToken, refreshToken, extraParams, profile, done) {
+var standardAuthCallback = function (accessToken, refreshToken, extraParams, profile, done) {
   // accessToken är för Auth0s API och behövs oftast inte
   // extraParams.id_token har JWT
   // profile har användarens profilinfo
@@ -66,6 +67,12 @@ passport.use(new LinkedinStrategy({
   callbackURL: process.env.BASE_URL + '/auth/linkedin/callback',
 }, standardAuthCallback));
 
+passport.use(new TwitterStrategy({
+  consumerKey: process.env.TWITTER_CONSUMER_KEY,
+  consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+  callbackURL: process.env.BASE_URL + '/auth/twitter/callback'
+}, standardAuthCallback));
+
 // minskar storleken på payload
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -88,7 +95,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-const hbs = exphbs.create({
+var hbs = exphbs.create({
   helpers: {},
   defaultLayout: 'main',
 });
