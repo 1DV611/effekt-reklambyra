@@ -16,23 +16,23 @@ var userSchema = new mongoose.Schema({
   },
 
   google: {
-    type: String,
+    type: Object,
   },
 
   instagram: {
-    type: String,
+    type: Object,
   },
 
   linkedin: {
-    type: String,
+    type: Object,
   },
 
   twitter: {
-    type: String,
+    type: Object,
   },
 
   facebook: {
-    type: String,
+    type: Object,
   },
 
 });

@@ -24,32 +24,35 @@ function connect(credential) {
 
 function handleLogin(profile) {
 
-  schema.user.findOne({ id: profile.id }, function (err, matchingUser) {
-
-    if (err) {
-      console.error(err);
-    }
+  // called with auth0 callback, either creates the user or sends the matching credentials onwards.
+  schema.user.findOne({ id: profile.id }).then(function (matchingUser) {
 
     if (matchingUser === null) {
+      console.log('saving user');
       var newUser = new schema.user({
         id: profile.id,
         displayName: profile.displayName,
       });
 
       newUser.save();
-    }
 
-    if (matchingUser) {
+    } else {
       console.log('user exists in db');
+
     }
 
-  });
+  }).catch(function (error) {
+
+    console.error(error)
+
+  })
 }
 
-function handleToken(sessionUserID, profile) {
+function handleProfile(sessionUserID, profile) {
 
+  //either saves or updates an access token into database when authorizing against facebook/google/etc.
   var queryObj = {};
-  queryObj[profile.provider] = profile.accessToken;
+  queryObj[profile.provider] = profile;
 
   schema.user.findOneAndUpdate({ id: sessionUserID }, queryObj, function (err, matchingUser) {
 
@@ -64,6 +67,23 @@ function handleToken(sessionUserID, profile) {
   });
 }
 
+function getUser(userID) {
+  
+  return new Promise(function (resolve, reject) {
+    
+    schema.user.findOne({ id: userID }).then(function (doc) {
+      resolve(JSON.parse(doc));
+    }).catch(function (error) {
+      console.error(error);
+      reject(error);
+    })
+    
+  })
+
+}
+
+
 exports.connect = connect;
 exports.handleLogin = handleLogin;
-exports.handleToken = handleToken;
+exports.updateSocialChannelProfile = handleProfile;
+exports.getUser = getUser;
