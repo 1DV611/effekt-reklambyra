@@ -51,7 +51,6 @@ router.get('/facebook/deauth', function (req, res) {
   console.log('fb deauth' + req.user);
 });
 
-
 // this is where all successful auths end up, req.user has the entire profile. req.user.accessToken = token
 router.get('/social-channel-token', ensureLoggedIn, function (req, res, next) {
   sendToApi(req.user);

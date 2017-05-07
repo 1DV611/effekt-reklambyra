@@ -24,6 +24,9 @@ var http = require('http');
 
 dotenv.load();
 
+var db = require('../model/db');
+db.connect(process.env.MLAB_CREDENTIAL_STRING);
+
 // Routes
 var routes = require('../routes/start');
 var user = require('../routes/user');
@@ -31,7 +34,7 @@ var socialChannels = require('../routes/channelAuth');
 
 var port = process.env.port || 3000;
 
-var standardAuthCallback = function (accessToken, refreshToken, extraParams, profile, done) {
+var socialChannelCallback = function (accessToken, refreshToken, extraParams, profile, done) {
   // accessToken är för Auth0s API och behövs oftast inte
   // extraParams.id_token har JWT
   // profile har användarens profilinfo
@@ -42,24 +45,39 @@ var standardAuthCallback = function (accessToken, refreshToken, extraParams, pro
   return done(null, profile);
 };
 
+var userLoginCallback = function (accessToken, refreshToken, extraParams, profile, done) {
+
+  // sets the profile to true/false depending if the user logging in has been assigned the admin role in auth0 or not
+  profile.admin = profile._json.app_metadata.authorization.roles['0'] === 'admin';
+
+  profile.accessToken = accessToken;
+  profile.refreshToken = refreshToken;
+  profile.id_token = extraParams.id_token;
+  profile.extraParams = extraParams;
+  return done(null, profile);
+};
+
+
+
+
 passport.use(new Auth0Strategy({
   domain: process.env.AUTH0_DOMAIN,
   clientID: process.env.AUTH0_CLIENT_ID,
   clientSecret: process.env.AUTH0_CLIENT_SECRET,
   callbackURL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback',
-}, standardAuthCallback));
+}, userLoginCallback));
 
 passport.use(new GoogleOauthStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: process.env.BASE_URL + '/auth/google/callback',
-}, standardAuthCallback));
+}, socialChannelCallback));
 
 passport.use(new InstagramStrategy({
   clientID: process.env.INSTAGRAM_CLIENT_ID,
   clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
   callbackURL: process.env.BASE_URL + '/auth/instagram/callback',
-}, standardAuthCallback));
+}, socialChannelCallback));
 
 // the consumerKey is actually called CLIENT ID in linkedins api console and the consumerSecret CLIENT SECRET.
 // there is no actual linkedin API key, the linkedin passport strategy is a bit dated and uses oauth 1.0.
@@ -68,19 +86,19 @@ passport.use(new LinkedinStrategy({
   consumerKey: process.env.LINKEDIN_CLIENT_ID,
   consumerSecret: process.env.LINKEDIN_CLIENT_SECRET,
   callbackURL: process.env.BASE_URL + '/auth/linkedin/callback',
-}, standardAuthCallback));
+}, socialChannelCallback));
 
 passport.use(new TwitterStrategy({
   consumerKey: process.env.TWITTER_CONSUMER_KEY,
   consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
   callbackURL: process.env.BASE_URL + '/auth/twitter/callback',
-}, standardAuthCallback));
+}, socialChannelCallback));
 
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
   callbackURL: process.env.BASE_URL + '/auth/facebook/callback',
-}, standardAuthCallback));
+}, socialChannelCallback));
 
 
 // minskar storleken på payload
@@ -98,7 +116,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(logger('combined'));
 app.use(session({
-  secret: 'hemlis!!',
+  secret: process.env.SESSION_SECRET,
   resave: true,
   saveUninitialized: true,
 }));

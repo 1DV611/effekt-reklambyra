@@ -8,6 +8,9 @@
                 <li><a href="/user/dashboard">Dashboard</a></li>
                 <li><a href="/user/reports">Reports</a></li>
                 <li><a href="/auth/google">Example Report</a></li>
+                {{#if user.admin}}
+                    <li>admin user</li>
+                {{/if}}
 
             </ul>
             <ul class="nav navbar-nav navbar-right nav-content-right">
