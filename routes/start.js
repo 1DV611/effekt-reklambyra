@@ -9,12 +9,12 @@ var env = {
 };
 
 router.get('/', function (req, res, next) {
-  res.render('home', { title: 'Express', env: env });
+  res.render('home', {title: 'Express', env: env});
 });
 
 router.get('/login',
     function (req, res) {
-      res.render('login', { env: env });
+      res.render('login', {env: env});
     });
 
 router.get('/logout', function (req, res) {
@@ -23,8 +23,10 @@ router.get('/logout', function (req, res) {
 });
 
 router.get('/callback',
-    passport.authenticate('auth0', { failureRedirect: '/url-if-something-fails' }),
+    passport.authenticate('auth0', {failureRedirect: '/url-if-something-fails'}),
     function (req, res) {
+      req.session.authZeroUserID = req.user.id;
+      req.session.admin = req.user.admin;
       res.redirect(req.session.returnTo || '/user');
     });
 
@@ -32,7 +34,7 @@ router.get('/callback',
 
 router.get('/charts',
     function (req, res) {
-        res.render('user', { env: env });
+      res.render('user', {env: env});
     });
 
 module.exports = router;

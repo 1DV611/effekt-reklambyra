@@ -2,12 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 var router = express.Router();
-
-var googleAPI = require('../model/googleAPI');
-var instagramAPI = require('../model/instagramAPI');
-var linkedinAPI = require('../model/linkedinAPI');
-var twitterAPI = require('../model/twitterAPI');
-var facebookAPI = require('../model/facebookAPI');
+var db = require('../model/db');
 
 var dotenv = require('dotenv');
 dotenv.load();
@@ -51,42 +46,14 @@ router.get('/facebook/deauth', function (req, res) {
   console.log('fb deauth' + req.user);
 });
 
-
 // this is where all successful auths end up, req.user has the entire profile. req.user.accessToken = token
 router.get('/social-channel-token', ensureLoggedIn, function (req, res, next) {
-  sendToApi(req.user);
+  db.updateSocialChannelProfile(req.session.authZeroUserID, req.user);
   res.redirect('/user/dashboard');
 });
 
 router.get('/fail', function (req, res, next) {
   console.log('auth failed');
 });
-
-//temporary to send each token onto the api
-var sendToApi = function (profile) {
-  console.log(profile);
-  switch (profile.provider) {
-    case 'google':
-      googleAPI(profile.accessToken);
-      break;
-
-    case 'instagram':
-      instagramAPI(profile);
-      break;
-
-    case 'linkedin':
-      linkedinAPI(profile.accessToken);
-      break;
-
-    case 'twitter':
-      twitterAPI(profile);
-      break;
-
-    case 'facebook':
-      facebookAPI(profile);
-      break;
-  }
-
-};
 
 module.exports = router;
