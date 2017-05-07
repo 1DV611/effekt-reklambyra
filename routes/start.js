@@ -25,6 +25,7 @@ router.get('/logout', function (req, res) {
 router.get('/callback',
     passport.authenticate('auth0', {failureRedirect: '/url-if-something-fails'}),
     function (req, res) {
+      req.session.authZeroUserID = req.user.id;
       req.session.admin = req.user.admin;
       res.redirect(req.session.returnTo || '/user');
     });

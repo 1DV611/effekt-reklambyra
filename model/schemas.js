@@ -9,35 +9,29 @@ var userSchema = new mongoose.Schema({
     unique: true,
   },
 
-  username: {
+  displayName: {
     type: String,
     required: true,
     unique: true,
   },
 
-  authZeroAccessToken: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-
-  facebookToken: {
+  google: {
     type: String,
   },
 
-  googleToken: {
+  instagram: {
     type: String,
   },
 
-  instagramToken: {
+  linkedin: {
     type: String,
   },
 
-  linkedinToken: {
+  twitter: {
     type: String,
   },
 
-  twitterToken: {
+  facebook: {
     type: String,
   },
 

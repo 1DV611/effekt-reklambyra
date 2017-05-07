@@ -2,6 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 var router = express.Router();
+var db = require('../model/db');
 
 var googleAPI = require('../model/googleAPI');
 var instagramAPI = require('../model/instagramAPI');
@@ -54,6 +55,7 @@ router.get('/facebook/deauth', function (req, res) {
 // this is where all successful auths end up, req.user has the entire profile. req.user.accessToken = token
 router.get('/social-channel-token', ensureLoggedIn, function (req, res, next) {
   sendToApi(req.user);
+  db.handleToken(req.session.authZeroUserID, req.user);
   res.redirect('/user/dashboard');
 });
 

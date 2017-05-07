@@ -7,8 +7,8 @@ var db;
 function connect(credential) {
 
   var options = {
-    server: {socketOptions: {keepAlive: 300000, connectTimeoutMS: 30000}},
-    replset: {socketOptions: {keepAlive: 300000, connectTimeoutMS: 30000}}
+    server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
+    replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
   };
 
   mongoose.connect(credential, options);
@@ -24,7 +24,7 @@ function connect(credential) {
 
 function handleLogin(profile) {
 
-  schema.user.findOne({id: profile.id, username: profile.username}, function (err, matchingUser) {
+  schema.user.findOne({ id: profile.id }, function (err, matchingUser) {
 
     if (err) {
       console.error(err);
@@ -33,9 +33,7 @@ function handleLogin(profile) {
     if (matchingUser === null) {
       var newUser = new schema.user({
         id: profile.id,
-        username: profile.username,
-        accessToken: profile.accessToken,
-        _raw: profile._raw,
+        displayName: profile.displayName,
       });
 
       newUser.save();
@@ -48,5 +46,24 @@ function handleLogin(profile) {
   });
 }
 
+function handleToken(sessionUserID, profile) {
+
+  var queryObj = {};
+  queryObj[profile.provider] = profile.accessToken;
+
+  schema.user.findOneAndUpdate({ id: sessionUserID }, queryObj, function (err, matchingUser) {
+
+    if (err) console.error(err);
+
+    if (matchingUser === null) console.error('no user to save token to'); // todo how to handle this?
+
+    if (matchingUser) {
+      console.log(matchingUser);
+    }
+
+  });
+}
+
 exports.connect = connect;
 exports.handleLogin = handleLogin;
+exports.handleToken = handleToken;

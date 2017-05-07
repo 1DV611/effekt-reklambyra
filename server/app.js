@@ -46,19 +46,12 @@ var socialChannelCallback = function (accessToken, refreshToken, extraParams, pr
 };
 
 var userLoginCallback = function (accessToken, refreshToken, extraParams, profile, done) {
-
-  // sets the profile to true/false depending if the user logging in has been assigned the admin role in auth0 or not
+  // sets the profile to true/false depending if the user logging in has been assigned the admin role in auth0 or not;
   profile.admin = profile._json.app_metadata.authorization.roles['0'] === 'admin';
-
-  profile.accessToken = accessToken;
-  profile.refreshToken = refreshToken;
-  profile.id_token = extraParams.id_token;
-  profile.extraParams = extraParams;
+  profile.id = profile.identities['0'].user_id;
+  db.handleLogin(profile);
   return done(null, profile);
 };
-
-
-
 
 passport.use(new Auth0Strategy({
   domain: process.env.AUTH0_DOMAIN,
@@ -99,7 +92,6 @@ passport.use(new FacebookStrategy({
   clientSecret: process.env.FACEBOOK_APP_SECRET,
   callbackURL: process.env.BASE_URL + '/auth/facebook/callback',
 }, socialChannelCallback));
-
 
 // minskar storleken på payload
 passport.serializeUser(function (user, done) {
