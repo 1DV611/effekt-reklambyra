@@ -83,7 +83,7 @@ var sendToApi = function (profile) {
       break;
 
     case 'twitter':
-      twitterAPI(profile.accessToken);
+      twitterAPI(profile);
       break;
 
     case 'facebook':

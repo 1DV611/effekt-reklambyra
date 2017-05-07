@@ -10,7 +10,7 @@ var client = new Instagram({
 });
 
 module.exports = function (profile) {
-  var tokenObj = {access_token: profile.accessToken};
+  var tokenObj = { access_token: profile.accessToken };
   var userId = profile.id.toString();
 
   client.get('users/self', tokenObj).then(function (user) {
