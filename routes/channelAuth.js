@@ -79,7 +79,6 @@ var sendToApi = function (profile) {
       break;
 
     case 'linkedin':
-      console.log(profile);
       linkedinAPI(profile.accessToken);
       break;
 
