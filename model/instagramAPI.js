@@ -1,59 +1,69 @@
 'use strict';
-var instagram = require('instagram-node').instagram();
 var dotenv = require('dotenv');
-var instaAnalytics = require('instagram-analytics');
-
-
-
 dotenv.load();
 
-//https://www.npmjs.com/package/instagram-node
+//https://github.com/jlobos/neo-instagram
+var Instagram = require('neo-instagram');
+var client = new Instagram({
+  client_id: process.env.INSTAGRAM_CLIENT_ID,
+  client_secret: process.env.INSTAGRAM_CLIENT_SECRET,
+});
+
 module.exports = function (profile) {
-  var token = profile.accessToken;
+  var tokenObj = {access_token: profile.accessToken};
   var userId = profile.id.toString();
 
-  instaAnalytics(userId).then(function (stats) {
-    console.log(stats);
+  client.get('users/self', tokenObj).then(function (user) {
+    console.log(user);
   });
 
-  instaAnalytics('mrwwwo').then(function (stats) {
-    console.log(stats);
+  client.get('users/self/media/recent', tokenObj).then(function (user) {
+    console.log(totalLikesCount(user.data));
+    /**
+     * { data:
+   { id: '279831127',
+     username: 'mrwwwo',
+     profile_picture: 'https://scontent.cdninstagram.com/t51.2885-19/11939502_451578088380268_1972812355_a.jpg',
+     full_name: 'LW',
+     bio: '沪',
+     website: '',
+     counts: { media: 122, follows: 70, followed_by: 61 } },
+  meta: { code: 200 } }
+     { pagination: {},
+       data:
+        [array of media objects]
+          */
+
   });
-
-
-  // console.log(token);
-  //
-  // instagram.use({
-  //   access_token: token,
-  //   client_id: process.env.INSTAGRAM_CLIENT_ID,
-  //   client_secret: process.env.INSTAGRAM_CLIENT_SECRET,
-  // });
-  //
-  // instagram.user(userId, function (err, result, remaining, limit) {
-  //   console.log(result);
-  // });
-  //
-  //
-  // instagram.user_self_liked([{count: 3}], function (err, medias, pagination, remaining, limit) {
-  //   console.error(err);
-  //   console.log(medias, pagination, remaining, limit);
-  // });
-  //
-  // instagram.user_followers(userId, function (err, users, pagination, remaining, limit) {
-  //   console.log(users);
-  // });
-  //
-  // instagram.likes(userId, function (err, result, remaining, limit) {
-  //   console.log(result);
-  // });
-  //
-  // instagram.media_popular(function (err, medias, remaining, limit) {
-  //   console.log(medias)
-  // });
-  //
-  // instagram.user_self_feed([options], function (err, medias, pagination, remaining, limit) {
-  //   console.log(medias);
-  // });
-
 
 };
+
+
+function totalLikesCount(recentMedias) {
+  var totalLikes = 0;
+
+  recentMedias.forEach(function (media) {
+    /**
+     { id: '658462253142614877_279831127',
+        user: [Object],
+        images: [Object],
+        created_time: '1392714839',
+        caption: null,
+        user_has_liked: false,
+        likes: [Object],
+        tags: [],
+        filter: 'Lo-fi',
+        comments: [Object],
+        type: 'image',
+        link: 'https://www.instagram.com/p/kjU-44kaNd7aaYPUz8BXN7ClYUzL_sGDvYNRU0/',
+        location: null,
+        attribution: null,
+        users_in_photo: [] },
+     **/
+
+    totalLikes += media.likes.count;
+  });
+
+  return totalLikes;
+
+}
