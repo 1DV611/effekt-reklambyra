@@ -19,6 +19,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var session = require('express-session');
 var exphbs = require('express-handlebars');
+var hbsHelpers = require('../views/helpers.js');
 var http = require('http');
 
 dotenv.load();
@@ -105,42 +106,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-const hbs = exphbs.create({
-  helpers: {
-    isSocialActive: function (value) {
-      return value === 'on';
-    },
-    isFeatureActive: function (value) {
-      return value === 'on';
-    },
-    isNotObject: function (value) {
-      if (typeof value !== 'object') {
-        return true;
-      }
-      return false;
-    },
-    isObject: function (value) {
-      if (typeof value === 'object') {
-        return true;
-      }
-      return false;
-    },
-    isNotEmptyString: function (value) {
-      if (value !== '') {
-        return true;
-      }
-      return false;
-    },
-    createChartTemplate: function (name) {
-      name = Handlebars.Utils.escapeExpression(name);
-
-      var chartTemplate = '<div class="card"><div class="header"><h4 class="title">' + name + '</h4></div><canvas id="' + name + '" width="400" height="400"></canvas></div>';
-      return new Handlebars.SafeString(chartTemplate);
-    }
-  },
-
-  defaultLayout: 'main',
-});
+// the helpers object is imported from a separate file in views/helpers.js
+var hbs = exphbs.create(hbsHelpers);
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
