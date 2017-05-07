@@ -1,3 +1,5 @@
+'use strict';
+//https://github.com/desmondmorris/node-twitter
 var Twitter = require('twitter');
 var dotenv = require('dotenv');
 
@@ -10,13 +12,14 @@ var client  = new Twitter({
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
-client.get('favorites/list', function(error, tweets, response) {
-  if(error) throw error;
-  console.log(tweets);  // The favorites.
-  console.log(response);  // Raw response object.
-});
+module.exports = function (profile) {
+  //https://dev.twitter.com/rest/reference/get/followers/ids
 
+  client.get('users/show', { user_id: profile.id, screen_name: profile.username }, function(error, result, response) {
+    if(error) throw error;
+    console.log(result.followers_count);
+  });
 
-module.exports = function (token) {
-  console.log(token);
 };
+
+

@@ -75,16 +75,15 @@ var sendToApi = function (profile) {
       break;
 
     case 'instagram':
-      instagramAPI(profile.accessToken);
+      instagramAPI(profile);
       break;
 
     case 'linkedin':
-      console.log(profile);
       linkedinAPI(profile.accessToken);
       break;
 
     case 'twitter':
-      twitterAPI(profile.accessToken);
+      twitterAPI(profile);
       break;
 
     case 'facebook':
