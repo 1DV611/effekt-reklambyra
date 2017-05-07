@@ -51,7 +51,7 @@ passport.use(new Auth0Strategy({
 passport.use(new GoogleOauthStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: process.env.GOOGLE_CALLBACK_URL
+  callbackURL: process.env.BASE_URL + '/auth/google/callback',
 }, standardAuthCallback));
 
 passport.use(new InstagramStrategy({
@@ -72,13 +72,13 @@ passport.use(new LinkedinStrategy({
 passport.use(new TwitterStrategy({
   consumerKey: process.env.TWITTER_CONSUMER_KEY,
   consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-  callbackURL: process.env.BASE_URL + '/auth/twitter/callback'
+  callbackURL: process.env.BASE_URL + '/auth/twitter/callback',
 }, standardAuthCallback));
 
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: process.env.BASE_URL + '/auth/facebook/callback'
+  callbackURL: process.env.BASE_URL + '/auth/facebook/callback',
 }, standardAuthCallback));
 
 
