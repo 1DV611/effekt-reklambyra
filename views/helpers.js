@@ -1,3 +1,5 @@
+var Handlebars = require('handlebars');
+
 module.exports = {
   helpers: {
     isSocialActive: function (value) {

@@ -5,19 +5,20 @@
     <div>
         {{#if user}}
             <ul class="nav navbar-nav navbar-left nav-content-left">
-                <li><a href="/user/dashboard">Dashboard</a></li>
-                <li><a href="/user/reports">Reports</a></li>
-                <li><a href="/auth/google">Example Report</a></li>
-                {{#if user.admin}}
-                    <li>admin user</li>
-                {{/if}}
-
+                    <li><a href="/user/dashboard">Dashboard</a></li>
+                    <li><a href="/user/example">Example Report</a></li>
+                    <li><a href="/user/reports">Reports</a></li>
+                    <li><a href="/user/settings">Settings</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right nav-content-right">
                 <li><a href="/logout" class="btn btn-default">Logga ut</a></li>
                 <li class="profile-picture">
                     <img class="img-circle img-profile" src="{{user.picture}}" title="{{user.nickname}}" />
-                </li>
+        {{#if user.admin}}
+            <p>is admin</p>
+        {{/if}}
+
+        </li>
             </ul>
         {{/if}}
     </div>
