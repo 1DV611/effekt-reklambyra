@@ -1,9 +1,17 @@
-const googleAPI = require('./../../../model/googleAPI');
 
 function resultsFromGoogleApi(req, res, next) {
-
-  googleAPI(req.user.accessToken, function (results) {
-    res.render('example', { user: req.user, results: results });
+  res.render('example', { user: req.user,
+    results: {
+      youtubeViews: 282756,
+      analytics: {
+        analyticsViews: '218079',
+        analyticsUniqueViews: '167327',
+        analyticsStrongestRedirects: '',
+        analyticsMostVisitedPages: '',
+        analyticsAverageTime: '90.49878589101789',
+        analyticsAverageVisitedPerPages: '2.5096841015018123'
+      }
+    }
   });
 }
 

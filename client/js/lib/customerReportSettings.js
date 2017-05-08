@@ -1,4 +1,4 @@
-const googleAPI = require('./../../../model/googleAPI');
+const googleAPI = require('./../../../model/APIs/googleAPI');
 const addGoogleResultsToFormObject = require('./addGoogleResultsToFormObject');
 
 function customerReportSettings(req, res, next) {
@@ -120,10 +120,7 @@ function customerReportSettings(req, res, next) {
     }
   };
 
-  googleAPI(req.user.accessToken, function (results) {
-    addGoogleResultsToFormObject(form, results);
-    res.render('preview', { user: req.user, form: form, json: JSON.stringify(form) });
-  });
+  res.render('preview', { user: req.user, form: form });
 
 }
 
