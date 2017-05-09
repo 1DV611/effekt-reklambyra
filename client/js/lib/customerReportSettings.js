@@ -23,15 +23,18 @@ function customerReportSettings(req, res, next) {
       features: {
         adwordsClick: {
           active: req.body.adwordsClick,
-          result: '',
+          result: '*Data*',
+          description: ' klickningar.',
         },
         adwordsCpc: {
           active: req.body.adwordsCpc,
-          result: '',
+          result: '*Data*',
+          description: ' kostnad per klick.',
         },
         adwordsViews: {
           active: req.body.adwordsViews,
-          result: '',
+          result: '*Data*',
+          description: ' visningar.',
         },
       },
     },
@@ -42,7 +45,8 @@ function customerReportSettings(req, res, next) {
       features: {
         facebookLikes: {
           active: req.body.facebookLikes,
-          result: '',
+          result: '*Data*',
+          description: ' gillningar.',
         },
       },
     },
@@ -53,7 +57,8 @@ function customerReportSettings(req, res, next) {
       features: {
         youtubeViews: {
           active: req.body.youtubeViews,
-          result: '',
+          result: '*Data*',
+          description: ' visningar.',
         },
       },
     },
@@ -64,7 +69,8 @@ function customerReportSettings(req, res, next) {
       features: {
         tyntCopied: {
           active: req.body.tyntCopied,
-          result: '',
+          result: '*Data*',
+          description: ' kopieringar.',
         },
       },
     },
@@ -75,7 +81,8 @@ function customerReportSettings(req, res, next) {
       features: {
         addthisClick: {
           active: req.body.addthisClick,
-          result: '',
+          result: '*Data*',
+          description: ' klickningar.',
         },
       },
     },
@@ -86,7 +93,8 @@ function customerReportSettings(req, res, next) {
       features: {
         twitterViews: {
           active: req.body.twitterViews,
-          result: '',
+          result: '*Data*',
+          description: ' visningar.',
         },
       },
     },
@@ -97,27 +105,33 @@ function customerReportSettings(req, res, next) {
       features: {
         analyticsViews: {
           active: req.body.analyticsViews,
-          result: '',
+          result: '*Data*',
+          description: ' visningar.',
         },
         analyticsUniqueViews: {
           active: req.body.analyticsUniqueViews,
-          result: '',
+          result: '*Data*',
+          description: ' unika visningar.',
         },
         analyticsStrongestRedirects: {
           active: req.body.analyticsStrongestRedirects,
-          result: '',
+          result: '*Data*',
+          description: ' är starkaste omdirigeringen.',
         },
         analyticsMostVisitedPages: {
           active: req.body.analyticsMostVisitedPages,
-          result: '',
+          result: '*Data*',
+          description: ' är mest visade sidorna.',
         },
         analyticsAverageTime: {
           active: req.body.analyticsAverageTime,
-          result: '',
+          result: '*Data*',
+          description: ' genomsnittlig tid på sidan.',
         },
         analyticsAverageVisitedPerPages: {
           active: req.body.analyticsAverageVisitedPerPages,
-          result: '',
+          result: '*Data*',
+          description: ' genomsnittligt antal besökta sidor.',
         },
       },
     },
@@ -128,11 +142,13 @@ function customerReportSettings(req, res, next) {
       features: {
         linkedinFollowers: {
           active: req.body.linkedinFollowers,
-          result: '',
+          result: '*Data*',
+          description: ' följare.',
         },
         linkedinInteractions: {
           active: req.body.linkedinInteractions,
-          result: '',
+          result: '*Data*',
+          description: ' interaktioner.',
         },
       },
     },
@@ -143,7 +159,8 @@ function customerReportSettings(req, res, next) {
       features: {
         mozKeywords: {
           active: req.body.mozKeywords,
-          result: '',
+          result: '*Data*',
+          description: ' nyckelord.',
         },
       },
     },
