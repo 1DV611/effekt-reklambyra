@@ -15,6 +15,7 @@ function customerReportSettings(req, res, next) {
     month: months[new Date().getMonth()],
     year: new Date().getFullYear(),
     interval: [months[monthBeforePrevious], months[previousMonth], months[new Date().getMonth()]],
+    visitorsInTotalLastThreeMonths: [1000, 2000, 3000],
     adwords: {
       title: 'AdWords',
       percentage: 50,
