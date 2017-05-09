@@ -17,6 +17,7 @@ function customerReportSettings(req, res, next) {
     interval: [months[monthBeforePrevious], months[previousMonth], months[new Date().getMonth()]],
     adwords: {
       title: 'AdWords',
+      percentage: 50,
       active: req.body.adwords,
       features: {
         adwordsClick: {
@@ -35,6 +36,7 @@ function customerReportSettings(req, res, next) {
     },
     facebook: {
       title: 'Facebook',
+      percentage: 50,
       active: req.body.facebook,
       features: {
         facebookLikes: {
@@ -45,6 +47,7 @@ function customerReportSettings(req, res, next) {
     },
     youtube: {
       title: 'YouTube',
+      percentage: 50,
       active: req.body.youtube,
       features: {
         youtubeViews: {
@@ -55,6 +58,7 @@ function customerReportSettings(req, res, next) {
     },
     tynt: {
       title: 'Tynt',
+      percentage: 50,
       active: req.body.tynt,
       features: {
         tyntCopied: {
@@ -65,6 +69,7 @@ function customerReportSettings(req, res, next) {
     },
     addthis: {
       title: 'AddThis',
+      percentage: 50,
       active: req.body.addthis,
       features: {
         addthisClick: {
@@ -75,6 +80,7 @@ function customerReportSettings(req, res, next) {
     },
     twitter: {
       title: 'Twitter',
+      percentage: 50,
       active: req.body.twitter,
       features: {
         twitterViews: {
@@ -85,6 +91,7 @@ function customerReportSettings(req, res, next) {
     },
     analytics: {
       title: 'Analytics',
+      percentage: 50,
       active: req.body.analytics,
       features: {
         analyticsViews: {
@@ -115,6 +122,7 @@ function customerReportSettings(req, res, next) {
     },
     linkedin: {
       title: 'LikedIn',
+      percentage: 50,
       active: req.body.linkedin,
       features: {
         linkedinFollowers: {
@@ -129,6 +137,7 @@ function customerReportSettings(req, res, next) {
     },
     moz: {
       title: 'Moz',
+      percentage: 50,
       active: req.body.moz,
       features: {
         mozKeywords: {

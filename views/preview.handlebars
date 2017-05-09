@@ -30,12 +30,14 @@
                 </div>
                 <canvas id="canvasPieChart" width="400" height="400"></canvas>
             </div>
+            <!-- Added in case of extra time.
             <div class="card">
                 <div class="header">
                     <h4 class="title">Ingångskällor</h4>
                 </div>
                 <canvas id="canvasDoughnutChart" width="400" height="400"></canvas>
             </div>
+            -->
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
             <script src="/js/saveTextarea.js"></script>
             <script src="/js/lib/charts/createChart.js"></script>
@@ -44,20 +46,29 @@
 
                 var canvasBarChart = document.querySelector("#canvasBarChart");
                 var canvasPieChart = document.querySelector("#canvasPieChart");
+                /* Added in case of extra time.
                 var canvasDoughnutChart = document.querySelector("#canvasDoughnutChart");
-
+                */
                 var months = ['{{form.interval.[0]}}', '{{form.interval.[1]}}', '{{form.interval.[2]}}'];
-                var visitors = [1000, 2000, 3000];
-                var barData = createData(months, visitors);
+                var totalVisitors = [1000, 2000, 3000];
+                var barData = createData(months, totalVisitors);
 
-                var medias = ["YouTube", "Analytics"];
-                var procent = [50, 50];
-                var data = createData(medias, procent);
+                var medias = [];
+                var percentages = [];
+
+                    {{#each form}}
+                        {{#if this.active}}
+                            medias.push('{{this.title}}');
+                            percentages.push({{this.percentage}});
+                        {{/if}}
+                    {{/each}}
+                var data = createData(medias, percentages);
 
                 var barChart = createChart('bar', canvasBarChart, barData);
                 var pieChart = createChart('pie', canvasPieChart, data);
+                /* Added in case of extra time.
                 var doughnutChart = createChart('doughnut', canvasDoughnutChart, data);
-
+                */
             </script>
         </div>
         <div id="stats" class="toTheRight">
