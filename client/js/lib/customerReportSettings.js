@@ -2,8 +2,11 @@ const googleAPI = require('./../../../model/APIs/googleAPI');
 const addGoogleResultsToFormObject = require('./addGoogleResultsToFormObject');
 
 var months = ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
-    'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'
+    'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December',
 ];
+
+var monthBeforePrevious = ((new Date().getMonth() - 2) % 12);
+var previousMonth = ((new Date().getMonth() - 1) % 12);
 
 function customerReportSettings(req, res, next) {
   var form = {
@@ -11,6 +14,7 @@ function customerReportSettings(req, res, next) {
     customer: req.body.customer || 'Customer',
     month: months[new Date().getMonth()],
     year: new Date().getFullYear(),
+    interval: [months[monthBeforePrevious], months[previousMonth], months[new Date().getMonth()]],
     adwords: {
       title: 'AdWords',
       active: req.body.adwords,
