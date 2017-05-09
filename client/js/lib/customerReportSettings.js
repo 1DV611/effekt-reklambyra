@@ -1,10 +1,16 @@
 const googleAPI = require('./../../../model/APIs/googleAPI');
 const addGoogleResultsToFormObject = require('./addGoogleResultsToFormObject');
 
+var months = ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
+    'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'
+];
+
 function customerReportSettings(req, res, next) {
   var form = {
 
     customer: req.body.customer || 'Customer',
+    month: months[new Date().getMonth()],
+    year: new Date().getFullYear(),
     adwords: {
       title: 'AdWords',
       active: req.body.adwords,

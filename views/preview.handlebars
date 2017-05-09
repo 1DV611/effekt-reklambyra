@@ -1,6 +1,7 @@
 <div class="card dashboard-content-place">
     <div class="report-settings">
-        <h1>{{form.customer}}</h1>
+        <h1 class="toTheLeft">{{form.customer}}</h1> <h1 class="toTheRight">{{form.month}} {{form.year}}</h1>
+        <div id="adminText">
         <div id="summary">
             <h3>Sammanfattning:</h3>
             <textarea id="summaryTextarea" class="form-control"></textarea>
@@ -10,6 +11,7 @@
             <h3>Rekommendation:</h3>
             <textarea id="recommendationTextarea" class="form-control"></textarea>
             <input type="input" id="recommendationButton" class="btn btn-default toTheRight" value="Spara" onclick="saveRecommendation()">
+        </div>
         </div>
         <br>
         <br>
