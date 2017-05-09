@@ -116,12 +116,12 @@ function customerReportSettings(req, res, next) {
         analyticsStrongestRedirects: {
           active: req.body.analyticsStrongestRedirects,
           result: '*Data*',
-          description: ' är starkaste omdirigeringen.',
+          description: ' är de starkaste ingångskanalerna.',
         },
         analyticsMostVisitedPages: {
           active: req.body.analyticsMostVisitedPages,
           result: '*Data*',
-          description: ' är mest visade sidorna.',
+          description: ' är de mest besökta sidorna.',
         },
         analyticsAverageTime: {
           active: req.body.analyticsAverageTime,
