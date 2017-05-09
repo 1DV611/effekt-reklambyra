@@ -1,6 +1,6 @@
 <div class="card dashboard-content-place">
     <div class="report-settings">
-        <h1>{{form.[customer]}}</h1>
+        <h1>{{form.customer}}</h1>
         <div id="summary">
             <h3>Sammanfattning:</h3>
             <textarea id="summaryTextarea" class="form-control"></textarea>
@@ -42,82 +42,10 @@
                 var canvasPieChart = document.querySelector("#canvasPieChart");
                 var canvasDoughnutChart = document.querySelector("#canvasDoughnutChart");
 
-                function createData(labels, values) {
+                var labels = ["YouTube", "Analytics"];
 
-                    var data = {
-                        labels: labels,
-                        datasets: [{
-                            label: 'Clicks',
-                            data: [12, 19, 3, 5, 2, 3, 4, 5],
-                            backgroundColor: [
-                                'black',
-                                'lightgrey',
-                                'darkgrey',
-                                'dimgray',
-                                'silver',
-                                'darkslategrey',
-                                'lightslategrey',
-                                'slategrey',
-                            ],
-                            borderColor: [
-                                'black',
-                                'black',
-                                'black',
-                                'black',
-                                'black',
-                                'black',
-                                'black',
-                                'black',
-                            ],
-                            borderWidth: 0.5,
-                        },
-                        ],
-                    };
-                    return data;
-                }
 
-                function createChart(type, canvas, data) {
-                    var options;
-
-                    switch (type) {
-                        case 'bar':
-                            options = {
-                                legend: {
-                                    display: false,
-                                },
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true,
-                                        },
-                                    },
-                                    ],
-                                },
-                            };
-                            break;
-                        case 'pie':
-                        case 'doughnut':
-                        default:
-                            options = {
-                                animation: {
-                                    animateScale: true,
-                                },
-                            };
-                            break;
-
-                    }
-
-                    var myChart = new Chart(canvas, {
-                        type: type,
-                        data: data,
-                        options: options,
-                    });
-
-                    return myChart;
-                }
-
-                var labels = ["Black", "Lightgrey", "Darkgrey", "Dimgray", "Silver", "Darkslategrey", "Lightslategrey", "Slategrey"];
-                var values = [12, 19, 3, 5, 2, 3, 4, 5];
+                var values = [12, 19];
 
                 var data = createData(labels, values);
 
