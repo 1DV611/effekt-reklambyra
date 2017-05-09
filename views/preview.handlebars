@@ -84,8 +84,10 @@
                         <div class="header">
                             <h3 class="title">{{this.title}}</h3>
                             {{#each this.features}}
-                                <h3>{{this.result}} {{this.description}}</h3>
-                                <br>
+                                {{#if this.active}}
+                                    <h3>{{this.result}} {{this.description}}</h3>
+                                    <br>
+                                {{/if}}
                             {{/each}}
                         </div>
                     {{/if}}
