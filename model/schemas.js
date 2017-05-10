@@ -39,4 +39,12 @@ var userSchema = new mongoose.Schema({
 
 var user = mongoose.model('user', userSchema);
 
+var dataSchema = new mongoose.Schema({
+
+
+});
+
+
+var data = mongoose.model('apiData', dataSchema);
+
 exports.user = user;

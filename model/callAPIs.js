@@ -1,11 +1,12 @@
 'use strict';
-
-
 var googleAPI = require('./APIs/googleAPI');
 var instagramAPI = require('./APIs/instagramAPI');
 var linkedinAPI = require('./APIs/linkedinAPI');
 var twitterAPI = require('./APIs/twitterAPI');
 var facebookAPI = require('./APIs/facebookAPI');
+
+// call all API's from user DB object credentials to get all data
+// call all API's to determine if access is Ok;
 
 //temporary to send each token onto the api
 var sendToApi = function (profile) {

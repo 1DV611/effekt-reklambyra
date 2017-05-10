@@ -34,6 +34,13 @@ router.get('/report/:id', ensureLoggedIn, function (req, res, next) {
   res.render('report', { user: req.user });
 });
 
+router.get('/report/:month/:year', ensureLoggedIn, function (req, res, next) {
+  // take the user id
+  // get his report for month and year from db
+  // render 'report' with the data in the env. variable?
+
+});
+
 router.get('/dashboard', ensureLoggedIn, function (req, res, next) {
 /*
   Skicka objekt med information från Auth0 om vilka sociala medier som är aktiverade för användaren

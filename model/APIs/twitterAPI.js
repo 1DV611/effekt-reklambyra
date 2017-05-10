@@ -19,7 +19,6 @@ module.exports = function (profile) {
     if(error) throw error;
     console.log(result.followers_count);
   });
-
 };
 
 
