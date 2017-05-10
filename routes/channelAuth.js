@@ -49,7 +49,7 @@ router.get('/facebook/deauth', function (req, res) {
 // this is where all successful auths end up, req.user has the entire profile. req.user.accessToken = token
 router.get('/social-channel-token', ensureLoggedIn, function (req, res, next) {
   db.updateSocialChannelProfile(req.session.authZeroUserID, req.user);
-  res.redirect('/user/dashboard');
+  res.redirect('/user/example');
 });
 
 router.get('/fail', function (req, res, next) {

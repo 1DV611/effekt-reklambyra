@@ -1,16 +1,19 @@
 <div class="card dashboard-content-place">
     <div class="report-settings">
-
-        <h1>{{form.customer}}</h1>
-        <div id="summary">
-            <h3>Sammanfattning:</h3>
-            <textarea id="summaryTextarea" class="form-control"></textarea>
-            <input type="input" id="summaryButton" class="btn btn-default toTheRight" value="Spara" onclick="saveSummary()">
-        </div>
-        <div id="recommendation">
-            <h3>Rekommendation:</h3>
-            <textarea id="recommendationTextarea" class="form-control"></textarea>
-            <input type="input" id="recommendationButton" class="btn btn-default toTheRight" value="Spara" onclick="saveRecommendation()">
+        <h1 class="toTheLeft">{{form.customer}}</h1> <h1 class="toTheRight">{{form.month}} {{form.year}}</h1>
+        <div id="adminText">
+            {{#if user.admin}}
+                <div id="summary">
+                    <h3>Sammanfattning:</h3>
+                    <textarea id="summaryTextarea" class="form-control"></textarea>
+                    <input type="input" id="summaryButton" class="btn btn-default toTheRight" value="Spara" onclick="saveSummary()">
+                </div>
+                <div id="recommendation">
+                    <h3>Rekommendation:</h3>
+                    <textarea id="recommendationTextarea" class="form-control"></textarea>
+                    <input type="input" id="recommendationButton" class="btn btn-default toTheRight" value="Spara" onclick="saveRecommendation()">
+                </div>
+            {{/if}}
         </div>
         <br>
         <br>
@@ -27,24 +30,16 @@
                 </div>
                 <canvas id="canvasPieChart" width="400" height="400"></canvas>
             </div>
+
+            <!-- Added in case of extra time.
             <div class="card">
                 <div class="header">
                     <h4 class="title">Ingångskällor</h4>
                 </div>
                 <canvas id="canvasDoughnutChart" width="400" height="400"></canvas>
             </div>
-        </div>
-            <div id="stats" class="toTheRight">
-                    {{#each form}}
-                        {{#if this.active}}
-                            {{#each this.features}}
-                                {{#if this.active}}
-                                    {{ createChartTemplate @key }}
-                                {{/if}}
-                            {{/each}}
-                        {{/if}}
-                    {{/each}}
-            </div>
+            -->
+
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
             <script src="/js/saveTextarea.js"></script>
             <script src="/js/lib/charts/createChart.js"></script>
@@ -53,34 +48,51 @@
 
                 var canvasBarChart = document.querySelector("#canvasBarChart");
                 var canvasPieChart = document.querySelector("#canvasPieChart");
+
+                /* Added in case of extra time.
                 var canvasDoughnutChart = document.querySelector("#canvasDoughnutChart");
+                */
 
-                var labels = ["Black", "Lightgrey", "Darkgrey", "Dimgray", "Silver", "Darkslategrey", "Lightslategrey", "Slategrey"];
-                var values = [12, 19, 3, 5, 2, 3, 4, 5];
+                var months = ['{{form.interval.[0]}}', '{{form.interval.[1]}}', '{{form.interval.[2]}}'];
+                var visitorsInTotalPerMonth = [{{form.visitorsInTotalLastThreeMonths.[0]}}, {{form.visitorsInTotalLastThreeMonths.[1]}}, {{form.visitorsInTotalLastThreeMonths.[2]}}];
+                var barData = createData(months, visitorsInTotalPerMonth);
 
-                var data = createData(labels, values);
-
-                var barChart = createChart('bar', canvasBarChart, data);
-                var pieChart = createChart('pie', canvasPieChart, data);
-                var doughnutChart = createChart('doughnut', canvasDoughnutChart, data);
+                var medias = [];
+                var percentages = [];
 
                     {{#each form}}
                         {{#if this.active}}
-                            {{#each this.features}}
-                                {{#if this.active}}
-                                var labels2 = [];
-                                var values2 = [];
-                                labels2.push('{{@key}}');
-                                values2.push('{{this.result}}');
-                                createChart('bar', {{ @key }}, createData(labels2, values2));
-                                {{/if}}
-                            {{/each}}
+                            medias.push('{{this.title}}');
+                            percentages.push({{this.percentage}});
                         {{/if}}
                     {{/each}}
+                var data = createData(medias, percentages);
+
+                var barChart = createChart('bar', canvasBarChart, barData);
+                var pieChart = createChart('pie', canvasPieChart, data);
+
+                /* Added in case of extra time.
+                var doughnutChart = createChart('doughnut', canvasDoughnutChart, data);
+                */
 
             </script>
+        </div>
+        <div id="stats" class="toTheRight">
+            <div class="card">
+                {{#each form}}
+                    {{#if this.active}}
+                        <div class="header">
+                            <h3 class="title">{{this.title}}</h3>
+                            {{#each this.features}}
+                                {{#if this.active}}
+                                    <h3>{{this.result}} {{this.description}}</h3>
+                                    <br>
+                                {{/if}}
+                            {{/each}}
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
     </div>
 </div>
-
-
-
