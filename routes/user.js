@@ -5,6 +5,7 @@ var router = express.Router();
 
 var customerReportSettings = require('../client/js/lib/customerReportSettings.js');
 var resultsFromGoogleApi = require('../client/js/lib/resultsFromGoogleApi.js');
+var reportGenerator = require('../server/reportGenerator.js');
 
 /* GET user profile. */
 
@@ -26,6 +27,8 @@ router.get('/reports', ensureLoggedIn, function (req, res, next) {
 router.get('/report/:id', ensureLoggedIn, function (req, res, next) {
   res.render('report', { user: req.user });
 });
+
+router.get('/pdf', ensureLoggedIn, reportGenerator);
 
 router.get('/dashboard', ensureLoggedIn, function (req, res, next) {
   /*

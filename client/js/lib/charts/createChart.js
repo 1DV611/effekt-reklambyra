@@ -1,6 +1,6 @@
 
   function createChart(type, canvas, data) {
-    var options;
+    var options = {};
     var myChart;
 
     switch (type) {
@@ -22,14 +22,10 @@
       case 'pie':
       case 'doughnut':
       default:
-        options = {
-          animation: {
-            animateScale: true
-          }
-        };
         break;
-
     }
+
+    options.animation = false;
 
     myChart = new Chart(canvas, {
       type: type,
