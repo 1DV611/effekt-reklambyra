@@ -18,15 +18,15 @@ var callAPIsFor = function (user) {
 
     var promises = [];
 
-    if (user.twitter) promises.push(twitterAPI(user.twitter.username));
+    if (user.twitter) promises.push(twitterAPI(user.twitter));
 
-    if (user.facebook) promises.push(facebookAPI(user.facebook.accessToken));
+    if (user.facebook) promises.push(facebookAPI(user.facebook));
 
-    if (user.linkedin) promises.push(linkedinAPI(user.linkedin.accessToken));
+    if (user.linkedin) promises.push(linkedinAPI(user.linkedin));
 
     if (user.google) promises.push(googleAPI(user.google.accessToken));
 
-    if (user.instagram) promises.push(instagramAPI(user.instagram.accessToken));
+    if (user.instagram) promises.push(instagramAPI(user.instagram));
 
     Promise.all(promises).then(function (apiData) {
       resolve(apiData);
