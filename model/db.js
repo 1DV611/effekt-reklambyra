@@ -100,9 +100,21 @@ function convertToUsersArray(docs) {
   return userObjects;
 }
 
+function getDataFor(user, month, year) {
+
+  //todo month and year are coming directly from querystring so these should be typechecked...
+
+  return new Promise(function (resolve, reject) {
+
+
+
+  });
+}
+
 exports.connect = connect;
 exports.handleLogin = handleLogin;
 exports.updateSocialChannelProfile = handleProfile;
 exports.getUser = getUser;
 exports.getAllUsers = getAllUsers;
 exports.saveAPI = saveAPI;
+exports.getDataFor = getDataFor;
