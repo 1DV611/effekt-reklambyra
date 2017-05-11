@@ -8,16 +8,18 @@ module.exports = function (profile) {
   var id = profile.id;
   var token = profile.accessToken;
 
-  graph.setAccessToken(token);
+  return new Promise(function (resolve, reject) {
 
-  // https://developers.facebook.com/docs/graph-api/reference/v2.9/object/likes
+    graph.setAccessToken(token);
 
-  // that's pages user have liked.
-  graph.get('/' + id + '/likes', function (err, res) {
-    if (err) console.error(err);
+    // https://developers.facebook.com/docs/graph-api/reference/v2.9/object/likes
 
-    console.log(res);
+    // that's pages user have liked.
+    graph.get('/' + id + '/likes', function (err, res) {
+      if (err) reject(err);
 
+      resolve(42);
+      console.log(res);
+    });
   });
-
 };

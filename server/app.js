@@ -160,4 +160,7 @@ app.use(function (err, req, res, next) {
   });
 });
 
+var cron = require('../model/cronJob');
+cron();
+
 module.exports = app;

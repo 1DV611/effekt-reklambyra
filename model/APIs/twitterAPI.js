@@ -15,11 +15,14 @@ var client  = new Twitter({
 module.exports = function (profile) {
   //https://dev.twitter.com/rest/reference/get/followers/ids
 
-  client.get('users/show', { user_id: profile.id, screen_name: profile.username }, function(error, result, response) {
-    if(error) throw error;
-    console.log(result.followers_count);
-  });
+  return new Promise(function (resolve, reject) {
 
+    client.get('users/show', { user_id: profile.id, screen_name: profile.username }, function(error, result, response) {
+      if (error) reject(error);
+      resolve(result.followers_count);
+    });
+
+  });
 };
 
 
