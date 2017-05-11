@@ -12,14 +12,13 @@ function reportGenerator(req, res, next) {
     var pdfconfig = {
       orientation: 'landscape'
     };
-    var external_refs = 'peter denna buggade ur pga nagot med quotesen och jag kunde inte kora filen'
-    // var external_refs = "
-    //     <link inline href='css/light-bootstrap-dashboard.css'>
-    //     <link inline href='css/toogle-switch.css'>
-    //     <link inline href='css/style.css'>
-    //     <script inline src='js/lib/charts/createChart.js'></script>
-    //     <script inline src='js/lib/charts/createData.js'></script>
-    // ";
+    var external_refs = " \
+        <link inline href='css/light-bootstrap-dashboard.css'> \
+        <link inline href='css/toogle-switch.css'> \
+        <link inline href='css/style.css'> \
+        <script inline src='js/lib/charts/createChart.js'></script> \
+        <script inline src='js/lib/charts/createData.js'></script> \
+    ";
     inline(external_refs, { rootpath: path.resolve('client') }, function (err, inlines) {
       pdf.create(inlines+html, pdfconfig).toStream(function(err, stream) {
         res.setHeader('Content-disposition', 'attachment; filename=rapport.pdf');
