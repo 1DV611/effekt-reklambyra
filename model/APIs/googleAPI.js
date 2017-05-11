@@ -42,7 +42,7 @@ module.exports = function (token) {
           reject(console.log(err));
         }
 
-        console.log(body.rows[0][0]);
+        //console.log(body.rows[0][0]);
         resolve(body.rows[0][0]);
       });
     });
@@ -64,7 +64,7 @@ module.exports = function (token) {
           if (errData) {
             reject(console.log(errData));
           }
-          console.log(bodyData);
+          //console.log(bodyData);
           var results = bodyData.totalsForAllResults;
           var dataObj = {
             analyticsViews: results['ga:pageviews'],
@@ -79,10 +79,80 @@ module.exports = function (token) {
       });
     });
 
-    Promise.all([promiseYoutube, promiseAnalytics]).then(function (values) {
+    var promiseAnalyticsMostVisited = new Promise(function(resolve, reject) {
+      var obj = {};
+      obj['auth'] = oauth2Client;
+      analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
+        if (err) {
+          reject(console.log(err));
+        }
+
+        obj['end-date'] = '2017-05-01';
+        obj['start-date'] = '2005-01-01';
+        obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id;
+        obj['dimensions'] = 'ga:pageTitle,ga:pagePath';
+        obj['metrics'] = 'ga:pageviews';
+        obj['sort'] = '-ga:pageviews';
+        obj['max-results'] = 4;
+        obj['auth'] = oauth2Client;
+        analytics.data.ga.get(obj, function (errData, bodyData) {
+          if (errData) {
+            reject(console.log(errData));
+          }
+          //console.log(bodyData.rows);
+          var results = bodyData.rows;
+          var dataObj = {
+            analyticsMostVisitedPages: results,
+          };
+          resolve(dataObj);
+        });
+      });
+    });
+
+    var promiseAnalyticsTopLanding = new Promise(function(resolve, reject) {
+      var obj = {};
+      obj['auth'] = oauth2Client;
+      analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
+        if (err) {
+          reject(console.log(err));
+        }
+
+        obj['end-date'] = '2017-05-01';
+        obj['start-date'] = '2005-01-01';
+        obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id;
+        obj['dimensions'] = 'ga:landingPagePath';
+        obj['metrics'] = 'ga:entrances,ga:bounces';
+        obj['sort'] = '-ga:entrances';
+        obj['max-results'] = 4;
+        obj['auth'] = oauth2Client;
+        analytics.data.ga.get(obj, function (errData, bodyData) {
+          if (errData) {
+            reject(console.log(errData));
+          }
+          //console.log(bodyData.rows);
+          var results = bodyData.rows;
+          var dataObj = {
+            analyticsStrongestRedirects: results,
+          };
+          resolve(dataObj);
+        });
+      });
+    });
+
+    Promise.all([promiseYoutube, promiseAnalytics, promiseAnalyticsMostVisited, promiseAnalyticsTopLanding]).then(function (values) {
+      console.log("Youtube views");
+      console.log(values[0]);
+      console.log("Analytics");
+      console.log(values[1]);
+      console.log("Analytics most visited pages");
+      console.log(values[2]);
+      console.log("Analytics top landing pages");
+      console.log(values[3]);
       var returnObj = {
         youtubeViews: values[0],
         analytics: values[1],
+        analyticsMostVisitedPages: values[2],
+        analyticsStrongestRedirects: values[3],
       };
       resolve(returnObj);
     });
