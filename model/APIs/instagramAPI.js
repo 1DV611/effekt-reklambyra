@@ -13,14 +13,12 @@ module.exports = function (profile) {
   var tokenObj = { access_token: profile.accessToken };
   var userId = profile.id.toString();
 
-  client.get('users/self', tokenObj).then(function (user) {
-    console.log(user);
-  });
+  return new Promise(function (resolve, reject) {
 
-  client.get('users/self/media/recent', tokenObj).then(function (user) {
-    console.log(totalLikesCount(user.data));
-    /**
-     * { data:
+    client.get('users/self/media/recent', tokenObj).then(function (user) {
+      resolve(totalLikesCount(user.data));
+      /**
+       * { data:
    { id: '279831127',
      username: 'mrwwwo',
      profile_picture: 'https://scontent.cdninstagram.com/t51.2885-19/11939502_451578088380268_1972812355_a.jpg',
@@ -29,13 +27,16 @@ module.exports = function (profile) {
      website: '',
      counts: { media: 122, follows: 70, followed_by: 61 } },
   meta: { code: 200 } }
-     { pagination: {},
-       data:
-        [array of media objects]
-          */
-
+       { pagination: {},
+         data:
+          [array of media objects]
+            */
+    });
   });
 
+  // client.get('users/self', tokenObj).then(function (user) {
+  //   console.log(user);
+  // });
 };
 
 

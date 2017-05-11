@@ -68,22 +68,41 @@ function handleProfile(sessionUserID, profile) {
 }
 
 function getUser(userID) {
-  
   return new Promise(function (resolve, reject) {
-    
     schema.user.findOne({ id: userID }).then(function (doc) {
       resolve(JSON.parse(doc));
     }).catch(function (error) {
       console.error(error);
       reject(error);
-    })
-    
-  })
-
+    });
+  });
 }
 
+function getAllUsers() {
+  return new Promise(function (resolve, reject) {
+    schema.user.find({}).then(function (docs) {
+      resolve(convertToUsersArray(docs));
+    }).catch(function (error) {
+      reject(error);
+    });
+  });
+}
+
+function saveAPI(data) {
+  console.log(data);
+}
+
+function convertToUsersArray(docs) {
+  var userObjects = [];
+  docs.forEach(function (doc) {
+    userObjects.push(doc._doc);
+  });
+  return userObjects;
+}
 
 exports.connect = connect;
 exports.handleLogin = handleLogin;
 exports.updateSocialChannelProfile = handleProfile;
 exports.getUser = getUser;
+exports.getAllUsers = getAllUsers;
+exports.saveAPI = saveAPI;

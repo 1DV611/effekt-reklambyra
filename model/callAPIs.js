@@ -6,37 +6,37 @@ var twitterAPI = require('./APIs/twitterAPI');
 var facebookAPI = require('./APIs/facebookAPI');
 
 // call all API's from user DB object credentials to get all data
-// call all API's to determine if access is Ok;
 
-//temporary to send each token onto the api
-var sendToApi = function (profile) {
-  console.log(profile);
-  switch (profile.provider) {
-    case 'google':
-      googleAPI(profile.accessToken);
-      break;
 
-    case 'instagram':
-      instagramAPI(profile);
-      break;
+/*
+takes a user object from the db and check which API's it has profiles saved for.
+Calls all API's using promises and finally resolves the array of data.
+ */
+var callAPIsFor = function (user) {
 
-    case 'linkedin':
-      linkedinAPI(profile.accessToken);
-      break;
+  return new Promise(function (resolve, reject) {
 
-    case 'twitter':
-      twitterAPI(profile);
-      break;
+    var promises = [];
 
-    case 'facebook':
-      facebookAPI(profile);
-      break;
-  }
+    if (user.twitter) promises.push(twitterAPI(user.twitter.username));
 
+    if (user.facebook) promises.push(facebookAPI(user.facebook.accessToken));
+
+    if (user.linkedin) promises.push(linkedinAPI(user.linkedin.accessToken));
+
+    if (user.google) promises.push(googleAPI(user.google.accessToken));
+
+    if (user.instagram) promises.push(instagramAPI(user.instagram.accessToken));
+
+    Promise.all(promises).then(function (apiData) {
+      resolve(apiData);
+
+    }).catch(function (error) {
+      reject(error)
+    })
+
+  });
 };
 
-function callAllAPIsFor(user) {
 
-}
-
-exports.callAllAPIsFor = callAllAPIsFor;
+exports.callAPIsFor = callAPIsFor;
