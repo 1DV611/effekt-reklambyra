@@ -119,13 +119,13 @@
 }
 
 #charts {
-    width: 30%;
+    width: 50%;
     margin-top: 50px;
     padding: 10px;
 }
 
 #stats{
-    width: 70%;
+    width: 40%;
     margin: 40px auto;
     padding: 20px;
 }

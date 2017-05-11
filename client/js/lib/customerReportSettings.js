@@ -166,6 +166,9 @@ function customerReportSettings(req, res, next) {
     },
   };
 
+  // Make the stats available for the report generator
+  req.app.locals.reportConfig = form;
+
   res.render('preview', { user: req.user, form: form });
 
 }

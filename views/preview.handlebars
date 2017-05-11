@@ -13,6 +13,9 @@
                     <textarea id="recommendationTextarea" class="form-control"></textarea>
                     <input type="input" id="recommendationButton" class="btn btn-default toTheRight" value="Spara" onclick="saveRecommendation()">
                 </div>
+                <form method="get" action="/user/pdf">
+                    <input class="btn btn-default" type="submit" value="Create PDF">
+                </form>
             {{/if}}
         </div>
         <br>

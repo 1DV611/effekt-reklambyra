@@ -5,6 +5,7 @@ var router = express.Router();
 
 var customerReportSettings = require('../client/js/lib/customerReportSettings.js');
 var resultsFromGoogleApi = require('../client/js/lib/resultsFromGoogleApi.js');
+var reportGenerator = require('../server/reportGenerator.js');
 
 /* GET user profile. */
 
@@ -33,6 +34,7 @@ router.get('/report/:month/:year', ensureLoggedIn, function (req, res, next) {
   // render 'report' with the data in the env. variable?
 
 });
+router.get('/pdf', ensureLoggedIn, reportGenerator);
 
 router.get('/dashboard', ensureLoggedIn, function (req, res, next) {
   /*

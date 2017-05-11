@@ -15,6 +15,6 @@
     "tests"
   ],
   "dependencies": {
-    "auth0-lock": "^10.15.1"
+    "auth0-lock": "^10.16.0"
   }
 }
