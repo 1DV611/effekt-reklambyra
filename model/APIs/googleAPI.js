@@ -79,7 +79,7 @@ module.exports = function (token) {
       });
     });
 
-    var promiseAnalyticsMostVisited = new Promise(function(resolve, reject) {
+    var promiseAnalyticsMostVisited = new Promise(function (resolve, reject) {
       var obj = {};
       obj['auth'] = oauth2Client;
       analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
@@ -109,7 +109,7 @@ module.exports = function (token) {
       });
     });
 
-    var promiseAnalyticsTopLanding = new Promise(function(resolve, reject) {
+    var promiseAnalyticsTopLanding = new Promise(function (resolve, reject) {
       var obj = {};
       obj['auth'] = oauth2Client;
       analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
@@ -148,11 +148,23 @@ module.exports = function (token) {
       console.log(values[2]);
       console.log("Analytics top landing pages");
       console.log(values[3]);
+
+
       var returnObj = {
-        youtubeViews: values[0],
-        analytics: values[1],
-        analyticsMostVisitedPages: values[2],
-        analyticsStrongestRedirects: values[3],
+
+        youtube: {
+          youtubeViews: values[0],
+        },
+
+        analytics: {
+          views: 42,
+          uniqueVies: 42,
+          strongestRedirects: 42,
+          mostVisitedPages: values[1],
+          averageTime: 42,
+          averageVisitedPerPages: values[2],
+        }
+
       };
       resolve(returnObj);
     });

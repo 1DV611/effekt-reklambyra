@@ -14,8 +14,14 @@ module.exports = function (token) {
       if (err) reject(err);
 
       console.log(connections);
+      var returnObj = {
+        linkedin: {
+          followers: 42,
+          interactions: 42,
+        }
+      };
 
-      resolve(42);
+      resolve(returnObj);
 
     });
   });

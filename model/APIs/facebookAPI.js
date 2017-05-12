@@ -5,7 +5,7 @@ var graph = require('fbgraph');
 // API reference
 //https://developers.facebook.com/docs/graph-api/reference/v2.2/user/likes
 module.exports = function (profile) {
-  var id = profile.id;
+  var id = profile.profile._json.id;
   var token = profile.accessToken;
 
   return new Promise(function (resolve, reject) {
@@ -18,7 +18,13 @@ module.exports = function (profile) {
     graph.get('/' + id + '/likes', function (err, res) {
       if (err) reject(err);
 
-      resolve(42);
+      //todo actual facebook data here..
+      var returnObj = {
+        facebook: {
+          likes: 42
+        }
+      };
+      resolve(returnObj);
       console.log(res);
     });
   });

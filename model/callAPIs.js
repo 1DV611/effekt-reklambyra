@@ -4,39 +4,57 @@ var instagramAPI = require('./APIs/instagramAPI');
 var linkedinAPI = require('./APIs/linkedinAPI');
 var twitterAPI = require('./APIs/twitterAPI');
 var facebookAPI = require('./APIs/facebookAPI');
+var accrossAPI = require('./APIs/33acrossAPI');
+var addThisAPI = require('./APIs/addThisAPI');
 
 // call all API's from user DB object credentials to get all data
-
 
 /*
 takes a user object from the db and check which API's it has profiles saved for.
 Calls all API's using promises and finally resolves the array of data.
  */
-var callAPIsFor = function (user) {
+
+var callAPIsWith = function (access) {
 
   return new Promise(function (resolve, reject) {
 
     var promises = [];
 
-    if (user.twitter) promises.push(twitterAPI(user.twitter));
+    if (access.twitter) promises.push(twitterAPI(access.twitter));
 
-    if (user.facebook) promises.push(facebookAPI(user.facebook));
+    if (access.facebook) promises.push(facebookAPI(access.facebook));
 
-    if (user.linkedin) promises.push(linkedinAPI(user.linkedin));
+    if (access.linkedin) promises.push(linkedinAPI(access.linkedin));
 
-    if (user.google) promises.push(googleAPI(user.google.accessToken));
+    if (access.google) promises.push(googleAPI(access.google.accessToken));
 
-    if (user.instagram) promises.push(instagramAPI(user.instagram));
+    if (access.instagram) promises.push(instagramAPI(access.instagram));
+
+    promises.push(accrossAPI());
+    promises.push(addThisAPI());
 
     Promise.all(promises).then(function (apiData) {
-      resolve(apiData);
+      resolve(APIResultsToObject(apiData));
 
     }).catch(function (error) {
-      reject(error)
-    })
-
+      reject(error);
+    });
   });
 };
 
+var APIResultsToObject = function (results) {
+  var obj = {};
 
-exports.callAPIsFor = callAPIsFor;
+  results.forEach(function (result) {
+
+    for (var property in result) {
+      if (result.hasOwnProperty(property)) {
+        obj[property] = result[property];
+      }
+    }
+  });
+
+  return obj;
+};
+
+exports.callAPIsWith = callAPIsWith;

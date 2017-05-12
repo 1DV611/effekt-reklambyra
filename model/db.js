@@ -125,10 +125,10 @@ function getUser(userID) {
   });
 }
 
-function getAllUsers() {
+function getAPIAccesses() {
   return new Promise(function (resolve, reject) {
-    User.find({}).then(function (docs) {
-      resolve(convertToUsersArray(docs));
+    ApiAccess.find({}).then(function (docs) {
+      resolve(convertToAPIArray(docs));
     }).catch(function (error) {
       reject(error);
     });
@@ -139,12 +139,13 @@ function saveAPI(data) {
   console.log(data);
 }
 
-function convertToUsersArray(docs) {
-  var userObjects = [];
+function convertToAPIArray(docs) {
+  var accessObjects = [];
   docs.forEach(function (doc) {
-    userObjects.push(doc._doc);
+    accessObjects.push(doc._doc);
   });
-  return userObjects;
+
+  return accessObjects;
 }
 
 function getDataFor(user, month, year) {
@@ -162,7 +163,7 @@ exports.connect = connect;
 exports.handleLogin = handleLogin;
 exports.updateSocialChannelProfile = updateSocialChannelProfile;
 exports.getUser = getUser;
-exports.getAllUsers = getAllUsers;
+exports.getAPIAccesses = getAPIAccesses;
 exports.saveAPI = saveAPI;
 exports.getDataFor = getDataFor;
 exports.createReport = createReport;

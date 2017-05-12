@@ -19,7 +19,13 @@ module.exports = function (profile) {
 
     client.get('users/show', { user_id: profile.id, screen_name: profile.username }, function(error, result, response) {
       if (error) reject(error);
-      resolve(result.followers_count);
+
+      var returnObj = {
+        twitter: {
+          followers: result.followers_count
+        }
+      };
+      resolve(returnObj);
     });
 
   });
