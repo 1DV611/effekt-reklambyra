@@ -19,8 +19,10 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var session = require('express-session');
 var exphbs = require('express-handlebars');
-var hbsHelpers = require('../views/helpers.js');
 var http = require('http');
+
+var hbsHelpers = require('../views/helpers.js');
+var ApiAccess = require('../model/schemas/ApiAccess');
 
 dotenv.load();
 
