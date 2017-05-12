@@ -9,14 +9,21 @@ var client = new Instagram({
   client_secret: process.env.INSTAGRAM_CLIENT_SECRET,
 });
 
-module.exports = function (profile) {
-  var tokenObj = { access_token: profile.accessToken };
-  var userId = profile.id.toString();
+module.exports = function (access) {
+  var tokenObj = {access_token: access.accessToken};
+  var userId = access.extraParams.user.id.toString();
 
   return new Promise(function (resolve, reject) {
 
     client.get('users/self/media/recent', tokenObj).then(function (user) {
-      resolve(totalLikesCount(user.data));
+
+      var returnObj = {
+        instagram: {
+          totalLikes: totalLikesCount(user.data)
+        }
+      };
+
+      resolve(returnObj);
       /**
        * { data:
    { id: '279831127',

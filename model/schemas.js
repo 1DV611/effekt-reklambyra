@@ -80,7 +80,7 @@ var dataSchema = new mongoose.Schema({
 
   moz: {
     keywords: Array,
-  }
+  },
 });
 
 
