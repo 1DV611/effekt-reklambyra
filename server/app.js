@@ -22,7 +22,6 @@ var exphbs = require('express-handlebars');
 var http = require('http');
 
 var hbsHelpers = require('../views/helpers.js');
-var ApiAccess = require('../model/schemas/ApiAccess');
 
 dotenv.load();
 

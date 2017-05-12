@@ -1,11 +1,14 @@
 'use strict';
 var mongoose = require('mongoose');
+var moment = require('moment-timezone');
 mongoose.Promise = global.Promise;
 var schema = require('./schemas');
 var db;
 
 var User = require('./schemas/User');
 var ApiAccess = require('./schemas/ApiAccess');
+var Report = require('./schemas/Report');
+var ApiData = require('./schemas/ApiData');
 
 function connect(credential) {
 
@@ -25,12 +28,27 @@ function connect(credential) {
   });
 }
 
+function createReport(userProfileId, year, month) {
+
+  function getLastDayOfMonth() {
+    var lastDay = new Date(year, month + 1, 0);
+    return lastDay.getDate();
+  }
+
+  var newReport = new Report({
+    user: userProfileId,
+    startDate: new Date(year, month, 1, 0, 0, 0, 1),
+    endDate: new Date(year, month, getLastDayOfMonth(), 23, 59, 59, 999)
+  });
+
+  newReport.save();
+  console.log('Report created!');
+};
+
 function handleLogin(profile) {
 
   // called with auth0 callback, either creates the user or sends the matching credentials onwards.
   User.findOne({ profileId: profile.id }).then(function (matchingUser) {
-
-      console.log(profile);
 
     if (matchingUser === null) {
 
@@ -44,16 +62,15 @@ function handleLogin(profile) {
 
       newUser.save();
 
-          var newApiAccess = new ApiAccess({
-            user: newUser.profileId,
-            authentication: {}
-          });
+      var newApiAccess = new ApiAccess({
+        user: newUser.profileId,
+        authentication: {}
+      });
 
-          newApiAccess.save();
+      newApiAccess.save();
 
     } else {
       console.log('user exists in db');
-
     }
 
   }).catch(function (error) {
@@ -62,6 +79,7 @@ function handleLogin(profile) {
 
   })
 }
+
 
 function updateSocialChannelProfile(sessionUserID, profile) {
 
@@ -77,18 +95,22 @@ function updateSocialChannelProfile(sessionUserID, profile) {
     }
   };
 
-  ApiAccess.findOneAndUpdate({ user: sessionUserID }, { '$set': { 'updated':  Date.now() },  '$set': { [profile.provider]: queryObj }}, function (err, matchingUser) {
+  ApiAccess.findOneAndUpdate(
+    { user: sessionUserID },
+    { 'updated':  Date.now(), [profile.provider]: queryObj },
+    { new: true },
+    function (err, matchingApiAccess) {
+      if (err) console.error(err);
 
-    if (err) console.error(err);
+      if (matchingApiAccess === null) console.error('no user to save token to'); // todo how to handle this?
 
-    if (matchingUser === null) console.error('no user to save token to'); // todo how to handle this?
+      if (matchingApiAccess) {
+          console.log(matchingApiAccess);
 
-    if (matchingUser) {
-      console.log(matchingUser);
-    }
-
-  });
-
+        //Test - skapar rapport 2016-02
+        //createReport(matchingApiAccess.user, 2016, 1);
+      }
+    });
 }
 
 //Lars
@@ -143,3 +165,4 @@ exports.getUser = getUser;
 exports.getAllUsers = getAllUsers;
 exports.saveAPI = saveAPI;
 exports.getDataFor = getDataFor;
+exports.createReport = createReport;
