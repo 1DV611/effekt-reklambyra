@@ -39,7 +39,8 @@ function htmlPdf(html, res) {
 
 function phantomHtmlToPdf(html, res) {
   var pdf2 = require('phantom-html-to-pdf')();
-  pdf2({html: html}, function(err, f) {
+  var head = "<head><meta charset='utf-8' /></head>";
+  pdf2({html: head+html}, function(err, f) {
     f.stream.pipe(res);
   });
 }
