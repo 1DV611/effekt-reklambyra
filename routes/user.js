@@ -16,8 +16,8 @@ router.get('/', ensureLoggedIn, function (req, res, next) {
 
 router.get('/dashboard', ensureLoggedIn, function (req, res, next) {
   /*
-    Skicka objekt med information från Auth0 om vilka sociala medier som är aktiverade för användaren
-  */
+   Skicka objekt med information från Auth0 om vilka sociala medier som är aktiverade för användaren
+   */
   res.render('dashboard', { user: req.user });
 });
 
@@ -34,17 +34,18 @@ router.get('/report/:month/:year', ensureLoggedIn, function (req, res, next) {
    * So if a logged in user goes to localhost:3000/preview/january/2017 , then the database would be
    * queried for reports belonging to that user matching that date.
    */
-  db.getDataFor(req.user.authZeroUserID, req.params.month, req.params.year).then(function (dataForUser) {
-    res.render('preview', { user: req.user, form: dataForUser });
-  });
+  db.getDataFor(req.user.authZeroUserID, req.params.month, req.params.year)
+    .then(function (dataForUser) {
+      res.render('preview', { user: req.user, form: dataForUser });
+    });
 });
 
 router.get('/pdf', ensureLoggedIn, reportGenerator);
 
 router.get('/dashboard', ensureLoggedIn, function (req, res, next) {
   /*
-    Skicka objekt med information från Auth0 om vilka sociala medier som är aktiverade för användaren
-  */
+   Skicka objekt med information från Auth0 om vilka sociala medier som är aktiverade för användaren
+   */
   res.render('dashboard', { user: req.user });
 });
 

@@ -19,14 +19,15 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var session = require('express-session');
 var exphbs = require('express-handlebars');
-var http = require('http');
+
+var connectToDatabase = require('./databaseOperations/connectToDatabase');
+var handleLogin = require('./databaseOperations/User/read');
 
 var hbsHelpers = require('../views/helpers.js');
 
 dotenv.load();
 
-var db = require('../model/db');
-db.connect(process.env.MLAB_CREDENTIAL_STRING);
+connectToDatabase(process.env.MLAB_CREDENTIAL_STRING);
 
 // Routes
 var routes = require('../routes/start');
@@ -47,10 +48,12 @@ var socialChannelCallback = function (accessToken, refreshToken, extraParams, pr
 };
 
 var userLoginCallback = function (accessToken, refreshToken, extraParams, profile, done) {
-  // sets the profile to true/false depending if the user logging in has been assigned the admin role in auth0 or not;
+  /* sets the profile to true/false depending if the user logging in has
+  been assigned the admin role in auth0 or not;
+  */
   profile.admin = profile._json.app_metadata.authorization.roles['0'] === 'admin';
   profile.id = profile.identities['0'].user_id;
-  db.handleLogin(profile);
+  handleLogin(profile);
   return done(null, profile);
 };
 
@@ -58,40 +61,42 @@ passport.use(new Auth0Strategy({
   domain: process.env.AUTH0_DOMAIN,
   clientID: process.env.AUTH0_CLIENT_ID,
   clientSecret: process.env.AUTH0_CLIENT_SECRET,
-  callbackURL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback',
+  callbackURL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback'
 }, userLoginCallback));
 
 passport.use(new GoogleOauthStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: process.env.BASE_URL + '/auth/google/callback',
+  callbackURL: process.env.BASE_URL + '/auth/google/callback'
 }, socialChannelCallback));
 
 passport.use(new InstagramStrategy({
   clientID: process.env.INSTAGRAM_CLIENT_ID,
   clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
-  callbackURL: process.env.BASE_URL + '/auth/instagram/callback',
+  callbackURL: process.env.BASE_URL + '/auth/instagram/callback'
 }, socialChannelCallback));
 
-// the consumerKey is actually called CLIENT ID in linkedins api console and the consumerSecret CLIENT SECRET.
-// there is no actual linkedin API key, the linkedin passport strategy is a bit dated and uses oauth 1.0.
-// https://github.com/jaredhanson/passport-linkedin
+/* the consumerKey is actually called CLIENT ID in linkedins api console
+and the consumerSecret CLIENT SECRET. there is no actual linkedin API key,
+the linkedin passport strategy is a bit dated and uses oauth 1.0.
+https://github.com/jaredhanson/passport-linkedin
+*/
 passport.use(new LinkedinStrategy({
   consumerKey: process.env.LINKEDIN_CLIENT_ID,
   consumerSecret: process.env.LINKEDIN_CLIENT_SECRET,
-  callbackURL: process.env.BASE_URL + '/auth/linkedin/callback',
+  callbackURL: process.env.BASE_URL + '/auth/linkedin/callback'
 }, socialChannelCallback));
 
 passport.use(new TwitterStrategy({
   consumerKey: process.env.TWITTER_CONSUMER_KEY,
   consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-  callbackURL: process.env.BASE_URL + '/auth/twitter/callback',
+  callbackURL: process.env.BASE_URL + '/auth/twitter/callback'
 }, socialChannelCallback));
 
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: process.env.BASE_URL + '/auth/facebook/callback',
+  callbackURL: process.env.BASE_URL + '/auth/facebook/callback'
 }, socialChannelCallback));
 
 // minskar storleken på payload
@@ -111,7 +116,7 @@ app.use(logger('combined'));
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: true,
-  saveUninitialized: true,
+  saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
