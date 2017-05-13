@@ -44,7 +44,7 @@ function phantomHtmlToPdf(html, res) {
       orientation: 'landscape'
     }
   };
-  pdf2(config, function(err, f) {
+  pdf2(config, function(err, f) { //  TODO:  TypeError: Cannot read property 'stream' of undefined
     f.stream.pipe(res);
   });
 }

@@ -5,9 +5,8 @@ var router = express.Router();
 
 var customerReportSettings = require('../client/js/lib/customerReportSettings.js');
 var resultsFromGoogleApi = require('../client/js/lib/resultsFromGoogleApi.js');
-var createReport = require('./../server/databaseOperations/Report/create');
+var getReportByMonthAndYear = require('./../server/databaseOperations/Report/getReportByMonthAndYear');
 var reportGenerator = require('../server/reportGenerator.js');
-var db = require('../model/db');
 
 /* GET user profile. */
 
@@ -35,7 +34,7 @@ router.get('/report/:month/:year', ensureLoggedIn, function (req, res, next) {
    * So if a logged in user goes to localhost:3000/preview/january/2017 , then the database would be
    * queried for reports belonging to that user matching that date.
    */
-  db.getDataFor(req.user.authZeroUserID, req.params.month, req.params.year)
+  getReportByMonthAndYear(req.user.authZeroUserID, req.params.month, req.params.year)
     .then(function (dataForUser) {
       res.render('preview', { user: req.user, form: dataForUser });
     });

@@ -21,7 +21,7 @@ var session = require('express-session');
 var exphbs = require('express-handlebars');
 
 var connectToDatabase = require('./databaseOperations/connectToDatabase');
-var handleLogin = require('./databaseOperations/User/read');
+var handleLogin = require('./databaseOperations/User/handleLogin');
 
 var hbsHelpers = require('../views/helpers.js');
 
