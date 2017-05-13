@@ -1,16 +1,13 @@
 var Report = require('./../../../model/schemas/Report');
-var newReport;
 
-function createReport(userProfileId, year, month) {
-
-  newReport = new Report({
-    user: userProfileId,
-    startDate: new Date(year, month, 1, 0, 0, 0, 1),
-    endDate: new Date(year, month, getLastDayOfMonth(year, month), 23, 59, 59, 999)
+function deleteReport(reportId) {
+  Report.remove({ _id: reportId },
+  function (err, report) {
+    if (err) console.error(err);
+    if (report) console.log(report);
   });
 
-  newReport.save();
-  console.log('Report created!');
-};
+  console.log('Report deleted!');
+}
 
-exports.createReport = createReport;
+exports.deleteReport = deleteReport;

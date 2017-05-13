@@ -5,6 +5,7 @@ var router = express.Router();
 
 var customerReportSettings = require('../client/js/lib/customerReportSettings.js');
 var resultsFromGoogleApi = require('../client/js/lib/resultsFromGoogleApi.js');
+var createReport = require('./../server/databaseOperations/Report/create');
 var reportGenerator = require('../server/reportGenerator.js');
 var db = require('../model/db');
 

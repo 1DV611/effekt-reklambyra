@@ -3,4 +3,4 @@ function getLastDayOfMonth(year, month) {
   return lastDay.getDate();
 }
 
-exports.createReport = getLastDayOfMonth;
+module.exports = getLastDayOfMonth;

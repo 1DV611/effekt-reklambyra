@@ -25,13 +25,7 @@ database when authorizing against facebook/google/etc.
       if (err) console.error(err);
 
       if (matchingApiAccess === null) console.error('no user to save token to'); // todo how to handle this?
-
-      if (matchingApiAccess) {
-        console.log(matchingApiAccess);
-
-        //  Test - skapar rapport 2016-02
-        //  createReport(matchingApiAccess.user, 2016, 1);
-      }
+      if (matchingApiAccess) console.log(matchingApiAccess);
     });
 }
 

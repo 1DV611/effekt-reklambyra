@@ -2,7 +2,7 @@ var getLastDayOfMonth = require('./../../helpers/getLastDayOfMonth');
 var Report = require('./../../../model/schemas/Report');
 var newReport;
 
-function createReport(userProfileId, year, month) {
+function createReport(userProfileId, month, year) {
 
   newReport = new Report({
     user: userProfileId,
@@ -12,6 +12,7 @@ function createReport(userProfileId, year, month) {
 
   newReport.save();
   console.log('Report created!');
-};
+  return newReport;
+}
 
 module.exports = createReport;

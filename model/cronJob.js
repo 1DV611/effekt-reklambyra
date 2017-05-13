@@ -9,21 +9,22 @@ var db = require('./db');
 
 module.exports = function () {
 
-  db.getAPIAccesses().then(function (APIAccesses) {
-    console.log(APIAccesses);
-    APIAccesses.forEach(function (APIAccess) {
-      updateEach(APIAccess);
-    });
-  }).catch(function (error) {
-    console.error(error);
-  });
-
-  var updateEach = function (APIAccess) {
-
-    APIs.callAPIsWith(APIAccess).then(function (apiData) {
-      db.saveAPI(apiData);
+  db.getAPIAccesses()
+    .then(function (APIAccesses) {
+      console.log(APIAccesses);
+      APIAccesses.forEach(function (APIAccess) {
+        updateEach(APIAccess);
+      });
     }).catch(function (error) {
       console.error(error);
     });
+
+  var updateEach = function (APIAccess) {
+    APIs.callAPIsWith(APIAccess)
+      .then(function (apiData) {
+        db.saveAPI(apiData);
+      }).catch(function (error) {
+        console.error(error);
+      });
   };
 }
