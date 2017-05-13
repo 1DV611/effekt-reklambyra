@@ -3,12 +3,11 @@ var handlebars = require('handlebars');
 var inline = require('inline-source');
 var path = require('path');
 
-
-//var streamPdf = htmlPdf;
+//  var streamPdf = htmlPdf;
 var streamPdf = phantomHtmlToPdf;
 
 function reportGenerator(req, res, next) {
-  var context = {form : req.app.locals.reportConfig };
+  var context = { form: req.app.locals.reportConfig };
   fs.readFile('./views/preview.handlebars', 'utf-8', function (err, data) {
     var template = handlebars.compile(data);
     var html = template(context);
@@ -45,7 +44,7 @@ function phantomHtmlToPdf(html, res) {
       orientation: 'landscape'
     }
   };
-  pdf2(config, function(err, f) {
+  pdf2(config, function(err, f) { //  TODO:  TypeError: Cannot read property 'stream' of undefined
     f.stream.pipe(res);
   });
 }

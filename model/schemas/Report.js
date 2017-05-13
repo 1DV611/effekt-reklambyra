@@ -3,7 +3,10 @@ var Schema = mongoose.Schema;
 var Report;
 
 const ReportSchema = new Schema({
-  timestamp: { type: Date, required: true, default: Date.now },
+  timestamp: {
+    type: Date,
+    required: true,
+    default: Date.now },
   updated: { type: Date },
   user: {
     type: Schema.Types.String,
@@ -16,15 +19,9 @@ const ReportSchema = new Schema({
   endDate: {
     type: Date,
     required: [true, 'A end date is required!'] },
-  summary: {
-    type: String
-  },
-  optimization: {
-    type: String
-  },
-  recommendation: {
-    type: String
-  }
+  summary: { type: String },
+  optimization: { type: String },
+  recommendation: { type: String }
 });
 
 Report = mongoose.model('Report', ReportSchema);
