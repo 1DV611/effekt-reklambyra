@@ -8,9 +8,6 @@ function getReportByMonthAnYear(profileId, month, year) {
       console.log(profileId + ' ' + month + ' ' + year);
       if (err) console.error(err);
       if (report) console.log(report);
-
-      //  ApiData
-
     });
   console.log('Report found!');
 }

@@ -5,6 +5,7 @@ var router = express.Router();
 
 var customerReportSettings = require('../client/js/lib/customerReportSettings.js');
 var resultsFromGoogleApi = require('../client/js/lib/resultsFromGoogleApi.js');
+var getDataFor = require('./../server/databaseOperations/ApiData/getDataFor');
 var getReportByMonthAndYear = require('./../server/databaseOperations/Report/getReportByMonthAndYear');
 var reportGenerator = require('../server/reportGenerator.js');
 
@@ -25,18 +26,23 @@ router.get('/reports', ensureLoggedIn, function (req, res, next) {
   res.render('reports', { user: req.user });
 });
 
-router.get('/report/:id', ensureLoggedIn, function (req, res, next) {
+router.post('/reports', ensureLoggedIn, function (req, res, next) {
+  var a = getDataFor(req.user.id, req.body.month, req.body.year);
+  res.render('reports', { user: req.user, report: a });
+});
+
+router.get('/reports/:id', ensureLoggedIn, function (req, res, next) {
   res.render('report', { user: req.user });
 });
 
-router.get('/report/:month/:year', ensureLoggedIn, function (req, res, next) {
+router.get('/reports/:month/:year', ensureLoggedIn, function (req, res, next) {
   /**
    * So if a logged in user goes to localhost:3000/preview/january/2017 , then the database would be
    * queried for reports belonging to that user matching that date.
    */
-  getReportByMonthAndYear(req.user.authZeroUserID, req.params.month, req.params.year)
+  getReportByMonthAndYear(req.user.authZeroUserID, req.body.month, req.body.year)
     .then(function (dataForUser) {
-      res.render('preview', { user: req.user, form: dataForUser });
+      res.render('preview', { user: req.user, data: dataForUser });
     });
 });
 
