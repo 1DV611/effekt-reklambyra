@@ -7,15 +7,26 @@ var months = ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
 
 function customerReportSettings(req, res, next) {
 
-  var monthBeforePrevious = ((req.body.month + 10) % 12);
-  var previousMonth = ((req.body.month + 11) % 12);
+  var monthBeforePreviousMonth;
+  var previousMonth;
+  var month = req.body.month;
+  if (month === "0") {
+    previousMonth = 11;
+    monthBeforePreviousMonth = 10;
+  } else if (month === "1") {
+    previousMonth = 0;
+    monthBeforePreviousMonth = 11;
+  } else {
+    previousMonth = (month - 1);
+    monthBeforePreviousMonth = (month - 2);
+  }
 
   var form = {
 
     customer: req.body.customer || 'Customer',
-    month: months[req.body.month],
+    month: months[month],
     year: req.body.year,
-    interval: [months[monthBeforePrevious], months[previousMonth], months[req.body.month]],
+    interval: [months[monthBeforePreviousMonth], months[previousMonth], months[month]],
     visitorsInTotalLastThreeMonths: [1000, 2000, 3000],
     adwords: {
       title: 'AdWords',
