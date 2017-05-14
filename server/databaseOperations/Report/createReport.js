@@ -3,7 +3,6 @@ var Report = require('./../../../model/schemas/Report');
 var newReport;
 
 function createReport(userProfileId, month, year) {
-
   newReport = new Report({
     user: userProfileId,
     startDate: new Date(year, month, 1, 0, 0, 0, 1),
@@ -12,6 +11,7 @@ function createReport(userProfileId, month, year) {
 
   newReport.save();
   console.log('Report created!');
+  console.log('Report id: ' + newReport._id);
   return newReport;
 }
 
