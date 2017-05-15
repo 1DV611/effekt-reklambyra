@@ -22,7 +22,58 @@ var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
 // you need to get the access_token from auth0IdpAccessToken.js
 
-module.exports = function (token) {
+var dataFromAPIObj = {
+  youtube: {
+    views: '',
+  },
+  analytics: {
+    views: '',
+    uniqueViews: '',
+    strongestRedirects: '',
+    mostVisitedPages: '',
+    averageTime: '',
+    averageVisitedPerPages: '',
+    viewsPreviousMonth: '',
+    viewsPreviousMonth2: '',
+  },
+};
+
+module.exports = function (token, year, month1, previousMonth1, monthBeforePreviousMonth1) {
+  var month = Number(month1) + 1;
+  var nextMonth = Number(month1) + 2;
+  var previousMonth = Number(previousMonth1) + 1;
+  var monthBeforePreviousMonth = Number(monthBeforePreviousMonth1) + 1;
+  var nextMonthYear = Number(year);
+  var previousMonthYear = Number(year);
+  var monthBeforePreviousMonthYear = Number(year);
+  if (month >= 12) {
+    nextMonthYear += 1;
+    nextMonth = 1;
+  } else if (month <= 1) {
+    previousMonthYear -= 1;
+    monthBeforePreviousMonthYear -= 1;
+  } else if (month <= 2) {
+    monthBeforePreviousMonthYear -= 1;
+  }
+  if (month < 10) {
+    month = '0' + month;
+  }
+  if (nextMonth < 10) {
+    nextMonth = '0' + nextMonth;
+  }
+  if (previousMonth < 10) {
+    previousMonth = '0' + previousMonth;
+  }
+  if (monthBeforePreviousMonth < 10) {
+    monthBeforePreviousMonth = '0' + monthBeforePreviousMonth;
+  }
+  let endDate = '' + nextMonthYear + '-' + nextMonth + '-01';
+  let startDate = '' + year + '-' + month + '-01';
+  let endDatePrevious = startDate;
+  let startDatePrevious = '' + previousMonthYear + '-' + previousMonth + '-01';
+  let endDatePrevious2 = startDatePrevious;
+  let startDatePrevious2 = '' + monthBeforePreviousMonthYear + '-' + monthBeforePreviousMonth + '-01';
+
   return new Promise(function (resolve, reject) {
     oauth2Client.setCredentials({
       access_token: token,
@@ -31,8 +82,8 @@ module.exports = function (token) {
     var promiseYoutube = new Promise(function (resolve, reject) {
       var obj = {};
       // using bracket notation since google requires dashes in some of their required params
-      obj['end-date'] = '2017-05-01';
-      obj['start-date'] = '2001-01-01';
+      obj['end-date'] = endDate;
+      obj['start-date'] = startDate;
       obj['ids'] = 'channel==MINE';
       obj['metrics'] = 'views';
       obj['auth'] = oauth2Client;
@@ -41,8 +92,8 @@ module.exports = function (token) {
         if (err) {
           reject(console.log(err));
         }
-
         //console.log(body.rows[0][0]);
+        dataFromAPIObj.youtube.views = body.rows[0][0];
         resolve(body.rows[0][0]);
       });
     });
@@ -55,8 +106,8 @@ module.exports = function (token) {
           reject(console.log(err));
         }
 
-        obj['end-date'] = '2017-05-01';
-        obj['start-date'] = '2005-01-01';
+        obj['end-date'] = endDate;
+        obj['start-date'] = startDate;
         obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id;
         obj['metrics'] = 'ga:pageviews,ga:uniquePageviews,ga:avgTimeOnPage,ga:avgSessionDuration,ga:pageViewsPerSession';
         obj['auth'] = oauth2Client;
@@ -66,15 +117,11 @@ module.exports = function (token) {
           }
           //console.log(bodyData);
           var results = bodyData.totalsForAllResults;
-          var dataObj = {
-            analyticsViews: results['ga:pageviews'],
-            analyticsUniqueViews: results['ga:uniquePageviews'],
-            analyticsStrongestRedirects: '',
-            analyticsMostVisitedPages: '',
-            analyticsAverageTime: results['ga:avgSessionDuration'],
-            analyticsAverageVisitedPerPages: results['ga:pageViewsPerSession'],
-          };
-          resolve(dataObj);
+          dataFromAPIObj.analytics.views = results['ga:pageviews'];
+          dataFromAPIObj.analytics.uniqueViews = results['ga:uniquePageviews'];
+          dataFromAPIObj.analytics.averageTime = Math.round(results['ga:avgSessionDuration'] * 10) / 10;
+          dataFromAPIObj.analytics.averageVisitedPerPages = Math.round(results['ga:pageViewsPerSession'] * 10) / 10;
+          resolve(dataFromAPIObj.analytics);
         });
       });
     });
@@ -87,8 +134,8 @@ module.exports = function (token) {
           reject(console.log(err));
         }
 
-        obj['end-date'] = '2017-05-01';
-        obj['start-date'] = '2005-01-01';
+        obj['end-date'] = endDate;
+        obj['start-date'] = startDate;
         obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id;
         obj['dimensions'] = 'ga:pageTitle,ga:pagePath';
         obj['metrics'] = 'ga:pageviews';
@@ -101,10 +148,8 @@ module.exports = function (token) {
           }
           //console.log(bodyData.rows);
           var results = bodyData.rows;
-          var dataObj = {
-            analyticsMostVisitedPages: results,
-          };
-          resolve(dataObj);
+          dataFromAPIObj.analytics.mostVisitedPages = results;
+          resolve(results);
         });
       });
     });
@@ -117,8 +162,8 @@ module.exports = function (token) {
           reject(console.log(err));
         }
 
-        obj['end-date'] = '2017-05-01';
-        obj['start-date'] = '2005-01-01';
+        obj['end-date'] = endDate;
+        obj['start-date'] = startDate;
         obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id;
         obj['dimensions'] = 'ga:landingPagePath';
         obj['metrics'] = 'ga:entrances,ga:bounces';
@@ -131,42 +176,65 @@ module.exports = function (token) {
           }
           //console.log(bodyData.rows);
           var results = bodyData.rows;
-          var dataObj = {
-            analyticsStrongestRedirects: results,
-          };
-          resolve(dataObj);
+          dataFromAPIObj.analytics.strongestRedirects = results;
+          resolve(results);
         });
       });
     });
 
-    Promise.all([promiseYoutube, promiseAnalytics, promiseAnalyticsMostVisited, promiseAnalyticsTopLanding]).then(function (values) {
-      console.log("Youtube views");
-      console.log(values[0]);
-      console.log("Analytics");
-      console.log(values[1]);
-      console.log("Analytics most visited pages");
-      console.log(values[2]);
-      console.log("Analytics top landing pages");
-      console.log(values[3]);
-
-
-      var returnObj = {
-
-        youtube: {
-          youtubeViews: values[0],
-        },
-
-        analytics: {
-          views: 42,
-          uniqueVies: 42,
-          strongestRedirects: 42,
-          mostVisitedPages: values[1],
-          averageTime: 42,
-          averageVisitedPerPages: values[2],
+    var analyticsViewsPreviousMonth = new Promise(function (resolve, reject) {
+      var obj = {};
+      obj['auth'] = oauth2Client;
+      analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
+        if (err) {
+          reject(console.log(err));
         }
 
-      };
-      resolve(returnObj);
+        obj['end-date'] = endDatePrevious;
+        obj['start-date'] = startDatePrevious;
+        obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id;
+        obj['metrics'] = 'ga:pageviews,ga:uniquePageviews';
+        obj['auth'] = oauth2Client;
+        analytics.data.ga.get(obj, function (errData, bodyData) {
+          if (errData) {
+            reject(console.log(errData));
+          }
+          //console.log(bodyData);
+          var results = bodyData.totalsForAllResults;
+          dataFromAPIObj.analytics.viewsPreviousMonth = results['ga:pageviews'];
+          resolve(dataFromAPIObj.analytics);
+        });
+      });
+    });
+    var analyticsViewsPreviousMonth2 = new Promise(function (resolve, reject) {
+      var obj = {};
+      obj['auth'] = oauth2Client;
+      analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
+        if (err) {
+          reject(console.log(err));
+        }
+
+        obj['end-date'] = endDatePrevious2;
+        obj['start-date'] = startDatePrevious2;
+        obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id;
+        obj['metrics'] = 'ga:pageviews,ga:uniquePageviews';
+        obj['auth'] = oauth2Client;
+        analytics.data.ga.get(obj, function (errData, bodyData) {
+          if (errData) {
+            reject(console.log(errData));
+          }
+          //console.log(bodyData);
+          var results = bodyData.totalsForAllResults;
+          dataFromAPIObj.analytics.viewsPreviousMonth2 = results['ga:pageviews'];
+          resolve(dataFromAPIObj.analytics);
+        });
+      });
+    });
+
+    Promise.all([promiseYoutube, promiseAnalytics, promiseAnalyticsMostVisited,
+      promiseAnalyticsTopLanding, analyticsViewsPreviousMonth, analyticsViewsPreviousMonth2]).then(function (values) {
+      console.log(dataFromAPIObj);
+      resolve(dataFromAPIObj);
     });
 
   }).catch(function (error) {

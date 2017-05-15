@@ -181,8 +181,15 @@ function customerReportSettings(req, res, next) {
   // Make the stats available for the report generator
   req.app.locals.reportConfig = form;
 
-  res.render('preview', { user: req.user, form: form });
 
+  //Temporary code to link googleAPI data to the client
+  let googlePromise = googleAPI(req.user.accessToken, req.body.year, req.body.month, previousMonth, monthBeforePreviousMonth);
+  Promise.all([googlePromise]).then(function (apiData) {
+    console.log('hej');
+    console.log(apiData[0]);
+    addGoogleResultsToFormObject(form, apiData[0]);
+    res.render('preview', { user: req.user, form: form });
+  });
 }
 
 module.exports = customerReportSettings;
