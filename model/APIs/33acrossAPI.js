@@ -25,8 +25,8 @@ module.exports = function () {
 
     request(queryString, function (err, res, body) {
       if (err) {
-        reject(err);
-        console.log(err);
+        //reject(err);
+        console.log('33accross api error: ', err);
       }
 
       var obj = JSON.parse(body);

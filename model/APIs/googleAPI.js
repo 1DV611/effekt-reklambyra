@@ -39,7 +39,7 @@ module.exports = function (token) {
       // The api explorer is very useful: https://developers.google.com/apis-explorer
       youtubeAnalytics.reports.query(obj, function (err, body) {
         if (err) {
-          reject(console.log(err));
+          console.error('youtube error: ', err);
         }
 
         //console.log(body.rows[0][0]);
@@ -52,7 +52,7 @@ module.exports = function (token) {
       obj['auth'] = oauth2Client;
       analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
         if (err) {
-          reject(console.log(err));
+          console.error('analytics error', err);
         }
 
         obj['end-date'] = '2017-05-01';
@@ -84,7 +84,7 @@ module.exports = function (token) {
       obj['auth'] = oauth2Client;
       analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
         if (err) {
-          reject(console.log(err));
+          console.error('analytics most viewed error: ', err);
         }
 
         obj['end-date'] = '2017-05-01';
@@ -114,7 +114,7 @@ module.exports = function (token) {
       obj['auth'] = oauth2Client;
       analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
         if (err) {
-          reject(console.log(err));
+          console.error('analytics top landing error: ', err);
         }
 
         obj['end-date'] = '2017-05-01';
@@ -170,7 +170,7 @@ module.exports = function (token) {
     });
 
   }).catch(function (error) {
-    console.error(error);
+    console.error('google api error: ', error);
     reject(error);
   });
 };

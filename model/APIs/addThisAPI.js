@@ -25,8 +25,7 @@ module.exports = function () {
     var queryString = apiUrl + metric + dimension + format + andPeriod + period + andPubID + pubID;
     request(queryString, function (err, res, body) {
       if (err) {
-        reject(err);
-        console.log(err);
+        console.error('addthis api error: ', err);
       } else {
 
         var returnObj = {
