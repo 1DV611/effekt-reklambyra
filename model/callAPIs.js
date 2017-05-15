@@ -30,10 +30,12 @@ var callAPIsWith = function (access) {
 
     if (access.instagram) promises.push(instagramAPI(access.instagram));
 
-    promises.push(accrossAPI());
-    promises.push(addThisAPI());
+    if (access.tynt) promises.push(accrossAPI(access.tynt));
+
+    if (access.addthis) promises.push(addThisAPI(access.addthis));
 
     Promise.all(promises).then(function (apiData) {
+      console.log(apiData);
       resolve(APIResultsToObject(apiData));
 
     }).catch(function (error) {
