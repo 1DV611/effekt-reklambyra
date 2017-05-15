@@ -28,6 +28,7 @@ module.exports = function () {
         reject(err);
         console.log(err);
       } else {
+
         var returnObj = {
           addThis: {
             clicks: 42

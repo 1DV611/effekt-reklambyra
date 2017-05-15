@@ -167,8 +167,5 @@ app.use(function (err, req, res, next) {
 });
 
 //todo uncomment to try running the cron job
-// var cronJob = require('../model/cronJob');
-// cronJob();
-
 
 module.exports = app;

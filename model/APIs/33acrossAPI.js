@@ -37,14 +37,14 @@ module.exports = function () {
         totalCopiedContent += obj[i].total;
       }
 
+      console.log(totalCopiedContent);
       var returnObj = {
         accross: {
-          totalCopiedContent: totalCopiedContent,
+          totalCopiedContent: 42,
         }
       };
 
       resolve(returnObj);
-      console.log(totalCopiedContent);
     });
 
   });
