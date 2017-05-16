@@ -23,6 +23,7 @@ var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 // you need to get the access_token from auth0IdpAccessToken.js
 
 module.exports = function (token) {
+  console.log(token);
   return new Promise(function (resolve, reject) {
     oauth2Client.setCredentials({
       access_token: token,
@@ -39,10 +40,10 @@ module.exports = function (token) {
       // The api explorer is very useful: https://developers.google.com/apis-explorer
       youtubeAnalytics.reports.query(obj, function (err, body) {
         if (err) {
-          reject(console.log(err));
+          console.error('youtube error: ', err);
         }
 
-        //console.log(body.rows[0][0]);
+        //  console.log(body.rows[0][0]);
         resolve(body.rows[0][0]);
       });
     });
@@ -52,7 +53,7 @@ module.exports = function (token) {
       obj['auth'] = oauth2Client;
       analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
         if (err) {
-          reject(console.log(err));
+          console.error('analytics error', err);
         }
 
         obj['end-date'] = '2017-05-01';
@@ -84,7 +85,7 @@ module.exports = function (token) {
       obj['auth'] = oauth2Client;
       analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
         if (err) {
-          reject(console.log(err));
+          console.error('analytics most viewed error: ', err);
         }
 
         obj['end-date'] = '2017-05-01';
@@ -114,7 +115,7 @@ module.exports = function (token) {
       obj['auth'] = oauth2Client;
       analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
         if (err) {
-          reject(console.log(err));
+          console.error('analytics top landing error: ', err);
         }
 
         obj['end-date'] = '2017-05-01';
@@ -149,7 +150,6 @@ module.exports = function (token) {
       console.log("Analytics top landing pages");
       console.log(values[3]);
 
-
       var returnObj = {
 
         youtube: {
@@ -170,7 +170,7 @@ module.exports = function (token) {
     });
 
   }).catch(function (error) {
-    console.error(error);
+    console.error('google api error: ', error);
     reject(error);
   });
 };

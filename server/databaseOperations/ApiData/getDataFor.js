@@ -1,16 +1,12 @@
-var mongoose = require('mongoose');
+var ApiData = require('./../../../model/schemas/ApiData');
 
-var createReport = require('./../../databaseOperations/Report/createReport');
-var createApiData = require('./../../databaseOperations/ApiData/createApiData');
-
-mongoose.Promise = global.Promise;
-
-function getDataFor(profileId, month, year) {
-  //  todo month and year are coming directly from querystring so these should be typechecked...
-  var newReport = createReport(profileId, month, year);
-  var newApiData = createApiData(newReport);
-
-  return { report: newReport, data: newApiData };
+function getDataFor(reportID) {
+  ApiData.findOne({ report: reportID })
+    .then(function (data) {
+      return data;
+    }).catch(function (error) {
+      console.error(error);
+    });
 }
 
 module.exports = getDataFor;
