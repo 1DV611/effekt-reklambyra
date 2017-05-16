@@ -21,9 +21,6 @@ var APIResultsToObject = function (results) {
   return obj;
 };
 
-
- */
-
 var callAPIsWith = function (access) {
 
   return new Promise(function (resolve, reject) {
