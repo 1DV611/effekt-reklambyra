@@ -12,6 +12,7 @@ function createReport(userProfileId, month, year) {
 
   newReport.save();
   console.log('Report created!');
+  console.log(newReport);
   return newReport;
 }
 

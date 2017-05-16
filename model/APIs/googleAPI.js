@@ -23,6 +23,7 @@ var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 // you need to get the access_token from auth0IdpAccessToken.js
 
 module.exports = function (token) {
+  console.log(token);
   return new Promise(function (resolve, reject) {
     oauth2Client.setCredentials({
       access_token: token,
@@ -42,7 +43,7 @@ module.exports = function (token) {
           console.error('youtube error: ', err);
         }
 
-        //console.log(body.rows[0][0]);
+        //  console.log(body.rows[0][0]);
         resolve(body.rows[0][0]);
       });
     });
