@@ -7,11 +7,14 @@ var facebookAPI = require('./APIs/facebookAPI');
 var accrossAPI = require('./APIs/33acrossAPI');
 var addThisAPI = require('./APIs/addThisAPI');
 
-// call all API's from user DB object credentials to get all data
+/**
 
-/*
-takes a user object from the db and check which API's it has profiles saved for.
-Calls all API's using promises and finally resolves the array of data.
+ takes a user object from the db and check which API's it has profiles saved for.
+ Calls all API's using promises and finally resolves the array of data.
+
+ None of the API functions reject the promise on error, so that the dataobject is returned even
+ if one of them rejects.
+
  */
 
 var callAPIsWith = function (access) {

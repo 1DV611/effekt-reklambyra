@@ -25,6 +25,7 @@ module.exports = function () {
 
     request(queryString, function (err, res, body) {
       if (err) {
+        resolve({});
         //reject(err);
         console.log('33accross api error: ', err);
       }
@@ -37,10 +38,10 @@ module.exports = function () {
         totalCopiedContent += obj[i].total;
       }
 
-      console.log(totalCopiedContent);
+      console.log('33across result:', totalCopiedContent);
       var returnObj = {
         accross: {
-          totalCopiedContent: 42,
+          totalCopiedContent: totalCopiedContent,
         }
       };
 

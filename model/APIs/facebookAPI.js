@@ -13,19 +13,21 @@ module.exports = function (profile) {
     graph.setAccessToken(token);
 
     // https://developers.facebook.com/docs/graph-api/reference/v2.9/object/likes
-
     // that's pages user have liked.
     graph.get('/' + id + '/likes', function (err, res) {
-      if (err) reject(err);
+      if (err) {
+        resolve({});
+        console.error('facebook api error: ', err);
+      };
 
-      //todo actual facebook data here..
+      //todo actual facebook data here.. currently recieving an empty data array (no pages with likes?) need a real account to test
       var returnObj = {
         facebook: {
-          likes: 42
+          likes: 42,
         }
       };
+
       resolve(returnObj);
-      console.log(res);
     });
   });
 };

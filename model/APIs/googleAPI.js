@@ -149,7 +149,6 @@ module.exports = function (token) {
       console.log("Analytics top landing pages");
       console.log(values[3]);
 
-
       var returnObj = {
 
         youtube: {

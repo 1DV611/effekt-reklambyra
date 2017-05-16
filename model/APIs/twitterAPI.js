@@ -15,19 +15,26 @@ var client  = new Twitter({
 module.exports = function (profile) {
   //https://dev.twitter.com/rest/reference/get/followers/ids
 
+  // not actually needed to authenticate twitter for this, is enough with the screen name for the data
+  // that you want.
+  var userId = profile.profile._json.id;
+  var screenName = profile.profile._json.screen_name;
+
   return new Promise(function (resolve, reject) {
 
-    client.get('users/show', { user_id: profile.id, screen_name: profile.username }, function(error, result, response) {
-      if (error) reject(error);
+    client.get('users/show', { user_id: userId, screen_name: screenName }, function(error, result, response) {
+      if (error) {
+        console.error('twitter api error: ', error);
+        resolve({ twitter: { error: error[0].message }});
+      }
 
       var returnObj = {
         twitter: {
-          followers: result.followers_count
+          followers: result.followers_count,
         }
       };
       resolve(returnObj);
     });
-
   });
 };
 

@@ -4,13 +4,12 @@ var request = require('request');
 
 module.exports = function () {
   // documentaion: http://www.addthis.com/academy/addthis-analytics-api/
-
   // Fill in the username and password variables to make it work.
 
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
 
-    var username = '';
-    var password = '';
+    var username = 'byggaute@gmail.com';
+    var password = 'byggautenu';
     var apiUrl = 'https://' + username + ':' + password + '@api.addthis.com/analytics/1.0/pub';
     // clicks or shares
     var metric = '/clicks';
@@ -25,21 +24,26 @@ module.exports = function () {
     var queryString = apiUrl + metric + dimension + format + andPeriod + period + andPubID + pubID;
     request(queryString, function (err, res, body) {
       if (err) {
+        resolve({});
         console.error('addthis api error: ', err);
       } else {
 
-        var returnObj = {
-          addThis: {
-            clicks: 42
-          }
-        };
+        try {
+          //todo returns an array, in case there are several domains. Should we iterate and add each domain or...?
+          var obj = JSON.parse(res.body);
+          var clicks = obj[0].clicks;
+          var returnObj = {
+            addThis: {
+              clicks: clicks,
+            }
+          };
+          resolve(returnObj);
 
-        resolve(returnObj);
+        } catch (e) {
+          console.error('addthis API error', e);
+          resolve({});
+        }
       }
-
-      console.log(JSON.parse(body));
     });
-
   });
-
 };
