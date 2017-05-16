@@ -7,13 +7,20 @@ var facebookAPI = require('./APIs/facebookAPI');
 var accrossAPI = require('./APIs/33acrossAPI');
 var addThisAPI = require('./APIs/addThisAPI');
 
-/**
+var APIResultsToObject = function (results) {
+  var obj = {};
 
- takes a user object from the db and check which API's it has profiles saved for.
- Calls all API's using promises and finally resolves the array of data.
+  results.forEach(function (result) {
+    for (var property in result) {
+      if (result.hasOwnProperty(property)) {
+        obj[property] = result[property];
+      }
+    }
+  });
 
- None of the API functions reject the promise on error, so that the dataobject is returned even
- if one of them rejects.
+  return obj;
+};
+
 
  */
 
@@ -40,26 +47,10 @@ var callAPIsWith = function (access) {
     Promise.all(promises).then(function (apiData) {
       console.log(apiData);
       resolve(APIResultsToObject(apiData));
-
     }).catch(function (error) {
       reject(error);
     });
   });
-};
-
-var APIResultsToObject = function (results) {
-  var obj = {};
-
-  results.forEach(function (result) {
-
-    for (var property in result) {
-      if (result.hasOwnProperty(property)) {
-        obj[property] = result[property];
-      }
-    }
-  });
-
-  return obj;
 };
 
 exports.callAPIsWith = callAPIsWith;
