@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var passport = require('passport');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
@@ -46,7 +48,7 @@ router.get('/report/:month/:year', ensureLoggedIn, function (req, res, next) {
    * So if a logged in user goes to localhost:3000/preview/january/2017 , then the database would be
    * queried for reports belonging to that user matching that date.
    */
-  var dataForUser = getReportByMonthAndYear(req.user.id, req.params.month, req.params.year)
+  var dataForUser = getReportByMonthAndYear(req.user.id, req.params.month, req.params.year);
   res.render('preview', { user: req.user, form: dataForUser });
 
 });
@@ -60,19 +62,14 @@ router.get('/dashboard', ensureLoggedIn, function (req, res, next) {
   res.render('dashboard', { user: req.user });
 });
 
-
 router.get('/preview', ensureLoggedIn, function (req, res) {
-
   //  TODO: Reset after callAPIsWith is fixed
-  /**
-    getUserAccess(req.user.id).then(function (access) {
+  getUserAccess(req.user.id).then(function (access) {
     APIs.callAPIsWith(access).then(function (apiData) {
-     });
+      res.render('preview', { form: apiData });
+    });
   });
-    **/
-  res.render('preview', { form: {} });
 });
-
 
 //  creates report and apidata for period and returns form: { report: report, data: data }
 router.get('/preview/:month/:year', ensureLoggedIn, function (req, res) {

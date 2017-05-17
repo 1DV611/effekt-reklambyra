@@ -7,23 +7,6 @@ var facebookAPI = require('./APIs/facebookAPI');
 var accrossAPI = require('./APIs/33acrossAPI');
 var addThisAPI = require('./APIs/addThisAPI');
 
-var APIResultsToObject = function (results) {
-  var obj = {};
-
-  results.forEach(function (result) {
-    for (var property in result) {
-      if (result.hasOwnProperty(property)) {
-        obj[property] = result[property];
-      }
-    }
-  });
-
-  return obj;
-};
-
-
- */
-
 var callAPIsWith = function (access) {
 
   return new Promise(function (resolve, reject) {
@@ -51,6 +34,20 @@ var callAPIsWith = function (access) {
       reject(error);
     });
   });
+};
+
+var APIResultsToObject = function (results) {
+  var obj = {};
+
+  results.forEach(function (result) {
+    for (var property in result) {
+      if (result.hasOwnProperty(property)) {
+        obj[property] = result[property];
+      }
+    }
+  });
+
+  return obj;
 };
 
 exports.callAPIsWith = callAPIsWith;

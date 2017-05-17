@@ -24,7 +24,7 @@ var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
 module.exports = function (token) {
   console.log(token);
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     oauth2Client.setCredentials({
       access_token: token,
     });

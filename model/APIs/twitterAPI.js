@@ -15,6 +15,8 @@ var client  = new Twitter({
 module.exports = function (profile) {
   //https://dev.twitter.com/rest/reference/get/followers/ids
 
+  // retweets likes = onskemal.
+
   // not actually needed to authenticate twitter for this, is enough with the screen name for the data
   // that you want.
   var userId = profile.profile._json.id;
@@ -37,5 +39,3 @@ module.exports = function (profile) {
     });
   });
 };
-
-

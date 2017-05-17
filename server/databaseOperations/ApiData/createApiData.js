@@ -1,25 +1,32 @@
-var ApiData = require('./../../../model/schemas/ApiData');
+var callAPIs = require('./../../../model/callAPIs');
 var ApiAccess = require('./../../../model/schemas/ApiAccess');
-var callAPIsWith = require('./../../../model/callAPIs');
+var ApiData = require('./../../../model/schemas/ApiData');
+var newApiData;
 
 function createApiData(report) {
-  ApiAccess.find({ user: report.user })
+  //  todo month and year are coming directly from querystring so these should be typechecked...
+  ApiAccess.findOne({ user: report.user })
     .then(function (access) {
-      return callAPIsWith.callAPIsWith(access);
-    })
-    .then(function (data) {
-      console.log('Report id from createApiData: ' + report._id);
+      console.log("access ");
+      console.log(access);
+      return { hej: "hej"};
+      //  return callAPIs.callAPIsWith(access);
+      //  TODO: Reset after callAPIsWith is fixed
+    }).then(function (data) {
+      console.log(data);
 
-      var newApiData = new ApiData({
+      newApiData = new ApiData({
         report: report._id,
         data: data
       });
 
       newApiData.save();
+      console.log('ApiData created!');
+      console.log(newApiData);
+      return newApiData;
     }).catch(function (error) {
-      console.log(error);
+      console.error(error);
     });
-
-};
+}
 
 module.exports = createApiData;
