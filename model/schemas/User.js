@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var handleDuplicateKeyError = require('./../../server/helpers/handleDuplicateKeyError');
 var Schema = mongoose.Schema;
 var User;
 
@@ -18,6 +19,10 @@ const UserSchema = new Schema({
     required: [true, 'User status must be entered!']
   }
 });
+
+UserSchema.post('save', handleDuplicateKeyError);
+UserSchema.post('update', handleDuplicateKeyError);
+UserSchema.post('findOneAndUpdate', handleDuplicateKeyError);
 
 User = mongoose.model('User', UserSchema);
 module.exports = User;

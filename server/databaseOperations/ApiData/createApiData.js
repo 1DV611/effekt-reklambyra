@@ -3,29 +3,30 @@ var ApiAccess = require('./../../../model/schemas/ApiAccess');
 var ApiData = require('./../../../model/schemas/ApiData');
 var newApiData;
 
+/**
+ * Skapar ApiData efter att Report skapas, ApiData refererar till Report
+ * callAPIsWith hämtar data till CreateApiData
+ */
 function createApiData(report) {
-  //  todo month and year are coming directly from querystring so these should be typechecked...
+
   ApiAccess.findOne({ user: report.user })
     .then(function (access) {
-      console.log("access ");
-      console.log(access);
-      return { hej: "hej"};
       //  return callAPIs.callAPIsWith(access);
       //  TODO: Reset after callAPIsWith is fixed
     }).then(function (data) {
-      console.log(data);
-
       newApiData = new ApiData({
         report: report._id,
         data: data
       });
 
-      newApiData.save();
-      console.log('ApiData created!');
-      console.log(newApiData);
+      newApiData.save(function (error) {
+        if (error) throw error;
+      });
+
       return newApiData;
     }).catch(function (error) {
-      console.error(error);
+      throw error;
+
     });
 }
 

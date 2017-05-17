@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var handleDuplicateKeyError = require('./../../server/helpers/handleDuplicateKeyError');
 var Schema = mongoose.Schema;
 var Report;
 
@@ -23,6 +24,10 @@ const ReportSchema = new Schema({
   optimization: { type: String },
   recommendation: { type: String }
 });
+
+ReportSchema.post('save', handleDuplicateKeyError);
+ReportSchema.post('update', handleDuplicateKeyError);
+ReportSchema.post('findOneAndUpdate', handleDuplicateKeyError);
 
 Report = mongoose.model('Report', ReportSchema);
 module.exports = Report;

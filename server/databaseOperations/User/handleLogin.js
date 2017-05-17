@@ -2,26 +2,31 @@ var User = require('./../../../model/schemas/User');
 var createApiAccess = require('./../ApiAccess/createApiAccess');
 var newUser;
 
+/**
+ * anropas med auth0-callback och har auth0s profile-objekt som param
+ * User.findOne söker i databasen efter en användare som matchar profile-objektets id
+ * om matchande id finns i databasen så skickas profilinformationen vidare
+ * om matchande id inte finns i databasen så skapas en ny användare i databasen
+ * samt ett tomt ApiAccess-objekt som refererar till User i vilket sedan accesstoken m.m. sparas
+ * @param profile
+ */
 function handleLogin(profile) {
-  // called with auth0 callback, either creates the user or sends the matching credentials onwards.
   User.findOne({ profileId: profile.id }).then(function (matchingUser) {
     if (matchingUser === null) {
-      console.log('saving user');
-
       newUser = new User({
         profileId: profile.id,
         displayName: profile.displayName,
         admin: profile.admin
       });
 
-      newUser.save();
+      newUser.save(function (error) {
+        if (error) throw error;
+      });
 
       createApiAccess(newUser.profileId);
-    } else {
-      console.log('user exists in db');
     }
   }).catch(function (error) {
-    console.error(error);
+    throw error;
   });
 }
 

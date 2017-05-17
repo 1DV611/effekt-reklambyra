@@ -5,7 +5,7 @@ function getDataFor(reportID) {
     .then(function (data) {
       return data;
     }).catch(function (error) {
-      console.error(error);
+      throw error;
     });
 }
 
