@@ -8,12 +8,12 @@ var newApiData;
  * callAPIsWith hämtar data till CreateApiData
  */
 function createApiData(report) {
+
   ApiAccess.findOne({ user: report.user })
     .then(function (access) {
       //  return callAPIs.callAPIsWith(access);
       //  TODO: Reset after callAPIsWith is fixed
     }).then(function (data) {
-
       newApiData = new ApiData({
         report: report._id,
         data: data
@@ -26,6 +26,7 @@ function createApiData(report) {
       return newApiData;
     }).catch(function (error) {
       throw error;
+
     });
 }
 

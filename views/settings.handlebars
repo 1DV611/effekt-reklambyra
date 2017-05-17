@@ -12,16 +12,12 @@
                 </div>
             </div>
 
-            <div class="card">
-                <a href="/auth/google" class="btn btn-default">Autentisera Google</a>
-            </div>
-
             <!--- If existing customer is choosen display only divs of social media that are activated, all checked --->
 
                 <div class="social-container">
                     <div class="social-name"><span>Adwords</span></div>
                     <div class="social-switch">
-                        <input id="adwords" name="adwords" class="cmn-toggle cmn-toggle-round" type="checkbox" checked>
+                        <input id="adwords" name="adwords" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
                         <label for="adwords"></label>
                     </div>
                     <div class="social-features">
@@ -36,7 +32,7 @@
                 <div class="social-container">
                     <div class="social-name"><span>Facebook</span></div>
                     <div class="social-switch">
-                        <input id="facebook" name="facebook" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                        <input id="facebook" name="facebook" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
                         <label for="facebook"></label>
                     </div>
                     <div class="social-features">
@@ -47,7 +43,7 @@
             <div class="social-container">
                 <div class="social-name"><span>Youtube</span></div>
                 <div class="social-switch">
-                    <input id="youtube" name="youtube" class="cmn-toggle cmn-toggle-round" type="checkbox" checked>
+                    <input id="youtube" name="google" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
                     <label for="youtube"></label>
                 </div>
                 <div class="social-features">
@@ -58,7 +54,7 @@
                 <div class="social-container">
                     <div class="social-name"><span>Tynt/33across</span></div>
                     <div class="social-switch">
-                        <input id="tynt" name="tynt" class="cmn-toggle cmn-toggle-round" type="checkbox" checked>
+                        <input id="tynt" name="tynt" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
                         <label for="tynt"></label>
                     </div>
                     <div class="social-features">
@@ -69,7 +65,7 @@
                 <div class="social-container">
                     <div class="social-name"><span>AddThis</span></div>
                     <div class="social-switch">
-                        <input id="addthis" name="addthis" class="cmn-toggle cmn-toggle-round" type="checkbox" checked>
+                        <input id="addthis" name="addthis" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
                         <label for="addthis"></label>
                     </div>
                     <div class="social-features">
@@ -80,7 +76,7 @@
                 <div class="social-container">
                     <div class="social-name"><span>Twitter</span></div>
                     <div class="social-switch">
-                        <input id="twitter" name="twitter" class="cmn-toggle cmn-toggle-round" type="checkbox" checked>
+                        <input id="twitter" name="twitter" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
                         <label for="twitter"></label>
                     </div>
                     <div class="social-features">
@@ -91,7 +87,7 @@
                 <div class="social-container">
                     <div class="social-name"><span>LinkedIn</span></div>
                     <div class="social-switch">
-                        <input id="linkedin" name="linkedin" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                        <input id="linkedin" name="linkedin" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
                         <label for="linkedin"></label>
                     </div>
                     <div class="social-features">
@@ -105,7 +101,7 @@
                 <div class="social-container">
                     <div class="social-name"><span>Moz</span></div>
                     <div class="social-switch">
-                        <input id="moz" name="moz" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                        <input id="moz" name="moz" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
                         <label for="moz"></label>
                     </div>
                     <div class="social-features">
@@ -117,7 +113,7 @@
             <div class="social-container">
                 <div class="social-name"><span>Analytics</span></div>
                 <div class="social-switch">
-                    <input id="analytics" name="analytics" class="cmn-toggle cmn-toggle-round" type="checkbox" checked>
+                    <input id="analytics" name="google" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
                     <label for="analytics"></label>
                 </div>
                 <div class="social-features">
@@ -145,3 +141,12 @@
         </form>
     </div>
 </div>
+
+<script>
+    function openExternalAuth(name, activate) {
+        var path = '../auth' + name;
+        if (activate) {
+            window.open('../auth/' + name);
+        }
+    }
+</script>

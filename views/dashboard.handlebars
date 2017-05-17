@@ -141,7 +141,7 @@
             <div class="social-container">
                 <div class="social-name">
                     <span>Månad: </span>
-                    <select id="month" name="month">
+                    <select id="months" name="months">
                         <option value="0">Januari</option>
                         <option value="1">Februari</option>
                         <option value="2">Mars</option>
@@ -161,11 +161,11 @@
             <div class="social-container">
                 <div class="social-name">
                     <span>År: </span>
-                    <select id="year" name="year">
+                    <select id="years" name="years">
                     <script>
                         var date = new Date();
                         var year = date.getFullYear();
-                        for(var i = 2000; i < year+1; i++){
+                        for(var i = 2005; i < year+1; i++){
                             document.write('<option value="'+i+'">'+i+'</option>');
                         }
                     </script>
@@ -174,8 +174,16 @@
             </div>
 
             <div class="left-button-div">
-                <input class="btn btn-default" type="submit" value="Preview"/>
+                <a id="previewButton" href="" onclick="changeHref(months.value,years.value)" class="btn btn-default">Preview</a>
             </div>
+
+            <script>
+                function changeHref(month, year) {
+                    var previewButton = document.querySelector("#previewButton");
+                    previewButton.href = '/user/report/' + month + '/' + year;
+                }
+            </script>
+
         </form>
     </div>
 </div>
