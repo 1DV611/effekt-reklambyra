@@ -5,6 +5,10 @@ var convertToAPIArray = require('./../../../server/helpers/convertToAPIArray');
 
 mongoose.Promise = global.Promise;
 
+/**
+ * Hämtar alla APIAccess-objekt oavsett användare
+ * @returns {Promise}
+ */
 function getAPIAccesses() {
   return new Promise(function (resolve, reject) {
     ApiAccess.find({}).then(function (docs) {

@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var handleDuplicateKeyError = require('./../../server/helpers/handleDuplicateKeyError');
 var Schema = mongoose.Schema;
 var ApiAccess;
 
@@ -23,6 +24,10 @@ const ApiAccessSchema = new Schema({
   moz: { type: Object },
   instagram: { type: Object }
 });
+
+ApiAccessSchema.post('save', handleDuplicateKeyError);
+ApiAccessSchema.post('update', handleDuplicateKeyError);
+ApiAccessSchema.post('findOneAndUpdate', handleDuplicateKeyError);
 
 ApiAccess = mongoose.model('ApiAccess', ApiAccessSchema);
 module.exports = ApiAccess;

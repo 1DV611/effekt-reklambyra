@@ -1,25 +1,32 @@
-var ApiData = require('./../../../model/schemas/ApiData');
+var callAPIs = require('./../../../model/callAPIs');
 var ApiAccess = require('./../../../model/schemas/ApiAccess');
-var callAPIsWith = require('./../../../model/callAPIs');
+var ApiData = require('./../../../model/schemas/ApiData');
+var newApiData;
 
+/**
+ * Skapar ApiData efter att Report skapas, ApiData refererar till Report
+ * callAPIsWith hämtar data till CreateApiData
+ */
 function createApiData(report) {
-  ApiAccess.find({ user: report.user })
+  ApiAccess.findOne({ user: report.user })
     .then(function (access) {
-      return callAPIsWith.callAPIsWith(access);
-    })
-    .then(function (data) {
-      console.log('Report id from createApiData: ' + report._id);
+      //  return callAPIs.callAPIsWith(access);
+      //  TODO: Reset after callAPIsWith is fixed
+    }).then(function (data) {
 
-      var newApiData = new ApiData({
+      newApiData = new ApiData({
         report: report._id,
         data: data
       });
 
-      newApiData.save();
-    }).catch(function (error) {
-      console.log(error);
-    });
+      newApiData.save(function (error) {
+        if (error) throw error;
+      });
 
-};
+      return newApiData;
+    }).catch(function (error) {
+      throw error;
+    });
+}
 
 module.exports = createApiData;

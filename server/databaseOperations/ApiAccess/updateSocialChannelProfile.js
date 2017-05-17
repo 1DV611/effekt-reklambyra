@@ -1,11 +1,12 @@
 var ApiAccess = require('./../../../model/schemas/ApiAccess');
-//  var createReport = require('./../Report/create');
 
+/**
+ * Sparar eller uppdaterar accessinformation för sociala medier
+ * vid autentisering mot exempelvis facebook/twitter m.m.
+ * @param sessionUserID
+ * @param profile
+ */
 function updateSocialChannelProfile(sessionUserID, profile) {
-/*
-either saves or updates an access token into
-database when authorizing against facebook/google/etc.
-*/
   var queryObj = {
     accessToken: profile.accessToken,
     refreshToken: profile.refreshToken,
@@ -21,11 +22,9 @@ database when authorizing against facebook/google/etc.
     { user: sessionUserID },
     { updated: Date.now(), queryObj: queryObj },
     { new: true },
-    function (err, matchingApiAccess) {
-      if (err) console.error(err);
-
-      if (matchingApiAccess === null) console.error('no user to save token to'); // todo how to handle this?
-      if (matchingApiAccess) console.log(matchingApiAccess);
+    function (error, matchingApiAccess) {
+      if (error) throw error;
+      if (matchingApiAccess === null) throw new Error('No user to save token to'); // todo how to handle this?
     });
 }
 

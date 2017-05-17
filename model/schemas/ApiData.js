@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var idValidator = require('mongoose-id-validator');
+var handleDuplicateKeyError = require('./../../server/helpers/handleDuplicateKeyError');
 var Schema = mongoose.Schema;
 var ApiData;
 
@@ -49,6 +50,10 @@ const ApiDataSchema = new Schema({
     mozKeywords: { type: Array }
   } // TODO: Instagram?
 });
+
+ApiDataSchema.post('save', handleDuplicateKeyError);
+ApiDataSchema.post('update', handleDuplicateKeyError);
+ApiDataSchema.post('findOneAndUpdate', handleDuplicateKeyError);
 
 ApiDataSchema.plugin(idValidator);
 ApiData = mongoose.model('ApiData', ApiDataSchema);
