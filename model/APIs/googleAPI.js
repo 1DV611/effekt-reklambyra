@@ -22,8 +22,10 @@ var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
 // you need to get the access_token from auth0IdpAccessToken.js
 
-module.exports = function (token) {
-  console.log(token);
+module.exports = function (token, startDate, endDate) {
+  var startDateString = startDate.toISOString().substring(0, 10);
+  var endDateString = endDate.toISOString().substring(0, 10);
+
   return new Promise(function (resolve, reject) {
     oauth2Client.setCredentials({
       access_token: token,
@@ -31,9 +33,10 @@ module.exports = function (token) {
 
     var promiseYoutube = new Promise(function (resolve, reject) {
       var obj = {};
+
       // using bracket notation since google requires dashes in some of their required params
-      obj['end-date'] = '2017-05-01';
-      obj['start-date'] = '2001-01-01';
+      obj['end-date'] = endDateString;
+      obj['start-date'] = startDateString;
       obj['ids'] = 'channel==MINE';
       obj['metrics'] = 'views';
       obj['auth'] = oauth2Client;
@@ -56,8 +59,8 @@ module.exports = function (token) {
           console.error('analytics error', err);
         }
 
-        obj['end-date'] = '2017-05-01';
-        obj['start-date'] = '2005-01-01';
+        obj['end-date'] = endDateString;
+        obj['start-date'] = startDateString;
         obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id;
         obj['metrics'] = 'ga:pageviews,ga:uniquePageviews,ga:avgTimeOnPage,ga:avgSessionDuration,ga:pageViewsPerSession';
         obj['auth'] = oauth2Client;
@@ -88,8 +91,8 @@ module.exports = function (token) {
           console.error('analytics most viewed error: ', err);
         }
 
-        obj['end-date'] = '2017-05-01';
-        obj['start-date'] = '2005-01-01';
+        obj['end-date'] = endDateString;
+        obj['start-date'] = startDateString;
         obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id;
         obj['dimensions'] = 'ga:pageTitle,ga:pagePath';
         obj['metrics'] = 'ga:pageviews';
@@ -118,8 +121,8 @@ module.exports = function (token) {
           console.error('analytics top landing error: ', err);
         }
 
-        obj['end-date'] = '2017-05-01';
-        obj['start-date'] = '2005-01-01';
+        obj['end-date'] = endDateString;
+        obj['start-date'] = startDateString;
         obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id;
         obj['dimensions'] = 'ga:landingPagePath';
         obj['metrics'] = 'ga:entrances,ga:bounces';
@@ -141,30 +144,19 @@ module.exports = function (token) {
     });
 
     Promise.all([promiseYoutube, promiseAnalytics, promiseAnalyticsMostVisited, promiseAnalyticsTopLanding]).then(function (values) {
-      console.log("Youtube views");
-      console.log(values[0]);
-      console.log("Analytics");
-      console.log(values[1]);
-      console.log("Analytics most visited pages");
-      console.log(values[2]);
-      console.log("Analytics top landing pages");
-      console.log(values[3]);
 
       var returnObj = {
-
-        youtube: {
-          youtubeViews: values[0],
-        },
-
-        analytics: {
-          views: 42,
-          uniqueVies: 42,
-          strongestRedirects: 42,
-          mostVisitedPages: values[1],
-          averageTime: 42,
-          averageVisitedPerPages: values[2],
-        }
-
+          youtube: {
+            views: { result: values[0], description: ' visningar.' }
+          },
+          analytics: {
+            analyticsViews: { result: values[1].analyticsViews, description: ' visningar.' },
+            analyticsUniqueViews: { result: values[1].analyticsUniqueViews, description: ' unika visningar.' },
+            analyticsStrongestRedirects: { result: values[3].analyticsStrongestRedirects, description: ' är de starkaste ingångskanalerna.' },
+            analyticsMostVisitedPages: { result: values[2].analyticsMostVisitedPages, description: ' är de mest besökta sidorna.' },
+            analyticsAverageTime: { result: values[1].analyticsAverageTime, description: ' genomsnittlig tid på sidan.' },
+            analyticsAverageVisitedPerPages: { result: values[1].analyticsAverageVisitedPerPages, description: ' genomsnittligt antal besökta sidor.' }
+          }
       };
       resolve(returnObj);
     });

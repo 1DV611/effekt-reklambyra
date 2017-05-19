@@ -11,7 +11,8 @@ var newUser;
  * @param profile
  */
 function handleLogin(profile) {
-  User.findOne({ profileId: profile.id }).then(function (matchingUser) {
+  User.findOne({ profileId: profile.id })
+    .then(function (matchingUser) {
     if (matchingUser === null) {
       newUser = new User({
         profileId: profile.id,
@@ -26,7 +27,7 @@ function handleLogin(profile) {
       createApiAccess(newUser.profileId);
     }
   }).catch(function (error) {
-    throw error;
+    console.log(error);
   });
 }
 

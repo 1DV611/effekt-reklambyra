@@ -8,6 +8,7 @@ var ApiAccess = require('./../../../model/schemas/ApiAccess');
  */
 function updateSocialChannelProfile(sessionUserID, profile) {
   var queryObj = {
+    provider: profile.provider,
     accessToken: profile.accessToken,
     refreshToken: profile.refreshToken,
     id_token: profile.id_token,
@@ -20,7 +21,7 @@ function updateSocialChannelProfile(sessionUserID, profile) {
 
   ApiAccess.findOneAndUpdate(
     { user: sessionUserID },
-    { updated: Date.now(), queryObj: queryObj },
+    { updated: Date.now(), [queryObj.provider]: queryObj },
     { new: true },
     function (error, matchingApiAccess) {
       if (error) throw error;

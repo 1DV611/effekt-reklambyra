@@ -1,4 +1,4 @@
-var callAPIs = require('./../../../model/callAPIs');
+var callAPIsWith = require('./../../../model/callAPIs');
 var ApiAccess = require('./../../../model/schemas/ApiAccess');
 var ApiData = require('./../../../model/schemas/ApiData');
 var newApiData;
@@ -8,25 +8,34 @@ var newApiData;
  * callAPIsWith hämtar data till CreateApiData
  */
 function createApiData(report) {
-
   ApiAccess.findOne({ user: report.user })
     .then(function (access) {
-      //  return callAPIs.callAPIsWith(access);
-      //  TODO: Reset after callAPIsWith is fixed
+      return callAPIsWith(access, report.startDate, report.endDate)
+        .then(function (data) {
+          return data;
+        }).catch(function (error) {
+          throw error;
+        });
     }).then(function (data) {
-      newApiData = new ApiData({
+
+      var obj = {
         report: report._id,
-        data: data
-      });
+      };
+
+      for (var prop in data) {
+          obj[prop] = data[prop];
+      }
+
+      newApiData = new ApiData(obj);
 
       newApiData.save(function (error) {
         if (error) throw error;
       });
 
-      return newApiData;
+    return newApiData;
+
     }).catch(function (error) {
       throw error;
-
     });
 }
 

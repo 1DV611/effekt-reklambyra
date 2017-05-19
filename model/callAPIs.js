@@ -6,43 +6,29 @@ var twitterAPI = require('./APIs/twitterAPI');
 var facebookAPI = require('./APIs/facebookAPI');
 var accrossAPI = require('./APIs/33acrossAPI');
 var addThisAPI = require('./APIs/addThisAPI');
+var APIResultsToObject = require('./../server/helpers/APIResultsToObject');
 
-var APIResultsToObject = function (results) {
-  var obj = {};
-
-  results.forEach(function (result) {
-    for (var property in result) {
-      if (result.hasOwnProperty(property)) {
-        obj[property] = result[property];
-      }
-    }
-  });
-
-  return obj;
-};
-
-var callAPIsWith = function (access) {
+var callAPIsWith = function (access, startDate, endDate) {
 
   return new Promise(function (resolve, reject) {
 
     var promises = [];
 
-    if (access.twitter) promises.push(twitterAPI(access.twitter));
+    if (access.hasOwnProperty('twitter')) promises.push(twitterAPI(access.twitter, startDate, endDate));
 
-    if (access.facebook) promises.push(facebookAPI(access.facebook));
+    if (access.facebook) promises.push(facebookAPI(access.facebook, startDate, endDate));
 
-    if (access.linkedin) promises.push(linkedinAPI(access.linkedin));
+    if (access.linkedin) promises.push(linkedinAPI(access.linkedin, startDate, endDate));
 
-    if (access.google) promises.push(googleAPI(access.google.accessToken));
+    if (access.google) promises.push(googleAPI(access.google.accessToken, startDate, endDate));
 
-    if (access.instagram) promises.push(instagramAPI(access.instagram));
+    if (access.instagram) promises.push(instagramAPI(access.instagram, startDate, endDate));
 
-    if (access.tynt) promises.push(accrossAPI(access.tynt));
+    if (access.tynt) promises.push(accrossAPI(access.tynt, startDate, endDate));
 
-    if (access.addthis) promises.push(addThisAPI(access.addthis));
+    if (access.addthis) promises.push(addThisAPI(access.addthis, startDate, endDate));
 
     Promise.all(promises).then(function (apiData) {
-      console.log(apiData);
       resolve(APIResultsToObject(apiData));
     }).catch(function (error) {
       reject(error);
@@ -50,4 +36,4 @@ var callAPIsWith = function (access) {
   });
 };
 
-exports.callAPIsWith = callAPIsWith;
+module.exports = callAPIsWith;

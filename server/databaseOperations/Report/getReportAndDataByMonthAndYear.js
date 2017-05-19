@@ -1,9 +1,11 @@
+var mongoose = require('mongoose');
 var Report = require('./../../../model/schemas/Report');
 var getDataFor = require('./../../../server/databaseOperations/ApiData/getDataFor');
 var currentMonthAndYear = require('./../../helpers/currentMonthAndYear');
 var getLastDayOfMonth = require('./../../helpers/getLastDayOfMonth');
 var startDate;
 var endDate;
+var reportData;
 
 /**
  * Hämtar rapport och apidata (baserat månad & år samt användarid)
@@ -12,25 +14,29 @@ var endDate;
  * @param month
  * @param year
  */
-function getReportByMonthAnYear(profileId, month, year) {
-  if (currentMonthAndYear(month, year)) {
-    startDate = new Date(year, month, 1, 0, 0, 0, 1);
+function getReportByMonthAnYear(req, res) {
+  if (currentMonthAndYear(req.params.month, req.params.year)) {
+    startDate = new Date(req.params.year, req.params.month, 1, 0, 0, 0, 1);
     endDate = new Date();
     //  TODO: Hämta från apier
   } else {
-    startDate = new Date(year, month, 1, 0, 0, 0, 1);
-    endDate = new Date(year, month, getLastDayOfMonth(year, month), 23, 59, 59, 999);
+    startDate = new Date(req.params.year, req.params.month, 1, 0, 0, 0, 1);
 
     Report.findOne({
-      user: profileId,
-      startDate: startDate,
-      endDate: endDate
+      user: req.user.id,
+      startDate: startDate
     }).then(function (report) {
-      var data = getDataFor(report._id);
-      return { report: report, data: data };
-    }).catch(function (error) {
-      throw error;
+      if (report === null) throw new Error('No such report!"');
+      reportData = report;
+    }).then(function () {
+      return getDataFor(reportData);
+    }).then(function (apiData) {
+      res.render('preview', { user: req.user, form: { report: reportData, data: apiData } });
+    }).catch(function (err) {
+      console.error(err);
     });
+
+
   }
 }
 
