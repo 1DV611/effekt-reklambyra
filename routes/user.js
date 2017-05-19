@@ -3,15 +3,23 @@ var passport = require('passport');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 var router = express.Router();
 
-var customerReportSettings = require('../client/js/lib/customerReportSettings.js');
-var resultsFromGoogleApi = require('../client/js/lib/resultsFromGoogleApi.js');
+var createReport = require('./../server/databaseOperations/Report/createReport');
+var createApiData = require('./../server/databaseOperations/ApiData/createApiData');
+
 var getReportAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getReportAndDataByMonthAndYear');
+var getDataFor = require('./../server/databaseOperations/ApiData/getDataFor');
 var getAllReportsAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getAllReportsByMonthAndYear');
 var reportGenerator = require('../server/reportGenerator.js');
-var getUserAccess = require('../server/databaseOperations/ApiAccess/getUserAccess');
 var APIs = require('../model/callAPIs');
 var reports;
-var report;
+var completeReport;
+var data;
+
+/**
+ * /user/ - router
+ * med ensureLoggedIn säkerställer vi att användaren finns i auth0s
+ * användarregister för applikationen
+ */
 
 //  Hämtar användarprofil från auth0.
 router.get('/',
@@ -34,14 +42,12 @@ router.get('/dashboard',
  */
 router.get('/report/:month/:year',
   ensureLoggedIn,
-  function (req, res) {
-    report = getReportAndDataByMonthAndYear(req.user.id, req.params.month, req.params.year);
-    res.render('preview', { user: req.user, form: { report: report } });
-  });
+  getReportAndDataByMonthAndYear
+);
 
 /**
- * Hämtar alla rapporter resp. apidata om användaren är admin { reports: reports, data: data }
- * listas på reports-sidan
+ * Hämtar alla rapporter (array) resp. apidata om användaren är admin
+ * { reports: reports, data: data } listas på reports-sidan
  */
 router.get('/reports/:month/:year',
   ensureLoggedIn,
@@ -61,5 +67,13 @@ router.get('/settings',
 router.get('/pdf',
   ensureLoggedIn,
   reportGenerator);
+
+//  testa att skapa rapport - använd i cronJob?
+router.get('/test',
+  ensureLoggedIn,
+  function (req, res) {
+    createApiData(createReport(req.user.id, 6, 2016));
+    res.render('reports', { user: req.user });
+  });
 
 module.exports = router;

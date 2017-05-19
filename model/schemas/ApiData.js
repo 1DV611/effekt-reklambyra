@@ -14,41 +14,16 @@ const ApiDataSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Report',
     required: [true, 'A report reference is required!'] },
-  adwords: {
-    adwordsClick: { type: Number },
-    adwordsCpc: { type: Number },
-    adwordsViews: { type: Number }
-  },
-  facebook: {
-    facebookLikes: { type: Number }
-  },
-  youtube: {
-    youtubeViews: { type: Number }
-  },
-  tynt: {
-    tyntCopied: { type: Number } // TODO: Array? String?
-  },
-  addthis: {
-    addthisClick: { type: Number }
-  },
-  twitter: {
-    twitterViews: { type: Number }
-  },
-  analytics: {
-    analyticsViews: { type: Number },
-    analyticsUniqueViews: { type: Number },
-    analyticsStrongestRedirects: { type: String }, // TODO: Array?
-    analyticsMostVisitedPages: { type: Number },
-    analyticsAverageTime: { type: Number },
-    analyticsAverageVisitedPerPages: { type: Number }
-  },
-  linkedin: {
-    linkedinFollowers: { type: Number },
-    linkedinInteractions: { type: Number }
-  },
-  moz: {
-    mozKeywords: { type: Array }
-  } // TODO: Instagram?
+  adwords: { type: Object },
+  facebook: { type: Object },
+  youtube: { type: Object },
+  tynt: { type: Object },
+  addthis: { type: Object },
+  twitter: { type: Object },
+  analytics: { type: Object },
+  linkedin: { type: Object },
+  moz: { type: Object }
+  // TODO: Instagram?
 });
 
 ApiDataSchema.post('save', handleDuplicateKeyError);

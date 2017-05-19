@@ -1,11 +1,12 @@
+var mongoose = require('mongoose');
 var ApiData = require('./../../../model/schemas/ApiData');
 
-function getDataFor(reportID) {
-  ApiData.findOne({ report: reportID })
+function getDataFor(report) {
+  return ApiData.findOne({ report: report._id })
     .then(function (data) {
       return data;
     }).catch(function (error) {
-      throw error;
+      console.log(error);
     });
 }
 
