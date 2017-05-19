@@ -100,3 +100,13 @@
     </div>
 </div>
 
+<div id="charts" class="toTheLeft">
+    <div class="card">
+        {{#each form.data.youtube.views}}
+            YOUTUBE: {{@key}}{{this}}
+        {{/each}}
+        {{#each form.data.analytics}}
+            ANALYTICS: {{@key}}{{this}}
+        {{/each}}
+    </div>
+</div>
