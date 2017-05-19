@@ -9,6 +9,7 @@ var createApiData = require('./../server/databaseOperations/ApiData/createApiDat
 var getReportAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getReportAndDataByMonthAndYear');
 var getDataFor = require('./../server/databaseOperations/ApiData/getDataFor');
 var getAllReportsAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getAllReportsByMonthAndYear');
+var getSettings = require('./../server/getSettings.js');
 var reportGenerator = require('../server/reportGenerator.js');
 var APIs = require('../model/callAPIs');
 var reports;
@@ -59,9 +60,7 @@ router.get('/reports/:month/:year',
 //  hämtar inställningssida för inloggad användare
 router.get('/settings',
   ensureLoggedIn,
-  function (req, res) {
-    res.render('settings', { user: req.user });
-  });
+  getSettings);
 
 //  skapar rapport-pdf
 router.get('/pdf',
