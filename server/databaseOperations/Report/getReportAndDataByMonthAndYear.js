@@ -35,8 +35,6 @@ function getReportByMonthAnYear(req, res) {
     }).catch(function (err) {
       console.error(err);
     });
-
-
   }
 }
 

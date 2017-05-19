@@ -69,10 +69,10 @@ router.get('/pdf',
   reportGenerator);
 
 //  testa att skapa rapport - använd i cronJob?
-router.get('/test',
+router.get('/test/:month/:year',
   ensureLoggedIn,
   function (req, res) {
-    createApiData(createReport(req.user.id, 6, 2016));
+    createApiData(createReport(req.user.id, req.params.month, req.params.year));
     res.render('reports', { user: req.user });
   });
 
