@@ -62,8 +62,6 @@
                     visitorsInTotalPerMonth.push(Number({{form.data.youtube.views.result}}));
                 {{/if}}
 
-
-
                     {{#if queries.analytics}}
                     visitorsInTotalPerMonth[0] += Number({{form.data.analytics.analyticsViews.result}});
                     {{/if}}
@@ -97,31 +95,35 @@
         </div>
         <div id="stats" class="toTheRight">
             <div class="card">
-                {{#each form.data}}
-                    {{#if this.active}}
                         <div class="header">
-                            <h3 class="title">{{@key}}</h3>
-                            {{#each this.features}}
-                                {{#if this.active}}
-                                    <h3>{{this.result}} {{this.description}}</h3>
+                            {{#if queries.youtube}}
+                                <h3 class="title">Youtube</h3>
+                                {{#if queries.youtubeViews}}
+                                <h3>{{form.data.youtube.views.result}} {{form.data.youtube.views.description}}</h3>
+                                <br>
+                                {{/if}}
+                            {{/if}}
+                            {{#if queries.analytics}}
+                                <h3 class="title">Analytics</h3>
+                                {{#if queries.analyticsViews}}
+                                    <h3>{{form.data.analytics.analyticsViews.result}} {{form.data.analytics.analyticsViews.description}}</h3>
                                     <br>
                                 {{/if}}
-                            {{/each}}
+                                {{#if queries.analyticsUniqueViews}}
+                                <h3>{{form.data.analytics.analyticsUniqueViews.result}} {{form.data.analytics.analyticsUniqueViews.description}}</h3>
+                                <br>
+                                {{/if}}
+                                {{#if queries.analyticsAverageTime}}
+                                    <h3>{{form.data.analytics.analyticsAverageTime.result}} {{form.data.analytics.analyticsAverageTime.description}}</h3>
+                                    <br>
+                                {{/if}}
+                                {{#if queries.analyticsAverageVisitedPerPages}}
+                                    <h3>{{form.data.analytics.analyticsAverageVisitedPerPages.result}} {{form.data.analytics.analyticsAverageVisitedPerPages.description}}</h3>
+                                    <br>
+                                {{/if}}
+                            {{/if}}
                         </div>
-                    {{/if}}
-                {{/each}}
             </div>
         </div>
-    </div>
-</div>
-
-<div id="charts" class="toTheLeft">
-    <div class="card">
-        {{#each form.data.youtube.views}}
-            YOUTUBE: {{@key}}{{this}}
-        {{/each}}
-        {{#each form.data.analytics}}
-            ANALYTICS: {{@key}}{{this}}
-        {{/each}}
     </div>
 </div>
