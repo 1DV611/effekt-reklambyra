@@ -65,7 +65,7 @@
 
 
                     {{#if queries.analytics}}
-                    visitorsInTotalPerMonth[0] += Number({{form.data.youtube.analyticsViews.result}});
+                    visitorsInTotalPerMonth[0] += Number({{form.data.analytics.analyticsViews.result}});
                     {{/if}}
 
                 var barData = createData(months, visitorsInTotalPerMonth);
@@ -73,12 +73,17 @@
                 var medias = [];
                 var percentages = [];
 
-                    {{#each form.data}}
-                        {{#if queries.youtube}}
-                            medias.push('You');
-                            percentages.push({{this.percentage}});
-                        {{/if}}
-                    {{/each}}
+                    {{#if queries.youtube}}
+                        medias.push('Youtube');
+                        percentages.push(Number({{form.data.youtube.views.result}}));
+                    {{/if}}
+
+                    {{#if queries.analytics}}
+                    medias.push('Analytics');
+                    percentages.push(Number({{form.data.analytics.analyticsViews.result}}));
+                    {{/if}}
+
+
                 var data = createData(medias, percentages);
 
                 var barChart = createChart('bar', canvasBarChart, barData);
