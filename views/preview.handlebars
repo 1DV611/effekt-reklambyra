@@ -56,30 +56,33 @@
                 var canvasDoughnutChart = document.querySelector("#canvasDoughnutChart");
                 */
 
+                // Todo: Add two more months to bar chart:
+
                 var months = ['{{month}}'];
                 var visitorsInTotalPerMonth = [];
+
                 {{#if queries.youtube}}
                     visitorsInTotalPerMonth.push(Number({{form.data.youtube.views.result}}));
                 {{/if}}
 
-                    {{#if queries.analytics}}
+                {{#if queries.analytics}}
                     visitorsInTotalPerMonth[0] += Number({{form.data.analytics.analyticsViews.result}});
-                    {{/if}}
+                {{/if}}
+
 
                 var barData = createData(months, visitorsInTotalPerMonth);
 
                 var medias = [];
                 var percentages = [];
 
-                    {{#if queries.youtube}}
-                        medias.push('Youtube');
-                        percentages.push(Number({{form.data.youtube.views.result}}));
-                    {{/if}}
-
-                    {{#if queries.analytics}}
+                {{#if queries.youtube}}
+                    medias.push('Youtube');
+                    percentages.push(Number({{form.data.youtube.views.result}}));
+                {{/if}}
+                {{#if queries.analytics}}
                     medias.push('Analytics');
                     percentages.push(Number({{form.data.analytics.analyticsViews.result}}));
-                    {{/if}}
+                {{/if}}
 
 
                 var data = createData(medias, percentages);
