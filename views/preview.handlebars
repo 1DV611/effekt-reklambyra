@@ -57,9 +57,9 @@
                 */
 
                 var months = ['{{month}}'];
-                var visitorsInTotalPerMonth = [];
+                var visitorsInTotalPerMonth = [0];
                 {{#if queries.youtube}}
-                    visitorsInTotalPerMonth.push(Number({{form.data.youtube.views.result}}));
+                    visitorsInTotalPerMonth[0] += Number({{form.data.youtube.views.result}});
                 {{/if}}
 
 
