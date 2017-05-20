@@ -1,6 +1,6 @@
 <div class="card dashboard-content-place">
     <div class="report-settings">
-        <h1 class="toTheLeft">{{form.customer}}</h1> <h1 class="toTheRight">{{form.month}} {{form.year}}</h1>
+        <h1 class="toTheLeft">{{customer}}</h1> <h1 class="toTheRight">{{month}} {{year}}</h1>
         <div id="adminText">
             {{#if user.admin}}
                 <div id="summary">
@@ -56,16 +56,26 @@
                 var canvasDoughnutChart = document.querySelector("#canvasDoughnutChart");
                 */
 
-                var months = ['{{form.interval.[0]}}', '{{form.interval.[1]}}', '{{form.interval.[2]}}'];
-                var visitorsInTotalPerMonth = [{{form.visitorsInTotalLastThreeMonths.[0]}}, {{form.visitorsInTotalLastThreeMonths.[1]}}, {{form.visitorsInTotalLastThreeMonths.[2]}}];
+                var months = ['{{month}}'];
+                var visitorsInTotalPerMonth = [];
+                {{#if queries.youtube}}
+                    visitorsInTotalPerMonth.push(Number({{form.data.youtube.views.result}}));
+                {{/if}}
+
+
+
+                    {{#if queries.analytics}}
+                    visitorsInTotalPerMonth[0] += Number({{form.data.youtube.analyticsViews.result}});
+                    {{/if}}
+
                 var barData = createData(months, visitorsInTotalPerMonth);
 
                 var medias = [];
                 var percentages = [];
 
-                    {{#each form}}
-                        {{#if this.active}}
-                            medias.push('{{this.title}}');
+                    {{#each form.data}}
+                        {{#if queries.youtube}}
+                            medias.push('You');
                             percentages.push({{this.percentage}});
                         {{/if}}
                     {{/each}}
@@ -82,10 +92,10 @@
         </div>
         <div id="stats" class="toTheRight">
             <div class="card">
-                {{#each form}}
+                {{#each form.data}}
                     {{#if this.active}}
                         <div class="header">
-                            <h3 class="title">{{this.title}}</h3>
+                            <h3 class="title">{{@key}}</h3>
                             {{#each this.features}}
                                 {{#if this.active}}
                                     <h3>{{this.result}} {{this.description}}</h3>

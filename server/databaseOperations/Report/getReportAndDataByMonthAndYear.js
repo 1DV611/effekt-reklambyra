@@ -6,6 +6,9 @@ var getLastDayOfMonth = require('./../../helpers/getLastDayOfMonth');
 var startDate;
 var endDate;
 var reportData;
+var months = ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
+    'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December',
+];
 
 /**
  * Hämtar rapport och apidata (baserat månad & år samt användarid)
@@ -31,7 +34,7 @@ function getReportByMonthAnYear(req, res) {
     }).then(function () {
       return getDataFor(reportData);
     }).then(function (apiData) {
-      res.render('preview', { user: req.user, form: { report: reportData, data: apiData } });
+      res.render('preview', { user: req.user, customer: req.query.customer, queries: req.query, month: months[req.params.month], year: req.params.year, form: { report: reportData, data: apiData } });
     }).catch(function (err) {
       console.error(err);
     });
