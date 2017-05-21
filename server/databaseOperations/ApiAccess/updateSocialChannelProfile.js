@@ -19,14 +19,21 @@ function updateSocialChannelProfile(sessionUserID, profile) {
     }
   };
 
+  var updateObj = {
+    updated: Date.now()
+  };
+
+  // ES5 stödjer inte computed property names därav denna ändring. Dvs {[queryObj.provider]: queryObj} fungerar inte
+  updateObj[queryObj.provider] = queryObj;
+
   ApiAccess.findOneAndUpdate(
-    { user: sessionUserID },
-    { updated: Date.now(), [queryObj.provider]: queryObj },
-    { new: true },
-    function (error, matchingApiAccess) {
-      if (error) throw error;
-      if (matchingApiAccess === null) throw new Error('No user to save token to'); // todo how to handle this?
-    });
+      { user: sessionUserID },
+      updateObj,
+      { new: true },
+      function (error, matchingApiAccess) {
+        if (error) throw error;
+        if (matchingApiAccess === null) throw new Error('No user to save token to'); //todo how to handle this?
+      });
 }
 
 module.exports = updateSocialChannelProfile;

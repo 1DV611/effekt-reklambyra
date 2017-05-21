@@ -8,7 +8,7 @@ var passport = require('passport');
 var Auth0Strategy = require('passport-auth0');
 var GoogleOauthStrategy = require('passport-google-oauth').OAuth2Strategy;
 var InstagramStrategy = require('passport-instagram');
-var LinkedinStrategy = require('passport-linkedin');
+var LinkedinStrategy = require('passport-linkedin-oauth2').Strategy;
 var TwitterStrategy = require('passport-twitter');
 var FacebookStrategy = require('passport-facebook');
 
@@ -102,8 +102,8 @@ passport.use(new InstagramStrategy({
  * som är lite utdaterad och använder oauth 1.0
 */
 passport.use(new LinkedinStrategy({
-  consumerKey: process.env.LINKEDIN_CLIENT_ID,
-  consumerSecret: process.env.LINKEDIN_CLIENT_SECRET,
+  clientID: process.env.LINKEDIN_CLIENT_ID,
+  clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
   callbackURL: process.env.BASE_URL + '/auth/linkedin/callback'
 }, socialChannelCallback));
 
