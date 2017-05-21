@@ -1,4 +1,4 @@
-
+'use strict';
 var express = require('express');
 var app = express();
 
@@ -8,7 +8,7 @@ var passport = require('passport');
 var Auth0Strategy = require('passport-auth0');
 var GoogleOauthStrategy = require('passport-google-oauth').OAuth2Strategy;
 var InstagramStrategy = require('passport-instagram');
-var LinkedinStrategy = require('passport-linkedin');
+var LinkedinStrategy = require('passport-linkedin-oauth2').Strategy;
 var TwitterStrategy = require('passport-twitter');
 var FacebookStrategy = require('passport-facebook');
 
@@ -25,11 +25,12 @@ var handleLogin = require('./databaseOperations/User/handleLogin');
 
 var hbsHelpers = require('../views/helpers.js');
 
+// måste anropas innan en process.env.VARIABLE används, laddar environment variables
 dotenv.load();
 
 connectToDatabase(process.env.MLAB_CREDENTIAL_STRING);
 
-// Routes
+// Appens controllers, dvs urls lagrade i separat fil.
 var routes = require('../routes/start');
 var user = require('../routes/user');
 var socialChannels = require('../routes/channelAuth');
@@ -37,9 +38,15 @@ var socialChannels = require('../routes/channelAuth');
 var port = process.env.port || 3000;
 
 var socialChannelCallback = function (accessToken, refreshToken, extraParams, profile, done) {
-  // accessToken är för Auth0s API och behövs oftast inte
-  // extraParams.id_token har JWT
-  // profile har användarens profilinfo
+  /**
+   * @accessToken används för att calla resp. API
+   * @refreshToken för att förnya tokens, skickas inte av alla providers
+   * @extraParams individuellt för varje provider.
+   * @profile social profil
+   *
+   * Lagrar de credentials vi behöver i databasen från Facebook/linkedin/google osv på ett koneskvent sätt efter
+   * login.
+   */
   profile.accessToken = accessToken;
   profile.refreshToken = refreshToken;
   profile.id_token = extraParams.id_token;
@@ -48,14 +55,28 @@ var socialChannelCallback = function (accessToken, refreshToken, extraParams, pr
 };
 
 var userLoginCallback = function (accessToken, refreshToken, extraParams, profile, done) {
-  /* sets the profile to true/false depending if the user logging in has
-  been assigned the admin role in auth0 or not;
+  /**
+   * @accessToken inehåller token för auth0 login. Används inte.
+   * @refreshToken för att begära uppdaterat token. Används ite
+   * @extraParams ni kan specificera övrig info att skicka med userprofiles i auth0s ui. Används inte
+   * @profile inehåller mail, användarnamn mm. Finns även boolean för admin role
+   * @done callback
+   * Profilen som är returneras används sedan av session för att läsa av iaf inloggad användare är
+   * admin eller ej.
+   * Det profile.id som används genereras av auth0, det är även det userid vi använder och lagrar unikt
+   * för varje användare i vår databas som referens till användare.
   */
   profile.admin = profile._json.app_metadata.authorization.roles['0'] === 'admin';
   profile.id = profile.identities['0'].user_id;
   handleLogin(profile);
   return done(null, profile);
 };
+
+/**
+ * Passport har över 300 strategier om ni vill lägga till fler kanaler
+ * http://passportjs.org/
+ * Efter att en strategi har skapats och registrerats med passport.use kan den användas med Routes.
+ */
 
 passport.use(new Auth0Strategy({
   domain: process.env.AUTH0_DOMAIN,
@@ -76,14 +97,13 @@ passport.use(new InstagramStrategy({
   callbackURL: process.env.BASE_URL + '/auth/instagram/callback'
 }, socialChannelCallback));
 
-/* the consumerKey is actually called CLIENT ID in linkedins api console
-and the consumerSecret CLIENT SECRET. there is no actual linkedin API key,
-the linkedin passport strategy is a bit dated and uses oauth 1.0.
-https://github.com/jaredhanson/passport-linkedin
+/** För Linkedin är consumerKey faktiskt kallad CLIENT ID i Linkedins API console och consumerSecret
+ * är Client Secret. Det finns ingen faktiskt linkedin API key, det är endast linkedins passport strategy
+ * som är lite utdaterad och använder oauth 1.0
 */
 passport.use(new LinkedinStrategy({
-  consumerKey: process.env.LINKEDIN_CLIENT_ID,
-  consumerSecret: process.env.LINKEDIN_CLIENT_SECRET,
+  clientID: process.env.LINKEDIN_CLIENT_ID,
+  clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
   callbackURL: process.env.BASE_URL + '/auth/linkedin/callback'
 }, socialChannelCallback));
 
