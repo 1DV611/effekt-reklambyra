@@ -5,3 +5,4 @@ node_modules
 bower_components
 .env
 /.env
+/model/APIs/apiTest.js

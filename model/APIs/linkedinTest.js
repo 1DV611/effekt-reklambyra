@@ -6,6 +6,7 @@ var linkedin;
 var dateHelper = require('../../server/helpers/epochToDate');
 var relevantDate;
 
+//todo accidentally put in master, can be safely removed
 
 var runLinkedin = function (token, startDate) {
   relevantDate = dateHelper(startDate);
@@ -28,6 +29,3 @@ var runLinkedin = function (token, startDate) {
   });
 };
 
-runLinkedin('AQXz50SrajbMAz8P1FxmT0Rino63BfZPWD9oHB2rgVovvUIC9C8PZF9p76Hauc8kZjxlDobpuvuC-ZmstF0nWI3vTG2P7j4VRwA9a_rxgtf8pO5D_62Kozn5WVyFvv7obpQSNjTSIQzUBV3xZhBYzQvWiZFtHu1zWC7Yj-pZyS2EKJYek2U', 1495356124).then(function (res) {
-  console.log(res);
-});

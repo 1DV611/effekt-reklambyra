@@ -62,9 +62,13 @@ router.get('/twitter/callback',
   ensureLoggedIn,
   passport.authenticate('twitter', standardRedirectSettings));
 
+// manage pages kräver tillstånd från facebook för användare som inte är tillagda under Roles i dev dashboard
+// mer info: https://developers.facebook.com/docs/facebook-login/permissions/#reference-manage_pages
 router.get('/facebook',
   ensureLoggedIn,
-  passport.authenticate('facebook'));
+  passport.authenticate('facebook', {
+    scope: ['manage_pages', 'pages_show_list']
+  }));
 
 router.get('/facebook/callback',
   ensureLoggedIn,
