@@ -34,7 +34,18 @@ function getReportByMonthAnYear(req, res) {
     }).then(function () {
       return getDataFor(reportData);
     }).then(function (apiData) {
-      res.render('preview', { user: req.user, customer: req.query.customer, queries: req.query, month: months[req.params.month], year: req.params.year, form: { report: reportData, data: apiData } });
+      var viewObj = {
+        user: req.user,
+        customer: req.query.customer,
+        queries: req.query,
+        month: months[req.params.month],
+        year: req.params.year,
+        form: { report: reportData, data: apiData }
+      };
+
+      req.app.locals.report = viewObj;
+
+      res.render('preview', viewObj);
     }).catch(function (err) {
       console.error(err);
     });

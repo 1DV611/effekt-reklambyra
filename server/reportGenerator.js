@@ -7,7 +7,7 @@ var path = require('path');
 var streamPdf = phantomHtmlToPdf;
 
 function reportGenerator(req, res, next) {
-  var context = { form: req.app.locals.reportConfig };
+  var context = req.app.locals.report;
   fs.readFile('./views/preview.handlebars', 'utf-8', function (err, data) {
     var template = handlebars.compile(data);
     var html = template(context);
