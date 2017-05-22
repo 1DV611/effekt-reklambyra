@@ -1,6 +1,8 @@
 'use strict';
 
 var request = require('request');
+var dotenv = require('dotenv');
+dotenv.load();
 
 module.exports = function () {
   // documentaion: http://www.addthis.com/academy/addthis-analytics-api/
@@ -8,8 +10,8 @@ module.exports = function () {
 
   return new Promise(function (resolve) {
 
-    var username = 'byggaute@gmail.com';
-    var password = 'byggautenu';
+    var username = process.env.BYGGAUTE_USER;
+    var password = process.env.BYGGAUTE_PW;
     var apiUrl = 'https://' + username + ':' + password + '@api.addthis.com/analytics/1.0/pub';
     // clicks or shares
     var metric = '/clicks';

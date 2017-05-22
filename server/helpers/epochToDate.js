@@ -12,6 +12,7 @@ module.exports = function (unixTimeStamp) {
 
   return {
     month: date.getMonth(),
+    addedMonth: (date.getMonth() + 1),
     year: date.getFullYear()
   }
 

@@ -94,6 +94,7 @@ function followersForMonth(countsByMonth) {
  */
 function getForRelevantMonth(values) {
   var month = relevantDate.month;
+  //todo måste lägga på +1 för alla?
   // Linkedin sparar Januari som 1 medans epoch räknar Januari som 0 därav detta för att hantera edge case
   if (month === 0) relevantDate.month = 1;
   var result = false;
