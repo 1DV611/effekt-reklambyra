@@ -11,7 +11,7 @@ var getDataFor = require('./../server/databaseOperations/ApiData/getDataFor');
 var getAllReportsAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getAllReportsByMonthAndYear');
 var getSettings = require('./../server/getSettings.js');
 var reportGenerator = require('../server/reportGenerator.js');
-var APIs = require('../model/callAPIs');
+var APIs = require('../server/callAPIs');
 var reports;
 var completeReport;
 var data;

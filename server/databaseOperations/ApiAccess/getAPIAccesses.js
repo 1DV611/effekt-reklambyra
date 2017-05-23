@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
-var ApiAccess = require('./../../../model/schemas/ApiAccess');
-var convertToAPIArray = require('./../../../server/helpers/convertToAPIArray');
+var ApiAccess = require('../schemas/ApiAccess');
+var convertToAPIArray = require('../../helpers/convertToAPIArray');
 
 mongoose.Promise = global.Promise;
 

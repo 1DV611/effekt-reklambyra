@@ -1,6 +1,6 @@
-var callAPIs = require('./../../../model/callAPIs');
-var ApiAccess = require('./../../../model/schemas/ApiAccess');
-var ApiData = require('./../../../model/schemas/ApiData');
+var callAPIs = require('../../callAPIs');
+var ApiAccess = require('../schemas/ApiAccess');
+var ApiData = require('../schemas/ApiData');
 var newApiData;
 
 function createApiData(report) {

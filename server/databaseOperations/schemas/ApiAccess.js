@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var handleDuplicateKeyError = require('./../../server/helpers/handleDuplicateKeyError');
+var handleDuplicateKeyError = require('../../helpers/handleDuplicateKeyError');
 var Schema = mongoose.Schema;
 var ApiAccess;
 

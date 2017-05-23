@@ -3,7 +3,7 @@ var dotenv = require('dotenv');
 dotenv.load();
 var nodeLinkedin = require('node-linkedin')(process.env.LINKEDIN_CLIENT_ID, process.env.LINKEDIN_CLIENT_SECRET, process.env.BASE_URL + '/auth/linkedin/callback');
 var linkedin;
-var dateHelper = require('../../server/helpers/epochToDate');
+var dateHelper = require('../helpers/epochToDate');
 var relevantDate;
 
 

@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
-var Report = require('./../../../model/schemas/Report');
-var getDataFor = require('./../../../server/databaseOperations/ApiData/getDataFor');
-var currentMonthAndYear = require('./../../helpers/currentMonthAndYear');
-var getLastDayOfMonth = require('./../../helpers/getLastDayOfMonth');
+var Report = require('./../schemas/Report');
+var getDataFor = require('./../ApiData/getDataFor');
+var currentMonthAndYear = require('../../helpers/currentMonthAndYear');
+var getLastDayOfMonth = require('../../helpers/getLastDayOfMonth');
 var startDate;
 var endDate;
 var reportData;

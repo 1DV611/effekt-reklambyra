@@ -1,14 +1,13 @@
 'use strict';
 
 var request = require('request');
-var dateHelper = require('../../server/helpers/epochToDate');
+var dateHelper = require('../helpers/epochToDate');
 var relevantDate;
+var dotenv = require('dotenv');
+dotenv.load();
 
-// https://api.addthis.com/analytics/1.0/pub/<metric>[/<dimension>].<format>[?<params>]
-// Metrics: shares, clicks, subscriptions, sharers, influencers, clickers, users
-// dimension: day
-// format .json
-// params: ?period=month&pubid=
+// https://www.addthis.com/academy/addthis-analytics-api/
+// struktur på en endpoint https://username:password@api.addthis.com/analytics/1.0/pub/<metric>[/<dimension>].<format>[?<params>]
 var endpoints = ['/shares/day.json?period=month&pubid=',
   '/clicks/day.json?period=month&pubid=',
  // '/subscriptions/day.json?period=month&pubid=', ger en tom array
@@ -17,17 +16,14 @@ var endpoints = ['/shares/day.json?period=month&pubid=',
   '/clickers/day.json?period=month&pubid=',
   '/users/day.json?period=month&pubid=',
 ];
-var dotenv = require('dotenv');
-dotenv.load();
 
-function runApi(credentials, startDate, endDate) {
+function runApi(credentials, startDate) {
   var username = credentials.username;
   var password = credentials.password;
   var APIurl = 'https://' + username + ':' + password + '@api.addthis.com/analytics/1.0/pub';
   var pubID = 'ra-514097954142f597';
   relevantDate = dateHelper(startDate);
   var resultPromises = [];
-
 
   return new Promise(function (resolve) {
 
@@ -92,9 +88,7 @@ function toFilterByMonth(APIData) {
   console.log(result);
   return result;
 
-
 //sharers, clickers, users, shares, clicks,
-
 
 }
 

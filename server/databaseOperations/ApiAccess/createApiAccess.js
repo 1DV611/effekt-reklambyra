@@ -1,4 +1,4 @@
-var ApiAccess = require('./../../../model/schemas/ApiAccess');
+var ApiAccess = require('../schemas/ApiAccess');
 
 /**
  * skapar ApiAccess-objekt som refererar till en användare (User),

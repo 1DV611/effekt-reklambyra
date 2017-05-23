@@ -1,4 +1,4 @@
-var ApiAccess = require('./../../../model/schemas/ApiAccess');
+var ApiAccess = require('../schemas/ApiAccess');
 
 /**
  * Sparar eller uppdaterar accessinformation för sociala medier
