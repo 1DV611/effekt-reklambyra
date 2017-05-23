@@ -1,6 +1,6 @@
-var callAPIsWith = require('./../../../model/callAPIs');
-var ApiAccess = require('./../../../model/schemas/ApiAccess');
-var ApiData = require('./../../../model/schemas/ApiData');
+var callAPIsWith = require('../../callAPIs');
+var ApiAccess = require('../schemas/ApiAccess');
+var ApiData = require('../schemas/ApiData');
 var newApiData;
 
 /**
@@ -10,7 +10,7 @@ var newApiData;
 function createApiData(report) {
   ApiAccess.findOne({ user: report.user })
     .then(function (access) {
-      return callAPIsWith(access, report.startDate, report.endDate)
+      return callAPIsWith(access, report.startDate)
         .then(function (data) {
           return data;
         }).catch(function (error) {
