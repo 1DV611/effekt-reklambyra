@@ -1,21 +1,18 @@
-var getLastDayOfMonth = require('../../helpers/getLastDayOfMonth');
+var dateToEpoch = require('../../helpers/dateToEpoch');
 var Report = require('./../schemas/Report');
 var newReport;
 
-function createReport(userProfileId, month, year, summary, recommendation) {
+function createReport(userProfileId, month, year) {
+
+  var startDate = dateToEpoch(new Date(year, month, 1, 0, 0, 0, 1));
+  console.log(startDate);
+
   newReport = new Report({
     user: userProfileId,
-    startDate: new Date(year, month, 1, 0, 0, 0, 1),
-    endDate: new Date(year, month, getLastDayOfMonth(year, month), 23, 59, 59, 999),
-    summary: summary,
-    recommendation: recommendation
-    // TODO 'updated' property
-    // TODO 'optimization' property
+    startDate: startDate
   });
 
   newReport.save();
-  console.log('Report created!');
-  console.log(newReport);
 
   return newReport;
 }

@@ -17,9 +17,6 @@ const ReportSchema = new Schema({
   startDate: {
     type: Date,
     required: [true, 'A start date is required!'] },
-  endDate: {
-    type: Date,
-    required: [true, 'A end date is required!'] },
   summary: { type: String },
   optimization: { type: String },
   recommendation: { type: String }
