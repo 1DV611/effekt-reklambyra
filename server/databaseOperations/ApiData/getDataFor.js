@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var ApiData = require('./../../../model/schemas/ApiData');
+var ApiData = require('../schemas/ApiData');
 
 function getDataFor(report) {
   return ApiData.findOne({ report: report._id })

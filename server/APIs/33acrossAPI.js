@@ -1,12 +1,11 @@
 'use strict';
 var request = require('request');
-var fetchJsonp = require('fetch-jsonp');
 
 module.exports = function () {
 
   // there's no login to get these, must be entered manually.
 
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
 
     var secret_api_key = '6l303n3J6c3k7Q486k7R6W6G6r7P7s3V';
     var site_guid = 'dQ3jXaM6qr4Pilacwqm_6l';

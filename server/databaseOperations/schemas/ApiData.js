@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var idValidator = require('mongoose-id-validator');
-var handleDuplicateKeyError = require('./../../server/helpers/handleDuplicateKeyError');
+var handleDuplicateKeyError = require('./../../helpers/handleDuplicateKeyError');
 var Schema = mongoose.Schema;
 var ApiData;
 

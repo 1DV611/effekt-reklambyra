@@ -3,7 +3,7 @@ var dotenv = require('dotenv');
 dotenv.load();
 var nodeLinkedin = require('node-linkedin')(process.env.LINKEDIN_CLIENT_ID, process.env.LINKEDIN_CLIENT_SECRET, process.env.BASE_URL + '/auth/linkedin/callback');
 var linkedin;
-var dateHelper = require('../../server/helpers/epochToDate');
+var dateHelper = require('../helpers/epochToDate');
 var relevantDate;
 
 module.exports = function (token, startDate) {
@@ -94,6 +94,8 @@ function followersForMonth(countsByMonth) {
  */
 function getForRelevantMonth(values) {
   var month = relevantDate.month;
+  //todo måste lägga på +1 för alla?
+  //todo om äldre år än 12m?
   // Linkedin sparar Januari som 1 medans epoch räknar Januari som 0 därav detta för att hantera edge case
   if (month === 0) relevantDate.month = 1;
   var result = false;

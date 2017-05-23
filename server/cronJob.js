@@ -1,9 +1,9 @@
 'use strict';
 var APIs = require('./callAPIs');
-var getAPIAccesses = require('./../server/databaseOperations/ApiAccess/getAPIAccesses');
-var createReport = require('./../server/databaseOperations/Report/createReport');
-var createAPIData = require('./../server/databaseOperations/ApiData/createAPIData');
-var saveAPI = require('./../server/databaseOperations/ApiData/saveAPI');
+var getAPIAccesses = require('./databaseOperations/ApiAccess/getAPIAccesses');
+var createReport = require('./databaseOperations/Report/createReport');
+var createAPIData = require('./databaseOperations/ApiData/createAPIData');
+var saveAPI = require('./databaseOperations/ApiData/saveAPI');
 
 /*
  Takes all the api access objects from db, cycles them and calls the callAllAPIs script for all of them

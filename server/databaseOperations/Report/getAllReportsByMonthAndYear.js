@@ -1,4 +1,4 @@
-var Report = require('./../../../model/schemas/Report');
+var Report = require('./../schemas/Report');
 var getLastDayOfMonth = require('./../../helpers/getLastDayOfMonth');
 
 //  Todo: finn även user-objekt för varje rapport så att företagsnamnet kan visas intill rapportlänk

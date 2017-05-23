@@ -1,5 +1,5 @@
-var getLastDayOfMonth = require('./../../helpers/getLastDayOfMonth');
-var Report = require('./../../../model/schemas/Report');
+var getLastDayOfMonth = require('../../helpers/getLastDayOfMonth');
+var Report = require('./../schemas/Report');
 var newReport;
 
 function createReport(userProfileId, month, year, summary, recommendation) {

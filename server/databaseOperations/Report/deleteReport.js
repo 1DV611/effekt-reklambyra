@@ -1,4 +1,4 @@
-var Report = require('./../../../model/schemas/Report');
+var Report = require('../schemas/Report');
 
 function deleteReport(reportId) {
   Report.remove({ _id: reportId },
