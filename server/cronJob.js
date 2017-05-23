@@ -2,7 +2,7 @@
 var APIs = require('./callAPIs');
 var getAPIAccesses = require('./databaseOperations/ApiAccess/getAPIAccesses');
 var createReport = require('./databaseOperations/Report/createReport');
-var createAPIData = require('./databaseOperations/ApiData/createAPIData');
+var createApiData= require('./databaseOperations/ApiData/createApiData');
 var saveAPI = require('./databaseOperations/ApiData/saveAPI');
 
 /*
