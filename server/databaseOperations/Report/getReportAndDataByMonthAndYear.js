@@ -2,12 +2,10 @@ var mongoose = require('mongoose');
 var Report = require('./../schemas/Report');
 var getDataFor = require('./../ApiData/getDataFor');
 var currentMonthAndYear = require('../../helpers/currentMonthAndYear');
-var getLastDayOfMonth = require('../../helpers/getLastDayOfMonth');
 var startDate;
-var endDate;
 var reportData;
 var months = ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
-    'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December',
+  'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'
 ];
 
 /**
@@ -20,7 +18,6 @@ var months = ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
 function getReportByMonthAnYear(req, res) {
   if (currentMonthAndYear(req.params.month, req.params.year)) {
     startDate = new Date(req.params.year, req.params.month, 1, 0, 0, 0, 1);
-    endDate = new Date();
     //  TODO: Hämta från apier
   } else {
     startDate = new Date(req.params.year, req.params.month, 1, 0, 0, 0, 1);
