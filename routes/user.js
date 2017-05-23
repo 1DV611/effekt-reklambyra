@@ -10,6 +10,7 @@ var getReportAndDataByMonthAndYear = require('./../server/databaseOperations/Rep
 var getDataFor = require('./../server/databaseOperations/ApiData/getDataFor');
 var getAllReportsAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getAllReportsByMonthAndYear');
 var getSettings = require('./../server/getSettings.js');
+var saveReport = require('./../server/saveReport.js');
 var reportGenerator = require('../server/reportGenerator.js');
 var APIs = require('../model/callAPIs');
 var reports;
@@ -63,9 +64,13 @@ router.get('/settings',
   getSettings);
 
 //  skapar rapport-pdf
-router.get('/pdf',
+router.post('/pdf',
   ensureLoggedIn,
-  reportGenerator);
+  function(req, res, next) {
+    saveReport(req, res, next);
+    reportGenerator(req, res, next);
+  }
+);
 
 //  testa att skapa rapport - använd i cronJob?
 router.get('/test/:month/:year',

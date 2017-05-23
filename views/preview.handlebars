@@ -3,17 +3,19 @@
         <h1 class="toTheLeft">{{customer}}</h1> <h1 class="toTheRight">{{month}} {{year}}</h1>
         <div id="adminText">
             {{#if user.admin}}
+                <form method="post" action="/user/pdf">
                 <div id="summary">
                     <h3>Sammanfattning:</h3>
-                    <textarea id="summaryTextarea" class="form-control"></textarea>
+                    <textarea id="summaryTextarea" name="summary" class="form-control"></textarea>
                     <input type="input" id="summaryButton" class="btn btn-default toTheRight" value="Spara" onclick="saveSummary()">
                 </div>
                 <div id="recommendation">
                     <h3>Rekommendation:</h3>
-                    <textarea id="recommendationTextarea" class="form-control"></textarea>
+                    <textarea id="recommendationTextarea" name="recommendation" class="form-control"></textarea>
                     <input type="input" id="recommendationButton" class="btn btn-default toTheRight" value="Spara" onclick="saveRecommendation()">
                 </div>
-                <form method="get" action="/user/pdf">
+                    <input type="hidden" name="month" value="{{month}}">
+                    <input type="hidden" name="year" value="{{year}}">
                     <input class="btn btn-default" type="submit" value="Create PDF">
                 </form>
             {{/if}}
