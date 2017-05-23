@@ -6,7 +6,8 @@ var linkedin;
 var dateHelper = require('../helpers/epochToDate');
 var relevantDate;
 
-module.exports = function (token, startDate) {
+module.exports = function (profile, startDate) {
+  var token = profile.accessToken;
 
   relevantDate = dateHelper(startDate);
   return new Promise(function (resolve) {
