@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var ApiAccess = require('./../../../model/schemas/ApiAccess');
+var ApiAccess = require('../schemas/ApiAccess');
 
 mongoose.Promise = global.Promise;
 

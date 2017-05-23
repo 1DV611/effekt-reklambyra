@@ -12,7 +12,7 @@ var getAllReportsAndDataByMonthAndYear = require('./../server/databaseOperations
 var getSettings = require('./../server/getSettings.js');
 var saveReport = require('./../server/saveReport.js');
 var reportGenerator = require('../server/reportGenerator.js');
-var APIs = require('../model/callAPIs');
+var APIs = require('../server/callAPIs');
 var reports;
 var completeReport;
 var data;

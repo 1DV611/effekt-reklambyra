@@ -11,8 +11,7 @@ var APIResultsToObject = require('./../server/helpers/APIResultsToObject');
 /**
  *
  * @param access ett access objekt från databasen inheållandes profiler från google facebook etc incl accessTokens
- * @param startDate
- * @param endDate
+ * @param startDate unix epoch timestamp, används endast för att utläsa månad och år som man vill ha data för.
  *
  * Hämtar data från alla de APIer en avändare har credentials för.
  * För att hantera async använder funktioen Promises istället för callbacks:
@@ -26,25 +25,26 @@ var APIResultsToObject = require('./../server/helpers/APIResultsToObject');
  *
  */
 
-var callAPIsWith = function (access, startDate, endDate) {
+var callAPIsWith = function (access, startDate) {
 
   return new Promise(function (resolve, reject) {
 
     var promises = [];
 
-    if (access.hasOwnProperty('twitter')) promises.push(twitterAPI(access.twitter, startDate, endDate));
+    if (access.hasOwnProperty('twitter')) promises.push(twitterAPI(access.twitter, startDate));
 
-    if (access.facebook) promises.push(facebookAPI(access.facebook, startDate, endDate));
+    if (access.facebook) promises.push(facebookAPI(access.facebook, startDate));
 
-    if (access.linkedin) promises.push(linkedinAPI(access.linkedin, startDate, endDate));
+    if (access.linkedin) promises.push(linkedinAPI(access.linkedin, startDate));
 
-    if (access.google) promises.push(googleAPI(access.google.accessToken, startDate, endDate));
+    if (access.google) promises.push(googleAPI(access.google.accessToken, startDate));
 
-    if (access.instagram) promises.push(instagramAPI(access.instagram, startDate, endDate));
+    if (access.instagram) promises.push(instagramAPI(access.instagram, startDate));
 
-    if (access.tynt) promises.push(accrossAPI(access.tynt, startDate, endDate));
+    //todo förvirrande namngivning tynt vs accross
+    if (access.tynt) promises.push(accrossAPI(access.tynt, startDate));
 
-    if (access.addthis) promises.push(addThisAPI(access.addthis, startDate, endDate));
+    if (access.addthis) promises.push(addThisAPI(access.addthis, startDate));
 
     Promise.all(promises).then(function (apiData) {
 
@@ -52,7 +52,16 @@ var callAPIsWith = function (access, startDate, endDate) {
        * @apiData array of returnObj
        * Alla API moduler följer samma return pattern. Ett returnObj inehåller en nyckel med apiets namn
        * och därefter ett nästlat objekt med key.value för data.
-       * Varje returnObj kan även inehålla en error key där ev. errors finns.
+       * Varje det av ett returnObj kan ersättas med en error key iaf en viss del av data ej är möjlig att hämta
+       *
+       * t ex linkedin skulle kunna ge;
+       *
+       * linkedin {
+       * newCount: 42,
+       * totalCount: 42,
+       * error: 'no interactions data for 2017/04'
+       * }
+       *
        *
        */
 

@@ -1,4 +1,4 @@
-var User = require('./../../../model/schemas/User');
+var User = require('../schemas/User');
 var createApiAccess = require('./../ApiAccess/createApiAccess');
 var newUser;
 
