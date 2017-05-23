@@ -37,6 +37,7 @@ var socialChannels = require('../routes/channelAuth');
 
 var port = process.env.port || 3000;
 
+let userProfile;
 var socialChannelCallback = function (accessToken, refreshToken, extraParams, profile, done) {
   /**
    * @accessToken används för att calla resp. API
@@ -51,6 +52,9 @@ var socialChannelCallback = function (accessToken, refreshToken, extraParams, pr
   profile.refreshToken = refreshToken;
   profile.id_token = extraParams.id_token;
   profile.extraParams = extraParams;
+  profile.nickname = userProfile.nickname;
+  profile.picture = userProfile.picture;
+  profile.admin = userProfile._json.app_metadata.authorization.roles['0'] === 'admin';
   return done(null, profile);
 };
 
@@ -68,6 +72,7 @@ var userLoginCallback = function (accessToken, refreshToken, extraParams, profil
   */
   profile.admin = profile._json.app_metadata.authorization.roles['0'] === 'admin';
   profile.id = profile.identities['0'].user_id;
+  userProfile = profile;
   handleLogin(profile);
   return done(null, profile);
 };
