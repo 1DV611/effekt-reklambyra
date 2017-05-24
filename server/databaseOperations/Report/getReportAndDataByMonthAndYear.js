@@ -34,17 +34,16 @@ function getReportByMonthAnYear(req, res) {
    * ELSE - vid tidigare månader hämtas data från databas
    * **/
   if (currentMonthAndYear(req.params.month, req.params.year)) {
-    getCurrentApiData(req.user.id, startDate)
+    return getCurrentApiData(req.user.id, startDate)
       .then(function (apiData) {
         viewObj.form.data = apiData;
         viewObj.form.report = 'n/a';
         console.log(viewObj);
-        res.render('preview', viewObj);
       }).catch(function (err) {
         console.error(err);
       });
   } else {
-    Report.findOne({
+    return Report.findOne({
       user: req.user.id,
       startDate: startDate
     }).then(function (report) {
@@ -54,11 +53,12 @@ function getReportByMonthAnYear(req, res) {
       return getDataFor(reportData);
     }).then(function (apiData) {
       viewObj.form.data = apiData;
-      viewObj.form.report = 'n/a';
+      viewObj.form.report = reportData;
 
       req.app.locals.report = viewObj;
+      req.app.locals.queries = req.query;
 
-      res.render('preview', viewObj);
+      return viewObj;
     }).catch(function (err) {
       console.error(err);
     });
