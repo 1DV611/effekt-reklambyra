@@ -9,6 +9,13 @@ var client = new Instagram({
   client_secret: process.env.INSTAGRAM_CLIENT_SECRET,
 });
 
+//todo
+/**
+ * Even though our access tokens do not specify an expiration time, your app should handle the case that either the user revokes access, or Instagram expires the token after some period of time. If the token is no longer valid, API responses will contain an “error_type=OAuthAccessTokenException”. In this case you will need to re-authenticate the user to obtain a new valid token.
+ In other words: do not assume your access_token is valid forever.
+ * @param access
+ */
+
 module.exports = function (access) {
   var tokenObj = {access_token: access.accessToken};
   var userId = access.extraParams.user.id.toString();

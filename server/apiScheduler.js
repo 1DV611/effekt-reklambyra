@@ -7,6 +7,9 @@ var cronJob = require('./cronJob');
 // call all APIs with all user access objects
 // aaaand... done?
 
+
+//todo linkedin reminder/reactivate every 60 days?
+
 var job = schedule.scheduleJob({ date: 1, hour: 0, minute: 0, second: 5 }, function () {
   // job to be run?
   console.log('running monthly api call');

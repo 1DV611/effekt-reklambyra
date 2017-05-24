@@ -27,7 +27,9 @@ router.get('/google',
   passport.authenticate('google', {
     scope: ['profile', 'https://www.googleapis.com/auth/analytics.readonly',
       'https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/adsense.readonly',
-      'https://www.googleapis.com/auth/youtube.readonly']
+      'https://www.googleapis.com/auth/youtube.readonly'],
+    prompt: 'consent',
+    accessType: 'offline'
   }));
 
 router.get('/google/callback',

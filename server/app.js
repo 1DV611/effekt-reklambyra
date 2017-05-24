@@ -35,7 +35,7 @@ var routes = require('../routes/start');
 var user = require('../routes/user');
 var socialChannels = require('../routes/channelAuth');
 
-var scheduledJobs = require('./apiScheduler');
+//var scheduledJobs = require('./apiScheduler');
 
 var userProfile;
 var socialChannelCallback = function (accessToken, refreshToken, extraParams, profile, done) {
@@ -48,6 +48,8 @@ var socialChannelCallback = function (accessToken, refreshToken, extraParams, pr
    * Lagrar de credentials vi behöver i databasen från Facebook/linkedin/google osv på ett koneskvent sätt efter
    * login.
    */
+  //todo google and facebook profile need to save token date so that we can count how many days we've had it for
+
   profile.accessToken = accessToken;
   profile.refreshToken = refreshToken;
   profile.id_token = extraParams.id_token;
