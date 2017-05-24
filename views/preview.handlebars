@@ -7,16 +7,14 @@
                 <div id="summary">
                     <h3>Sammanfattning:</h3>
                     <textarea id="summaryTextarea" name="summary" class="form-control"></textarea>
-                    <input type="input" id="summaryButton" class="btn btn-default toTheRight" value="Spara" onclick="saveSummary()">
                 </div>
                 <div id="recommendation">
                     <h3>Rekommendation:</h3>
                     <textarea id="recommendationTextarea" name="recommendation" class="form-control"></textarea>
-                    <input type="input" id="recommendationButton" class="btn btn-default toTheRight" value="Spara" onclick="saveRecommendation()">
                 </div>
                     <input type="hidden" name="month" value="{{month}}">
                     <input type="hidden" name="year" value="{{year}}">
-                    <input class="btn btn-default" type="submit" value="Create PDF">
+                    <input class="btn btn-default" type="submit" value="Spara och skapa PDF-fil">
                 </form>
             {{/if}}
         </div>
@@ -46,7 +44,6 @@
             -->
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
-            <script src="/js/saveSummaryAndRecommendationPreview.js"></script>
             <script src="/js/lib/charts/createChart.js"></script>
             <script src="/js/lib/charts/createData.js"></script>
             <script>
