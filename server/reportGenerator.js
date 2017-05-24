@@ -2,26 +2,46 @@ var fs = require('fs');
 var handlebars = require('handlebars');
 var inline = require('inline-source');
 var path = require('path');
+var cheerio = require('cheerio');
 
 //  var streamPdf = htmlPdf;
 var streamPdf = phantomHtmlToPdf;
 
+var getReportAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getReportAndDataByMonthAndYear');
+
+function monthToNumber(target) {
+  var months = ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
+    'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'];
+  if (months.indexOf(target) === -1) {
+    // throw Error
+  } else {
+    return months.indexOf(target);
+  }
+}
+
 function reportGenerator(req, res, next) {
-  var context = req.app.locals.report;
-  fs.readFile('./views/preview.handlebars', 'utf-8', function (err, data) {
-    var template = handlebars.compile(data);
-    var html = template(context);
-    var external_refs = " \
+  req.params.month = monthToNumber(req.body.month);
+  req.params.year = req.body.year;
+  req.query = req.app.locals.queries;
+  getReportAndDataByMonthAndYear(req, res).then(function(context) {
+    fs.readFile('./views/preview.handlebars', 'utf-8', function (err, data) {
+      var template = handlebars.compile(data);
+      var html = template(context);
+      var external_refs = " \
         <link inline href='css/light-bootstrap-dashboard.css'> \
         <link inline href='css/toogle-switch.css'> \
         <link inline href='css/style.css'> \
         <script inline src='js/lib/charts/createChart.js'></script> \
         <script inline src='js/lib/charts/createData.js'></script> \
-    ";
-    inline(external_refs, { rootpath: path.resolve('client') }, function (err, inlines) {
-      res.setHeader('Content-disposition', 'attachment; filename=rapport.pdf');
-      res.setHeader('Content-type', 'application/pdf');
-      streamPdf(inlines+html, res);
+      ";
+      inline(external_refs, { rootpath: path.resolve('client') }, function (err, inlines) {
+        res.setHeader('Content-disposition', 'attachment; filename=rapport.pdf');
+        res.setHeader('Content-type', 'application/pdf');
+        var $ = cheerio.load(inlines+html);
+        $('#summaryTextarea').text(req.body.summary);
+        $('#recommendationTextarea').text(req.body.recommendation);
+        streamPdf($.html(), res);
+      });
     });
   });
 }
