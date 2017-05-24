@@ -1,6 +1,7 @@
 var callAPIsWith = require('../../callAPIs');
 var ApiAccess = require('../schemas/ApiAccess');
 var ApiData = require('../schemas/ApiData');
+var dateToEpoch = require('../../helpers/dateToEpoch');
 var newApiData;
 
 /**
@@ -10,7 +11,7 @@ var newApiData;
 function createApiData(report) {
   ApiAccess.findOne({ user: report.user })
     .then(function (access) {
-      return callAPIsWith(access, report.startDate)
+      return callAPIsWith(access, dateToEpoch(report.startDate))
         .then(function (data) {
           return data;
         }).catch(function (error) {

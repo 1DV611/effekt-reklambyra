@@ -11,7 +11,7 @@ var dateToEpoch = require('./helpers/dateToEpoch');
 
 /**
  *
- * @param access ett access objekt från databasen inheållandes profiler från google facebook etc
+ * @param access ett access objekt från databasen innehållande profiler från google facebook etc
  * incl accessTokens
  * @param startDate Date objekt
  *
@@ -30,12 +30,12 @@ var dateToEpoch = require('./helpers/dateToEpoch');
  *
  */
 
-var callAPIsWith = function (access, startDate) {
-  var startDateInUnix = dateToEpoch(startDate);
+var callAPIsWith = function (access, startDateInUnix) {
 
   return new Promise(function (resolve, reject) {
     var promises = [];
 
+    //todo är hasOwnProperty att föredra?
     if (access.hasOwnProperty('twitter')) promises.push(twitterAPI(access.twitter, startDateInUnix));
 
     if (access.facebook) promises.push(facebookAPI(access.facebook, startDateInUnix));
@@ -67,7 +67,6 @@ var callAPIsWith = function (access, startDate) {
        *
        *
        */
-
       resolve(APIResultsToObject(apiData));
     }).catch(function (error) {
       reject(error);

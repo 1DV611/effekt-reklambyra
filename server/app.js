@@ -35,9 +35,9 @@ var routes = require('../routes/start');
 var user = require('../routes/user');
 var socialChannels = require('../routes/channelAuth');
 
-var port = process.env.port || 3000;
+var scheduledJobs = require('./apiScheduler');
 
-let userProfile;
+var userProfile;
 var socialChannelCallback = function (accessToken, refreshToken, extraParams, profile, done) {
   /**
    * @accessToken används för att calla resp. API

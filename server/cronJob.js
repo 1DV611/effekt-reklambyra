@@ -1,15 +1,18 @@
 'use strict';
-var APIs = require('./callAPIs');
+var callAPIs = require('./callAPIs');
 var getAPIAccesses = require('./databaseOperations/ApiAccess/getAPIAccesses');
 var createReport = require('./databaseOperations/Report/createReport');
 var createApiData= require('./databaseOperations/ApiData/createApiData');
 var saveAPI = require('./databaseOperations/ApiData/saveAPI');
+var dateToAdjustedEpoch = require('./helpers/adjustedEpoch');
 
-/*
+/**
  Takes all the api access objects from db, cycles them and calls the callAllAPIs script for all of them
+ need a current date as well.
  */
 
-module.exports = function () {
+// todo scheduling fungerar men behöver använda nya db strukturen, dvs hämta alla användare.
+module.exports = function (unixTimeStamp) {
 
   getAPIAccesses()
       .then(function (APIAccesses) {
@@ -21,7 +24,7 @@ module.exports = function () {
       });
 
   var updateEach = function (APIAccess) {
-    APIs.callAPIsWith(APIAccess)
+    callAPIs(APIAccess, unixTimeStamp)
         .then(function (apiData) {
           /**
            * Create
@@ -31,5 +34,4 @@ module.exports = function () {
       console.error(error);
     });
   };
-
 };

@@ -31,12 +31,12 @@ module.exports = function (token, startDate) {
   //  TODO: Anpassa endDate för scenario nuvarande månad resp avslutad månad
   var endDateString = new Date().toISOString().substring(0, 10);
 
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     oauth2Client.setCredentials({
       access_token: token,
     });
 
-    var promiseYoutube = new Promise(function (resolve, reject) {
+    var promiseYoutube = new Promise(function (resolve) {
       var obj = {};
 
       // using bracket notation since google requires dashes in some of their required params
@@ -47,22 +47,19 @@ module.exports = function (token, startDate) {
       obj['auth'] = oauth2Client;
       // The api explorer is very useful: https://developers.google.com/apis-explorer
       youtubeAnalytics.reports.query(obj, function (err, body) {
-        if (err) {
-          console.error('youtube error: ', err);
-        }
+        if (err) resolve({ error: 'youtube analytics error' });
+        if (!body) return resolve({ error: 'no youtube analytics for user' });
 
-        //  console.log(body.rows[0][0]);
         resolve(body.rows[0][0]);
       });
     });
 
-    var promiseAnalytics = new Promise(function (resolve, reject) {
+    var promiseAnalytics = new Promise(function (resolve) {
       var obj = {};
       obj['auth'] = oauth2Client;
       analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
-        if (err) {
-          console.error('analytics error', err);
-        }
+        if (err) resolve({ error: 'youtube analytics error' });
+        if (!bodyProfile) return resolve({ error: 'no analytics account for user' });
 
         obj['end-date'] = endDateString;
         obj['start-date'] = startDateString;
@@ -71,7 +68,7 @@ module.exports = function (token, startDate) {
         obj['auth'] = oauth2Client;
         analytics.data.ga.get(obj, function (errData, bodyData) {
           if (errData) {
-            reject(console.log(errData));
+            resolve({ error: 'Analytics error' });
           }
           //console.log(bodyData);
           var results = bodyData.totalsForAllResults;
@@ -92,9 +89,8 @@ module.exports = function (token, startDate) {
       var obj = {};
       obj['auth'] = oauth2Client;
       analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
-        if (err) {
-          console.error('analytics most viewed error: ', err);
-        }
+        if (err) resolve({ error: 'analytics most visited error' });
+        if (!bodyProfile) return resolve({ error: 'no analytics account for user' });
 
         obj['end-date'] = endDateString;
         obj['start-date'] = startDateString;
@@ -106,7 +102,7 @@ module.exports = function (token, startDate) {
         obj['auth'] = oauth2Client;
         analytics.data.ga.get(obj, function (errData, bodyData) {
           if (errData) {
-            reject(console.log(errData));
+            resolve({ error: 'analytics most visited error '});
           }
           //console.log(bodyData.rows);
           var results = bodyData.rows;
@@ -122,9 +118,8 @@ module.exports = function (token, startDate) {
       var obj = {};
       obj['auth'] = oauth2Client;
       analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
-        if (err) {
-          console.error('analytics top landing error: ', err);
-        }
+        if (err) resolve({ error: 'analytics top landing error' });
+        if (!bodyProfile) return resolve({ error: 'no analytics account for user' });
 
         obj['end-date'] = endDateString;
         obj['start-date'] = startDateString;
@@ -136,7 +131,7 @@ module.exports = function (token, startDate) {
         obj['auth'] = oauth2Client;
         analytics.data.ga.get(obj, function (errData, bodyData) {
           if (errData) {
-            reject(console.log(errData));
+            resolve({ error: 'analytics top landing error' });
           }
           //console.log(bodyData.rows);
           var results = bodyData.rows;
@@ -168,6 +163,7 @@ module.exports = function (token, startDate) {
 
   }).catch(function (error) {
     console.error('google api error: ', error);
-    reject(error);
   });
 };
+
+
