@@ -10,7 +10,7 @@ var streamPdf = phantomHtmlToPdf;
 var getReportAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getReportAndDataByMonthAndYear');
 var monthToNumber = require('./helpers/monthToNumber.js');
 
-function reportGenerator(req, res, next) {
+function pdfGenerator(req, res, next) {
   req.params.month = monthToNumber(req.body.month);
   req.params.year = req.body.year;
   req.query = req.app.locals.queries;
@@ -60,4 +60,4 @@ function phantomHtmlToPdf(html, res) {
   });
 }
 
-module.exports = reportGenerator;
+module.exports = pdfGenerator;

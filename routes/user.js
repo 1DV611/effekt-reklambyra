@@ -11,7 +11,7 @@ var getAllReportsAndDataByMonthAndYear = require('./../server/databaseOperations
 var getSettings = require('./../server/getSettings.js');
 var updateSocialChannelProfile = require('./../server/databaseOperations/ApiAccess/updateSocialChannelProfile');
 var saveReport = require('./../server/saveReport.js');
-var reportGenerator = require('../server/reportGenerator.js');
+var pdfGenerator = require('../server/pdfGenerator.js');
 var reports;
 
 /**
@@ -79,7 +79,7 @@ router.post('/pdf',
   ensureLoggedIn,
   function (req, res, next) {
     saveReport(req, res, next);
-    reportGenerator(req, res, next);
+    pdfGenerator(req, res, next);
   }
 );
 
