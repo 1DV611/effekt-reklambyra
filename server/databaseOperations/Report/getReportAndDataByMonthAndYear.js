@@ -25,7 +25,8 @@ function getReportByMonthAnYear(req, res) {
     customer: req.query.customer,
     queries: req.query,
     month: months[req.params.month],
-    year: req.params.year
+    year: req.params.year,
+    form: {}
   };
 
   /** IF - Om nuvarande månads data efterfrågas så hämtas data inte från databasen utan direkt
@@ -35,9 +36,8 @@ function getReportByMonthAnYear(req, res) {
   if (currentMonthAndYear(req.params.month, req.params.year)) {
     getCurrentApiData(req.user.id, startDate)
       .then(function (apiData) {
-        viewObj = {
-          form: { report: 'n/a', data: apiData }
-        };
+        viewObj.form.data = apiData;
+        viewObj.form.report = 'n/a';
         console.log(viewObj);
         res.render('preview', viewObj);
       }).catch(function (err) {
@@ -53,9 +53,8 @@ function getReportByMonthAnYear(req, res) {
     }).then(function () {
       return getDataFor(reportData);
     }).then(function (apiData) {
-      viewObj = {
-        form: { report: reportData, data: apiData }
-      };
+      viewObj.form.data = apiData;
+      viewObj.form.report = 'n/a';
 
       req.app.locals.report = viewObj;
 
