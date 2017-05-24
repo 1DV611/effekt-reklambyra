@@ -76,6 +76,7 @@ router.get('/facebook/deauth',
     console.log('fb deauth ' + req.user);
   });
 
+//  TODO: Google sparas i apiAccess MEN node rejection error visas i konsolen? och redirectar inte
 /** this is where all successful auths end up, req.user has the entire profile.
  * req.user.accessToken = token
  */

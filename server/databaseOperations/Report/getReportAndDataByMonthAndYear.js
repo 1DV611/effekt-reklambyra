@@ -1,7 +1,9 @@
 var mongoose = require('mongoose');
 var Report = require('./../schemas/Report');
+var getCurrentApiData = require('./../ApiData/getCurrentApiData');
 var getDataFor = require('./../ApiData/getDataFor');
 var currentMonthAndYear = require('../../helpers/currentMonthAndYear');
+var viewObj;
 var startDate;
 var reportData;
 var months = ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
@@ -16,12 +18,32 @@ var months = ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
  * @param year
  */
 function getReportByMonthAnYear(req, res) {
-  if (currentMonthAndYear(req.params.month, req.params.year)) {
-    startDate = new Date(req.params.year, req.params.month, 1, 0, 0, 0, 1);
-    //  TODO: Hämta från apier
-  } else {
-    startDate = new Date(req.params.year, req.params.month, 1, 0, 0, 0, 1);
 
+  startDate = new Date(req.params.year, req.params.month, 1, 0, 0, 0, 1);
+  viewObj = {
+    user: req.user,
+    customer: req.query.customer,
+    queries: req.query,
+    month: months[req.params.month],
+    year: req.params.year
+  };
+
+  /** IF - Om nuvarande månads data efterfrågas så hämtas data inte från databasen utan direkt
+   * från apier
+   * ELSE - vid tidigare månader hämtas data från databas
+   * **/
+  if (currentMonthAndYear(req.params.month, req.params.year)) {
+    getCurrentApiData(req.user.id, startDate)
+      .then(function (apiData) {
+        viewObj = {
+          form: { report: 'n/a', data: apiData }
+        };
+        console.log(viewObj);
+        res.render('preview', viewObj);
+      }).catch(function (err) {
+        console.error(err);
+      });
+  } else {
     Report.findOne({
       user: req.user.id,
       startDate: startDate
@@ -31,12 +53,7 @@ function getReportByMonthAnYear(req, res) {
     }).then(function () {
       return getDataFor(reportData);
     }).then(function (apiData) {
-      var viewObj = {
-        user: req.user,
-        customer: req.query.customer,
-        queries: req.query,
-        month: months[req.params.month],
-        year: req.params.year,
+      viewObj = {
         form: { report: reportData, data: apiData }
       };
 
