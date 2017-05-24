@@ -1,23 +1,21 @@
 var mongoose = require('mongoose');
 var ApiAccess = require('../schemas/ApiAccess');
-
 mongoose.Promise = global.Promise;
 
-//  todo : Unexpected token _ in JSON at position 2
-//  todo: authorization for analytics fails on line 122 googleAPI - app crashes
 /**
- * Hämtar ett ApiAccess-objekt
- * @param userID
- * @returns {Promise}
+ * Hämtar användarspecifikt APIAccess-objekt
+ * @param userId
  */
-function getUserAccess(userID) {
+function getUserAPIAccess(userId) {
   return new Promise(function (resolve, reject) {
-    ApiAccess.findOne({ user: userID }).then(function (doc) {
-      resolve(doc._doc);
+    ApiAccess.findOne({
+      user: userId
+    }).then(function (doc) {
+      resolve(doc);
     }).catch(function (error) {
       reject(error);
     });
   });
 }
 
-module.exports = getUserAccess;
+module.exports = getUserAPIAccess;

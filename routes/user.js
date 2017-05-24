@@ -7,15 +7,12 @@ var createReport = require('./../server/databaseOperations/Report/createReport')
 var createApiData = require('./../server/databaseOperations/ApiData/createApiData');
 
 var getReportAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getReportAndDataByMonthAndYear');
-var getDataFor = require('./../server/databaseOperations/ApiData/getDataFor');
 var getAllReportsAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getAllReportsByMonthAndYear');
 var getSettings = require('./../server/getSettings.js');
+var updateSocialChannelProfile = require('./../server/databaseOperations/ApiAccess/updateSocialChannelProfile');
 var saveReport = require('./../server/saveReport.js');
 var reportGenerator = require('../server/reportGenerator.js');
-var APIs = require('../server/callAPIs');
 var reports;
-var completeReport;
-var data;
 
 /**
  * /user/ - router
@@ -63,10 +60,20 @@ router.get('/settings',
   ensureLoggedIn,
   getSettings);
 
+//  inaktivera media och återvänder till settings
+router.get('/updatesettings',
+  ensureLoggedIn,
+  function (req, res, next) {
+    //  TODO: skicka med information om vilka medier som ska inaktiveras enligt upplägg i klienten
+    //  men som array - raderar propertyn
+    updateSocialChannelProfile(req.user.id, ['facebook']);
+    res.redirect('settings');
+  });
+
 //  skapar rapport-pdf
 router.post('/pdf',
   ensureLoggedIn,
-  function(req, res, next) {
+  function (req, res, next) {
     saveReport(req, res, next);
     reportGenerator(req, res, next);
   }

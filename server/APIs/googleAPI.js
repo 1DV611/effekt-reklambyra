@@ -3,6 +3,7 @@ var dotenv = require('dotenv');
 //OBS! you need to enable each API you want to use at console.developers.google.com/apis
 var youtubeAnalytics = google.youtubeAnalytics('v1');
 var analytics = google.analytics('v3');
+var dateHelper = require('../helpers/epochToDate');
 
 var OAuth2Client = google.auth.OAuth2;
 
@@ -22,9 +23,13 @@ var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
 // you need to get the access_token from auth0IdpAccessToken.js
 
-module.exports = function (token, startDate, endDate) {
-  var startDateString = startDate.toISOString().substring(0, 10);
-  var endDateString = endDate.toISOString().substring(0, 10);
+module.exports = function (token, startDate) {
+  var relevantDate = dateHelper(startDate);
+
+  //  TODO: anpassa så att 0 läggs till på månader som inte är tvåsiffriga
+  var startDateString = relevantDate.year + '-0' + relevantDate.month + '-' + '01';
+  //  TODO: Anpassa endDate för scenario nuvarande månad resp avslutad månad
+  var endDateString = new Date().toISOString().substring(0, 10);
 
   return new Promise(function (resolve, reject) {
     oauth2Client.setCredentials({
