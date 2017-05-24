@@ -1,14 +1,5 @@
 var createReport = require('./databaseOperations/Report/createReport.js');
-
-function monthToNumber(target) {
-  var months = ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
-    'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'];
-  if (months.indexOf(target) === -1) {
-    // throw Error
-  } else {
-    return months.indexOf(target);
-  }
-}
+var monthToNumber = require('./helpers/monthToNumber.js');
 
 function saveReport(req, res, next) {
   var id = req.user.id;

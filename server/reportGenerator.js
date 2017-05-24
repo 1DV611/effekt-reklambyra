@@ -8,16 +8,7 @@ var cheerio = require('cheerio');
 var streamPdf = phantomHtmlToPdf;
 
 var getReportAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getReportAndDataByMonthAndYear');
-
-function monthToNumber(target) {
-  var months = ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
-    'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'];
-  if (months.indexOf(target) === -1) {
-    // throw Error
-  } else {
-    return months.indexOf(target);
-  }
-}
+var monthToNumber = require('./helpers/monthToNumber.js');
 
 function reportGenerator(req, res, next) {
   req.params.month = monthToNumber(req.body.month);
