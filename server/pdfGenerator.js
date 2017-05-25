@@ -31,6 +31,7 @@ function pdfGenerator(req, res, next) {
         var $ = cheerio.load(inlines+html);
         $('#summaryTextarea').text(req.body.summary);
         $('#recommendationTextarea').text(req.body.recommendation);
+        $('#createPdfButton').remove();
         streamPdf($.html(), res);
       });
     });
