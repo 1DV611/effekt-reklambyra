@@ -85,10 +85,10 @@
                 {{/if}}
 
 
-                var data = createData(medias, percentages);
+                var pieData = createData(medias, percentages);
 
                 var barChart = createChart('bar', canvasBarChart, barData);
-                var pieChart = createChart('pie', canvasPieChart, data);
+                var pieChart = createChart('pie', canvasPieChart, pieData);
 
                 /* Added in case of extra time.
                 var doughnutChart = createChart('doughnut', canvasDoughnutChart, data);
