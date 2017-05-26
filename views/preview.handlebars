@@ -161,11 +161,72 @@
         <div id="stats" class="toTheRight">
             <div class="card">
                         <div class="header">
+                            {{#if this.queries.adwords}}
+                                <h3 class="title">AdWords</h3>
+                                {{#if this.queries.adwordsClick}}
+                                    <h3>{{this.form.data.adwords.adwordsClick.result}} klickningar.</h3>
+                                    <br>
+                                {{/if}}
+                                {{#if this.queries.adwordsCpc}}
+                                    <h3>{{this.form.data.adwords.adwordsCpc.result}} kostnad per klick.</h3>
+                                    <br>
+                                {{/if}}
+                                {{#if this.queries.adwordsViews}}
+                                    <h3>{{this.form.data.adwords.adwordsViews.result}} visningar.</h3>
+                                    <br>
+                                {{/if}}
+                            {{/if}}
+                            {{#if this.queries.facebook}}
+                                <h3 class="title">Facebook</h3>
+                                {{#if this.queries.facebookLikes}}
+                                    <h3>{{this.form.data.facebook.facebookLikes.result}} gillningar.</h3>
+                                    <br>
+                                {{/if}}
+                            {{/if}}
                             {{#if this.queries.youtube}}
                                 <h3 class="title">Youtube</h3>
                                 {{#if this.queries.youtubeViews}}
-                                <h3>{{this.form.data.youtube.views.result}} visningar.</h3>
-                                <br>
+                                    <h3>{{this.form.data.youtube.views.result}} visningar.</h3>
+                                    <br>
+                                {{/if}}
+                            {{/if}}
+                            {{#if this.queries.tynt}}
+                                <h3 class="title">Tynt/33across</h3>
+                                {{#if this.queries.tyntCopied}}
+                                    <h3>{{this.form.data.tynt.tyntCopied.result}} kopieringar.</h3>
+                                    <br>
+                                {{/if}}
+                            {{/if}}
+                            {{#if this.queries.addthis}}
+                                <h3 class="title">AddThis</h3>
+                                {{#if this.queries.addthisClick}}
+                                    <h3>{{this.form.data.addthis.addthisClick.result}} klickningar.</h3>
+                                    <br>
+                                {{/if}}
+                            {{/if}}
+                            {{#if this.queries.twitter}}
+                                <h3 class="title">Twitter</h3>
+                                {{#if this.queries.twitterViews}}
+                                    <h3>{{this.form.data.twitter.twitterViews.result}} visningar.</h3>
+                                    <br>
+                                {{/if}}
+                            {{/if}}
+                            {{#if this.queries.linkedin}}
+                                <h3 class="title">LinkedIn</h3>
+                                {{#if this.queries.linkedinFollowers}}
+                                    <h3>{{this.form.data.linkedin.linkedinFollowers.result}} följare.</h3>
+                                    <br>
+                                {{/if}}
+                                {{#if this.queries.linkedinInteractions}}
+                                    <h3>{{this.form.data.linkedin.linkedinInteractions.result}} interaktioner.</h3>
+                                    <br>
+                                {{/if}}
+                            {{/if}}
+                            {{#if this.queries.moz}}
+                                <h3 class="title">Moz</h3>
+                                {{#if this.queries.mozKeywords}}
+                                    <h3>{{this.form.data.moz.mozKeywords.result}} nyckelord.</h3>
+                                    <br>
                                 {{/if}}
                             {{/if}}
                             {{#if this.queries.analytics}}
@@ -175,8 +236,16 @@
                                     <br>
                                 {{/if}}
                                 {{#if this.queries.analyticsUniqueViews}}
-                                <h3>{{this.form.data.analytics.analyticsUniqueViews.result}} unika visningar.</h3>
-                                <br>
+                                    <h3>{{this.form.data.analytics.analyticsUniqueViews.result}} unika visningar.</h3>
+                                    <br>
+                                {{/if}}
+                                {{#if this.queries.analyticsStrongestRedirects}}
+                                    <h3>{{this.form.data.analytics.analyticsStrongestRedirects.result}} är de starkaste ingångskanalerna.</h3>
+                                    <br>
+                                {{/if}}
+                                {{#if this.queries.analyticsMostVisitedPages}}
+                                    <h3>{{this.form.data.analytics.analyticsMostVisitedPages.result}} är de mest besökta sidorna.</h3>
+                                    <br>
                                 {{/if}}
                                 {{#if this.queries.analyticsAverageTime}}
                                     <h3>{{this.form.data.analytics.analyticsAverageTime.result}} genomsnittlig tid på sidan.</h3>
