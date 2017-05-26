@@ -2,11 +2,33 @@ function changeHref() {
   var previewButton = document.querySelector('#previewButton');
   var href = '/user/report/' + months.value + '/' + years.value + '?customer=' + customer.value;
 
+  //Koppla till alla feature-checkboxar från dashboarden:
+
+  var adwordsClick = document.querySelector('#adwords-click');
+  var adwordsCpc = document.querySelector('#adwords-cpc');
+  var adwordsViews = document.querySelector('#adwords-views');
+
+  var facebookLikes = document.querySelector('#facebook-likes');
+
   var youtubeViews = document.querySelector('#youtube-views');
+
+  var tyntCopied = document.querySelector('#tynt-copied');
+
+  var addthisClick = document.querySelector('#addthis-click');
+
+  var twitterViews = document.querySelector('#twitter-views');
+
   var analyticsViews = document.querySelector('#analytics-views');
   var analyticsUniqueViews = document.querySelector('#analytics-unique-views');
+  var analyticsStrongestRedirects = document.querySelector('#analytics-4-strongest-redirects');
+  var analyticsMostVisitedPages = document.querySelector('#analytics-4-most-visited-pages');
   var analyticsAverageTime = document.querySelector('#analytics-average-time');
   var analyticsAverageVisitedPerPages = document.querySelector('#analytics-average-visited-per-pages');
+
+  var linkedinFollowers = document.querySelector('#linkedin-followers');
+  var linkedinInteractions = document.querySelector('#linkedin-interactions');
+
+  var mozKeywords = document.querySelector('#moz-keywords');
 
   // Vilka medier och features som blivit iklickade på dashboard-sidan:
 
