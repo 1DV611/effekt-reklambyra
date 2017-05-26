@@ -69,6 +69,34 @@
                     visitorsInTotalPerMonth[0] += Number({{this.form.data.analytics.analyticsViews.result}});
                 {{/if}}
 
+                {{#if this.queries.adwords}}
+                    visitorsInTotalPerMonth[0] += Number({{this.form.data.adwords.adwordsViews.result}});
+                {{/if}}
+
+                {{#if this.queries.facebook}}
+                    visitorsInTotalPerMonth[0] += Number({{this.form.data.facebook.facebookLikes.result}});
+                {{/if}}
+
+                {{#if this.queries.tynt}}
+                    visitorsInTotalPerMonth[0] += Number({{this.form.data.tynt.tyntCopied.result}});
+                {{/if}}
+
+                {{#if this.queries.addthis}}
+                    visitorsInTotalPerMonth[0] += Number({{this.form.data.addthis.addthisClick.result}});
+                {{/if}}
+
+                {{#if this.queries.twitter}}
+                    visitorsInTotalPerMonth[0] += Number({{this.form.data.twitter.twitterViews.result}});
+                {{/if}}
+
+                {{#if this.queries.linkedin}}
+                    visitorsInTotalPerMonth[0] += Number({{this.form.data.linkedin.linkedinFollowers.result}});
+                {{/if}}
+
+                {{#if this.queries.moz}}
+                    visitorsInTotalPerMonth[0] += Number({{this.form.data.moz.mozKeywords.result}});
+                {{/if}}
+
 
                 var barData = createData(months, visitorsInTotalPerMonth);
 
@@ -79,9 +107,43 @@
                     medias.push('Youtube');
                     percentages.push(Number({{this.form.data.youtube.views.result}}));
                 {{/if}}
+
                 {{#if this.queries.analytics}}
                     medias.push('Analytics');
                     percentages.push(Number({{this.form.data.analytics.analyticsViews.result}}));
+                {{/if}}
+
+                {{#if this.queries.adwords}}
+                    medias.push('AdWords');
+                    percentages.push(Number({{this.form.data.adwords.adwordsViews.result}}));
+                {{/if}}
+
+                {{#if this.queries.facebook}}
+                    medias.push('Facebook');
+                    percentages.push(Number({{this.form.data.facebook.facebookLikes.result}}));
+                {{/if}}
+
+                {{#if this.queries.tynt}}
+                    medias.push('Tynt');
+                    percentages.push(Number({{this.form.data.tynt.tyntCopied.result}}));
+                {{/if}}
+
+                {{#if this.queries.addthis}}
+                    medias.push('AddThis');
+                    percentages.push(Number({{this.form.data.addthis.addthisClick.result}}));
+                {{/if}}
+
+                {{#if this.queries.twitter}}
+                    medias.push('Twitter');
+                    percentages.push(Number({{this.form.data.twitter.twitterViews.result}}));
+                {{/if}}
+                {{#if this.queries.linkedin}}
+                    medias.push('LinkedIn');
+                    percentages.push(Number({{this.form.data.linkedin.linkedinFollowers.result}}));
+                {{/if}}
+                {{#if this.queries.moz}}
+                    medias.push('Analytics');
+                    percentages.push(Number({{this.form.data.moz.mozKeywords.result}}));
                 {{/if}}
 
 
