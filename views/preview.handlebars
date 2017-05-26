@@ -6,11 +6,27 @@
                 <form method="post" action="/user/pdf">
                 <div id="summary">
                     <h3>Sammanfattning:</h3>
-                    <textarea id="summaryTextarea" name="summary" class="form-control"></textarea>
+                    {{#if this.report.summary}}
+                        <p>{{this.report.summary}}</p>
+                    {{else}}
+                        <textarea id="summaryTextarea" name="summary" class="form-control"></textarea>
+                    {{/if}}
+                </div>
+                <div id="optimization">
+                    <h3>Optimering:</h3>
+                    {{#if this.report.optimization}}
+                            <p>{{this.report.optimization}}</p>
+                    {{else}}
+                        <textarea id="optimizationTextarea" name="optimization" class="form-control"></textarea>
+                    {{/if}}
                 </div>
                 <div id="recommendation">
                     <h3>Rekommendation:</h3>
-                    <textarea id="recommendationTextarea" name="recommendation" class="form-control"></textarea>
+                    {{#if this.report.recommendation}}
+                        <p>{{this.report.recommendation}}</p>
+                    {{else}}
+                        <textarea id="recommendationTextarea" name="recommendation" class="form-control"></textarea>
+                    {{/if}}
                 </div>
                     <input type="hidden" name="month" value="{{this.month}}">
                     <input type="hidden" name="year" value="{{this.year}}">
