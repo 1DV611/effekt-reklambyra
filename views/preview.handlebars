@@ -93,10 +93,10 @@
                     visitorsInTotalPerMonth[0] += Number({{this.form.data.linkedin.linkedinFollowers.result}});
                 {{/if}}
 
+
                 {{#if this.queries.moz}}
                     visitorsInTotalPerMonth[0] += Number({{this.form.data.moz.mozKeywords.result}});
                 {{/if}}
-
 
                 var barData = createData(months, visitorsInTotalPerMonth);
 
@@ -142,7 +142,7 @@
                     percentages.push(Number({{this.form.data.linkedin.linkedinFollowers.result}}));
                 {{/if}}
                 {{#if this.queries.moz}}
-                    medias.push('Analytics');
+                    medias.push('Moz');
                     percentages.push(Number({{this.form.data.moz.mozKeywords.result}}));
                 {{/if}}
 
