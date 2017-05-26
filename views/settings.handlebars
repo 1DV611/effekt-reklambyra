@@ -60,10 +60,6 @@
 
                         <label for="tynt"></label>
                     </div>
-                    <div class="social-features">
-                      Secret API key: <input type="text" name="33acrossSecretApiKey">
-                      Site Guid: <input type="text" name="33acrossSiteGuid">
-                    </div>
                 </div>
                 <div class="social-container">
                     <div class="social-name"><span>AddThis</span></div>
@@ -75,10 +71,6 @@
                         {{/if}}
 
                         <label for="addthis"></label>
-                    </div>
-                    <div class="social-features">
-                      Username: <input type="text" name="addThisUsername">
-                      Password: <input type="text" name="addThisPassword">
                     </div>
                 </div>
                 <div class="social-container">
@@ -154,9 +146,9 @@
 
 <script>
     function openExternalAuth(name, activate) {
-        var path = '../auth' + name;
-        if (activate) {
-            window.open('../auth/' + name);
-        }
+          var path = '../auth' + name;
+          if (activate) {
+              window.open('../auth/' + name);
+          }
     }
 </script>

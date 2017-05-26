@@ -1,0 +1,15 @@
+<div class="card dashboard-content-place">
+  <div class="report-settings">
+    <div class="authInput-container">
+      <form method="post" action="/auth/{{api.name}}/callback">
+        <div class="authInput-label">
+            <span>{{api.title}}</span><br /><br />
+            {{#each api.inputs}}
+                {{this.title}}: <input type="password" name="{{this.name}}"><br /><br />
+            {{/each}}
+            <input class="btn btn-default" type="submit" value="Submit"/>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
