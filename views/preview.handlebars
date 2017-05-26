@@ -1,8 +1,8 @@
 <div class="card dashboard-content-place">
     <div class="report-settings">
-        <h1 class="toTheLeft">{{customer}}</h1> <h1 class="toTheRight">{{month}} {{year}}</h1>
+        <h1 class="toTheLeft">{{this.customer}}</h1> <h1 class="toTheRight">{{this.month}} {{this.year}}</h1>
         <div id="adminText">
-            {{#if user.admin}}
+            {{#if this.user.admin}}
                 <form method="post" action="/user/pdf">
                 <div id="summary">
                     <h3>Sammanfattning:</h3>
@@ -12,8 +12,8 @@
                     <h3>Rekommendation:</h3>
                     <textarea id="recommendationTextarea" name="recommendation" class="form-control"></textarea>
                 </div>
-                    <input type="hidden" name="month" value="{{month}}">
-                    <input type="hidden" name="year" value="{{year}}">
+                    <input type="hidden" name="month" value="{{this.month}}">
+                    <input type="hidden" name="year" value="{{this.year}}">
                     <input id="createPdfButton" class="btn btn-default" type="submit" value="Spara och skapa PDF-fil">
                 </form>
             {{/if}}
@@ -57,16 +57,16 @@
 
                 // Todo: Add two more months to bar chart:
 
-                var months = ['{{month}}'];
+                var months = ['{{this.month}}'];
 
                 var visitorsInTotalPerMonth = [0];
 
-                {{#if queries.youtube}}
-                    visitorsInTotalPerMonth[0] += Number({{form.data.youtube.views.result}});
+                {{#if this.queries.youtube}}
+                    visitorsInTotalPerMonth[0] += Number({{this.form.data.youtube.views.result}});
                 {{/if}}
 
-                {{#if queries.analytics}}
-                    visitorsInTotalPerMonth[0] += Number({{form.data.analytics.analyticsViews.result}});
+                {{#if this.queries.analytics}}
+                    visitorsInTotalPerMonth[0] += Number({{this.form.data.analytics.analyticsViews.result}});
                 {{/if}}
 
 
@@ -75,13 +75,13 @@
                 var medias = [];
                 var percentages = [];
 
-                {{#if queries.youtube}}
+                {{#if this.queries.youtube}}
                     medias.push('Youtube');
-                    percentages.push(Number({{form.data.youtube.views.result}}));
+                    percentages.push(Number({{this.form.data.youtube.views.result}}));
                 {{/if}}
-                {{#if queries.analytics}}
+                {{#if this.queries.analytics}}
                     medias.push('Analytics');
-                    percentages.push(Number({{form.data.analytics.analyticsViews.result}}));
+                    percentages.push(Number({{this.form.data.analytics.analyticsViews.result}}));
                 {{/if}}
 
 
@@ -99,29 +99,29 @@
         <div id="stats" class="toTheRight">
             <div class="card">
                         <div class="header">
-                            {{#if queries.youtube}}
+                            {{#if this.queries.youtube}}
                                 <h3 class="title">Youtube</h3>
-                                {{#if queries.youtubeViews}}
-                                <h3>{{form.data.youtube.views.result}} visningar.</h3>
+                                {{#if this.queries.youtubeViews}}
+                                <h3>{{this.form.data.youtube.views.result}} visningar.</h3>
                                 <br>
                                 {{/if}}
                             {{/if}}
-                            {{#if queries.analytics}}
+                            {{#if this.queries.analytics}}
                                 <h3 class="title">Analytics</h3>
-                                {{#if queries.analyticsViews}}
-                                    <h3>{{form.data.analytics.analyticsViews.result}} visningar.</h3>
+                                {{#if this.queries.analyticsViews}}
+                                    <h3>{{this.form.data.analytics.analyticsViews.result}} visningar.</h3>
                                     <br>
                                 {{/if}}
-                                {{#if queries.analyticsUniqueViews}}
-                                <h3>{{form.data.analytics.analyticsUniqueViews.result}} unika visningar.</h3>
+                                {{#if this.queries.analyticsUniqueViews}}
+                                <h3>{{this.form.data.analytics.analyticsUniqueViews.result}} unika visningar.</h3>
                                 <br>
                                 {{/if}}
-                                {{#if queries.analyticsAverageTime}}
-                                    <h3>{{form.data.analytics.analyticsAverageTime.result}} genomsnittlig tid på sidan.</h3>
+                                {{#if this.queries.analyticsAverageTime}}
+                                    <h3>{{this.form.data.analytics.analyticsAverageTime.result}} genomsnittlig tid på sidan.</h3>
                                     <br>
                                 {{/if}}
-                                {{#if queries.analyticsAverageVisitedPerPages}}
-                                    <h3>{{form.data.analytics.analyticsAverageVisitedPerPages.result}} genomsnittligt antal besökta sidor.</h3>
+                                {{#if this.queries.analyticsAverageVisitedPerPages}}
+                                    <h3>{{this.form.data.analytics.analyticsAverageVisitedPerPages.result}} genomsnittligt antal besökta sidor.</h3>
                                     <br>
                                 {{/if}}
                             {{/if}}
