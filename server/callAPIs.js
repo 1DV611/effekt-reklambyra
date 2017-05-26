@@ -42,7 +42,7 @@ var callAPIsWith = function (access, startDateInUnix) {
 
     if (access.linkedin) promises.push(linkedinAPI(access.linkedin, startDateInUnix));
 
-    if (access.google) promises.push(googleAPI(access.google.accessToken, startDateInUnix));
+    if (access.google) promises.push(googleAPI(access.google, startDateInUnix));
 
     if (access.instagram) promises.push(instagramAPI(access.instagram, startDateInUnix));
 
