@@ -1,15 +1,15 @@
 'use strict';
-var APIs = require('./callAPIs');
 var getAPIAccesses = require('./databaseOperations/ApiAccess/getAPIAccesses');
 var createReport = require('./databaseOperations/Report/createReport');
-var createApiData= require('./databaseOperations/ApiData/createApiData');
-var saveAPI = require('./databaseOperations/ApiData/saveAPI');
+var createApiData = require('./databaseOperations/ApiData/createApiData');
+var currentDate;
 
 /*
  Takes all the api access objects from db, cycles them and calls the callAllAPIs script for all of them
  */
 
-module.exports = function () {
+module.exports = function (date) {
+  currentDate = date;
 
   getAPIAccesses()
       .then(function (APIAccesses) {
@@ -20,16 +20,10 @@ module.exports = function () {
         throw error;
       });
 
+  //  Creates report + data per for each user in db based on activated providers
+  // (facebook, instagram) etc
   var updateEach = function (APIAccess) {
-    APIs.callAPIsWith(APIAccess)
-        .then(function (apiData) {
-          /**
-           * Create
-           */
-          saveAPI(apiData);
-        }).catch(function (error) {
-          console.error(error);
-    });
+    createApiData(createReport(APIAccess.user, currentDate.getMonth(), currentDate.getFullYear()));
   };
 
 };

@@ -19,11 +19,20 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var session = require('express-session');
 var exphbs = require('express-handlebars');
+var schedule = require('node-schedule');
 
 var connectToDatabase = require('./databaseOperations/connectToDatabase');
 var handleLogin = require('./databaseOperations/User/handleLogin');
+var cronJob = require('./cronJob');
 
 var hbsHelpers = require('../views/helpers.js');
+
+/**
+ * regeln för vilken dag rapport och data ska skapas varje månad, inställt på 1:a varje månad
+ * se https://www.npmjs.com/package/node-schedule för att ändra inställningar
+ */
+var rule = new schedule.RecurrenceRule();
+rule.date = 1;
 
 // måste anropas innan en process.env.VARIABLE används, laddar environment variables
 dotenv.load();
@@ -133,6 +142,12 @@ passport.deserializeUser(function (user, done) {
   done(null, user);
 });
 
+//  schemalagd datainsamling för alla användare på månadens första dag - se regler högre upp
+schedule.scheduleJob(rule, function () {
+  var currentDate = new Date();
+  cronJob(currentDate);
+});
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -177,7 +192,7 @@ if (app.get('env') === 'development') {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
-      error: err,
+      error: err
     });
   });
 }
@@ -190,7 +205,5 @@ app.use(function (err, req, res, next) {
     error: {},
   });
 });
-
-//todo uncomment to try running the cron job
 
 module.exports = app;
