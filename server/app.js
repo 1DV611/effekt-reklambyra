@@ -27,6 +27,10 @@ var cronJob = require('./cronJob');
 
 var hbsHelpers = require('../views/helpers.js');
 
+/**
+ * regeln för vilken dag rapport och data ska skapas varje månad, inställt på 1:a varje månad
+ * se https://www.npmjs.com/package/node-schedule för att ändra inställningar
+ */
 var rule = new schedule.RecurrenceRule();
 rule.date = 1;
 
@@ -138,8 +142,7 @@ passport.deserializeUser(function (user, done) {
   done(null, user);
 });
 
-//  schemalagd datainsamling för alla användare på månadens första dag
-
+//  schemalagd datainsamling för alla användare på månadens första dag - se regler högre upp
 schedule.scheduleJob(rule, function () {
   var currentDate = new Date();
   cronJob(currentDate);
