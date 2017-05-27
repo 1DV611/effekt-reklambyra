@@ -28,7 +28,7 @@ module.exports = function () {
            */
           saveAPI(apiData);
         }).catch(function (error) {
-      console.error(error);
+          console.error(error);
     });
   };
 
