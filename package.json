@@ -65,6 +65,7 @@
     "morgan": "^1.8.1",
     "neo-instagram": "^1.2.0",
     "node-linkedin": "^0.5.4",
+    "node-schedule": "^1.2.3",
     "passport": "^0.3.2",
     "passport-auth0": "^0.6.0",
     "passport-facebook": "^2.1.1",
