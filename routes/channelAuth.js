@@ -91,9 +91,11 @@ router.get('/addthis',
 
 router.post('/addthis/callback',
   function (req, res) {
-    console.log(req.body.username);
-    console.log(req.body.password);
-    // TODO Save AddThis req.body.Username and req.body.Password to database
+    updateSocialChannelProfile(req.session.authZeroUserID,
+      { provider: 'addthis',
+        username: req.body.username,
+        password: req.body.password
+      });
     res.redirect('/user/settings');
   });
 
@@ -112,9 +114,11 @@ router.get('/tynt',
 
 router.post('/tynt/callback',
   function (req, res) {
-    console.log(req.body.secret_api_key);
-    console.log(req.body.site_guid);
-    // TODO Save Tynt req.body.secret_api_key and req.body.site_guid to database
+    updateSocialChannelProfile(req.session.authZeroUserID,
+      { provider: 'tynt',
+        secret_api_key: req.body.secret_api_key,
+        site_guid: req.body.site_guid
+      });
     res.redirect('/user/settings');
   });
 

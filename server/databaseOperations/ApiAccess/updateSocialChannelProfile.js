@@ -28,6 +28,10 @@ function updateSocialChannelProfile(sessionUserID, profile) {
   } else {
     queryObj = {
       provider: profile.provider,
+      username: profile.username,
+      password: profile.password,
+      secret_api_key: profile.secret_api_key,
+      site_guid: profile.site_guid,
       accessToken: profile.accessToken,
       refreshToken: profile.refreshToken,
       id_token: profile.id_token,
