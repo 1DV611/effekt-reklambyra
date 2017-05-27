@@ -19,6 +19,7 @@ var relevantDate;
  */
 
 module.exports = function (access, timeStamp) {
+  //todo adding count: -1 or higher may increase amount of medias outside of sandbox
   var tokenObj = {access_token: access.accessToken};
   var userId = access.extraParams.user.id.toString();
   relevantDate = epochToDate(timeStamp);

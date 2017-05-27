@@ -12,6 +12,8 @@ var cronJob = require('./cronJob');
 
 var job = schedule.scheduleJob({ date: 1, hour: 0, minute: 0, second: 5 }, function () {
   // job to be run?
+
+  // twitter, 33 accross,
   console.log('running monthly api call');
 });
 

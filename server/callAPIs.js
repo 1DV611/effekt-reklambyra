@@ -7,16 +7,14 @@ var facebookAPI = require('./APIs/facebookAPI');
 var accrossAPI = require('./APIs/33acrossAPI');
 var addThisAPI = require('./APIs/addThisAPI');
 var APIResultsToObject = require('./../server/helpers/APIResultsToObject');
-var dateToEpoch = require('./helpers/dateToEpoch');
 
 /**
  *
  * @param access ett access objekt från databasen innehållande profiler från google facebook etc
  * incl accessTokens
- * @param startDate Date objekt
+ * @param startDateInUnix unix epoch int timestamp.
  *
- * startDate omvandlas till unix epoch timestamp, används endast för att utläsa månad och år
- * som man vill ha data för.
+ * Data hämtas för månad och år av unixTimeStamp, dag etc ignoreras. För nuvarande månad ges data hitills.
  *
  * Hämtar data från alla de APIer en avändare har credentials för.
  * För att hantera async använder funktioen Promises istället för callbacks:
