@@ -8,7 +8,7 @@ var newApiData;
  * callAPIsWith hämtar data till CreateApiData
  */
 function createApiData(report) {
-  ApiAccess.findOne({ user: report.user })
+  return ApiAccess.findOne({ user: report.user })
     .then(function (access) {
       return callAPIsWith(access, report.startDate)
         .then(function (data) {
@@ -19,7 +19,7 @@ function createApiData(report) {
     }).then(function (data) {
 
     var obj = {
-      report: report._id,
+      report: report._id
     };
 
     for (var prop in data) {

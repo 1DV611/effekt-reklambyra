@@ -41,8 +41,8 @@ router.get('/dashboard',
  */
 router.get('/report/:month/:year',
   ensureLoggedIn,
-  function(req, res) {
-    getReportAndDataByMonthAndYear(req, res).then(function(viewObj) {
+  function (req, res) {
+    getReportAndDataByMonthAndYear(req, res).then(function (viewObj) {
       res.render('preview', viewObj);
     });
   }
