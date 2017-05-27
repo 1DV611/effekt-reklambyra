@@ -15,7 +15,6 @@ function changeHref() {
   var youtube = document.querySelector('#youtube');
   var youtubeViews = document.querySelector('#youtube-views');
 
-  /* Läggs till när det finns stöd för datan:
   var tynt = document.querySelector('#tynt');
   var tyntCopied = document.querySelector('#tynt-copied');
 
@@ -24,26 +23,21 @@ function changeHref() {
 
   var twitter = document.querySelector('#twitter');
   var twitterViews = document.querySelector('#twitter-views');
-  */
 
   var analytics = document.querySelector('#analytics');
   var analyticsViews = document.querySelector('#analytics-views');
   var analyticsUniqueViews = document.querySelector('#analytics-unique-views');
-  /* Läggs till när det finns stöd för datan:
   var analyticsStrongestRedirects = document.querySelector('#analytics-4-strongest-redirects');
   var analyticsMostVisitedPages = document.querySelector('#analytics-4-most-visited-pages');
-  */
   var analyticsAverageTime = document.querySelector('#analytics-average-time');
   var analyticsAverageVisitedPerPages = document.querySelector('#analytics-average-visited-per-pages');
 
-  /* Läggs till när det finns stöd för datan:
   var linkedin = document.querySelector('#linkedin');
   var linkedinFollowers = document.querySelector('#linkedin-followers');
   var linkedinInteractions = document.querySelector('#linkedin-interactions');
 
   var moz = document.querySelector('#moz');
   var mozKeywords = document.querySelector('#moz-keywords');
-  */
 
   // Vilka medier och features som blivit iklickade på dashboard-sidan:
 
