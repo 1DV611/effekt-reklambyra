@@ -4,7 +4,6 @@ function changeHref() {
 
   //Koppla till alla feature-checkboxar från dashboarden:
 
-  /* Läggs till när det finns stöd datan:
   var adwords = document.querySelector('#adwords');
   var adwordsClick = document.querySelector('#adwords-click');
   var adwordsCpc = document.querySelector('#adwords-cpc');
@@ -12,7 +11,6 @@ function changeHref() {
 
   var facebook = document.querySelector('#facebook');
   var facebookLikes = document.querySelector('#facebook-likes');
-  */
 
   var youtube = document.querySelector('#youtube');
   var youtubeViews = document.querySelector('#youtube-views');
@@ -49,25 +47,25 @@ function changeHref() {
 
   // Vilka medier och features som blivit iklickade på dashboard-sidan:
 
-   /* Läggs till när det finns stöd för datan:
-  if (adwords) {
-    if (adwords.checked)
-        href += '&adwords=active';
-    if (adwordsClick.checked)
-        href += '&adwordsClick=active';
-    if (adwordsCpc.checked)
-        href += '&adwordsCpc=active';
-    if (adwordsViews.checked)
-        href += '&adwordsViews=active';
-  }
+  /* Läggs till när det finns stöd för datan:
+ if (adwords) {
+   if (adwords.checked)
+       href += '&adwords=active';
+   if (adwordsClick.checked)
+       href += '&adwordsClick=active';
+   if (adwordsCpc.checked)
+       href += '&adwordsCpc=active';
+   if (adwordsViews.checked)
+       href += '&adwordsViews=active';
+ }
 
-  if (facebook) {
-    if (facebook.checked)
-        href += '&facebook=active';
-    if (facebookLikes.checked)
-        href += '&facebookLikes=active';
-  }
-  */
+ if (facebook) {
+   if (facebook.checked)
+       href += '&facebook=active';
+   if (facebookLikes.checked)
+       href += '&facebookLikes=active';
+ }
+ */
 
   if (youtube) {
     if (youtube.checked)
