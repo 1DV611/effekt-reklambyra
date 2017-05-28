@@ -50,15 +50,10 @@ function requestAPIData(APIurl, endpoint, pubID) {
   return new Promise(function (resolve) {
 
     request(APIurl + endpoint + pubID, function (err, res, body) {
+      if (body) var parsedBody = JSON.parse(body);
+      if (err || parsedBody.error ) return resolve({ error: parsedBody.error.message });
 
-      if (res.body) {
-        try {
-          var obj = JSON.parse(res.body);
-        } catch (e) {
-          console.error(e);
-        }
-      }
-
+      var obj = JSON.parse(res.body);
       resolve(toFilterByMonth(obj));
     });
   });
@@ -73,6 +68,7 @@ function toFilterByMonth(APIData) {
 
   };
 
+  //sparar data för sharers, clickers, users, shares, clicks
   APIData.forEach(function (day) {
     var dataYearMonth = day.date.slice(0,4);
 
@@ -83,15 +79,9 @@ function toFilterByMonth(APIData) {
           result[property] ? result[property] += day[property] : result[property] = day[property];
         };
       }
-
     }
-
   });
 
-  console.log(result);
   return result;
-
-//sharers, clickers, users, shares, clicks,
-
 }
 

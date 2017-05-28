@@ -34,6 +34,8 @@ module.exports = function (accessObj, startDate) {
   //  TODO: Anpassa endDate för scenario nuvarande månad resp avslutad månad
   endDateString = new Date().toISOString().substring(0, 10);
 
+  if (!accessObj.refreshToken) console.error('Inget Refresh Token sparat för google profil.');
+
   return new Promise(function (resolve) {
     oauth2Client.setCredentials({
       access_token: accessObj.accessToken,
@@ -62,6 +64,7 @@ module.exports = function (accessObj, startDate) {
         }
       };
 
+      //todo Gamla return objekt såg ut såhär. kan vi ta  bort den här kommentaren?
       // var returnObj = {
       //   youtube: {
       //     views: {result: values[0], description: ' visningar.'},

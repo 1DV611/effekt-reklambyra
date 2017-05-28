@@ -12,11 +12,15 @@ module.exports = function (unixTimeStamp) {
   var date = new Date();
   // * 1000 då js använder ms
   date.setTime(unixTimeStamp * 1000);
+  var month = date.getMonth();
 
   return {
+    // full sparas iaf andra datum funktioner skulle behövas senare
+    full: date,
     month: date.getMonth(),
-    addedMonth: (date.getMonth() + 1),
-    year: date.getFullYear()
+    addedMonth: (month + 1),
+    year: date.getFullYear(),
+    monthWithZeroString: month > 9 ? month : '0' + month,
   }
 
 };

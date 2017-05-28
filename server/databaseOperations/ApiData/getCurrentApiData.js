@@ -1,4 +1,4 @@
-var callAPIsWith = require('../../callAPIs');
+var callAPIs = require('../../callAPIs');
 var ApiAccess = require('../schemas/ApiAccess');
 var obj;
 
@@ -8,7 +8,7 @@ var obj;
 function getCurrentApiData(user, startDate) {
   return ApiAccess.findOne({ user: user })
     .then(function (access) {
-      return callAPIsWith(access, startDate)
+      return callAPIs.monthly(access, startDate)
         .then(function (data) {
           obj = {};
 

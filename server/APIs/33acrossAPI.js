@@ -16,10 +16,23 @@ var andStartTime = '&start_time=';
 var start_time = 86400// - twentyFourHoursInUnixTime;
 var andEndTime = '&end_time=';
 
-function month(access, unixTimeStamp) {
-  var relevantDate = epochToDate(unixTimeStamp);
-  socialAPI(relevantDate);
+/**
+ * Data för 33Across behövs hämtas både dagligen och månadsvis. PageCopies är endast tillgänglig i form
+ * av daglig statistik, medans social API med kopierat socialt innehåll kan hämtas för upp till 12 veckor båkat.
+ *
+ * Därför använder callAPIs monthly funktionen och daily är schemalaggd.
+ */
 
+function monthly(access, unixTimeStamp) {
+  var relevantDate = epochToDate(unixTimeStamp);
+  var results = [socialAPI(relevantDate)];
+
+  return new Promise(function (resolve) {
+    Promise.all(results).then(function (result) {
+      var resultObj = { across: { monthly: result } };
+      resolve(resultObj);
+    });
+  });
 }
 
 function daily() {
@@ -28,14 +41,10 @@ function daily() {
   return new Promise(function (resolve) {
 
     Promise.all(results).then(function (result) {
-      var resultObj = { across: { daily: result } }
+      var resultObj = { across: { daily: result } };
       resolve(resultObj);
     })
-
   });
-
-
-
 }
 
 function pageCopiesAPI() {
@@ -45,7 +54,7 @@ function pageCopiesAPI() {
     var queryString = api_url + andSiteGuid + site_guid + andApiKey + secret_api_key + andStartTime + start_time + andLimit + limit;
 
     request(queryString, function (err, res, body) {
-      if (err || !body) return resolve({ error: '33across API error: ' + err.message });
+      if (err || !body) return resolve({ error: '33across page copies API error: ' + err.message });
 
       var obj = JSON.parse(body);
       var resultObj = {};
@@ -81,6 +90,7 @@ function socialAPI(date) {
     var type = 'total';
     var queryString = 'https://api.tynt.com/publisher/v1/social/' + type + '?site_guid=' + site_guid + '&api_key=' + secret_api_key;
     request(queryString, function (err, res, body) {
+      if (err || !body) return resolve({ error: '33across social API error: ' + err.message });
       console.log(body);
       var obj = JSON.parse(body);
       console.log(obj);
@@ -102,15 +112,17 @@ function filterForMonth(results, date) {
     var resultYear = resultDate[0];
     var resultMonth = resultDate[1];
 
-    //todo detta funkar inte och behövs hanteras ordentligt
-    if (resultMonth === (date.month.toString() + '0') && resultYear === date.year.toString()) {
+    //todo vet inte hur addthis representerar januari, ska addedMonth användas istället?
+    if (resultMonth === (date.monthWithZeroString) && resultYear === date.year.toString()) {
       returnObj.shares += result[1];
       returnObj.visitors += result[2];
     }
 
   });
+
+  return returnObj;
 }
 
 
 exports.daily = daily;
-exports.month = month;
+exports.monthly = monthly;

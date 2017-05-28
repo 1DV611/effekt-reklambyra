@@ -3,6 +3,7 @@
 var getAPIAccesses = require('./databaseOperations/ApiAccess/getAPIAccesses');
 var createReport = require('./databaseOperations/Report/createReport');
 var createApiData = require('./databaseOperations/ApiData/createApiData');
+var epochToDate = require('./helpers/epochToDate');
 var currentDate;
 
 /**
@@ -10,8 +11,7 @@ var currentDate;
  need a current date as well.
  */
 
-module.exports = function (date) {
-  currentDate = date;
+function monthlyUpdate(date) {
 
   getAPIAccesses()
       .then(function (APIAccesses) {
@@ -19,13 +19,29 @@ module.exports = function (date) {
           updateEach(APIAccess);
         });
       }).catch(function (error) {
-        throw error;
-      });
+    throw error;
+  });
 
   //  Creates report + data per for each user in db based on activated providers
   // (facebook, instagram) etc
   var updateEach = function (APIAccess) {
+    var currentDate = epochToDate(date);
 
-    createApiData(createReport(APIAccess.user, currentDate.getMonth(), currentDate.getFullYear()));
+    createApiData(createReport(APIAccess.user, currentDate.month, currentDate.year));
   };
-};
+}
+
+function dailyUpdate(date) {
+  getAPIAccesses().then(function (APIAccesses) {
+    APIAccesses.forEach(function (APIAccess) {
+      // todo
+      // inte säker på iaf det date som skickas här blir rätt, kan ev. behöva använda dateToEpoch eller dylikt
+      // databasfunktion liknande createApiData som uppdaterar daglig API data genom att calla
+      // callAPIs.js .daily metod
+      // denna schemaläggs att köras dagligen med apiScheduler
+    })
+  })
+}
+
+exports.monthly = monthlyUpdate;
+exports.daily = dailyUpdate;

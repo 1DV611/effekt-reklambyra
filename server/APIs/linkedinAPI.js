@@ -50,7 +50,7 @@ function getCompanyStatsFor(companyPage) {
      */
     linkedin.companies.company_stats(companyPage.id, function (error, companyStats) {
 
-      if (error) console.error(error);
+      if (error || !companyStats) return resolve({ error: 'linkedin API error' });
 
       returnObj.interactions = interactionsForMonth(companyStats.statusUpdateStatistics.viewsByMonth);
       returnObj.followers = followersForMonth(companyStats.followStatistics.countsByMonth);
