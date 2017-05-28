@@ -47,9 +47,14 @@ function allAPIsMonthly (access, startDateInUnix) {
     if (access.instagram) promises.push(instagramAPI(access.instagram, startDateInUnix));
 
     //todo förvirrande namngivning tynt vs accross
-    if (access.tynt) promises.push(acrossAPI.monthly(access.tynt, startDateInUnix));
+    //if (access.tynt) promises.push(acrossAPI.monthly(access.tynt, startDateInUnix));
 
-    if (access.addthis) promises.push(addThisAPI(access.addthis, startDateInUnix));
+    // tillfälligt då creds fortfarande inte skickas från view utan just nu ligger i .env
+    promises.push(acrossAPI.monthly('', startDateInUnix));
+
+    //if (access.addthis) promises.push(addThisAPI(access.addthis, startDateInUnix));
+
+    promises.push(addThisAPI('', startDateInUnix));
 
     Promise.all(promises).then(function (apiData) {
       /**
@@ -94,9 +99,7 @@ function allAPIsDaily(access, startDateInUnix) {
     }).catch(function (error) {
       reject(error);
     })
-
   })
-
 }
 
 exports.monthly = allAPIsMonthly;
