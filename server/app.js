@@ -3,6 +3,8 @@ var express = require('express');
 var app = express();
 
 var dotenv = require('dotenv');
+// måste anropas innan en process.env.VARIABLE används, laddar environment variables
+dotenv.load();
 
 var passport = require('./auth');
 var logger = require('morgan');
@@ -12,39 +14,17 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var session = require('express-session');
 var exphbs = require('express-handlebars');
-var schedule = require('node-schedule');
-
-var connectToDatabase = require('./databaseOperations/connectToDatabase');
-var cronJob = require('./cronJob');
-
 var hbsHelpers = require('../views/helpers.js');
 
-/**
- * regeln för vilken dag rapport och data ska skapas varje månad, inställt på 1:a varje månad
- * se https://www.npmjs.com/package/node-schedule för att ändra inställningar
- */
-var rule = new schedule.RecurrenceRule();
-rule.date = 1;
-
-// måste anropas innan en process.env.VARIABLE används, laddar environment variables
-dotenv.load();
-
+var connectToDatabase = require('./databaseOperations/connectToDatabase');
 connectToDatabase(process.env.MLAB_CREDENTIAL_STRING);
+
+var scheduledJobs = require('./scheduledJobs');
 
 // Appens controllers, dvs urls lagrade i separat fil.
 var routes = require('../routes/start');
 var user = require('../routes/user');
 var socialChannels = require('../routes/channelAuth');
-
-//var scheduledJobs = require('./apiScheduler');
-
-
-
-//  schemalagd datainsamling för alla användare på månadens första dag - se regler högre upp
-schedule.scheduleJob(rule, function () {
-  var currentDate = new Date();
-  cronJob(currentDate);
-});
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
