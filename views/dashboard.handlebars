@@ -1,6 +1,6 @@
 <div class="card dashboard-content-place">
 
-    <!--- Choose a customer --->
+    <!--- Välj en kund --->
     <div class="report-settings">
         <form id="customer-statistics" method="post" action="/user/preview">
             <div class="customer-container">
@@ -12,8 +12,7 @@
                 </div>
             </div>
 
-            <!--- If existing customer is choosen display only divs of social media that are activated, all checked --->
-
+            <!--- Välj medier, features, månad och år för preview: --->
 
                 <div class="social-container">
                     <div class="social-name"><span>Adwords</span></div>
@@ -156,6 +155,9 @@
                     <span>År: </span>
                     <select id="years" name="years">
                     <script>
+
+                        //Skapa en select-input med options för alla år från 2005 tills i år:
+
                         var date = new Date();
                         var year = date.getFullYear();
                         for(var i = 2005; i < year+1; i++){

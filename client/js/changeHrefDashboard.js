@@ -1,8 +1,19 @@
+/**
+ * Lägger på alla aktiva medier och features på href:en för att preview-vyn ska veta
+ * vad som ska visas.
+ */
+
 function changeHref() {
+
+  // Koppla till preview-knappen på dashboard-sidan:
+
   var previewButton = document.querySelector('#previewButton');
+
+  // Lägg till månad, år och kund på href:en utifrån det som skrivits i input-fälten på dashboard-sidan:
+
   var href = '/user/report/' + months.value + '/' + years.value + '?customer=' + customer.value;
 
-  // Koppla till alla feature-checkboxar från dashboarden:
+  // Koppla till alla media och feature-inputs på dashboard-sidan:
 
   var adwords = document.querySelector('#adwords');
   var adwordsClick = document.querySelector('#adwords-click');
@@ -97,7 +108,6 @@ function changeHref() {
         href += '&analyticsViews=active';
     if (analyticsUniqueViews.checked)
         href += '&analyticsUniqueViews=active';
-    // Läggs till när det finns stöd för datan:
     if (analyticsStrongestRedirects.checked)
         href += '&analyticsStrongestRedirects=active';
     if (analyticsMostVisitedPages.checked)
@@ -125,5 +135,6 @@ function changeHref() {
   }
 
   // Lägger till datan som ska skickas med på preview-knappen på dashboarden:
+
   previewButton.href = href;
 }
