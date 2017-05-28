@@ -256,12 +256,16 @@
                                     <br>
                                 {{/if}}
                                 {{#if this.queries.analyticsStrongestRedirects}}
-                                    <h3>{{this.form.data.analytics.analyticsStrongestRedirects.result}} är de starkaste ingångskanalerna.</h3>
-                                    <br>
+                                    {{#each this.form.data.analytics.analyticsStrongestRedirects}}
+                                        <h3>{{this.result}} är en av de starkaste ingångskanalerna.</h3>
+                                        <br>
+                                    {{/each}}
                                 {{/if}}
                                 {{#if this.queries.analyticsMostVisitedPages}}
-                                    <h3>{{this.form.data.analytics.analyticsMostVisitedPages.result}} är de mest besökta sidorna.</h3>
-                                    <br>
+                                    {{#each this.form.data.analytics.analyticsMostVisitedPages}}
+                                        <h3>{{this.result}} är en av de mest besökta sidorna.</h3>
+                                        <br>
+                                    {{/each}}
                                 {{/if}}
                                 {{#if this.queries.analyticsAverageTime}}
                                     <h3>{{this.form.data.analytics.analyticsAverageTime.result}} genomsnittlig tid på sidan.</h3>
