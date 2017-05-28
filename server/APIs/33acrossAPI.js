@@ -1,9 +1,12 @@
 'use strict';
 var request = require('request');
 var epochToDate = require('../helpers/epochToDate');
+var dotenv = require('dotenv');
+dotenv.load();
+
 var relevantDate;
-var secret_api_key = '6l303n3J6c3k7Q486k7R6W6G6r7P7s3V';
-var site_guid = 'dQ3jXaM6qr4Pilacwqm_6l';
+var secret_api_key = process.env.BYGGAUTE_ACROSS_API_KEY;
+var site_guid = process.env.BYGGAUTE_ACROSS_GUID;
 var api_url = 'https://api.tynt.com/publisher/v2/realtime_stats/page_copies';
 var andSiteGuid = '?site_guid=';
 var andApiKey = '&api_key=';
