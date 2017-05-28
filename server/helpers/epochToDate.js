@@ -10,12 +10,14 @@ module.exports = function (unixTimeStamp) {
   if (typeof unixTimeStamp === 'string') unixTimeStamp = parseInt(unixTimeStamp);
 
   var date = new Date();
-  var month = date.getMonth();
   // * 1000 då js använder ms
   date.setTime(unixTimeStamp * 1000);
+  var month = date.getMonth();
 
   return {
-    month: month,
+    // full sparas iaf andra datum funktioner skulle behövas senare
+    full: date,
+    month: date.getMonth(),
     addedMonth: (month + 1),
     year: date.getFullYear(),
     monthWithZeroString: month > 9 ? month : '0' + month,

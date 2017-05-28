@@ -39,16 +39,27 @@ daily.on('canceled', function (event) {
 
 // Du kan utkommentera detta för att köra ett test jobb med ett 30 sekunders intervall.
 
-var testJob = schedule.scheduleJob({ second: 30 }, function () {
-  var date = adjustedEpoch(500);
-  cronJob.monthly(date);
-  console.log('running 30s API call on: ' + date.toString());
-});
-
-testJob.on('scheduled', function (event) {
-  console.log('scheduled event fired every 30s');
-});
-
-testJob.on('canceled', function (event) {
-  console.log('canceled event fired every 30s');
-});
+// var testJob = schedule.scheduleJob({ second: 10 }, function () {
+//
+//   // för att testa jobbet som körs i slutet på varje månad utkommentera detta
+//   // var date = adjustedEpoch(500);
+//   // cronJob.monthly(date);
+//   // console.log('running 10s API call on: ' + date.toString());
+//
+//   // för att testa dagliga kör detta:
+//   // var date = Date.now();
+//   // cronJob.daily(date);
+//   // console.log('running daily API call on: ' + date.toString());
+//
+//
+//   // eller båda
+//
+// });
+//
+// testJob.on('scheduled', function (event) {
+//   console.log('scheduled event fired every 30s', event);
+// });
+//
+// testJob.on('canceled', function (event) {
+//   console.log('canceled event fired every 30s', event);
+// });

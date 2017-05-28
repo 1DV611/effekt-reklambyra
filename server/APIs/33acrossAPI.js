@@ -54,7 +54,7 @@ function pageCopiesAPI() {
     var queryString = api_url + andSiteGuid + site_guid + andApiKey + secret_api_key + andStartTime + start_time + andLimit + limit;
 
     request(queryString, function (err, res, body) {
-      if (err || !body) return resolve({ error: '33across API error: ' + err.message });
+      if (err || !body) return resolve({ error: '33across page copies API error: ' + err.message });
 
       var obj = JSON.parse(body);
       var resultObj = {};
@@ -90,6 +90,7 @@ function socialAPI(date) {
     var type = 'total';
     var queryString = 'https://api.tynt.com/publisher/v1/social/' + type + '?site_guid=' + site_guid + '&api_key=' + secret_api_key;
     request(queryString, function (err, res, body) {
+      if (err || !body) return resolve({ error: '33across social API error: ' + err.message });
       console.log(body);
       var obj = JSON.parse(body);
       console.log(obj);

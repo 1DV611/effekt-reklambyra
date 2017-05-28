@@ -34,6 +34,8 @@ module.exports = function (accessObj, startDate) {
   //  TODO: Anpassa endDate för scenario nuvarande månad resp avslutad månad
   endDateString = new Date().toISOString().substring(0, 10);
 
+  if (!accessObj.refreshToken) console.error('Inget Refresh Token sparat för google profil.');
+
   return new Promise(function (resolve) {
     oauth2Client.setCredentials({
       access_token: accessObj.accessToken,
