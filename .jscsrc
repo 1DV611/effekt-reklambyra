@@ -1,7 +1,4 @@
 {
   "preset": "airbnb",
-  "validateLineBreaks": null,
-  "excludeFiles": [
-    "./client/js/changeHrefDashboard.js"
-  ]
+  "validateLineBreaks": null
 }

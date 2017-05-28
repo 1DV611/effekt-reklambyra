@@ -193,7 +193,7 @@
 
         <div id="stats" class="toTheRight">
             <div class="card">
-                        <div class="header">
+                    <div class="header">
                             {{#if this.queries.adwords}}
                                 <h3 class="title">AdWords</h3>
                                 {{#if this.queries.adwordsClick}}
@@ -264,36 +264,36 @@
                             {{/if}}
                             {{#if this.queries.analytics}}
                                 <h3 class="title">Analytics</h3>
-                                {{#if this.queries.analyticsViews}}
-                                    <h3>{{this.form.data.analytics.analyticsViews.result}} visningar.</h3>
-                                    <br>
-                                {{/if}}
-                                {{#if this.queries.analyticsUniqueViews}}
-                                    <h3>{{this.form.data.analytics.analyticsUniqueViews.result}} unika visningar.</h3>
-                                    <br>
-                                {{/if}}
-                                {{#if this.queries.analyticsStrongestRedirects}}
-                                    {{#each this.form.data.analytics.analyticsStrongestRedirects}}
-                                        <h3>{{this.result}} är en av de starkaste ingångskanalerna.</h3>
-                                        <br>
-                                    {{/each}}
-                                {{/if}}
-                                {{#if this.queries.analyticsMostVisitedPages}}
-                                    {{#each this.form.data.analytics.analyticsMostVisitedPages}}
-                                        <h3>{{this.result}} är en av de mest besökta sidorna.</h3>
-                                        <br>
-                                    {{/each}}
-                                {{/if}}
-                                {{#if this.queries.analyticsAverageTime}}
-                                    <h3>{{this.form.data.analytics.analyticsAverageTime.result}} genomsnittlig tid på sidan.</h3>
-                                    <br>
-                                {{/if}}
-                                {{#if this.queries.analyticsAverageVisitedPerPages}}
-                                    <h3>{{this.form.data.analytics.analyticsAverageVisitedPerPages.result}} genomsnittligt antal besökta sidor.</h3>
-                                    <br>
-                                {{/if}}
+                            {{#if this.queries.analyticsViews}}
+                                <h3>{{this.form.data.analytics.analyticsViews.result}} visningar.</h3>
+                                <br>
                             {{/if}}
-                        </div>
+                            {{#if this.queries.analyticsUniqueViews}}
+                                <h3>{{this.form.data.analytics.analyticsUniqueViews.result}} unika visningar.</h3>
+                                <br>
+                            {{/if}}
+                            {{#if this.queries.analyticsStrongestRedirects}}
+                                {{#each this.form.data.analytics.analyticsStrongestRedirects}}
+                                    <h3>{{this.result}} är en av de starkaste ingångskanalerna.</h3>
+                                    <br>
+                                {{/each}}
+                            {{/if}}
+                            {{#if this.queries.analyticsMostVisitedPages}}
+                                {{#each this.form.data.analytics.analyticsMostVisitedPages}}
+                                    <h3>{{this.result}} är en av de mest besökta sidorna.</h3>
+                                    <br>
+                                {{/each}}
+                            {{/if}}
+                            {{#if this.queries.analyticsAverageTime}}
+                                <h3>{{this.form.data.analytics.analyticsAverageTime.result}} genomsnittlig tid på sidan.</h3>
+                                <br>
+                            {{/if}}
+                            {{#if this.queries.analyticsAverageVisitedPerPages}}
+                                <h3>{{this.form.data.analytics.analyticsAverageVisitedPerPages.result}} genomsnittligt antal besökta sidor.</h3>
+                                <br>
+                            {{/if}}
+                        {{/if}}
+                    </div>
             </div>
         </div>
     </div>

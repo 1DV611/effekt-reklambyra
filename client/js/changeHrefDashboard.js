@@ -55,23 +55,23 @@ function changeHref() {
 
   // Vilka medier och features som blivit iklickade på dashboard-sidan:
 
- if (adwords && adwords.checked) {
-   if (adwords.checked)
-       href += '&adwords=active';
-   if (adwordsClick.checked)
-       href += '&adwordsClick=active';
-   if (adwordsCpc.checked)
-       href += '&adwordsCpc=active';
-   if (adwordsViews.checked)
-       href += '&adwordsViews=active';
- }
+  if (adwords && adwords.checked) {
+    if (adwords.checked)
+        href += '&adwords=active';
+    if (adwordsClick.checked)
+        href += '&adwordsClick=active';
+    if (adwordsCpc.checked)
+        href += '&adwordsCpc=active';
+    if (adwordsViews.checked)
+        href += '&adwordsViews=active';
+  }
 
- if (facebook && facebook.checked) {
-   if (facebook.checked)
-       href += '&facebook=active';
-   if (facebookLikes.checked)
-       href += '&facebookLikes=active';
- }
+  if (facebook && facebook.checked) {
+    if (facebook.checked)
+        href += '&facebook=active';
+    if (facebookLikes.checked)
+        href += '&facebookLikes=active';
+  }
 
   if (youtube && youtube.checked) {
     if (youtube.checked)
