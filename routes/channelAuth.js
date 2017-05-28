@@ -78,6 +78,52 @@ router.get('/facebook/deauth',
     console.log('fb deauth ' + req.user);
   });
 
+router.get('/addthis',
+  function (req, res) {
+    var api = {
+      title: 'AddThis',
+      name: 'addthis',
+      inputs: [
+        { title: 'Username', name: 'username' },
+        { title: 'Password', name: 'password' }
+      ]
+    };
+    res.render('authInput', { api: api });
+  });
+
+router.post('/addthis/callback',
+  function (req, res) {
+    updateSocialChannelProfile(req.session.authZeroUserID,
+      { provider: 'addthis',
+        username: req.body.username,
+        password: req.body.password
+      });
+    res.redirect('/user/settings');
+  });
+
+router.get('/tynt',
+  function (req, res) {
+    var api = {
+      title: 'Tynt/33Across',
+      name: 'tynt',
+      inputs: [
+        { title: 'Secret API Key', name: 'secret_api_key' },
+        { title: 'Site GUID', name: 'site_guid'}
+      ]
+    };
+    res.render('authInput', { api: api });
+  });
+
+router.post('/tynt/callback',
+  function (req, res) {
+    updateSocialChannelProfile(req.session.authZeroUserID,
+      { provider: 'tynt',
+        secret_api_key: req.body.secret_api_key,
+        site_guid: req.body.site_guid
+      });
+    res.redirect('/user/settings');
+  });
+
 //  TODO: Google sparas i apiAccess MEN node rejection error visas i konsolen? och redirectar inte
 /** this is where all successful auths end up, req.user has the entire profile.
  * req.user.accessToken = token

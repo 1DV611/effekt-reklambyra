@@ -1,18 +1,17 @@
 'use strict';
-var callAPIs = require('./callAPIs');
+
 var getAPIAccesses = require('./databaseOperations/ApiAccess/getAPIAccesses');
 var createReport = require('./databaseOperations/Report/createReport');
-var createApiData= require('./databaseOperations/ApiData/createApiData');
-var saveAPI = require('./databaseOperations/ApiData/saveAPI');
-var dateToAdjustedEpoch = require('./helpers/adjustedEpoch');
+var createApiData = require('./databaseOperations/ApiData/createApiData');
+var currentDate;
 
 /**
  Takes all the api access objects from db, cycles them and calls the callAllAPIs script for all of them
  need a current date as well.
  */
 
-// todo scheduling fungerar men behöver använda nya db strukturen, dvs hämta alla användare.
-module.exports = function (unixTimeStamp) {
+module.exports = function (date) {
+  currentDate = date;
 
   getAPIAccesses()
       .then(function (APIAccesses) {
@@ -23,15 +22,10 @@ module.exports = function (unixTimeStamp) {
         throw error;
       });
 
+  //  Creates report + data per for each user in db based on activated providers
+  // (facebook, instagram) etc
   var updateEach = function (APIAccess) {
-    callAPIs(APIAccess, unixTimeStamp)
-        .then(function (apiData) {
-          /**
-           * Create
-           */
-          saveAPI(apiData);
-        }).catch(function (error) {
-      console.error(error);
-    });
+
+    createApiData(createReport(APIAccess.user, currentDate.getMonth(), currentDate.getFullYear()));
   };
 };

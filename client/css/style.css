@@ -91,7 +91,7 @@
     text-align: right;
 }
 
-.customer-container {
+.customer-container, .authInput-container {
     display: table;
     width: 100%;
     margin: auto;
@@ -99,13 +99,18 @@
     padding-bottom: 2%;
 }
 
-.customer-label {
+.customer-label, .authInput-label {
     padding: 1%;
     display: table-cell;
     width: 10%;
     font-size: large;
     font-weight: 400;
     font-variant: small-caps;
+}
+
+.authInput-label input {
+  font-size: medium;
+  font-variant: normal;
 }
 
 .customer-name {

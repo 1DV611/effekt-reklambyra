@@ -45,6 +45,7 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "chart.js": "^2.5.0",
+    "cheerio": "^0.22.0",
     "connect-ensure-login": "^0.1.1",
     "cookie-parser": "^1.4.3",
     "dotenv": "^4.0.0",
@@ -64,6 +65,7 @@
     "morgan": "^1.8.1",
     "neo-instagram": "^1.2.0",
     "node-linkedin": "^0.5.4",
+    "node-schedule": "^1.2.3",
     "passport": "^0.3.2",
     "passport-auth0": "^0.6.0",
     "passport-facebook": "^2.1.1",

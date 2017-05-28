@@ -10,10 +10,10 @@ function customerReportSettings(req, res, next) {
   var monthBeforePreviousMonth;
   var previousMonth;
   var month = req.body.month;
-  if (month === "0") {
+  if (month === '0') {
     previousMonth = 11;
     monthBeforePreviousMonth = 10;
-  } else if (month === "1") {
+  } else if (month === '1') {
     previousMonth = 0;
     monthBeforePreviousMonth = 11;
   } else {

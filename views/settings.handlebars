@@ -17,120 +17,122 @@
                 <div class="social-container">
                     <div class="social-name"><span>Adwords</span></div>
                     <div class="social-switch">
-                        <input id="adwords" name="adwords" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                        {{#if medias.8.isActive}}
+                            <input id="adwords" name="adwords" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                        {{else}}
+                            <input id="adwords" name="adwords" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                        {{/if}}
                         <label for="adwords"></label>
-                    </div>
-                    <div class="social-features">
-                        <input id="adwords-click" name="adwordsClick" type="checkbox" checked>
-                        <label for="adwordsClick">Klick </label>
-                        <input id="adwords-cpc" name="adwordsCpc" type="checkbox" checked>
-                        <label for="adwordsCpc">CPC </label>
-                        <input id="adwords-views" name="adwordsViews" type="checkbox" checked>
-                        <label for="adwordsViews">Visningar </label>
                     </div>
                 </div>
                 <div class="social-container">
                     <div class="social-name"><span>Facebook</span></div>
                     <div class="social-switch">
-                        <input id="facebook" name="facebook" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                        {{#if medias.1.isActive}}
+                            <input id="facebook" name="facebook" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                        {{else}}
+                            <input id="facebook" name="facebook" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                        {{/if}}
+
                         <label for="facebook"></label>
-                    </div>
-                    <div class="social-features">
-                        <input id="facebook-likes" name="facebookLikes" type="checkbox">
-                        <label for="facebookLikes">Gilla </label>
                     </div>
                 </div>
             <div class="social-container">
                 <div class="social-name"><span>Youtube</span></div>
                 <div class="social-switch">
-                    <input id="youtube" name="google" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                    {{#if medias.2.isActive}}
+                        <input id="youtube" name="google" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                    {{else}}
+                        <input id="youtube" name="google" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                    {{/if}}
+
                     <label for="youtube"></label>
-                </div>
-                <div class="social-features">
-                    <input id="youtube-views" name="youtubeViews" type="checkbox" checked>
-                    <label for="youtubeViews">Visningar </label>
                 </div>
             </div>
                 <div class="social-container">
                     <div class="social-name"><span>Tynt/33across</span></div>
                     <div class="social-switch">
-                        <input id="tynt" name="tynt" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                        {{#if medias.6.isActive}}
+                            <input id="tynt" name="tynt" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                        {{else}}
+                            <input id="tynt" name="tynt" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                        {{/if}}
+
                         <label for="tynt"></label>
-                    </div>
-                    <div class="social-features">
-                        <input id="tynt-copied" name="tyntCopied" type="checkbox" checked>
-                        <label for="tyntCopied">Kopierat innehåll </label>
                     </div>
                 </div>
                 <div class="social-container">
                     <div class="social-name"><span>AddThis</span></div>
                     <div class="social-switch">
-                        <input id="addthis" name="addthis" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                        {{#if medias.0.isActive}}
+                            <input id="addthis" name="addthis" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                        {{else}}
+                            <input id="addthis" name="addthis" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                        {{/if}}
+
                         <label for="addthis"></label>
-                    </div>
-                    <div class="social-features">
-                        <input id="addthis-click" name="addthisClick" type="checkbox" checked>
-                        <label for="addthisClick">Klick </label>
                     </div>
                 </div>
                 <div class="social-container">
                     <div class="social-name"><span>Twitter</span></div>
                     <div class="social-switch">
-                        <input id="twitter" name="twitter" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                        {{#if medias.7.isActive}}
+                            <input id="twitter" name="twitter" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                        {{else}}
+                            <input id="twitter" name="twitter" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                        {{/if}}
+
                         <label for="twitter"></label>
-                    </div>
-                    <div class="social-features">
-                        <input id="twitter-views" name="twitterViews" type="checkbox" checked>
-                        <label for="twitterViews">Följare </label>
                     </div>
                 </div>
                 <div class="social-container">
                     <div class="social-name"><span>LinkedIn</span></div>
                     <div class="social-switch">
-                        <input id="linkedin" name="linkedin" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                        {{#if medias.4.isActive}}
+                            <input id="linkedin" name="linkedin" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                        {{else}}
+                            <input id="linkedin" name="linkedin" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                        {{/if}}
+
                         <label for="linkedin"></label>
-                    </div>
-                    <div class="social-features">
-                        <input id="linkedin-followers" name="linkedinFollowers" type="checkbox">
-                        <label for="linkedinFollowers">Följare </label>
-                        <input id="linkedin-interactions" name="linkedinInteractions" type="checkbox">
-                        <label for="linkedinInteractions">Interaktioner </label>
                     </div>
                 </div>
 
                 <div class="social-container">
                     <div class="social-name"><span>Moz</span></div>
                     <div class="social-switch">
-                        <input id="moz" name="moz" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                        {{#if medias.5.isActive}}
+                            <input id="moz" name="moz" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                        {{else}}
+                            <input id="moz" name="moz" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                        {{/if}}
+
                         <label for="moz"></label>
-                    </div>
-                    <div class="social-features">
-                        <input id="moz-keywords" name="mozKeywords" type="checkbox">
-                        <label for="mozKeywords">Keywords position (10 bästa) </label>
                     </div>
                 </div>
 
             <div class="social-container">
                 <div class="social-name"><span>Analytics</span></div>
                 <div class="social-switch">
-                    <input id="analytics" name="google" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                    {{#if medias.2.isActive}}
+                        <input id="analytics" name="google" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                    {{else}}
+                        <input id="analytics" name="google" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                    {{/if}}
+
                     <label for="analytics"></label>
                 </div>
-                <div class="social-features">
-                    <input id="analytics-views" name="analyticsViews" type="checkbox" checked>
-                    <label for="analyticsViews">Visningar </label>
-                    <input id="analytics-unique-views" name="analyticsUniqueViews" type="checkbox" checked>
-                    <label for="analyticsUniqueViews">Unika visningar </label>
+            </div>
+            <div class="social-container">
+                <div class="social-name"><span>Instagram</span></div>
+                <div class="social-switch">
+                    {{#if medias.3.isActive}}
+                        <input id="instagram" name="instagram" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                    {{else}}
+                        <input id="instagram" name="instagram" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                    {{/if}}
 
-                        <input id="analytics-4-strongest-redirects" name="analyticsStrongestRedirects" type="checkbox" checked>
-                        <label for="analyticsStrongestRedirects">4 starkaste ingångskanalerna </label>
-                        <input id="analytics-4-most-visited-pages" name="analyticsMostVisitedPages" type="checkbox" checked>
-                        <label for="analyticsMostVisitedPages">4 mest besökta sidorna </label>
-
-                    <input id="analytics-average-time" name="analyticsAverageTime" type="checkbox" checked>
-                    <label for="analyticsAverageTime">Genomsnittlig tid på sidan </label>
-                    <input id="analytics-average-visited-per-pages" name="analyticsAverageVisitedPerPages" type="checkbox" checked>
-                    <label for="analyticsAverageVisitedPerPages">Genomsnittligt antal besökta sidor </label>
+                    <label for="instagram"></label>
                 </div>
             </div>
 
@@ -144,9 +146,9 @@
 
 <script>
     function openExternalAuth(name, activate) {
-        var path = '../auth' + name;
-        if (activate) {
-            window.open('../auth/' + name);
-        }
+          var path = '../auth' + name;
+          if (activate) {
+              window.open('../auth/' + name);
+          }
     }
 </script>
