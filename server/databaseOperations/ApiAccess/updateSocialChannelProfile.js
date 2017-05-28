@@ -1,6 +1,11 @@
+var dotenv = require('dotenv');
 var ApiAccess = require('../schemas/ApiAccess');
+var encrypt = require('../../helpers/encrypt');
 var queryObj;
 var updateObj;
+
+
+dotenv.load();
 
 /**
  * Sparar och uppdaterar accessinformation för sociala medier
@@ -26,6 +31,8 @@ function updateSocialChannelProfile(sessionUserID, profile) {
       updateObj.$unset[media] = 1;
     });
   } else {
+
+    //  TODO: Divide object to provide: string and access: {} and encrypt.encryptObject(access)
     queryObj = {
       provider: profile.provider,
       username: profile.username,
