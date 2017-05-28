@@ -65,12 +65,38 @@ router.get('/settings',
   getSettings);
 
 //  inaktivera media och återvänder till settings
-router.get('/updatesettings',
+router.post('/updatesettings',
   ensureLoggedIn,
   function (req, res, next) {
-    //  TODO: skicka med information om vilka medier som ska inaktiveras enligt upplägg i klienten
-    //  men som array - raderar propertyn
-    updateSocialChannelProfile(req.user.id, ['facebook']);
+    let socialChannels = [];
+    if (!req.body.adwords) {
+      socialChannels.push('adwords');
+    }
+    if (!req.body.facebook) {
+      socialChannels.push('facebook');
+    }
+    if (!req.body.tynt) {
+      socialChannels.push('tynt');
+    }
+    if (!req.body.addthis) {
+      socialChannels.push('addthis');
+    }
+    if (!req.body.twitter) {
+      socialChannels.push('twitter');
+    }
+    if (!req.body.linkedin) {
+      socialChannels.push('linkedin');
+    }
+    if (!req.body.moz) {
+      socialChannels.push('moz');
+    }
+    if (!req.body.instagram) {
+      socialChannels.push('instagram');
+    }
+    if (!req.body.google) {
+      socialChannels.push('google');
+    }
+    updateSocialChannelProfile(req.user.id, socialChannels);
     res.redirect('settings');
   });
 
