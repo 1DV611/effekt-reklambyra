@@ -21,6 +21,7 @@ module.exports = function (profile, startDate) {
      */
 
     linkedin.companies.asAdmin(function (err, isAdminFor) {
+      if (isAdminFor.status === 401) return resolve({ linkedin: { error: isAdminFor.message }});
       isAdminFor.values.forEach(function (companyPage) {
         result.push(getCompanyStatsFor(companyPage));
       });

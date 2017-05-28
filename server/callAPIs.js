@@ -7,16 +7,14 @@ var facebookAPI = require('./APIs/facebookAPI');
 var accrossAPI = require('./APIs/33acrossAPI');
 var addThisAPI = require('./APIs/addThisAPI');
 var APIResultsToObject = require('./../server/helpers/APIResultsToObject');
-var dateToEpoch = require('./helpers/dateToEpoch');
 
 /**
  *
- * @param access ett access objekt från databasen inheållandes profiler från google facebook etc
+ * @param access ett access objekt från databasen innehållande profiler från google facebook etc
  * incl accessTokens
- * @param startDate Date objekt
+ * @param startDateInUnix unix epoch int timestamp.
  *
- * startDate omvandlas till unix epoch timestamp, används endast för att utläsa månad och år
- * som man vill ha data för.
+ * Data hämtas för månad och år av unixTimeStamp, dag etc ignoreras. För nuvarande månad ges data hitills.
  *
  * Hämtar data från alla de APIer en avändare har credentials för.
  * För att hantera async använder funktioen Promises istället för callbacks:
@@ -30,19 +28,19 @@ var dateToEpoch = require('./helpers/dateToEpoch');
  *
  */
 
-var callAPIsWith = function (access, startDate) {
-  var startDateInUnix = dateToEpoch(startDate);
+var callAPIsWith = function (access, startDateInUnix) {
 
   return new Promise(function (resolve, reject) {
     var promises = [];
 
+    //todo är hasOwnProperty att föredra?
     if (access.hasOwnProperty('twitter')) promises.push(twitterAPI(access.twitter, startDateInUnix));
 
     if (access.facebook) promises.push(facebookAPI(access.facebook, startDateInUnix));
 
     if (access.linkedin) promises.push(linkedinAPI(access.linkedin, startDateInUnix));
 
-    if (access.google) promises.push(googleAPI(access.google.accessToken, startDateInUnix));
+    if (access.google) promises.push(googleAPI(access.google, startDateInUnix));
 
     if (access.instagram) promises.push(instagramAPI(access.instagram, startDateInUnix));
 
@@ -67,7 +65,6 @@ var callAPIsWith = function (access, startDate) {
        *
        *
        */
-
       resolve(APIResultsToObject(apiData));
     }).catch(function (error) {
       reject(error);

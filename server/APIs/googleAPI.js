@@ -21,153 +21,184 @@ var REDIRECT_URL = process.env.AUTH0_CALLBACK_URL;
 
 var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
+var startDateString;
+var endDateString;
+
 // you need to get the access_token from auth0IdpAccessToken.js
 
-module.exports = function (token, startDate) {
+module.exports = function (accessObj, startDate) {
+
   var relevantDate = dateHelper(startDate);
-
   //  TODO: anpassa så att 0 läggs till på månader som inte är tvåsiffriga
-  var startDateString = relevantDate.year + '-0' + relevantDate.month + '-' + '01';
+  startDateString = relevantDate.year + '-0' + relevantDate.month + '-' + '01';
   //  TODO: Anpassa endDate för scenario nuvarande månad resp avslutad månad
-  var endDateString = new Date().toISOString().substring(0, 10);
+  endDateString = new Date().toISOString().substring(0, 10);
 
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     oauth2Client.setCredentials({
-      access_token: token,
+      access_token: accessObj.accessToken,
+      refresh_token: accessObj.refreshToken,
     });
 
-    var promiseYoutube = new Promise(function (resolve, reject) {
-      var obj = {};
-
-      // using bracket notation since google requires dashes in some of their required params
-      obj['end-date'] = endDateString;
-      obj['start-date'] = startDateString;
-      obj['ids'] = 'channel==MINE';
-      obj['metrics'] = 'views';
-      obj['auth'] = oauth2Client;
-      // The api explorer is very useful: https://developers.google.com/apis-explorer
-      youtubeAnalytics.reports.query(obj, function (err, body) {
-        if (err) {
-          console.error('youtube error: ', err);
-        }
-
-        //  console.log(body.rows[0][0]);
-        resolve(body.rows[0][0]);
-      });
+    oauth2Client.refreshAccessToken(function (err, tokens) {
+      console.error(err);
+      console.log(tokens);
+      //todo här får man ett objekt med helt nya google credntials, access_token, expiry_date, id_token, refresh_token och token_type
+      // dessa ska sparas i db för relevant user. Därför kanske hela access objektet behövs skickas med så en referns till _id finns, så att
+      // vi sedan kan uppdatera rätt accessObjekt i databasen?
     });
 
-    var promiseAnalytics = new Promise(function (resolve, reject) {
-      var obj = {};
-      obj['auth'] = oauth2Client;
-      analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
-        if (err) {
-          console.error('analytics error', err);
-        }
+    var result = [youtubeViews(), analyticsBaseFigures(), analyticsMostVisited(), analyticsTopLanding()];
+    Promise.all(result).then(function (values) {
 
-        obj['end-date'] = endDateString;
-        obj['start-date'] = startDateString;
-        obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id;
-        obj['metrics'] = 'ga:pageviews,ga:uniquePageviews,ga:avgTimeOnPage,ga:avgSessionDuration,ga:pageViewsPerSession';
-        obj['auth'] = oauth2Client;
-        analytics.data.ga.get(obj, function (errData, bodyData) {
-          if (errData) {
-            reject(console.log(errData));
-          }
-          //console.log(bodyData);
-          var results = bodyData.totalsForAllResults;
-          var dataObj = {
-            analyticsViews: results['ga:pageviews'],
-            analyticsUniqueViews: results['ga:uniquePageviews'],
-            analyticsStrongestRedirects: '',
-            analyticsMostVisitedPages: '',
-            analyticsAverageTime: results['ga:avgSessionDuration'],
-            analyticsAverageVisitedPerPages: results['ga:pageViewsPerSession'],
-          };
-          resolve(dataObj);
-        });
-      });
-    });
-
-    var promiseAnalyticsMostVisited = new Promise(function (resolve, reject) {
-      var obj = {};
-      obj['auth'] = oauth2Client;
-      analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
-        if (err) {
-          console.error('analytics most viewed error: ', err);
-        }
-
-        obj['end-date'] = endDateString;
-        obj['start-date'] = startDateString;
-        obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id;
-        obj['dimensions'] = 'ga:pageTitle,ga:pagePath';
-        obj['metrics'] = 'ga:pageviews';
-        obj['sort'] = '-ga:pageviews';
-        obj['max-results'] = 4;
-        obj['auth'] = oauth2Client;
-        analytics.data.ga.get(obj, function (errData, bodyData) {
-          if (errData) {
-            reject(console.log(errData));
-          }
-          //console.log(bodyData.rows);
-          var results = bodyData.rows;
-          var dataObj = {
-            analyticsMostVisitedPages: results,
-          };
-          resolve(dataObj);
-        });
-      });
-    });
-
-    var promiseAnalyticsTopLanding = new Promise(function (resolve, reject) {
-      var obj = {};
-      obj['auth'] = oauth2Client;
-      analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
-        if (err) {
-          console.error('analytics top landing error: ', err);
-        }
-
-        obj['end-date'] = endDateString;
-        obj['start-date'] = startDateString;
-        obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id;
-        obj['dimensions'] = 'ga:landingPagePath';
-        obj['metrics'] = 'ga:entrances,ga:bounces';
-        obj['sort'] = '-ga:entrances';
-        obj['max-results'] = 4;
-        obj['auth'] = oauth2Client;
-        analytics.data.ga.get(obj, function (errData, bodyData) {
-          if (errData) {
-            reject(console.log(errData));
-          }
-          //console.log(bodyData.rows);
-          var results = bodyData.rows;
-          var dataObj = {
-            analyticsStrongestRedirects: results,
-          };
-          resolve(dataObj);
-        });
-      });
-    });
-
-    Promise.all([promiseYoutube, promiseAnalytics, promiseAnalyticsMostVisited, promiseAnalyticsTopLanding]).then(function (values) {
+      console.log(values);
 
       var returnObj = {
-          youtube: {
-            views: { result: values[0], description: ' visningar.' }
-          },
-          analytics: {
-            analyticsViews: { result: values[1].analyticsViews, description: ' visningar.' },
-            analyticsUniqueViews: { result: values[1].analyticsUniqueViews, description: ' unika visningar.' },
-            analyticsStrongestRedirects: { result: values[3].analyticsStrongestRedirects, description: ' är de starkaste ingångskanalerna.' },
-            analyticsMostVisitedPages: { result: values[2].analyticsMostVisitedPages, description: ' är de mest besökta sidorna.' },
-            analyticsAverageTime: { result: values[1].analyticsAverageTime, description: ' genomsnittlig tid på sidan.' },
-            analyticsAverageVisitedPerPages: { result: values[1].analyticsAverageVisitedPerPages, description: ' genomsnittligt antal besökta sidor.' }
-          }
+        youtube: values[0],
+        analytics: {
+          baseFigures: values[1],
+          mostVisited: values[2],
+          topLanding:  values[3]
+        }
       };
+
+      // var returnObj = {
+      //   youtube: {
+      //     views: {result: values[0], description: ' visningar.'},
+      //   },
+      //   analytics: {
+      //     analyticsViews: {result: values[1].analyticsViews, description: ' visningar.'},
+      //     analyticsUniqueViews: {
+      //       result: values[1].analyticsUniqueViews,
+      //       description: ' unika visningar.'
+      //     },
+      //     analyticsStrongestRedirects: {
+      //       result: values[3].analyticsStrongestRedirects,
+      //       description: ' är de starkaste ingångskanalerna.'
+      //     },
+      //     analyticsMostVisitedPages: {
+      //       result: values[2].analyticsMostVisitedPages,
+      //       description: ' är de mest besökta sidorna.'
+      //     },
+      //     analyticsAverageTime: {
+      //       result: values[1].analyticsAverageTime,
+      //       description: ' genomsnittlig tid på sidan.'
+      //     },
+      //     analyticsAverageVisitedPerPages: {
+      //       result: values[1].analyticsAverageVisitedPerPages,
+      //       description: ' genomsnittligt antal besökta sidor.'
+      //     },
+      //   },
+      // };
       resolve(returnObj);
     });
 
   }).catch(function (error) {
     console.error('google api error: ', error);
-    reject(error);
   });
 };
+
+function youtubeViews() {
+
+  return new Promise(function (resolve) {
+    var obj = {};
+    // using bracket notation since google requires dashes in some of their required params
+    obj['end-date'] = endDateString;
+    obj['start-date'] = startDateString;
+    obj['ids'] = 'channel==MINE';
+    obj['metrics'] = 'views';
+    obj['auth'] = oauth2Client;
+    // The api explorer is very useful: https://developers.google.com/apis-explorer
+    youtubeAnalytics.reports.query(obj, function (err, body) {
+      if (err || !body) return resolve({error: err.message || 'no youtube analytics for user'});
+
+      resolve({ youtube: { views: body.rows[0][0] } });
+    });
+  });
+}
+
+function analyticsBaseFigures() {
+
+  return new Promise(function (resolve) {
+    var obj = {};
+    obj['auth'] = oauth2Client;
+    analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
+      if (err || !bodyProfile) return resolve({error: err.message || 'no analytics management account for user'});
+
+      obj['end-date'] = endDateString;
+      obj['start-date'] = startDateString;
+      obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id;
+      obj['metrics'] = 'ga:pageviews,ga:uniquePageviews,ga:avgTimeOnPage,ga:avgSessionDuration,ga:pageViewsPerSession';
+      obj['auth'] = oauth2Client;
+      analytics.data.ga.get(obj, function (errData, bodyData) {
+        if (errData || !bodyData) return resolve({ error: errData.message || 'analytics account summary data not recieved' });
+
+        var results = bodyData.totalsForAllResults;
+        var baseFigures = {
+          views: results['ga:pageviews'],
+          uniqueViews: results['ga:uniquePageviews'],
+          strongestRedirects: '',
+          mostVisitedPages: '',
+          averageTime: results['ga:avgSessionDuration'],
+          averageVisitedPerPages: results['ga:pageViewsPerSession'],
+        };
+        resolve(baseFigures);
+      });
+    });
+  });
+}
+
+function analyticsMostVisited() {
+
+  return new Promise(function (resolve) {
+    var obj = {};
+    obj['auth'] = oauth2Client;
+
+    analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
+      if (err || !bodyProfile) return resolve({ error: err.message || 'no analytics most visited recieved'});
+
+      obj['end-date'] = endDateString;
+      obj['start-date'] = startDateString;
+      obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id;
+      obj['dimensions'] = 'ga:pageTitle,ga:pagePath';
+      obj['metrics'] = 'ga:pageviews';
+      obj['sort'] = '-ga:pageviews';
+      obj['max-results'] = 4;
+      obj['auth'] = oauth2Client;
+      analytics.data.ga.get(obj, function (errData, bodyData) {
+        if (errData || !bodyData) return resolve({ error: errData.message || 'no analytics page views data recieved '});
+
+        var results = bodyData.rows;
+        resolve({ analyticsMostVisitedPages: results });
+      });
+    });
+  });
+}
+
+function analyticsTopLanding() {
+
+  return new Promise(function (resolve) {
+    var obj = {};
+    obj['auth'] = oauth2Client;
+
+    analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
+      if (err || !bodyProfile) return resolve({ error: err.message || 'no analytics management account summary for user' });
+
+      obj['end-date'] = endDateString;
+      obj['start-date'] = startDateString;
+      obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id;
+      obj['dimensions'] = 'ga:landingPagePath';
+      obj['metrics'] = 'ga:entrances,ga:bounces';
+      obj['sort'] = '-ga:entrances';
+      obj['max-results'] = 4;
+      obj['auth'] = oauth2Client;
+
+      analytics.data.ga.get(obj, function (errData, bodyData) {
+        if (errData || !bodyData) return resolve({ error: errData.message || 'analytics top landing error' });
+
+        var results = bodyData.rows;
+        resolve({ analyticsStrongestRedirects: results });
+      });
+    });
+  });
+}

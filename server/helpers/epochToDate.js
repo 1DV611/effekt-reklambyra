@@ -6,6 +6,9 @@
  * till APIer.
  */
 module.exports = function (unixTimeStamp) {
+
+  if (typeof unixTimeStamp === 'string') unixTimeStamp = parseInt(unixTimeStamp);
+
   var date = new Date();
   // * 1000 då js använder ms
   date.setTime(unixTimeStamp * 1000);
