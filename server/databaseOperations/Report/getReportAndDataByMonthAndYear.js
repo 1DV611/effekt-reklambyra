@@ -66,6 +66,8 @@ function getReportByMonthAnYear(req, res) {
         viewObj.form.data = [];
         viewObj.form.report = [];
 
+        req.app.locals.queries = req.query;
+
         data.forEach(function (month) {
           viewObj.form.data.push(month.data);
           viewObj.form.report.push(month.report);
@@ -93,7 +95,6 @@ function getReportByMonthAnYear(req, res) {
           viewObj.form.report.push(month.report);
         });
 
-        req.app.locals.report = viewObj;
         req.app.locals.queries = req.query;
 
         resolve(viewObj);

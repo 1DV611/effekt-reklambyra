@@ -30,6 +30,7 @@ function pdfGenerator(req, res, next) {
         res.setHeader('Content-type', 'application/pdf');
         var $ = cheerio.load(inlines+html);
         $('#summaryTextarea').text(req.body.summary);
+        $('#optimizationTextarea').text(req.body.optimization);
         $('#recommendationTextarea').text(req.body.recommendation);
         $('#createPdfButton').remove();
         streamPdf($.html(), res);
