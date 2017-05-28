@@ -3,38 +3,52 @@ var schedule = require('node-schedule');
 var adjustedEpoch = require('./helpers/adjustedEpoch');
 var cronJob = require('./cronJob');
 
-// run on last day of month
-// call all APIs with all user access objects
-// aaaand... done?
-
-
-//todo linkedin reminder/reactivate every 60 days?
-
-var job = schedule.scheduleJob({ date: 1, hour: 0, minute: 0, second: 5 }, function () {
-  // job to be run?
-
-  // twitter, 33 accross,
-  console.log('running monthly api call');
+// https://www.npmjs.com/package/node-schedule
+// körs den 1 varje månad 5 sekunder eftermiddnatt.
+var firstOfMonth = schedule.scheduleJob({ date: 1, hour: 0, minute: 0, second: 5 }, function () {
+  // adjusted Epoch gör att datumet blir 5 minuter före midnatt, därav hämtas data för föregående månad.
+  // gjort på detta vis för att hantera olika antal dagar i månader på ett enkelt sätt.
+  var date = adjustedEpoch(500);
+  cronJob.monthly(date);
+  console.log('running monthly API call on: ' + date.toString());
 });
 
-job.on('scheduled', function (event) {
-  console.log('scheduled event fired');
+firstOfMonth.on('scheduled', function (event) {
+  console.log('monthly API call ran: ', event);
 });
 
-job.on('canceled', function (event) {
-  console.log('canceled event fired');
+firstOfMonth.on('canceled', function (event) {
+  console.error('monthly API call canceled: ', event);
 });
 
-var jobTwo = schedule.scheduleJob({ second: 10 }, function () {
-  console.log('running every 30 seconds');
-  var unixTimeStamp = adjustedEpoch(500);
-  cronJob(unixTimeStamp);
+// körs varje dag 5 minuter till midnatt.
+var daily = schedule.scheduleJob({ hour: 23, minute: 55 }, function () {
+  var date = Date.now();
+  cronJob.daily(date);
+  console.log('running daily API call on: ' + date.toString());
 });
 
-jobTwo.on('scheduled', function (event) {
-  console.log('scheduled event fired every 30s');
+daily.on('scheduled', function (event) {
+  console.log('daily API call ran: ', event);
 });
 
-jobTwo.on('canceled', function (event) {
-  console.log('canceled event fired every 30s');
+daily.on('canceled', function (event) {
+  console.error('daily API call canceled: ', event);
 });
+
+
+// Du kan utkommentera detta för att köra ett test jobb med ett 30 sekunders intervall.
+
+// var testJob = schedule.scheduleJob({ second: 30 }, function () {
+//   console.log('running every 10 seconds');
+//   var unixTimeStamp = adjustedEpoch(500);
+//   cronJob(unixTimeStamp);
+// });
+//
+// testJob.on('scheduled', function (event) {
+//   console.log('scheduled event fired every 30s');
+// });
+//
+// testJob.on('canceled', function (event) {
+//   console.log('canceled event fired every 30s');
+// });

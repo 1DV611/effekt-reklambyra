@@ -73,6 +73,7 @@ function toFilterByMonth(APIData) {
 
   };
 
+  //sparar data för sharers, clickers, users, shares, clicks
   APIData.forEach(function (day) {
     var dataYearMonth = day.date.slice(0,4);
 
@@ -83,15 +84,9 @@ function toFilterByMonth(APIData) {
           result[property] ? result[property] += day[property] : result[property] = day[property];
         };
       }
-
     }
-
   });
 
-  console.log(result);
   return result;
-
-//sharers, clickers, users, shares, clicks,
-
 }
 

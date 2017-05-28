@@ -4,7 +4,7 @@ var instagramAPI = require('./APIs/instagramAPI');
 var linkedinAPI = require('./APIs/linkedinAPI');
 var twitterAPI = require('./APIs/twitterAPI');
 var facebookAPI = require('./APIs/facebookAPI');
-var accrossAPI = require('./APIs/33acrossAPI');
+var acrossAPI = require('./APIs/33acrossAPI');
 var addThisAPI = require('./APIs/addThisAPI');
 var APIResultsToObject = require('./../server/helpers/APIResultsToObject');
 
@@ -28,12 +28,14 @@ var APIResultsToObject = require('./../server/helpers/APIResultsToObject');
  *
  */
 
-var callAPIsWith = function (access, startDateInUnix) {
+function allAPIsMonthly (access, startDateInUnix) {
 
   return new Promise(function (resolve, reject) {
     var promises = [];
 
     //todo är hasOwnProperty att föredra?
+    // för APIer där data måste hämtas både månadsvis och dagligen har dessa en monthly och en daily metod
+    // här ska monthly användas för sådana APIer
     if (access.hasOwnProperty('twitter')) promises.push(twitterAPI(access.twitter, startDateInUnix));
 
     if (access.facebook) promises.push(facebookAPI(access.facebook, startDateInUnix));
@@ -45,7 +47,7 @@ var callAPIsWith = function (access, startDateInUnix) {
     if (access.instagram) promises.push(instagramAPI(access.instagram, startDateInUnix));
 
     //todo förvirrande namngivning tynt vs accross
-    if (access.tynt) promises.push(accrossAPI(access.tynt, startDateInUnix));
+    if (access.tynt) promises.push(acrossAPI.monthly(access.tynt, startDateInUnix));
 
     if (access.addthis) promises.push(addThisAPI(access.addthis, startDateInUnix));
 
@@ -54,7 +56,7 @@ var callAPIsWith = function (access, startDateInUnix) {
        * @apiData array of returnObj
        * Alla API moduler följer samma return pattern. Ett returnObj inehåller en nyckel med
        * apiets namn och därefter ett nästlat objekt med key.value för data.
-       * Varje det av ett returnObj kan ersättas med en error key iaf en viss del av data ej
+       * Varje del av ett returnObj kan ersättas med en error key iaf en viss del av data ej
        * är möjlig att hämta t ex linkedin skulle kunna ge;
        *
        * linkedin {
@@ -72,4 +74,30 @@ var callAPIsWith = function (access, startDateInUnix) {
   });
 };
 
-module.exports = callAPIsWith;
+/**
+ *
+ * @param access
+ * @param startDateInUnix
+ *
+ * Används för de delar av API data som behövs hämtas och lagras dagligen under en månad.
+ * De APIer som behöver daglig data har en .daily metod som alltid ska användas här.
+ */
+function allAPIsDaily(access, startDateInUnix) {
+
+  return new Promise(function (resolve) {
+    var promises = [];
+
+    if (access.tynt) promises.push(acrossAPI.daily(access.tynt));
+
+    Promise.all(promises).then(function (dailyAPIData) {
+      resolve(APIResultsToObject(dailyAPIData))
+    }).catch(function (error) {
+      reject(error);
+    })
+
+  })
+
+}
+
+exports.monthly = allAPIsMonthly;
+exports.daily = allAPIsDaily;

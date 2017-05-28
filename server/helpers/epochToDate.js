@@ -10,13 +10,15 @@ module.exports = function (unixTimeStamp) {
   if (typeof unixTimeStamp === 'string') unixTimeStamp = parseInt(unixTimeStamp);
 
   var date = new Date();
+  var month = date.getMonth();
   // * 1000 då js använder ms
   date.setTime(unixTimeStamp * 1000);
 
   return {
-    month: date.getMonth(),
-    addedMonth: (date.getMonth() + 1),
-    year: date.getFullYear()
+    month: month,
+    addedMonth: (month + 1),
+    year: date.getFullYear(),
+    monthWithZeroString: month > 9 ? month : '0' + month,
   }
 
 };
