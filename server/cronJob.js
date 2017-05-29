@@ -4,7 +4,6 @@ var getAPIAccesses = require('./databaseOperations/ApiAccess/getAPIAccesses');
 var createReport = require('./databaseOperations/Report/createReport');
 var createApiData = require('./databaseOperations/ApiData/createApiData');
 var epochToDate = require('./helpers/epochToDate');
-var currentDate;
 
 /**
  Takes all the api access objects from db, cycles them and calls the callAllAPIs script for all of them
@@ -16,7 +15,7 @@ function monthlyUpdate(date) {
   getAPIAccesses()
       .then(function (APIAccesses) {
         APIAccesses.forEach(function (APIAccess) {
-          updateEach(APIAccess);
+          updateEach(APIAccess, date);
         });
       }).catch(function (error) {
     throw error;
@@ -24,11 +23,7 @@ function monthlyUpdate(date) {
 
   //  Creates report + data per for each user in db based on activated providers
   // (facebook, instagram) etc
-  var updateEach = function (APIAccess) {
-    var currentDate = epochToDate(date);
 
-    createApiData(createReport(APIAccess.user, currentDate.month, currentDate.year));
-  };
 }
 
 function dailyUpdate(date) {
@@ -43,5 +38,12 @@ function dailyUpdate(date) {
   })
 }
 
+function updateEach (APIAccess, date) {
+  var currentDate = epochToDate(date);
+
+  createApiData(createReport(APIAccess.user, currentDate.month, currentDate.year));
+};
+
 exports.monthly = monthlyUpdate;
 exports.daily = dailyUpdate;
+exports.updateEach = updateEach;

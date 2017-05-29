@@ -126,6 +126,5 @@ function filterForMonth(results, date) {
   return returnObj;
 }
 
-
 exports.daily = daily;
 exports.monthly = monthly;

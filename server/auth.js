@@ -80,10 +80,6 @@ passport.use(new InstagramStrategy({
   callbackURL: process.env.BASE_URL + '/auth/instagram/callback'
 }, socialChannelCallback));
 
-/** För Linkedin är consumerKey faktiskt kallad CLIENT ID i Linkedins API console och consumerSecret
- * är Client Secret. Det finns ingen faktiskt linkedin API key, det är endast linkedins passport strategy
- * som är lite utdaterad och använder oauth 1.0
- */
 passport.use(new LinkedinStrategy({
   clientID: process.env.LINKEDIN_CLIENT_ID,
   clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
