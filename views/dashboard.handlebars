@@ -1,6 +1,6 @@
 <div class="card dashboard-content-place">
 
-    <!--- Choose a customer --->
+    <!--- Välj en kund --->
     <div class="report-settings">
         <form id="customer-statistics" method="post" action="/user/preview">
             <div class="customer-container">
@@ -12,9 +12,8 @@
                 </div>
             </div>
 
-            <!--- If existing customer is choosen display only divs of social media that are activated, all checked --->
+            <!--- Välj medier, features, månad och år för preview: --->
 
-            {{#if user.adwords.active}}
                 <div class="social-container">
                     <div class="social-name"><span>Adwords</span></div>
                     <div class="social-switch">
@@ -41,7 +40,6 @@
                         <label for="facebookLikes">Gilla </label>
                     </div>
                 </div>
-            {{/if}}
             <div class="social-container">
                 <div class="social-name"><span>Youtube</span></div>
                 <div class="social-switch">
@@ -53,7 +51,6 @@
                     <label for="youtubeViews">Visningar </label>
                 </div>
             </div>
-            {{#if user.tynt.active}}
                 <div class="social-container">
                     <div class="social-name"><span>Tynt/33across</span></div>
                     <div class="social-switch">
@@ -100,7 +97,6 @@
                         <label for="linkedinInteractions">Interaktioner </label>
                     </div>
                 </div>
-
                 <div class="social-container">
                     <div class="social-name"><span>Moz</span></div>
                     <div class="social-switch">
@@ -112,8 +108,6 @@
                         <label for="mozKeywords">Keywords position (10 bästa) </label>
                     </div>
                 </div>
-            {{/if}}
-
             <div class="social-container">
                 <div class="social-name"><span>Analytics</span></div>
                 <div class="social-switch">
@@ -125,12 +119,10 @@
                     <label for="analyticsViews">Visningar </label>
                     <input id="analytics-unique-views" name="analyticsUniqueViews" type="checkbox" checked>
                     <label for="analyticsUniqueViews">Unika visningar </label>
-                    {{#if user.tynt.active.features.analyticsStrongestRedirects.active}}
                         <input id="analytics-4-strongest-redirects" name="analyticsStrongestRedirects" type="checkbox" checked>
                         <label for="analyticsStrongestRedirects">4 starkaste ingångskanalerna </label>
                         <input id="analytics-4-most-visited-pages" name="analyticsMostVisitedPages" type="checkbox" checked>
                         <label for="analyticsMostVisitedPages">4 mest besökta sidorna </label>
-                    {{/if}}
                     <input id="analytics-average-time" name="analyticsAverageTime" type="checkbox" checked>
                     <label for="analyticsAverageTime">Genomsnittlig tid på sidan </label>
                     <input id="analytics-average-visited-per-pages" name="analyticsAverageVisitedPerPages" type="checkbox" checked>
@@ -163,6 +155,9 @@
                     <span>År: </span>
                     <select id="years" name="years">
                     <script>
+
+                        //Skapa en select-input med options för alla år från 2005 tills i år:
+
                         var date = new Date();
                         var year = date.getFullYear();
                         for(var i = 2005; i < year+1; i++){

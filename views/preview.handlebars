@@ -36,6 +36,9 @@
         </div>
         <br>
         <br>
+
+        <!-- Div:en för diagrammen: -->
+
         <div id="charts" class="toTheLeft">
             <div class="card">
                 <div class="header">
@@ -50,7 +53,7 @@
                 <canvas id="canvasPieChart" width="400" height="400"></canvas>
             </div>
 
-            <!-- Added in case of extra time.
+            <!-- Läggs till om det finns extra tid.
             <div class="card">
                 <div class="header">
                     <h4 class="title">Ingångskällor</h4>
@@ -67,13 +70,17 @@
                 var canvasBarChart = document.querySelector("#canvasBarChart");
                 var canvasPieChart = document.querySelector("#canvasPieChart");
 
-                /* Added in case of extra time.
+                /* Läggs till om det finns extra tid.
                 var canvasDoughnutChart = document.querySelector("#canvasDoughnutChart");
                 */
 
-                // Todo: Add two more months to bar chart:
+                // Todo: Lägg till två månader till stapel-diagrammet:
+
+                // Månaden i stapel-diagrammet:
 
                 var months = ['{{this.month}}'];
+
+                // Totalen av en parameter per media för en given månad:
 
                 var visitorsInTotalPerMonth = [0];
 
@@ -114,7 +121,11 @@
                     visitorsInTotalPerMonth[0] += Number({{this.form.data.moz.mozKeywords.result}});
                 {{/if}}
 
+                // Skapa datan för stapel-diagrammet:
+
                 var barData = createData(months, visitorsInTotalPerMonth);
+
+                // Fördelningen mellan medier givet hur stor andel räknat på en parameter per media:
 
                 var medias = [];
                 var percentages = [];
@@ -162,21 +173,27 @@
                     percentages.push(Number({{this.form.data.moz.mozKeywords.result}}));
                 {{/if}}
 
+                // Skapa datan för paj-diagrammet:
 
                 var pieData = createData(medias, percentages);
+
+                //Skapa stapel- och paj-diagrammet:
 
                 var barChart = createChart('bar', canvasBarChart, barData);
                 var pieChart = createChart('pie', canvasPieChart, pieData);
 
-                /* Added in case of extra time.
+                /* Läggs till om det finns extra tid.
                 var doughnutChart = createChart('doughnut', canvasDoughnutChart, data);
                 */
 
             </script>
         </div>
+
+        <!-- Div:en för statistiken för de olika medierna: -->
+
         <div id="stats" class="toTheRight">
             <div class="card">
-                        <div class="header">
+                    <div class="header">
                             {{#if this.queries.adwords}}
                                 <h3 class="title">AdWords</h3>
                                 {{#if this.queries.adwordsClick}}
@@ -247,36 +264,36 @@
                             {{/if}}
                             {{#if this.queries.analytics}}
                                 <h3 class="title">Analytics</h3>
-                                {{#if this.queries.analyticsViews}}
-                                    <h3>{{this.form.data.analytics.analyticsViews.result}} visningar.</h3>
-                                    <br>
-                                {{/if}}
-                                {{#if this.queries.analyticsUniqueViews}}
-                                    <h3>{{this.form.data.analytics.analyticsUniqueViews.result}} unika visningar.</h3>
-                                    <br>
-                                {{/if}}
-                                {{#if this.queries.analyticsStrongestRedirects}}
-                                    {{#each this.form.data.analytics.analyticsStrongestRedirects}}
-                                        <h3>{{this.result}} är en av de starkaste ingångskanalerna.</h3>
-                                        <br>
-                                    {{/each}}
-                                {{/if}}
-                                {{#if this.queries.analyticsMostVisitedPages}}
-                                    {{#each this.form.data.analytics.analyticsMostVisitedPages}}
-                                        <h3>{{this.result}} är en av de mest besökta sidorna.</h3>
-                                        <br>
-                                    {{/each}}
-                                {{/if}}
-                                {{#if this.queries.analyticsAverageTime}}
-                                    <h3>{{this.form.data.analytics.analyticsAverageTime.result}} genomsnittlig tid på sidan.</h3>
-                                    <br>
-                                {{/if}}
-                                {{#if this.queries.analyticsAverageVisitedPerPages}}
-                                    <h3>{{this.form.data.analytics.analyticsAverageVisitedPerPages.result}} genomsnittligt antal besökta sidor.</h3>
-                                    <br>
-                                {{/if}}
+                            {{#if this.queries.analyticsViews}}
+                                <h3>{{this.form.data.analytics.analyticsViews.result}} visningar.</h3>
+                                <br>
                             {{/if}}
-                        </div>
+                            {{#if this.queries.analyticsUniqueViews}}
+                                <h3>{{this.form.data.analytics.analyticsUniqueViews.result}} unika visningar.</h3>
+                                <br>
+                            {{/if}}
+                            {{#if this.queries.analyticsStrongestRedirects}}
+                                {{#each this.form.data.analytics.analyticsStrongestRedirects}}
+                                    <h3>{{this.result}} är en av de starkaste ingångskanalerna.</h3>
+                                    <br>
+                                {{/each}}
+                            {{/if}}
+                            {{#if this.queries.analyticsMostVisitedPages}}
+                                {{#each this.form.data.analytics.analyticsMostVisitedPages}}
+                                    <h3>{{this.result}} är en av de mest besökta sidorna.</h3>
+                                    <br>
+                                {{/each}}
+                            {{/if}}
+                            {{#if this.queries.analyticsAverageTime}}
+                                <h3>{{this.form.data.analytics.analyticsAverageTime.result}} genomsnittlig tid på sidan.</h3>
+                                <br>
+                            {{/if}}
+                            {{#if this.queries.analyticsAverageVisitedPerPages}}
+                                <h3>{{this.form.data.analytics.analyticsAverageVisitedPerPages.result}} genomsnittligt antal besökta sidor.</h3>
+                                <br>
+                            {{/if}}
+                        {{/if}}
+                    </div>
             </div>
         </div>
     </div>

@@ -1,8 +1,19 @@
+/**
+ * Lägger på alla aktiva medier och features på href:en för att preview-vyn ska veta
+ * vad som ska visas.
+ */
+
 function changeHref() {
+
+  // Koppla till preview-knappen på dashboard-sidan:
+
   var previewButton = document.querySelector('#previewButton');
+
+  // Lägg till månad, år och kund på href:en utifrån det som skrivits i input-fälten på dashboard-sidan:
+
   var href = '/user/report/' + months.value + '/' + years.value + '?customer=' + customer.value;
 
-  //Koppla till alla feature-checkboxar från dashboarden:
+  // Koppla till alla media och feature-inputs på dashboard-sidan:
 
   var adwords = document.querySelector('#adwords');
   var adwordsClick = document.querySelector('#adwords-click');
@@ -27,8 +38,10 @@ function changeHref() {
   var analytics = document.querySelector('#analytics');
   var analyticsViews = document.querySelector('#analytics-views');
   var analyticsUniqueViews = document.querySelector('#analytics-unique-views');
+
   var analyticsStrongestRedirects = document.querySelector('#analytics-4-strongest-redirects');
   var analyticsMostVisitedPages = document.querySelector('#analytics-4-most-visited-pages');
+
   var analyticsAverageTime = document.querySelector('#analytics-average-time');
   var analyticsAverageVisitedPerPages = document.querySelector('#analytics-average-visited-per-pages');
 
@@ -39,80 +52,74 @@ function changeHref() {
   var moz = document.querySelector('#moz');
   var mozKeywords = document.querySelector('#moz-keywords');
 
+
   // Vilka medier och features som blivit iklickade på dashboard-sidan:
 
-  /* Läggs till när det finns stöd för datan:
- if (adwords) {
-   if (adwords.checked)
-       href += '&adwords=active';
-   if (adwordsClick.checked)
-       href += '&adwordsClick=active';
-   if (adwordsCpc.checked)
-       href += '&adwordsCpc=active';
-   if (adwordsViews.checked)
-       href += '&adwordsViews=active';
- }
+  if (adwords && adwords.checked) {
+    if (adwords.checked)
+        href += '&adwords=active';
+    if (adwordsClick.checked)
+        href += '&adwordsClick=active';
+    if (adwordsCpc.checked)
+        href += '&adwordsCpc=active';
+    if (adwordsViews.checked)
+        href += '&adwordsViews=active';
+  }
 
- if (facebook) {
-   if (facebook.checked)
-       href += '&facebook=active';
-   if (facebookLikes.checked)
-       href += '&facebookLikes=active';
- }
- */
+  if (facebook && facebook.checked) {
+    if (facebook.checked)
+        href += '&facebook=active';
+    if (facebookLikes.checked)
+        href += '&facebookLikes=active';
+  }
 
-  if (youtube) {
+  if (youtube && youtube.checked) {
     if (youtube.checked)
         href += '&youtube=active';
     if (youtubeViews.checked)
         href += '&youtubeViews=active';
   }
 
-  /* Läggs till när det finns stöd för datan:
-  if (tynt) {
+  if (tynt && tynt.checked) {
     if (tynt.checked)
         href += '&tynt=active';
     if (tyntCopied.checked)
         href += '&tyntCopied=active';
   }
 
-  if (addthis) {
+  if (addthis && addthis.checked) {
     if (addthis.checked)
         href += '&addthis=active';
     if (addthisClick.checked)
         href += '&addthisClick=active';
   }
 
-  if (twitter) {
+  if (twitter && twitter.checked) {
     if (twitter.checked)
         href += '&twitter=active';
     if (twitterViews.checked)
         href += '&twitterViews=active';
   }
 
-  */
-
-  if (analytics) {
+  if (analytics && analytics.checked) {
     if (analytics.checked)
         href += '&analytics=active';
     if (analyticsViews.checked)
         href += '&analyticsViews=active';
     if (analyticsUniqueViews.checked)
         href += '&analyticsUniqueViews=active';
-    /* Läggs till när det finns stöd för datan:
     if (analyticsStrongestRedirects.checked)
         href += '&analyticsStrongestRedirects=active';
     if (analyticsMostVisitedPages.checked)
         href += '&analyticsMostVisitedPages=active';
-    */
+
     if (analyticsAverageTime.checked)
         href += '&analyticsAverageTime=active';
     if (analyticsAverageVisitedPerPages.checked)
         href += '&analyticsAverageVisitedPerPages=active';
   }
 
-  /* Läggs till när det finns stöd för datan:
-  if (linkedin) {
+  if (linkedin && linkedin.checked) {
     if (linkedin.checked)
         href += '&linkedin=active';
     if (linkedinFollowers.checked)
@@ -121,14 +128,13 @@ function changeHref() {
         href += '&linkedinInteractions=active';
   }
 
-  if (moz) {
+  if (moz && moz.checked) {
     href += '&moz=active';
     if (mozKeywords.checked)
         href += '&mozKeywords=active';
   }
 
-  */
-
   // Lägger till datan som ska skickas med på preview-knappen på dashboarden:
+
   previewButton.href = href;
 }
