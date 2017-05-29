@@ -1,11 +1,8 @@
-var dotenv = require('dotenv');
 var ApiAccess = require('../schemas/ApiAccess');
 var encrypt = require('../../helpers/encrypt');
 var queryObj;
 var updateObj;
-
-
-dotenv.load();
+var access;
 
 /**
  * Sparar och uppdaterar accessinformation för sociala medier
@@ -15,7 +12,6 @@ dotenv.load();
  * @param profile
  */
 function updateSocialChannelProfile(sessionUserID, profile) {
-  console.log(profile);
   updateObj = {
     updated: Date.now()
   };
@@ -32,21 +28,29 @@ function updateSocialChannelProfile(sessionUserID, profile) {
     });
   } else {
 
-    //  TODO: Divide object to provide: string and access: {} and encrypt.encryptObject(access)
-    queryObj = {
-      provider: profile.provider,
-      username: profile.username,
-      password: profile.password,
-      secret_api_key: profile.secret_api_key,
-      site_guid: profile.site_guid,
-      accessToken: profile.accessToken,
-      refreshToken: profile.refreshToken,
-      id_token: profile.id_token,
-      extraParams: profile.extraParams,
-      profile: {
+    access = {
+      username: encrypt.encryptText(profile.username),
+      password: encrypt.encryptText(profile.password),
+      secret_api_key: encrypt.encryptText(profile.secret_api_key),
+      site_guid: encrypt.encryptText(profile.site_guid),
+      accessToken: encrypt.encryptText(profile.accessToken),
+      refreshToken: encrypt.encryptText(profile.refreshToken),
+      id_token: encrypt.encryptText(profile.id_token),
+      extraParams: {
+        access_token: encrypt.encryptText(profile.extraParams.access_token),
+        token_type: encrypt.encryptText(profile.extraParams.token_type),
+        expires_in: encrypt.encryptText(profile.extraParams.expires_in.toString()),
+        id_token: encrypt.encryptText(profile.extraParams.id_token)
+      },
+      profile: encrypt.encryptText(JSON.stringify({
         _json: profile._json,
         _raw: profile._raw
-      }
+      }))
+    };
+
+    queryObj = {
+      provider: profile.provider,
+      access: access
     };
 
     updateObj[queryObj.provider] = queryObj;
