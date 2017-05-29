@@ -70,6 +70,7 @@ function getReportByMonthAnYear(req, res) {
           viewObj.form.data.push(month.data);
           viewObj.form.report.push(month.report);
         });
+
         resolve(viewObj);
       }).catch(function (error) {
         resolve(error);
