@@ -9,9 +9,28 @@ function changeHref() {
 
   var previewButton = document.querySelector('#previewButton');
 
+  var monthNames = ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
+      'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December',
+  ];
+
+  var monthBeforePreviousMonth;
+  var previousMonth;
+  var month = months.value;
+  if (month === '0') {
+    previousMonth = 11;
+    monthBeforePreviousMonth = 10;
+  } else if (month === '1') {
+    previousMonth = 0;
+    monthBeforePreviousMonth = 11;
+  } else {
+    previousMonth = (month - 1);
+    monthBeforePreviousMonth = (month - 2);
+  }
+
+
   // Lägg till månad, år och kund på href:en utifrån det som skrivits i input-fälten på dashboard-sidan:
 
-  var href = '/user/report/' + months.value + '/' + years.value + '?customer=' + customer.value;
+  var href = '/user/report/' + months.value + '/' + years.value + '?customer=' + customer.value + '&month=' + monthNames[month] + '&previousMonth=' + monthNames[previousMonth] + '&monthBeforePreviousMonth=' + monthNames[monthBeforePreviousMonth] + '&year=' + years.value;
 
   // Koppla till alla media och feature-inputs på dashboard-sidan:
 
