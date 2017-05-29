@@ -7,7 +7,7 @@ var decrypt = require('../helpers/decrypt');
 dotenv.load();
 
 // API reference
-//https://developers.facebook.com/docs/graph-api/reference/v2.2/user/likes
+//  https://developers.facebook.com/docs/graph-api/reference/v2.2/user/likes
 module.exports = function (profile) {
   var id = JSON.parse(decrypt.decryptText(profile.profile))._json.id;
   var token = decrypt.decryptText(profile.accessToken);
@@ -32,10 +32,11 @@ module.exports = function (profile) {
         console.error('facebook api error: ', err);
       };
 
-      //todo actual facebook data here.. currently recieving an empty data array (no pages with likes?) need a real account to test
+      //todo actual facebook data here.. currently recieving an empty data array
+      // (no pages with likes?) need a real account to test
       var returnObj = {
         facebook: {
-          likes: 42,
+          likes: 42
         }
       };
 

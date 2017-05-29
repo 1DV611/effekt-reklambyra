@@ -1,11 +1,9 @@
 'use strict';
-var request = require('request');
-var epochToDate = require('../helpers/epochToDate');
-var dotenv = require('dotenv');
-dotenv.load();
 
-var secret_api_key;
-var site_guid;
+var request = require('request');
+var dotenv = require('dotenv');
+var epochToDate = require('../helpers/epochToDate');
+var decrypt = require('../helpers/decrypt');
 var api_url = 'https://api.tynt.com/publisher/v2/realtime_stats/page_copies';
 var andSiteGuid = '?site_guid=';
 var andApiKey = '&api_key=';
@@ -18,16 +16,22 @@ var andStartTime = '&start_time=';
 var start_time = 86400// - twentyFourHoursInUnixTime;
 var andEndTime = '&end_time=';
 
+var secret_api_key;
+var site_guid;
+
+dotenv.load();
+
+
 /**
- * Data för 33Across behövs hämtas både dagligen och månadsvis. PageCopies är endast tillgänglig i form
- * av daglig statistik, medans social API med kopierat socialt innehåll kan hämtas för upp till 12 veckor båkat.
- *
+ * Data för 33Across behövs hämtas både dagligen och månadsvis. PageCopies
+ * är endast tillgänglig i form av daglig statistik, medans social API med kopierat
+ * socialt innehåll kan hämtas för upp till 12 veckor båkat.
  * Därför använder callAPIs monthly funktionen och daily är schemalaggd.
  */
 
 function monthly(access, unixTimeStamp) {
-  secret_api_key = access.secret_api_key;
-  site_guid = access.site_guid;
+  secret_api_key = decrypt.decryptText(access.secret_api_key);
+  site_guid = decrypt.decryptText(access.site_guid);
 
   var relevantDate = epochToDate(unixTimeStamp);
   var results = [socialAPI(relevantDate)];
@@ -55,10 +59,10 @@ function daily(access) {
 }
 
 function pageCopiesAPI() {
-
   return new Promise(function (resolve) {
 
-    var queryString = api_url + andSiteGuid + site_guid + andApiKey + secret_api_key + andStartTime + start_time + andLimit + limit;
+    var queryString = api_url + andSiteGuid + site_guid + andApiKey + secret_api_key +
+      andStartTime + start_time + andLimit + limit;
 
     request(queryString, function (err, res, body) {
       if (err || !body) return resolve({ error: '33across page copies API error: ' + err.message });
@@ -92,26 +96,25 @@ function pageCopiesAPI() {
 }
 
 function socialAPI(date) {
-
   return new Promise(function (resolve) {
     var type = 'total';
-    var queryString = 'https://api.tynt.com/publisher/v1/social/' + type + '?site_guid=' + site_guid + '&api_key=' + secret_api_key;
+    var queryString = 'https://api.tynt.com/publisher/v1/social/' + type + '?site_guid='
+      + site_guid + '&api_key=' + secret_api_key;
+
     request(queryString, function (err, res, body) {
       if (err || !body) return resolve({ error: '33across social API error: ' + err.message });
       console.log(body);
       var obj = JSON.parse(body);
       console.log(obj);
-      resolve(filterForMonth(obj, date))
-    })
-
-  })
+      resolve(filterForMonth(obj, date));
+    });
+  });
 }
 
 function filterForMonth(results, date) {
-
   var returnObj = {
     shares: 0,
-    visitors: 0,
+    visitors: 0
   };
 
   results.data.forEach(function (result) {
@@ -124,7 +127,6 @@ function filterForMonth(results, date) {
       returnObj.shares += result[1];
       returnObj.visitors += result[2];
     }
-
   });
 
   return returnObj;

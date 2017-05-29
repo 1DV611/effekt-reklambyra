@@ -35,19 +35,19 @@ function allAPIsMonthly(access, startDateInUnix) {
     //todo är hasOwnProperty att föredra? OBS! Typeerror utan hasOwnProperty eftersom if-satsen genomförs
     // för APIer där data måste hämtas både månadsvis och dagligen har dessa en monthly och en daily metod
     // här ska monthly användas för sådana APIer
-    if (access.hasOwnProperty('twitter')) promises.push(twitterAPI(access.twitter.access, startDateInUnix));
+    if (access.twitter) promises.push(twitterAPI(access.twitter.access, startDateInUnix));
 
-    if (access.hasOwnProperty('facebook')) promises.push(facebookAPI(access.facebook.access, startDateInUnix));
+    if (access.facebook) promises.push(facebookAPI(access.facebook.access, startDateInUnix));
 
-    if (access.hasOwnProperty('linkedin')) promises.push(linkedinAPI(access.linkedin.access, startDateInUnix));
+    if (access.linkedin) promises.push(linkedinAPI(access.linkedin.access, startDateInUnix));
 
-    if (access.hasOwnProperty('google')) promises.push(googleAPI(access.google.access, startDateInUnix, access.user));
+    if (access.google) promises.push(googleAPI(access.google.access, startDateInUnix, access.user));
 
-    if (access.hasOwnProperty('instagram')) promises.push(instagramAPI(access.instagram.access, startDateInUnix));
+    if (access.instagram) promises.push(instagramAPI(access.instagram.access, startDateInUnix));
 
-    if (access.hasOwnProperty('across')) promises.push(acrossAPI.monthly(access.across.access, startDateInUnix));
+    if (access.across) promises.push(acrossAPI.monthly(access.across.access, startDateInUnix));
 
-    if (access.hasOwnProperty('addthis')) promises.push(addThisAPI(access.addthis, startDateInUnix));
+    if (access.addthis) promises.push(addThisAPI(access.addthis, startDateInUnix));
 
     Promise.all(promises).then(function (apiData) {
       /**

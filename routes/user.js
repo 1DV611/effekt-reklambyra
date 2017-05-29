@@ -1,11 +1,9 @@
 var express = require('express');
-var passport = require('passport');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 var router = express.Router();
 
 var createReport = require('./../server/databaseOperations/Report/createReport');
 var createApiData = require('./../server/databaseOperations/ApiData/createApiData');
-
 var getReportAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getReportAndDataByMonthAndYear');
 var getAllReportsAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getAllReportsByMonthAndYear');
 var getSettings = require('./../server/getSettings.js');
@@ -43,9 +41,11 @@ router.get('/report/:month/:year',
   ensureLoggedIn,
   function (req, res) {
     req.app.locals.queries = req.query;
-    getReportAndDataByMonthAndYear(req.user, req.query, req.params.month, req.params.year).then(function (viewObj) {
-      res.render('preview', viewObj);
-    });
+    getReportAndDataByMonthAndYear(req.user, req.query, req.params.month, req.params.year)
+      .then(function (viewObj) {
+        console.log(viewObj);
+        res.render('preview', viewObj);
+      });
   }
 );
 
@@ -69,7 +69,7 @@ router.get('/settings',
 router.post('/updatesettings',
   ensureLoggedIn,
   function (req, res, next) {
-    let socialChannels = [];
+    var socialChannels = [];
     if (!req.body.adwords) {
       socialChannels.push('adwords');
     }
