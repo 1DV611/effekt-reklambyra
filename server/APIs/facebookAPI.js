@@ -2,13 +2,15 @@
 //https://github.com/criso/fbgraph
 var graph = require('fbgraph');
 var dotenv = require('dotenv');
+var decrypt = require('../helpers/decrypt');
+
 dotenv.load();
 
 // API reference
 //https://developers.facebook.com/docs/graph-api/reference/v2.2/user/likes
 module.exports = function (profile) {
-  var id = profile.profile._json.id;
-  var token = profile.accessToken;
+  var id = JSON.parse(decrypt.decryptText(profile.profile))._json.id;
+  var token = decrypt.decryptText(profile.accessToken);
 
   return new Promise(function (resolve, reject) {
 

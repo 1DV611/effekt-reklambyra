@@ -31,12 +31,14 @@ function updateSocialChannelProfile(sessionUserID, profile) {
     access = {
       username: encrypt.encryptText(profile.username),
       password: encrypt.encryptText(profile.password),
+      pubID: encrypt.encryptText(profile.pubID),
       secret_api_key: encrypt.encryptText(profile.secret_api_key),
       site_guid: encrypt.encryptText(profile.site_guid),
       accessToken: encrypt.encryptText(profile.accessToken),
       refreshToken: encrypt.encryptText(profile.refreshToken),
       id_token: encrypt.encryptText(profile.id_token),
       extraParams: {
+        user: profile.extraParams.user,
         access_token: encrypt.encryptText(profile.extraParams.access_token),
         token_type: encrypt.encryptText(profile.extraParams.token_type),
         expires_in: encrypt.encryptText(profile.extraParams.expires_in.toString()),
