@@ -2,6 +2,7 @@
 var schedule = require('node-schedule');
 var adjustedEpoch = require('./helpers/adjustedEpoch');
 var cronJob = require('./cronJob');
+var seedDatabase = require('./helpers/seedDatabase');
 
 // https://www.npmjs.com/package/node-schedule
 // körs den 1 varje månad 5 sekunder eftermiddnatt.
@@ -10,6 +11,7 @@ var firstOfMonth = schedule.scheduleJob({ date: 1, hour: 0, minute: 0, second: 5
   // gjort på detta vis för att hantera olika antal dagar i månader på ett enkelt sätt.
   var date = adjustedEpoch(500);
   cronJob.monthly(date);
+  seedDatabase.addDate();
   console.log('running monthly API call on: ' + date.toString());
 });
 

@@ -1,5 +1,6 @@
 'use strict';
 var fs = require('fs');
+var dateToEpoch = require('./dateToEpoch');
 
 /**
  * Används som helper för att samla historisk data när en användare lägger till en ny access.
@@ -11,12 +12,9 @@ var cronJob = require('../cronJob');
 
 /**
  *
- * @param unixTimeStamp att lägga till
- * lägger till ett datum. Används av schemaläggaren för att lägga till framtida daturm så att databasen
- * alltid byggs med alla hela månander.
  */
-
-function addDate(date) {
+function addDate() {
+  var date = dateToEpoch(Date.now());
   timeStamps.dates.push(date);
   var json = JSON.stringify(timeStamps);
   fs.writeFileSync(__dirname + '/timestamps.json', json);
@@ -24,11 +22,10 @@ function addDate(date) {
 
 /**
  *
- * @param access ett access Objekt från databasen.
+ * @access ett access Objekt från databasen.
  * Går igenom alla datum i arrayen och anropar APIerna
  * Anropar samma funktion som när
  */
-
 function seedDatabase(access) {
   timeStamps.dates.forEach(function (timestamp) {
     cronJob.updateEach(access, timestamp)
