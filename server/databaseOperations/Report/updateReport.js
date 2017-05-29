@@ -10,17 +10,20 @@ function updateReport(userProfileId, month, year, summary, optimization, recomme
     recommendation: recommendation // string
   };
 
-  Report.findOneAndUpdate(
-    { user: userProfileId,
-      startDate: startDate
-    },
-    updateObj,
-    { new: true },
-    function (error, matchingReport) {
-      if (error) console.log(error);
-      if (matchingReport === null) throw new Error('No such report!'); //todo how to handle this?
-    });
-
+  return new Promise(function(resolve, reject) {
+    Report.findOneAndUpdate(
+      { user: userProfileId,
+        startDate: startDate
+      },
+      updateObj,
+      { new: true },
+      function (error, matchingReport) {
+        if (error) console.log(error);
+        if (matchingReport === null) throw new Error('No such report!'); //todo how to handle this?
+        resolve(matchingReport);
+      }
+    );
+  });
 }
 
 module.exports = updateReport;

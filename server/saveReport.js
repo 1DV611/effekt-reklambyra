@@ -1,4 +1,4 @@
-var createReport = require('./databaseOperations/Report/createReport.js');
+var updateReport = require('./databaseOperations/Report/updateReport.js');
 var monthToNumber = require('./helpers/monthToNumber.js');
 
 function saveReport(req, res, next) {
@@ -6,8 +6,9 @@ function saveReport(req, res, next) {
   var month = monthToNumber(req.body.month);
   var year = req.body.year;
   var summary = req.body.summary;
+  var optimization = req.body.optimization;
   var recommendation = req.body.recommendation;
-  createReport(id, month, year, summary, recommendation);
+  return updateReport(id, month, year, summary, optimization, recommendation);
 }
 
 module.exports = saveReport;

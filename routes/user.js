@@ -78,8 +78,9 @@ router.get('/updatesettings',
 router.post('/pdf',
   ensureLoggedIn,
   function (req, res, next) {
-    saveReport(req, res, next);
-    pdfGenerator(req, res, next);
+    saveReport(req, res, next).then(function(report) {
+      pdfGenerator(req, res, next);
+    });
   }
 );
 
