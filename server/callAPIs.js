@@ -39,7 +39,7 @@ function allAPIsMonthly(access, startDateInUnix) {
 
     if (access.hasOwnProperty('facebook')) promises.push(facebookAPI(access.facebook.access, startDateInUnix));
 
-    if (access.hasOwnProperty('linkedin')) promises.push(linkedinAPI(access.linkedin, startDateInUnix));
+    if (access.hasOwnProperty('linkedin')) promises.push(linkedinAPI(access.linkedin.access, startDateInUnix));
 
     if (access.google) promises.push(googleAPI(access.google.access, startDateInUnix, access.user));
 
