@@ -62,7 +62,6 @@
     "instagram-node": "^0.5.8",
     "jsonp": "^0.2.1",
     "mongoose": "^4.9.7",
-    "mongoose-encryption": "^1.5.0",
     "mongoose-id-validator": "^0.4.2",
     "morgan": "^1.8.1",
     "neo-instagram": "^1.2.0",
