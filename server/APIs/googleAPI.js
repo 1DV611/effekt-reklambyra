@@ -4,6 +4,9 @@ var dotenv = require('dotenv');
 var youtubeAnalytics = google.youtubeAnalytics('v1');
 var analytics = google.analytics('v3');
 var dateHelper = require('../helpers/epochToDate');
+var ApiAccess = require('../databaseOperations/schemas/ApiAccess');
+var encrypt = require('../helpers/encrypt');
+var decrypt = require('../helpers/decrypt');
 
 var OAuth2Client = google.auth.OAuth2;
 
@@ -26,7 +29,8 @@ var endDateString;
 
 // you need to get the access_token from auth0IdpAccessToken.js
 
-module.exports = function (accessObj, startDate) {
+module.exports = function (accessObj, startDate, accessUser) {
+
 
   var relevantDate = dateHelper(startDate);
   //  TODO: anpassa så att 0 läggs till på månader som inte är tvåsiffriga
@@ -38,16 +42,26 @@ module.exports = function (accessObj, startDate) {
 
   return new Promise(function (resolve) {
     oauth2Client.setCredentials({
-      access_token: accessObj.accessToken,
-      refresh_token: accessObj.refreshToken,
+      access_token: decrypt.decryptText(accessObj.accessToken),
+      refresh_token: decrypt.decryptText(accessObj.refreshToken)
     });
 
     oauth2Client.refreshAccessToken(function (err, tokens) {
-      console.error(err);
-      console.log(tokens);
-      //todo här får man ett objekt med helt nya google credntials, access_token, expiry_date, id_token, refresh_token och token_type
-      // dessa ska sparas i db för relevant user. Därför kanske hela access objektet behövs skickas med så en referns till _id finns, så att
-      // vi sedan kan uppdatera rätt accessObjekt i databasen?
+
+      ApiAccess.findOneAndUpdate(
+        { user: accessUser },
+        { 'google.access.accessToken': encrypt.encryptText(tokens.access_token),
+          'google.access.refreshToken': encrypt.encryptText(tokens.refresh_token),
+          'google.access.extraParams.id_token': encrypt.encryptText(tokens.id_token),
+          'google.access.extraParams.token_type': encrypt.encryptText(tokens.token_type),
+          'google.access.extraParams.expiry_date': encrypt.encryptText(tokens.expiry_date.toString()),
+          'google.access.extraParams.access_token': encrypt.encryptText(tokens.access_token)
+        },
+        { new: true },
+        function (error, matchingApiAccess) {
+          if (error) console.log(error);
+          if (matchingApiAccess === null) throw new Error('No user to save token to'); //todo how to handle this?
+        });
     });
 
     var result = [youtubeViews(), analyticsBaseFigures(), analyticsMostVisited(), analyticsTopLanding()];

@@ -28,23 +28,22 @@ var APIResultsToObject = require('./../server/helpers/APIResultsToObject');
  *
  */
 
-function allAPIsMonthly (access, startDateInUnix) {
-
+function allAPIsMonthly(access, startDateInUnix) {
   return new Promise(function (resolve, reject) {
     var promises = [];
 
-    //todo är hasOwnProperty att föredra?
+    //todo är hasOwnProperty att föredra? OBS! Typeerror utan hasOwnProperty eftersom if-satsen genomförs
     // för APIer där data måste hämtas både månadsvis och dagligen har dessa en monthly och en daily metod
     // här ska monthly användas för sådana APIer
     if (access.hasOwnProperty('twitter')) promises.push(twitterAPI(access.twitter, startDateInUnix));
 
-    if (access.facebook) promises.push(facebookAPI(access.facebook, startDateInUnix));
+    if (access.hasOwnProperty('facebook')) promises.push(facebookAPI(access.facebook, startDateInUnix));
 
-    if (access.linkedin) promises.push(linkedinAPI(access.linkedin, startDateInUnix));
+    if (access.hasOwnProperty('linkedin')) promises.push(linkedinAPI(access.linkedin, startDateInUnix));
 
-    if (access.google) promises.push(googleAPI(access.google, startDateInUnix));
+    if (access.google) promises.push(googleAPI(access.google.access, startDateInUnix, access.user));
 
-    if (access.instagram) promises.push(instagramAPI(access.instagram, startDateInUnix));
+    if (access.hasOwnProperty('instagram')) promises.push(instagramAPI(access.instagram, startDateInUnix));
 
     //todo förvirrande namngivning tynt vs accross
     //if (access.tynt) promises.push(acrossAPI.monthly(access.tynt, startDateInUnix));

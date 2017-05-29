@@ -11,7 +11,6 @@ function getUserAPIAccess(userId) {
     ApiAccess.findOne({
       user: userId
     }).then(function (doc) {
-      //  TODO: decrypt.encryptObject(doc.access)
       resolve(doc);
     }).catch(function (error) {
       reject(error);
