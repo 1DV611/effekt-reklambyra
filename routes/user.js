@@ -42,7 +42,8 @@ router.get('/dashboard',
 router.get('/report/:month/:year',
   ensureLoggedIn,
   function (req, res) {
-    getReportAndDataByMonthAndYear(req, res).then(function (viewObj) {
+    req.app.locals.queries = req.query;
+    getReportAndDataByMonthAndYear(req.user, req.query, req.params.month, req.params.year).then(function (viewObj) {
       res.render('preview', viewObj);
     });
   }
@@ -104,8 +105,18 @@ router.post('/updatesettings',
 router.post('/pdf',
   ensureLoggedIn,
   function (req, res, next) {
-    saveReport(req, res, next);
-    pdfGenerator(req, res, next);
+    saveReport(req, res, next).then(function(report) {
+      pdfGenerator(
+        req.user,
+        req.app.locals.queries,
+        req.body.month,
+        req.body.year,
+        report.summary,
+        report.optimization,
+        report.recommendation,
+        res
+      );
+    });
   }
 );
 

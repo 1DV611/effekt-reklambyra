@@ -10,11 +10,8 @@ var streamPdf = phantomHtmlToPdf;
 var getReportAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getReportAndDataByMonthAndYear');
 var monthToNumber = require('./helpers/monthToNumber.js');
 
-function pdfGenerator(req, res, next) {
-  req.params.month = monthToNumber(req.body.month);
-  req.params.year = req.body.year;
-  req.query = req.app.locals.queries;
-  getReportAndDataByMonthAndYear(req, res).then(function(context) {
+function pdfGenerator(user, query, month, year, summary, optimization, recommendation, res) {
+  getReportAndDataByMonthAndYear(user, query, monthToNumber(month), year).then(function(context) {
     fs.readFile('./views/preview.handlebars', 'utf-8', function (err, data) {
       var template = handlebars.compile(data);
       var html = template(context);
@@ -29,9 +26,9 @@ function pdfGenerator(req, res, next) {
         res.setHeader('Content-disposition', 'attachment; filename=rapport.pdf');
         res.setHeader('Content-type', 'application/pdf');
         var $ = cheerio.load(inlines+html);
-        $('#summaryTextarea').text(req.body.summary);
-        $('#optimizationTextarea').text(req.body.optimization);
-        $('#recommendationTextarea').text(req.body.recommendation);
+        $('#summaryTextarea').text(summary);
+        $('#optimizationTextarea').text(optimization);
+        $('#recommendationTextarea').text(recommendation);
         $('#createPdfButton').remove();
         streamPdf($.html(), res);
       });

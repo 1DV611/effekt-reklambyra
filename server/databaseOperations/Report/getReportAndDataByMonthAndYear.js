@@ -19,32 +19,32 @@ var promises = [];
  * @param month
  * @param year
  */
-function getReportByMonthAnYear(req, res) {
+function getReportByMonthAnYear(user, query, month, year) {
 
-  startDate = new Date(req.params.year, req.params.month, 1, 0, 0, 0, 1);
+  startDate = new Date(year, month, 1, 0, 0, 0, 1);
 
   switch (startDate) {
     case 0:
       //  december och november
-      previousDate = new Date((req.params.year - 1), 11, 1, 0, 0, 0, 1);
-      previousPreviousDate = new Date((req.params.year - 1), 10, 1, 0, 0, 0, 1);
+      previousDate = new Date((year - 1), 11, 1, 0, 0, 0, 1);
+      previousPreviousDate = new Date((year - 1), 10, 1, 0, 0, 0, 1);
       break;
     case 1:
       //  januari och december
-      previousDate = new Date(req.params.year, (req.params.month - 1), 1, 0, 0, 0, 1);
-      previousPreviousDate = new Date((req.params.year - 1), 11, 1, 0, 0, 0, 1);
+      previousDate = new Date(year, (month - 1), 1, 0, 0, 0, 1);
+      previousPreviousDate = new Date((year - 1), 11, 1, 0, 0, 0, 1);
       break;
     default:
-      previousDate = new Date(req.params.year, (req.params.month - 1), 1, 0, 0, 0, 1);
-      previousPreviousDate = new Date(req.params.year, (req.params.month - 2), 1, 0, 0, 0, 1);
+      previousDate = new Date(year, (month - 1), 1, 0, 0, 0, 1);
+      previousPreviousDate = new Date(year, (month - 2), 1, 0, 0, 0, 1);
   }
 
   viewObj = {
-    user: req.user,
-    customer: req.query.customer,
-    queries: req.query,
-    month: months[req.params.month],
-    year: req.params.year,
+    user: user,
+    customer: query.customer,
+    queries: query,
+    month: months[month],
+    year: year,
     form: {}
   };
 
@@ -54,19 +54,17 @@ function getReportByMonthAnYear(req, res) {
    * ELSE - vid tidigare månader hämtas data från databas
    * form: { data: [ [Object], [Object], [Object] ], report: [ [Object], [Object], [Object] ] } }
    * **/
-  if (currentMonthAndYear(req.params.month, req.params.year)) {
+  if (currentMonthAndYear(month, year)) {
     return new Promise(function (resolve, reject) {
 
-      promises.push(getCurrentApiData(req.user.id, startDate));
-      promises.push(getReport(req.user.id, previousDate));
-      promises.push(getReport(req.user.id, previousPreviousDate));
+      promises.push(getCurrentApiData(user.id, startDate));
+      promises.push(getReport(user.id, previousDate));
+      promises.push(getReport(user.id, previousPreviousDate));
 
       Promise.all(promises).then(function (data) {
 
         viewObj.form.data = [];
         viewObj.form.report = [];
-
-        req.app.locals.queries = req.query;
 
         data.forEach(function (month) {
           viewObj.form.data.push(month.data);
@@ -82,9 +80,9 @@ function getReportByMonthAnYear(req, res) {
 
     return new Promise(function (resolve, reject) {
 
-      promises.push(getReport(req.user.id, startDate));
-      promises.push(getReport(req.user.id, previousDate));
-      promises.push(getReport(req.user.id, previousPreviousDate));
+      promises.push(getReport(user.id, startDate));
+      promises.push(getReport(user.id, previousDate));
+      promises.push(getReport(user.id, previousPreviousDate));
 
       Promise.all(promises).then(function (data) {
         viewObj.form.data = [];
@@ -94,8 +92,6 @@ function getReportByMonthAnYear(req, res) {
           viewObj.form.data.push(month.data);
           viewObj.form.report.push(month.report);
         });
-
-        req.app.locals.queries = req.query;
 
         resolve(viewObj);
       }).catch(function (error) {
