@@ -14,113 +14,37 @@
 
             <!--- Visa möjliga medier för kund: --->
 
-                <div class="social-container">
-                    <div class="social-name"><span>Adwords</span></div>
-                    <div class="social-switch">
-                        {{#if medias.8.isActive}}
-                            <input id="adwords" name="adwords" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
-                        {{else}}
-                            <input id="adwords" name="adwords" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
-                        {{/if}}
-                        <label for="adwords"></label>
-                    </div>
+            <div class="social-container">
+                <div class="social-name"><span>AddThis</span></div>
+                <div class="social-switch">
+                    {{#if medias.0.isActive}}
+                        <input id="addthis" name="addthis" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                    {{else}}
+                        <input id="addthis" name="addthis" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                    {{/if}}
+                    <label for="addthis"></label>
                 </div>
-                <div class="social-container">
-                    <div class="social-name"><span>Facebook</span></div>
-                    <div class="social-switch">
-                        {{#if medias.1.isActive}}
-                            <input id="facebook" name="facebook" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+            </div>
+            <div class="social-container">
+                <div class="social-name"><span>Facebook</span></div>
+                <div class="social-switch">
+                    {{#if medias.1.isActive}}
+                        <input id="facebook" name="facebook" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
                         {{else}}
                             <input id="facebook" name="facebook" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
                         {{/if}}
-
                         <label for="facebook"></label>
-                    </div>
-                </div>
-            <div class="social-container">
-                <div class="social-name"><span>Youtube</span></div>
-                <div class="social-switch">
-                    {{#if medias.2.isActive}}
-                        <input id="youtube" name="google" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
-                    {{else}}
-                        <input id="youtube" name="google" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
-                    {{/if}}
-
-                    <label for="youtube"></label>
                 </div>
             </div>
-                <div class="social-container">
-                    <div class="social-name"><span>Tynt/33across</span></div>
-                    <div class="social-switch">
-                        {{#if medias.6.isActive}}
-                            <input id="tynt" name="tynt" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
-                        {{else}}
-                            <input id="tynt" name="tynt" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
-                        {{/if}}
-
-                        <label for="tynt"></label>
-                    </div>
-                </div>
-                <div class="social-container">
-                    <div class="social-name"><span>AddThis</span></div>
-                    <div class="social-switch">
-                        {{#if medias.0.isActive}}
-                            <input id="addthis" name="addthis" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
-                        {{else}}
-                            <input id="addthis" name="addthis" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
-                        {{/if}}
-
-                        <label for="addthis"></label>
-                    </div>
-                </div>
-                <div class="social-container">
-                    <div class="social-name"><span>Twitter</span></div>
-                    <div class="social-switch">
-                        {{#if medias.7.isActive}}
-                            <input id="twitter" name="twitter" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
-                        {{else}}
-                            <input id="twitter" name="twitter" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
-                        {{/if}}
-
-                        <label for="twitter"></label>
-                    </div>
-                </div>
-                <div class="social-container">
-                    <div class="social-name"><span>LinkedIn</span></div>
-                    <div class="social-switch">
-                        {{#if medias.4.isActive}}
-                            <input id="linkedin" name="linkedin" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
-                        {{else}}
-                            <input id="linkedin" name="linkedin" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
-                        {{/if}}
-
-                        <label for="linkedin"></label>
-                    </div>
-                </div>
-
-                <div class="social-container">
-                    <div class="social-name"><span>Moz</span></div>
-                    <div class="social-switch">
-                        {{#if medias.5.isActive}}
-                            <input id="moz" name="moz" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
-                        {{else}}
-                            <input id="moz" name="moz" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
-                        {{/if}}
-
-                        <label for="moz"></label>
-                    </div>
-                </div>
-
             <div class="social-container">
-                <div class="social-name"><span>Analytics</span></div>
+                <div class="social-name"><span>Google</span></div>
                 <div class="social-switch">
                     {{#if medias.2.isActive}}
-                        <input id="analytics" name="google" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                        <input id="google" name="google" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
                     {{else}}
-                        <input id="analytics" name="google" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                        <input id="google" name="google" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
                     {{/if}}
-
-                    <label for="analytics"></label>
+                    <label for="google"></label>
                 </div>
             </div>
             <div class="social-container">
@@ -135,7 +59,39 @@
                     <label for="instagram"></label>
                 </div>
             </div>
-
+            <div class="social-container">
+                <div class="social-name"><span>LinkedIn</span></div>
+                <div class="social-switch">
+                    {{#if medias.4.isActive}}
+                        <input id="linkedin" name="linkedin" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                    {{else}}
+                        <input id="linkedin" name="linkedin" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                    {{/if}}
+                    <label for="linkedin"></label>
+                </div>
+            </div>
+            <div class="social-container">
+                <div class="social-name"><span>Twitter</span></div>
+                <div class="social-switch">
+                    {{#if medias.7.isActive}}
+                        <input id="twitter" name="twitter" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                    {{else}}
+                        <input id="twitter" name="twitter" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                    {{/if}}
+                    <label for="twitter"></label>
+                </div>
+            </div>
+            <div class="social-container">
+                <div class="social-name"><span>Tynt/33across</span></div>
+                <div class="social-switch">
+                    {{#if medias.6.isActive}}
+                        <input id="tynt" name="tynt" class="cmn-toggle cmn-toggle-round" type="checkbox" checked onClick="openExternalAuth(this.name, this.checked)">
+                        {{else}}
+                            <input id="tynt" name="tynt" class="cmn-toggle cmn-toggle-round" type="checkbox" onClick="openExternalAuth(this.name, this.checked)">
+                        {{/if}}
+                        <label for="tynt"></label>
+                </div>
+            </div>
 
             <div class="left-button-div">
                 <input class="btn btn-default" type="submit" value="Save"/>

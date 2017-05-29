@@ -85,7 +85,8 @@ router.get('/addthis',
       name: 'addthis',
       inputs: [
         { title: 'Username', name: 'username' },
-        { title: 'Password', name: 'password' }
+        { title: 'Password', name: 'password' },
+        { title: 'Public ID', name: 'pubID' }
       ]
     };
     res.render('authInput', { api: api });
