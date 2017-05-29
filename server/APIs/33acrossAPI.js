@@ -4,9 +4,8 @@ var epochToDate = require('../helpers/epochToDate');
 var dotenv = require('dotenv');
 dotenv.load();
 
-var relevantDate;
-var secret_api_key = process.env.BYGGAUTE_ACROSS_API_KEY;
-var site_guid = process.env.BYGGAUTE_ACROSS_GUID;
+var secret_api_key;
+var site_guid;
 var api_url = 'https://api.tynt.com/publisher/v2/realtime_stats/page_copies';
 var andSiteGuid = '?site_guid=';
 var andApiKey = '&api_key=';
@@ -27,6 +26,9 @@ var andEndTime = '&end_time=';
  */
 
 function monthly(access, unixTimeStamp) {
+  secret_api_key = access.secret_api_key;
+  site_guid = access.site_guid;
+
   var relevantDate = epochToDate(unixTimeStamp);
   var results = [socialAPI(relevantDate)];
 
@@ -38,7 +40,9 @@ function monthly(access, unixTimeStamp) {
   });
 }
 
-function daily() {
+function daily(access) {
+  secret_api_key = access.secret_api_key;
+  site_guid = access.site_guid;
   var results = [pageCopiesAPI()];
 
   return new Promise(function (resolve) {

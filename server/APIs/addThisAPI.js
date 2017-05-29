@@ -17,14 +17,13 @@ var endpoints = ['/shares/day.json?period=month&pubid=',
   '/users/day.json?period=month&pubid=',
 ];
 
-//todo need to pass pubid if more than one profile how to get that from API?
-var credentials = { username: process.env.BYGGAUTE_USER, password: process.env.BYGGAUTE_PW };
 
 module.exports = function(access, startDate) {
-  var username = credentials.username;
-  var password = credentials.password;
+  var username = access.username;
+  var password = access.password;
+  var pubID = access.pubID;
+
   var APIurl = 'https://' + username + ':' + password + '@api.addthis.com/analytics/1.0/pub';
-  var pubID = 'ra-514097954142f597';
   relevantDate = dateHelper(startDate);
   var resultPromises = [];
 
