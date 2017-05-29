@@ -2,15 +2,14 @@ var mongoose = require('mongoose');
 var getCurrentApiData = require('./../ApiData/getCurrentApiData');
 var getReport = require('./../Report/getReport');
 var currentMonthAndYear = require('../../helpers/currentMonthAndYear');
-var viewObj;
-var startDate;
-var previousDate;
-var previousPreviousDate;
 var months = ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
   'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'
 ];
 var promises = [];
-
+var viewObj;
+var startDate;
+var previousDate;
+var previousPreviousDate;
 
 /**
  * Hämtar rapport och apidata (baserat månad & år samt användarid)
@@ -62,13 +61,12 @@ function getReportByMonthAnYear(user, query, month, year) {
       promises.push(getReport(user.id, previousPreviousDate));
 
       Promise.all(promises).then(function (data) {
-
         viewObj.form.data = [];
         viewObj.form.report = [];
 
-        data.forEach(function (month) {
-          viewObj.form.data.push(month.data);
-          viewObj.form.report.push(month.report);
+        data.forEach(function (monthData) {
+          viewObj.form.data.push(monthData.data);
+          viewObj.form.report.push(monthData.report);
         });
 
         resolve(viewObj);
@@ -76,11 +74,8 @@ function getReportByMonthAnYear(user, query, month, year) {
         resolve(error);
       });
     });
-
   } else {
-
     return new Promise(function (resolve, reject) {
-
       promises.push(getReport(user.id, startDate));
       promises.push(getReport(user.id, previousDate));
       promises.push(getReport(user.id, previousPreviousDate));
@@ -89,9 +84,9 @@ function getReportByMonthAnYear(user, query, month, year) {
         viewObj.form.data = [];
         viewObj.form.report = [];
 
-        data.forEach(function (month) {
-          viewObj.form.data.push(month.data);
-          viewObj.form.report.push(month.report);
+        data.forEach(function (monthData) {
+          viewObj.form.data.push(monthData.data);
+          viewObj.form.report.push(monthData.report);
         });
 
         resolve(viewObj);
@@ -99,7 +94,6 @@ function getReportByMonthAnYear(user, query, month, year) {
         resolve(error);
       });
     });
-
   }
 }
 

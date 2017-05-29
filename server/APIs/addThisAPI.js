@@ -4,6 +4,8 @@ var request = require('request');
 var dateHelper = require('../helpers/epochToDate');
 var relevantDate;
 var dotenv = require('dotenv');
+var decrypt = require('../helpers/decrypt');
+
 dotenv.load();
 
 // https://www.addthis.com/academy/addthis-analytics-api/
@@ -14,14 +16,14 @@ var endpoints = ['/shares/day.json?period=month&pubid=',
   '/sharers/day.json?period=month&pubid=',
   // '/influencers/day.json?period=month&pubid=', ger en tom array
   '/clickers/day.json?period=month&pubid=',
-  '/users/day.json?period=month&pubid=',
+  '/users/day.json?period=month&pubid='
 ];
 
 
-module.exports = function(access, startDate) {
-  var username = access.username;
-  var password = access.password;
-  var pubID = access.pubID;
+module.exports = function (access, startDate) {
+  var username = decrypt.decryptText(access.username);
+  var password = decrypt.decryptText(access.password);
+  var pubID = decrypt.decryptText(access.pubID);
 
   var APIurl = 'https://' + username + ':' + password + '@api.addthis.com/analytics/1.0/pub';
   relevantDate = dateHelper(startDate);
@@ -35,13 +37,12 @@ module.exports = function(access, startDate) {
 
     Promise.all(resultPromises).then(function (result) {
       var returnObj = {
-        addThis: result,
+        addThis: result
       };
 
       console.log(result);
       resolve(returnObj);
-    })
-
+    });
   });
 };
 
@@ -50,7 +51,7 @@ function requestAPIData(APIurl, endpoint, pubID) {
 
     request(APIurl + endpoint + pubID, function (err, res, body) {
       if (body) var parsedBody = JSON.parse(body);
-      if (err || parsedBody.error ) return resolve({ error: parsedBody.error.message });
+      if (err || parsedBody.error) return resolve({ error: parsedBody.error.message });
 
       var obj = JSON.parse(res.body);
       resolve(toFilterByMonth(obj));

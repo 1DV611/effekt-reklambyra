@@ -1,6 +1,6 @@
 var google = require('googleapis');
 var dotenv = require('dotenv');
-//OBS! you need to enable each API you want to use at console.developers.google.com/apis
+//  OBS! you need to enable each API you want to use at console.developers.google.com/apis
 var youtubeAnalytics = google.youtubeAnalytics('v1');
 var analytics = google.analytics('v3');
 var dateHelper = require('../helpers/epochToDate');
@@ -46,6 +46,11 @@ module.exports = function (accessObj, startDate, accessUser) {
       refresh_token: decrypt.decryptText(accessObj.refreshToken)
     });
 
+    console.log('googleAPI');
+    console.log(decrypt.decryptText(accessObj.accessToken));
+    console.log(decrypt.decryptText(accessObj.refreshToken));
+
+
     oauth2Client.refreshAccessToken(function (err, tokens) {
 
       ApiAccess.findOneAndUpdate(
@@ -64,7 +69,8 @@ module.exports = function (accessObj, startDate, accessUser) {
         });
     });
 
-    var result = [youtubeViews(), analyticsBaseFigures(), analyticsMostVisited(), analyticsTopLanding()];
+    var result = [youtubeViews(), analyticsBaseFigures(), analyticsMostVisited(),
+      analyticsTopLanding()];
     Promise.all(result).then(function (values) {
 
       console.log(values);
@@ -109,14 +115,12 @@ module.exports = function (accessObj, startDate, accessUser) {
       // };
       resolve(returnObj);
     });
-
   }).catch(function (error) {
     console.error('google api error: ', error);
   });
 };
 
 function youtubeViews() {
-
   return new Promise(function (resolve) {
     var obj = {};
     // using bracket notation since google requires dashes in some of their required params
@@ -127,7 +131,7 @@ function youtubeViews() {
     obj['auth'] = oauth2Client;
     // The api explorer is very useful: https://developers.google.com/apis-explorer
     youtubeAnalytics.reports.query(obj, function (err, body) {
-      if (err || !body) return resolve({error: err.message || 'no youtube analytics for user'});
+      if (err || !body) return resolve({ error: err.message || 'no youtube analytics for user' });
 
       resolve({ youtube: { views: body.rows[0][0] } });
     });
@@ -135,7 +139,6 @@ function youtubeViews() {
 }
 
 function analyticsBaseFigures() {
-
   return new Promise(function (resolve) {
     var obj = {};
     obj['auth'] = oauth2Client;
@@ -157,7 +160,7 @@ function analyticsBaseFigures() {
           strongestRedirects: '',
           mostVisitedPages: '',
           averageTime: results['ga:avgSessionDuration'],
-          averageVisitedPerPages: results['ga:pageViewsPerSession'],
+          averageVisitedPerPages: results['ga:pageViewsPerSession']
         };
         resolve(baseFigures);
       });
@@ -166,7 +169,6 @@ function analyticsBaseFigures() {
 }
 
 function analyticsMostVisited() {
-
   return new Promise(function (resolve) {
     var obj = {};
     obj['auth'] = oauth2Client;

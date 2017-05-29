@@ -2,9 +2,10 @@ var express = require('express');
 var passport = require('passport');
 var dotenv = require('dotenv');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
-var router = express.Router();
 var updateSocialChannelProfile = require('../server/databaseOperations/ApiAccess/updateSocialChannelProfile');
+var router = express.Router();
 var standardRedirectSettings;
+
 dotenv.load();
 
 /*
@@ -109,7 +110,7 @@ router.get('/tynt',
       name: 'tynt',
       inputs: [
         { title: 'Secret API Key', name: 'secret_api_key' },
-        { title: 'Site GUID', name: 'site_guid'}
+        { title: 'Site GUID', name: 'site_guid' }
       ]
     };
     res.render('authInput', { api: api });
