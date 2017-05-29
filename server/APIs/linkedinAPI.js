@@ -4,10 +4,11 @@ dotenv.load();
 var nodeLinkedin = require('node-linkedin')(process.env.LINKEDIN_CLIENT_ID, process.env.LINKEDIN_CLIENT_SECRET, process.env.BASE_URL + '/auth/linkedin/callback');
 var linkedin;
 var dateHelper = require('../helpers/epochToDate');
+var decrypt = require('../helpers/decrypt');
 var relevantDate;
 
 module.exports = function (profile, startDate) {
-  var token = profile.accessToken;
+  var token = decrypt.decryptText(profile.accessToken);
 
   relevantDate = dateHelper(startDate);
   return new Promise(function (resolve) {

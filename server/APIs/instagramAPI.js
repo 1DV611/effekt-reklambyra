@@ -1,6 +1,8 @@
 'use strict';
 var dotenv = require('dotenv');
 var epochToDate = require('../helpers/epochToDate');
+var decrypt = require('../helpers/decrypt');
+
 dotenv.load();
 
 //https://github.com/jlobos/neo-instagram
@@ -20,7 +22,7 @@ var relevantDate;
 
 module.exports = function (access, timeStamp) {
   //todo adding count: -1 or higher may increase amount of medias outside of sandbox
-  var tokenObj = {access_token: access.accessToken};
+  var tokenObj = {access_token: decrypt.decryptText(access.accessToken)};
   var userId = access.extraParams.user.id.toString();
   relevantDate = epochToDate(timeStamp);
 

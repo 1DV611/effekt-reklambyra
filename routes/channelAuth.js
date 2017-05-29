@@ -96,7 +96,8 @@ router.post('/addthis/callback',
     updateSocialChannelProfile(req.session.authZeroUserID,
       { provider: 'addthis',
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        pubID: req.body.pubID
       });
     res.redirect('/user/settings');
   });
