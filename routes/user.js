@@ -63,6 +63,7 @@ router.get('/reports/:month/:year',
 
 //  hämtar inställningssida för inloggad användare
 router.get('/settings',
+
   ensureLoggedIn,
   getSettings);
 
