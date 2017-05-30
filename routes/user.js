@@ -70,7 +70,7 @@ router.get('/settings',
 router.post('/updatesettings',
   ensureLoggedIn,
   function (req, res, next) {
-    let socialChannels = [];
+    var socialChannels = [];
     if (!req.body.adwords) {
       socialChannels.push('adwords');
     }
