@@ -1,14 +1,17 @@
 var express = require('express');
+var passport = require('passport');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 var router = express.Router();
 
 var createReport = require('./../server/databaseOperations/Report/createReport');
 var createApiData = require('./../server/databaseOperations/ApiData/createApiData');
+
 var getReportAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getReportAndDataByMonthAndYear');
 var getAllReportsAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getAllReportsByMonthAndYear');
 var getSettings = require('./../server/getSettings.js');
 var updateSocialChannelProfile = require('./../server/databaseOperations/ApiAccess/updateSocialChannelProfile');
 var saveReport = require('./../server/saveReport.js');
+var sendPdf = require('./../server/sendPdf.js');
 var pdfGenerator = require('../server/pdfGenerator.js');
 var reports;
 
@@ -41,11 +44,9 @@ router.get('/report/:month/:year',
   ensureLoggedIn,
   function (req, res) {
     req.app.locals.queries = req.query;
-    getReportAndDataByMonthAndYear(req.user, req.query, req.params.month, req.params.year)
-      .then(function (viewObj) {
-        console.log(viewObj);
-        res.render('preview', viewObj);
-      });
+    getReportAndDataByMonthAndYear(req.user, req.query, req.params.month, req.params.year).then(function (viewObj) {
+      res.render('preview', viewObj);
+    });
   }
 );
 
@@ -69,7 +70,7 @@ router.get('/settings',
 router.post('/updatesettings',
   ensureLoggedIn,
   function (req, res, next) {
-    var socialChannels = [];
+    let socialChannels = [];
     if (!req.body.adwords) {
       socialChannels.push('adwords');
     }
@@ -115,7 +116,15 @@ router.post('/pdf',
         report.optimization,
         report.recommendation,
         res
-      );
+      ).then(function(source) {
+        return sendPdf(source, res)
+      }).catch(function(err) {
+        console.log('ERROR: POST /PDF:', err);
+        res.render('500', {err: err});
+      });
+    }).catch(function(err) {
+      console.log('ERROR: POST /PDF:', err);
+      res.render('500', {err: err});
     });
   }
 );

@@ -9,7 +9,6 @@ function updateReport(userProfileId, month, year, summary, optimization, recomme
     optimization: optimization, // string
     recommendation: recommendation // string
   };
-
   return new Promise(function(resolve, reject) {
     Report.findOneAndUpdate(
       { user: userProfileId,
@@ -18,8 +17,8 @@ function updateReport(userProfileId, month, year, summary, optimization, recomme
       updateObj,
       { new: true },
       function (error, matchingReport) {
-        if (error) console.log(error);
-        if (matchingReport === null) throw new Error('No such report!'); //todo how to handle this?
+        if (error) reject('updateReport(): ' + error);
+        if (matchingReport === null) reject('updateReport(): No report found with userProfileId ' + userProfileId + ' and startDate ' + startDate + '.');
         resolve(matchingReport);
       }
     );
