@@ -38,8 +38,7 @@ router.get('/dashboard',
 /**
  * Hämtar användarens rapport och apidata för perioden, exemplevis localhost:3000/report/1/2016
  * hämtar data för februari 2016 och returnerar preview-sidan med
- * form: { report: report, data: data }
- */
+ * form: { report: report, data: data } */
 router.get('/report/:month/:year',
   ensureLoggedIn,
   function (req, res) {
@@ -102,12 +101,12 @@ router.post('/updatesettings',
     res.redirect('settings');
   });
 
-//  skapar rapport-pdf
+//  sparar manuellt inknappad information och skapar pdf
 router.post('/pdf',
   ensureLoggedIn,
   function (req, res, next) {
     saveReport(req, res, next).then(function(report) {
-      pdfGenerator(
+      return pdfGenerator(
         req.user,
         req.app.locals.queries,
         req.body.month,
@@ -118,9 +117,6 @@ router.post('/pdf',
         res
       ).then(function(source) {
         return sendPdf(source, res)
-      }).catch(function(err) {
-        console.log('ERROR: POST /PDF:', err);
-        res.render('500', {err: err});
       });
     }).catch(function(err) {
       console.log('ERROR: POST /PDF:', err);
