@@ -64,10 +64,6 @@ function updateSocialChannelProfile(sessionUserID, profile) {
     if (profile.extraParams) {
       access.extraParams = {};
 
-      if (profile.extraParams.user) {
-        access.extraParams.user = encrypt.encryptText(profile.extraParams.user);
-      }
-
       if (profile.extraParams.access_token) {
         access.extraParams.access_token = encrypt.encryptText(profile.extraParams.access_token);
       }
