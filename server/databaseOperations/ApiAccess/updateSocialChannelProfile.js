@@ -64,10 +64,6 @@ function updateSocialChannelProfile(sessionUserID, profile) {
     if (profile.extraParams) {
       access.extraParams = {};
 
-      if (profile.extraParams.user) {
-        access.extraParams.user = encrypt.encryptText(profile.extraParams.user);
-      }
-
       if (profile.extraParams.access_token) {
         access.extraParams.access_token = encrypt.encryptText(profile.extraParams.access_token);
       }
@@ -77,7 +73,8 @@ function updateSocialChannelProfile(sessionUserID, profile) {
       }
 
       if (profile.extraParams.expires_in) {
-        access.extraParams.expires_in = encrypt.encryptText(profile.extraParams.expires_in.toString());
+        access.extraParams.expires_in = encrypt.encryptText(
+          profile.extraParams.expires_in.toString());
       }
 
       if (profile.extraParams.id_token) {
@@ -86,11 +83,11 @@ function updateSocialChannelProfile(sessionUserID, profile) {
     }
 
     if (profile.profile) {
-        access.profile = encrypt.encryptText(JSON.stringify({
-          _json: profile._json,
-          _raw: profile._raw
-        }));
-      }
+      access.profile = encrypt.encryptText(JSON.stringify({
+        _json: profile._json,
+        _raw: profile._raw
+      }));
+    }
 
     queryObj = {
       provider: profile.provider,
@@ -105,8 +102,12 @@ function updateSocialChannelProfile(sessionUserID, profile) {
     updateObj,
     { new: true },
     function (error, matchingApiAccess) {
-      if (error) console.log(error);
-      if (matchingApiAccess === null) throw new Error('No user to save token to'); //todo how to handle this?
+      if (error) {
+        console.log(error);
+      }
+      if (matchingApiAccess === null) {
+        console.log('No user to save token to');
+      }
     });
 }
 
