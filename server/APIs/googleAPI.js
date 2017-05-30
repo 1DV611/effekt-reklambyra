@@ -30,26 +30,21 @@ var endDateString;
 // you need to get the access_token from auth0IdpAccessToken.js
 
 module.exports = function (accessObj, startDate, accessUser) {
-
-
   var relevantDate = dateHelper(startDate);
   //  TODO: anpassa så att 0 läggs till på månader som inte är tvåsiffriga
   startDateString = relevantDate.year + '-0' + relevantDate.month + '-' + '01';
   //  TODO: Anpassa endDate för scenario nuvarande månad resp avslutad månad
   endDateString = new Date().toISOString().substring(0, 10);
 
-  if (!accessObj.refreshToken) console.error('Inget Refresh Token sparat för google profil.');
+  if (!accessObj.refreshToken) {
+    console.error('Inget Refresh Token sparat för google profil.');
+  }
 
   return new Promise(function (resolve) {
     oauth2Client.setCredentials({
       access_token: decrypt.decryptText(accessObj.accessToken),
       refresh_token: decrypt.decryptText(accessObj.refreshToken)
     });
-
-    console.log('googleAPI');
-    console.log(decrypt.decryptText(accessObj.accessToken));
-    console.log(decrypt.decryptText(accessObj.refreshToken));
-
 
     oauth2Client.refreshAccessToken(function (err, tokens) {
 
@@ -64,15 +59,19 @@ module.exports = function (accessObj, startDate, accessUser) {
         },
         { new: true },
         function (error, matchingApiAccess) {
-          if (error) console.log(error);
-          if (matchingApiAccess === null) throw new Error('No user to save token to'); //todo how to handle this?
+          if (error) {
+            console.log(error);
+          }
+
+          if (matchingApiAccess === null) {
+            throw new Error('No user to save token to'); // todo how to handle this?
+          }
         });
     });
 
     var result = [youtubeViews(), analyticsBaseFigures(), analyticsMostVisited(),
       analyticsTopLanding()];
     Promise.all(result).then(function (values) {
-
       console.log(values);
 
       var returnObj = {
@@ -80,7 +79,7 @@ module.exports = function (accessObj, startDate, accessUser) {
         analytics: {
           baseFigures: values[1],
           mostVisited: values[2],
-          topLanding:  values[3]
+          topLanding: values[3]
         }
       };
 
@@ -131,7 +130,9 @@ function youtubeViews() {
     obj['auth'] = oauth2Client;
     // The api explorer is very useful: https://developers.google.com/apis-explorer
     youtubeAnalytics.reports.query(obj, function (err, body) {
-      if (err || !body) return resolve({ error: err.message || 'no youtube analytics for user' });
+      if (err || !body) {
+        return resolve({ error: err.message || 'no youtube analytics for user' });
+      }
 
       resolve({ youtube: { views: body.rows[0][0] } });
     });
@@ -143,7 +144,9 @@ function analyticsBaseFigures() {
     var obj = {};
     obj['auth'] = oauth2Client;
     analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
-      if (err || !bodyProfile) return resolve({error: err.message || 'no analytics management account for user'});
+      if (err || !bodyProfile) {
+        return resolve({ error: err.message || 'no analytics management account for user' });
+      }
 
       obj['end-date'] = endDateString;
       obj['start-date'] = startDateString;
@@ -151,7 +154,9 @@ function analyticsBaseFigures() {
       obj['metrics'] = 'ga:pageviews,ga:uniquePageviews,ga:avgTimeOnPage,ga:avgSessionDuration,ga:pageViewsPerSession';
       obj['auth'] = oauth2Client;
       analytics.data.ga.get(obj, function (errData, bodyData) {
-        if (errData || !bodyData) return resolve({ error: errData.message || 'analytics account summary data not recieved' });
+        if (errData || !bodyData) {
+          return resolve({ error: errData.message || 'analytics account summary data not recieved' });
+        }
 
         var results = bodyData.totalsForAllResults;
         var baseFigures = {
@@ -174,7 +179,9 @@ function analyticsMostVisited() {
     obj['auth'] = oauth2Client;
 
     analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
-      if (err || !bodyProfile) return resolve({ error: err.message || 'no analytics most visited recieved'});
+      if (err || !bodyProfile) {
+        return resolve({ error: err.message || 'no analytics most visited recieved'});
+      }
 
       obj['end-date'] = endDateString;
       obj['start-date'] = startDateString;
@@ -185,7 +192,9 @@ function analyticsMostVisited() {
       obj['max-results'] = 4;
       obj['auth'] = oauth2Client;
       analytics.data.ga.get(obj, function (errData, bodyData) {
-        if (errData || !bodyData) return resolve({ error: errData.message || 'no analytics page views data recieved '});
+        if (errData || !bodyData) {
+          return resolve({ error: errData.message || 'no analytics page views data recieved '});
+        }
 
         var results = bodyData.rows;
         resolve({ analyticsMostVisitedPages: results });
@@ -201,7 +210,9 @@ function analyticsTopLanding() {
     obj['auth'] = oauth2Client;
 
     analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
-      if (err || !bodyProfile) return resolve({ error: err.message || 'no analytics management account summary for user' });
+      if (err || !bodyProfile) {
+        return resolve({ error: err.message || 'no analytics management account summary for user' });
+      }
 
       obj['end-date'] = endDateString;
       obj['start-date'] = startDateString;
@@ -213,7 +224,9 @@ function analyticsTopLanding() {
       obj['auth'] = oauth2Client;
 
       analytics.data.ga.get(obj, function (errData, bodyData) {
-        if (errData || !bodyData) return resolve({ error: errData.message || 'analytics top landing error' });
+        if (errData || !bodyData) {
+          return resolve({ error: errData.message || 'analytics top landing error' });
+        }
 
         var results = bodyData.rows;
         resolve({ analyticsStrongestRedirects: results });

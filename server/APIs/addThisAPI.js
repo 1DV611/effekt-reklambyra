@@ -3,8 +3,8 @@
 var request = require('request');
 var dateHelper = require('../helpers/epochToDate');
 var relevantDate;
-var dotenv = require('dotenv');
 var decrypt = require('../helpers/decrypt');
+var dotenv = require('dotenv');
 
 dotenv.load();
 

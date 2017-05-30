@@ -21,7 +21,6 @@ var site_guid;
 
 dotenv.load();
 
-
 /**
  * Data för 33Across behövs hämtas både dagligen och månadsvis. PageCopies
  * är endast tillgänglig i form av daglig statistik, medans social API med kopierat
@@ -45,16 +44,15 @@ function monthly(access, unixTimeStamp) {
 }
 
 function daily(access) {
-  secret_api_key = access.secret_api_key;
-  site_guid = access.site_guid;
+  secret_api_key = decrypt.decryptText(access.secret_api_key);
+  site_guid = decrypt.decryptText(access.site_guid);
   var results = [pageCopiesAPI()];
 
   return new Promise(function (resolve) {
-
     Promise.all(results).then(function (result) {
       var resultObj = { across: { daily: result } };
       resolve(resultObj);
-    })
+    });
   });
 }
 
@@ -65,7 +63,9 @@ function pageCopiesAPI() {
       andStartTime + start_time + andLimit + limit;
 
     request(queryString, function (err, res, body) {
-      if (err || !body) return resolve({ error: '33across page copies API error: ' + err.message });
+      if (err || !body) {
+        return resolve({ error: '33across page copies API error: ' + err.message });
+      }
 
       var obj = JSON.parse(body);
       var resultObj = {};
@@ -102,7 +102,9 @@ function socialAPI(date) {
       + site_guid + '&api_key=' + secret_api_key;
 
     request(queryString, function (err, res, body) {
-      if (err || !body) return resolve({ error: '33across social API error: ' + err.message });
+      if (err || !body) {
+        return resolve({ error: '33across social API error: ' + err.message });
+      }
       console.log(body);
       var obj = JSON.parse(body);
       console.log(obj);
@@ -122,7 +124,7 @@ function filterForMonth(results, date) {
     var resultYear = resultDate[0];
     var resultMonth = resultDate[1];
 
-    //todo vet inte hur addthis representerar januari, ska addedMonth användas istället?
+    //  todo vet inte hur addthis representerar januari, ska addedMonth användas istället?
     if (resultMonth === (date.monthWithZeroString) && resultYear === date.year.toString()) {
       returnObj.shares += result[1];
       returnObj.visitors += result[2];
