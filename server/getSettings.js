@@ -21,12 +21,7 @@ var allMediaNames = [
 function getSettings(req, res) {
   getUserAccess(req.user.id)
     .then(function (apiAccess) {
-
-      if (Object.getOwnPropertyNames(apiAccess).length < 1) {
-        apiAccessKeys = Object.keys(apiAccess._doc);
-      } else {
-        apiAccessKeys = [];
-      }
+      apiAccessKeys = Object.keys(apiAccess._doc);
 
       medias = allMediaNames.map(function (mediaName) {
         return {
