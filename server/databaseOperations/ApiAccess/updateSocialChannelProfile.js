@@ -2,7 +2,7 @@ var ApiAccess = require('../schemas/ApiAccess');
 var encrypt = require('../../helpers/encrypt');
 var queryObj;
 var updateObj;
-var access;
+var access = {};
 
 /**
  * Sparar och uppdaterar accessinformation för sociala medier
@@ -27,28 +27,70 @@ function updateSocialChannelProfile(sessionUserID, profile) {
       updateObj.$unset[media] = 1;
     });
   } else {
+    console.log(JSON.stringify(profile));
 
-    access = {
-      username: encrypt.encryptText(profile.username),
-      password: encrypt.encryptText(profile.password),
-      pubID: encrypt.encryptText(profile.pubID),
-      secret_api_key: encrypt.encryptText(profile.secret_api_key),
-      site_guid: encrypt.encryptText(profile.site_guid),
-      accessToken: encrypt.encryptText(profile.accessToken),
-      refreshToken: encrypt.encryptText(profile.refreshToken),
-      id_token: encrypt.encryptText(profile.id_token),
-      extraParams: {
-        user: profile.extraParams.user,
-        access_token: encrypt.encryptText(profile.extraParams.access_token),
-        token_type: encrypt.encryptText(profile.extraParams.token_type),
-        expires_in: encrypt.encryptText(profile.extraParams.expires_in.toString()),
-        id_token: encrypt.encryptText(profile.extraParams.id_token)
-      },
-      profile: encrypt.encryptText(JSON.stringify({
-        _json: profile._json,
-        _raw: profile._raw
-      }))
-    };
+    if (profile.username) {
+      access.username = encrypt.encryptText(profile.username);
+    }
+
+    if (profile.password) {
+      access.password = encrypt.encryptText(profile.password);
+    }
+
+    if (profile.pubID) {
+      access.pubID = encrypt.encryptText(profile.pubID);
+    }
+
+    if (profile.secret_api_key) {
+      access.secret_api_key = encrypt.encryptText(profile.secret_api_key);
+    }
+
+    if (profile.site_guid) {
+      access.site_guid = encrypt.encryptText(profile.site_guid);
+    }
+
+    if (profile.accessToken) {
+      access.accessToken = encrypt.encryptText(profile.accessToken);
+    }
+
+    if (profile.refreshToken) {
+      access.refreshToken = encrypt.encryptText(profile.refreshToken);
+    }
+
+    if (profile.id_token) {
+      access.id_token = encrypt.encryptText(profile.id_token);
+    }
+
+    if (profile.extraParams) {
+      access.extraParams = {};
+
+      if (profile.extraParams.user) {
+        access.extraParams.user = encrypt.encryptText(profile.extraParams.user);
+      }
+
+      if (profile.extraParams.access_token) {
+        access.extraParams.access_token = encrypt.encryptText(profile.extraParams.access_token);
+      }
+
+      if (profile.extraParams.token_type) {
+        access.extraParams.token_type = encrypt.encryptText(profile.extraParams.token_type);
+      }
+
+      if (profile.extraParams.expires_in) {
+        access.extraParams.expires_in = encrypt.encryptText(profile.extraParams.expires_in.toString());
+      }
+
+      if (profile.extraParams.id_token) {
+        access.extraParams.id_token = encrypt.encryptText(profile.extraParams.id_token);
+      }
+    }
+
+    if (profile.profile) {
+        access.profile = encrypt.encryptText(JSON.stringify({
+          _json: profile._json,
+          _raw: profile._raw
+        }));
+      }
 
     queryObj = {
       provider: profile.provider,

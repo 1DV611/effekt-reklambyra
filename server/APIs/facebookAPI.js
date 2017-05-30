@@ -19,7 +19,7 @@ module.exports = function (profile) {
     graph.extendAccessToken({
       "access_token":    token,
        "client_id":      process.env.FACEBOOK_CLIENT_ID,
-       "client_secret":  process.env.FACEBOOK_CLIENT_SECRET,
+       "client_secret":  process.env.FACEBOOK_CLIENT_SECRET
     }, function (err, facebookRes) {
       console.log(facebookRes);
     });
@@ -32,7 +32,7 @@ module.exports = function (profile) {
         console.error('facebook api error: ', err);
       };
 
-      //todo actual facebook data here.. currently recieving an empty data array
+      //  todo actual facebook data here.. currently recieving an empty data array
       // (no pages with likes?) need a real account to test
       var returnObj = {
         facebook: {

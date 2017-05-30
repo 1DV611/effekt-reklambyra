@@ -1,4 +1,5 @@
 'use strict';
+
 var googleAPI = require('./APIs/googleAPI');
 var instagramAPI = require('./APIs/instagramAPI');
 var linkedinAPI = require('./APIs/linkedinAPI');
@@ -31,23 +32,35 @@ var APIResultsToObject = require('./../server/helpers/APIResultsToObject');
 function allAPIsMonthly(access, startDateInUnix) {
   return new Promise(function (resolve, reject) {
     var promises = [];
+    // för APIer där data måste hämtas både månadsvis och dagligen har
+    // dessa en monthly och en daily metod här ska monthly användas för sådana APIer
+    if (access.twitter) {
+      promises.push(twitterAPI(access.twitter.access, startDateInUnix));
+    }
 
-    //todo är hasOwnProperty att föredra? OBS! Typeerror utan hasOwnProperty eftersom if-satsen genomförs
-    // för APIer där data måste hämtas både månadsvis och dagligen har dessa en monthly och en daily metod
-    // här ska monthly användas för sådana APIer
-    if (access.twitter) promises.push(twitterAPI(access.twitter.access, startDateInUnix));
+    if (access.facebook) {
+      promises.push(facebookAPI(access.facebook.access, startDateInUnix));
+    }
 
-    if (access.facebook) promises.push(facebookAPI(access.facebook.access, startDateInUnix));
+    if (access.linkedin) {
+      promises.push(linkedinAPI(access.linkedin.access, startDateInUnix));
+    }
 
-    if (access.linkedin) promises.push(linkedinAPI(access.linkedin.access, startDateInUnix));
+    if (access.google) {
+      promises.push(googleAPI(access.google.access, startDateInUnix, access.user));
+    }
 
-    if (access.google) promises.push(googleAPI(access.google.access, startDateInUnix, access.user));
+    if (access.instagram) {
+      promises.push(instagramAPI(access.instagram.access, startDateInUnix));
+    }
 
-    if (access.instagram) promises.push(instagramAPI(access.instagram.access, startDateInUnix));
+    if (access.across) {
+      promises.push(acrossAPI.monthly(access.across.access, startDateInUnix));
+    }
 
-    if (access.across) promises.push(acrossAPI.monthly(access.across.access, startDateInUnix));
-
-    if (access.addthis) promises.push(addThisAPI(access.addthis, startDateInUnix));
+    if (access.addthis) {
+      promises.push(addThisAPI(access.addthis, startDateInUnix));
+    }
 
     Promise.all(promises).then(function (apiData) {
       /**
@@ -70,7 +83,7 @@ function allAPIsMonthly(access, startDateInUnix) {
       reject(error);
     });
   });
-};
+}
 
 /**
  *
@@ -80,19 +93,20 @@ function allAPIsMonthly(access, startDateInUnix) {
  * Används för de delar av API data som behövs hämtas och lagras dagligen under en månad.
  * De APIer som behöver daglig data har en .daily metod som alltid ska användas här.
  */
-function allAPIsDaily(access, startDateInUnix) {
-
+function allAPIsDaily(access) {
   return new Promise(function (resolve) {
     var promises = [];
 
-    if (access.tynt) promises.push(acrossAPI.daily(access.tynt));
+    if (access.tynt) {
+      promises.push(acrossAPI.daily(access.tynt.access));
+    }
 
     Promise.all(promises).then(function (dailyAPIData) {
-      resolve(APIResultsToObject(dailyAPIData))
+      resolve(APIResultsToObject(dailyAPIData));
     }).catch(function (error) {
       reject(error);
-    })
-  })
+    });
+  });
 }
 
 exports.monthly = allAPIsMonthly;
