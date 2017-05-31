@@ -54,8 +54,8 @@ function allAPIsMonthly(access, startDateInUnix) {
       promises.push(instagramAPI(access.instagram.access, startDateInUnix));
     }
 
-    if (access.across) {
-      promises.push(acrossAPI.monthly(access.across.access, startDateInUnix));
+    if (access.tynt) {
+      promises.push(acrossAPI.monthly(access.tynt.access, startDateInUnix));
     }
 
     if (access.addthis) {

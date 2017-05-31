@@ -51,7 +51,7 @@ function requestAPIData(APIurl, endpoint, pubID) {
 
     request(APIurl + endpoint + pubID, function (err, res, body) {
       if (body) var parsedBody = JSON.parse(body);
-      if (err || parsedBody.error) return resolve({ error: parsedBody.error.message });
+      if (err || parsedBody.error) return resolve({ error: 'addThis API error: ' + parsedBody.error.message });
 
       var obj = JSON.parse(res.body);
       resolve(toFilterByMonth(obj));

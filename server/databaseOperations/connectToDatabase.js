@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var db;
+var seedDatabase = require('../helpers/seedDatabase');
 
 mongoose.Promise = global.Promise;
 
@@ -17,6 +18,7 @@ function connect(credential) {
 
   db.once('open', function () {
     console.log('Connected to MongoLab DB');
+    //seedDatabase.seedEntire();
   });
 }
 

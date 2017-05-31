@@ -98,19 +98,12 @@ function followersForMonth(countsByMonth) {
 /**
  * Helper funktion för att loopa och filtrera efter relevant månad på ett enkelt sätt.
  * Iaf ni bygger på linkedin APIet tänk på att denna ändrar relevantDate.month vid januari, iaf
- * ni har andra funktioner som då förväntar sig att 1 betyder Februari kan det bli ett problem.
  */
 function getForRelevantMonth(values) {
-  var month = relevantDate.month;
-  //  todo måste lägga på +1 för alla?
-  //  todo om äldre år än 12m?
-  // Linkedin sparar Januari som 1 medans epoch räknar Januari
-  // som 0 därav detta för att hantera edge case
-  if (month === 0) { relevantDate.month = 1; }
   var result = false;
 
   values.forEach(function (value) {
-    if (value.date.month === relevantDate.month && value.date.year === relevantDate.year) {
+    if (value.date.month === relevantDate.addedMonth && value.date.year === relevantDate.year) {
       result = value;
     }
   });

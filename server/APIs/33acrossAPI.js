@@ -105,10 +105,16 @@ function socialAPI(date) {
       if (err || !body) {
         return resolve({ error: '33across social API error: ' + err.message });
       }
-      console.log(body);
-      var obj = JSON.parse(body);
-      console.log(obj);
-      resolve(filterForMonth(obj, date));
+      console.log(body)
+      try {
+        var obj = JSON.parse(body);
+        console.log(obj);
+        resolve(filterForMonth(obj, date));
+      } catch (e) {
+        console.error(e);
+        resolve({error: e.message })
+      }
+
     });
   });
 }
