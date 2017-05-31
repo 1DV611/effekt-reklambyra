@@ -87,9 +87,9 @@
                 {{/if}}
 
                 {{#if this.queries.analytics}}
-                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.analytics.analyticsViews.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.analytics.analyticsViews.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.analytics.analyticsViews.result}});
+                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.analytics.baseFigures.viewst}});
+                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.analytics.baseFigures.views}});
+                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.analytics.baseFigures.views}});
                 {{/if}}
 
                 {{#if this.queries.adwords}}
@@ -146,7 +146,7 @@
 
                 {{#if this.queries.analytics}}
                     medias.push('Analytics');
-                    percentages.push(Number({{this.viewObj.form.data.0.analytics.analyticsViews.result}}));
+                    percentages.push(Number({{this.viewObj.form.data.0.analytics.baseFigures.views}}));
                 {{/if}}
 
                 {{#if this.queries.adwords}}
@@ -309,31 +309,31 @@
                             {{#if this.queries.analytics}}
                                 <h3 class="title">Analytics</h3>
                             {{#if this.queries.analyticsViews}}
-                                <h3>{{this.viewObj.form.data.0.analytics.analyticsViews.result}} visningar.</h3>
+                                <h3>{{this.viewObj.form.data.0.analytics.baseFigures.views}} visningar.</h3>
                                 <br>
                             {{/if}}
                             {{#if this.queries.analyticsUniqueViews}}
-                                <h3>{{this.viewObj.form.data.0.analytics.analyticsUniqueViews.result}} unika visningar.</h3>
+                                <h3>{{this.viewObj.form.data.0.analytics.baseFigures.uniqueViews}} unika visningar.</h3>
                                 <br>
                             {{/if}}
                             {{#if this.queries.analyticsStrongestRedirects}}
-                                {{#each this.viewObj.form.data.0.analytics.analyticsStrongestRedirects}}
-                                    <h3>{{this.result}} är en av de starkaste ingångskanalerna.</h3>
+                                {{#each this.viewObj.form.data.0.analytics.topLanding.analyticsStrongestRedirects}}
+                                    <h3>{{this.[0]}} är en av de starkaste ingångskanalerna.</h3>
                                     <br>
                                 {{/each}}
                             {{/if}}
                             {{#if this.queries.analyticsMostVisitedPages}}
-                                {{#each this.viewObj.form.data.0.analytics.analyticsMostVisitedPages}}
-                                    <h3>{{this.result}} är en av de mest besökta sidorna.</h3>
+                                {{#each this.viewObj.form.data.0.analytics.mostVisited.analyticsMostVisitedPages}}
+                                    <h3>{{this.[0]}} är en av de mest besökta sidorna.</h3>
                                     <br>
                                 {{/each}}
                             {{/if}}
                             {{#if this.queries.analyticsAverageTime}}
-                                <h3>{{this.viewObj.form.data.0.analytics.analyticsAverageTime.result}} genomsnittlig tid på sidan.</h3>
+                                <h3>{{this.viewObj.form.data.0.analytics.baseFigures.averageTime}} genomsnittlig tid på sidan.</h3>
                                 <br>
                             {{/if}}
                             {{#if this.queries.analyticsAverageVisitedPerPages}}
-                                <h3>{{this.viewObj.form.data.0.analytics.analyticsAverageVisitedPerPages.result}} genomsnittligt antal besökta sidor.</h3>
+                                <h3>{{this.viewObj.form.data.0.analytics.baseFigures.averageVisitedPerPages}} genomsnittligt antal besökta sidor.</h3>
                                 <br>
                             {{/if}}
                         {{/if}}
