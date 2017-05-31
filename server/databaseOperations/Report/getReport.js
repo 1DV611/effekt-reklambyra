@@ -1,5 +1,7 @@
 var getDataFor = require('./../ApiData/getDataFor');
 var Report = require('../schemas/Report');
+var moreThan;
+var lessThan;
 var reportData;
 var obj;
 
@@ -7,14 +9,18 @@ var obj;
  * Hämtar Report och matchande data
  */
 function getReport(userId, startDate) {
+  moreThan = new Date(startDate.setDate(startDate.getDate() - 1));
+  lessThan = new Date(startDate.setDate(startDate.getDate() + 2));
+
   return Report.findOne({
     user: userId,
-    startDate: startDate
+    startDate: { $gt: moreThan, $lt: lessThan }
   }).then(function (report) {
     if (report === null) console.log('No such report!"');
     reportData = report;
-  }).then(function () {
-    return getDataFor(reportData);
+    return report;
+  }).then(function (report) {
+    return getDataFor(report);
   }).then(function (apiData) {
     obj = {};
 

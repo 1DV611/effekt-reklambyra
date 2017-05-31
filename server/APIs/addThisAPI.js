@@ -21,7 +21,7 @@ var endpoints = ['/shares/day.json?period=month&pubid=',
 
 
 module.exports = function (access, startDate) {
-  var username = decrypt.decryptText(access.username);
+  var username = access.username;
   var password = decrypt.decryptText(access.password);
   var pubID = decrypt.decryptText(access.pubID);
 
