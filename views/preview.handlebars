@@ -84,9 +84,6 @@
                 var visitorsInTotalPerMonth = [0, 0 ,0];
 
                 {{#if this.queries.youtube}}
-                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.youtube.views.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.youtube.views.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.youtube.views.result}});
                 {{/if}}
 
                 {{#if this.queries.analytics}}
@@ -145,8 +142,6 @@
                 var percentages = [];
 
                 {{#if this.queries.youtube}}
-                    medias.push('Youtube');
-                    percentages.push(Number({{this.viewObj.form.data.0.youtube.views.result}}));
                 {{/if}}
 
                 {{#if this.queries.analytics}}
@@ -231,7 +226,7 @@
                             {{#if this.queries.youtube}}
                                 <h3 class="title">Youtube</h3>
                                 {{#if this.queries.youtubeViews}}
-                                    <h3>{{this.viewObj.form.data.0.youtube.views.result}} visningar.</h3>
+                                    <h3>{{this.viewObj.form.data.0.youtube.youtube.views}} visningar.</h3>
                                     <br>
                                 {{/if}}
                             {{/if}}
