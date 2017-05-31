@@ -45,8 +45,9 @@ function changeHref() {
   var youtube = document.querySelector('#youtube');
   var youtubeViews = document.querySelector('#youtube-views');
 
-  var tynt = document.querySelector('#tynt');
-  var tyntCopied = document.querySelector('#tynt-copied');
+  var across = document.querySelector('#across');
+  var acrossShares = document.querySelector('#across-shares');
+  var acrossVisitors = document.querySelector('#across-visitors');
 
   var addthis = document.querySelector('#addthis');
   var addthisClick = document.querySelector('#addthis-click');
@@ -105,11 +106,13 @@ function changeHref() {
         href += '&youtubeViews=active';
   }
 
-  if (tynt && tynt.checked) {
-    if (tynt.checked)
-        href += '&tynt=active';
-    if (tyntCopied.checked)
-        href += '&tyntCopied=active';
+  if (across && across.checked) {
+    if (across.checked)
+        href += '&across=active';
+    if (acrossShares.checked)
+        href += '&acrossShares=active';
+    if (acrossVisitors.checked)
+        href += '&acrossVisitors=active';
   }
 
   if (addthis && addthis.checked) {

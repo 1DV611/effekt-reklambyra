@@ -107,10 +107,7 @@
                     visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.facebook.facebookLikes.result}});
                 {{/if}}
 
-                {{#if this.queries.tynt}}
-                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.tynt.tyntCopied.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.tynt.tyntCopied.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.tynt.tyntCopied.result}});
+                {{#if this.queries.across}}
                 {{/if}}
 
                 {{#if this.queries.addthis}}
@@ -170,9 +167,7 @@
                     percentages.push(Number({{this.viewObj.form.data.0.facebook.facebookLikes.result}}));
                 {{/if}}
 
-                {{#if this.queries.tynt}}
-                    medias.push('Tynt');
-                    percentages.push(Number({{this.viewObj.form.data.0.tynt.tyntCopied.result}}));
+                {{#if this.queries.across}}
                 {{/if}}
 
                 {{#if this.queries.addthis}}
@@ -245,10 +240,14 @@
                                     <br>
                                 {{/if}}
                             {{/if}}
-                            {{#if this.queries.tynt}}
+                            {{#if this.queries.across}}
                                 <h3 class="title">Tynt/33across</h3>
-                                {{#if this.queries.tyntCopied}}
-                                    <h3>{{this.viewObj.form.data.0.tynt.tyntCopied.result}} kopieringar.</h3>
+                                {{#if this.queries.acrossShares}}
+                                    <h3>{{this.viewObj.form.data.0.across.monthly.0.shares}} delningar.</h3>
+                                    <br>
+                                {{/if}}
+                                {{#if this.queries.acrossVisitors}}
+                                    <h3>{{this.viewObj.form.data.0.across.monthly.0.visitors}} besökare.</h3>
                                     <br>
                                 {{/if}}
                             {{/if}}
