@@ -38,13 +38,10 @@ daily.on('canceled', function (event) {
   console.error('daily API call canceled: ', event);
 });
 
-var date = adjustedEpoch(500);
-cronJob.monthly(date);
-
 
 // Du kan utkommentera detta för att köra ett test jobb med ett 30 sekunders intervall.
 
-// var testJob = schedule.scheduleJob({ second: 10 }, function () {
+// var testJob = schedule.scheduleJob({ second: 30 }, function () {
 //
 //   // för att testa jobbet som körs i slutet på varje månad utkommentera detta
 //   var date = adjustedEpoch(500);
