@@ -79,14 +79,14 @@
 
                 var months = ['{{this.queries.monthBeforePreviousMonth}}', '{{this.queries.previousMonth}}', '{{this.queries.month}}'];
 
-                // Totalen av en parameter per media för de tre givna månaderna:
+                // Totalen av visningar/klickningar per media för de tre givna månaderna:
 
                 var visitorsInTotalPerMonth = [0, 0 ,0];
 
                 {{#if this.queries.youtube}}
-                visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.youtube.youtube.views}});
-                visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.youtube.youtube.views}});
-                visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.youtube.youtube.views}});
+                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.youtube.youtube.views}});
+                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.youtube.youtube.views}});
+                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.youtube.youtube.views}});
                 {{/if}}
 
                 {{#if this.queries.analytics}}
@@ -101,13 +101,10 @@
                     visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.adwords.adwordsViews.result}});
                 {{/if}}
 
-                {{#if this.queries.facebook}}
-                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.facebook.facebookLikes.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.facebook.facebookLikes.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.facebook.facebookLikes.result}});
-                {{/if}}
-
                 {{#if this.queries.across}}
+                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.across.monthly.0.visitors}});
+                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.across.monthly.0.visitors}});
+                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.across.monthly.0.visitors}});
                 {{/if}}
 
                 {{#if this.queries.addthis}}
@@ -116,30 +113,17 @@
                     visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.addthis.addthisClick.result}});
                 {{/if}}
 
-                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.twitter.twitterViews.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.twitter.twitterViews.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.twitter.twitterViews.result}});
-
                 {{#if this.queries.linkedin}}
+                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.linkedin.0.interactions.clicks}});
+                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.linkedin.0.interactions.clicks}});
+                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.linkedin.0.interactions.clicks}});
                 {{/if}}
-
-
-                {{#if this.queries.moz}}
-                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.moz.mozKeywords.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.moz.mozKeywords.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.moz.mozKeywords.result}});
-                {{/if}}
-
-                {{#if this.queries.instagram}}
-                {{/if}}
-
-
 
                 // Skapa datan för stapel-diagrammet:
 
                 var barData = createData(months, visitorsInTotalPerMonth);
 
-                // Fördelningen mellan medier givet hur stor andel räknat på en parameter per media:
+                // Fördelningen mellan medier givet hur stor andel räknat på visningar/klickningar per media:
 
                 var medias = [];
                 var percentages = [];
@@ -159,29 +143,18 @@
                     percentages.push(Number({{this.viewObj.form.data.0.adwords.adwordsViews.result}}));
                 {{/if}}
 
-                {{#if this.queries.facebook}}
-                    medias.push('Facebook');
-                    percentages.push(Number({{this.viewObj.form.data.0.facebook.facebookLikes.result}}));
-                {{/if}}
-
                 {{#if this.queries.across}}
+                medias.push('Tynt/33across');
+                percentages.push(Number({{this.viewObj.form.data.0.across.monthly.0.visitors}}));
                 {{/if}}
 
                 {{#if this.queries.addthis}}
                     medias.push('AddThis');
                     percentages.push(Number({{this.viewObj.form.data.0.addthis.addthisClick.result}}));
                 {{/if}}
-                {{#if this.queries.twitter}}
-                    medias.push('Twitter');
-                    percentages.push(Number({{this.viewObj.form.data.0.twitter.followers}}));
-                {{/if}}
                 {{#if this.queries.linkedin}}
-                {{/if}}
-                {{#if this.queries.moz}}
-                    medias.push('Moz');
-                    percentages.push(Number({{this.viewObj.form.data.0.moz.mozKeywords.result}}));
-                {{/if}}
-                {{#if this.queries.instagram}}
+                    medias.push('LinkedIn');
+                    percentages.push(Number({{this.viewObj.form.data.0.linkedin.0.interactions.clicks}}));
                 {{/if}}
 
 
@@ -323,22 +296,22 @@
                             {{/if}}
                             {{#if this.queries.analyticsStrongestRedirects}}
                                 {{#each this.viewObj.form.data.0.analytics.topLanding.analyticsStrongestRedirects}}
-                                    <h3>{{this.[0]}} är en av de starkaste ingångskanalerna.</h3>
+                                    <h3>"{{this.[0]}}" är en av de starkaste ingångskanalerna.</h3>
                                     <br>
                                 {{/each}}
                             {{/if}}
                             {{#if this.queries.analyticsMostVisitedPages}}
                                 {{#each this.viewObj.form.data.0.analytics.mostVisited.analyticsMostVisitedPages}}
-                                    <h3>{{this.[0]}} är en av de mest besökta sidorna.</h3>
+                                    <h3>"{{this.[0]}}" är en av de mest besökta sidorna.</h3>
                                     <br>
                                 {{/each}}
                             {{/if}}
                             {{#if this.queries.analyticsAverageTime}}
-                                <h3>{{this.viewObj.form.data.0.analytics.baseFigures.averageTime}} genomsnittlig tid på sidan.</h3>
+                                <h3>{{this.viewObj.form.data.0.analytics.baseFigures.averageTime}} är genomsnittlig tid på sidan.</h3>
                                 <br>
                             {{/if}}
                             {{#if this.queries.analyticsAverageVisitedPerPages}}
-                                <h3>{{this.viewObj.form.data.0.analytics.baseFigures.averageVisitedPerPages}} genomsnittligt antal besökta sidor.</h3>
+                                <h3>{{this.viewObj.form.data.0.analytics.baseFigures.averageVisitedPerPages}} är genomsnittligt antal besökta sidor.</h3>
                                 <br>
                             {{/if}}
                         {{/if}}
