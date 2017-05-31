@@ -121,9 +121,6 @@
                     visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.twitter.twitterViews.result}});
 
                 {{#if this.queries.linkedin}}
-                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.linkedin.linkedinFollowers.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.linkedin.linkedinFollowers.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.linkedin.linkedinFollowers.result}});
                 {{/if}}
 
 
@@ -179,8 +176,6 @@
                     percentages.push(Number({{this.viewObj.form.data.0.twitter.followers}}));
                 {{/if}}
                 {{#if this.queries.linkedin}}
-                    medias.push('LinkedIn');
-                    percentages.push(Number({{this.viewObj.form.data.0.linkedin.linkedinFollowers.result}}));
                 {{/if}}
                 {{#if this.queries.moz}}
                     medias.push('Moz');
@@ -268,11 +263,23 @@
                             {{#if this.queries.linkedin}}
                                 <h3 class="title">LinkedIn</h3>
                                 {{#if this.queries.linkedinFollowers}}
-                                    <h3>{{this.viewObj.form.data.0.linkedin.linkedinFollowers.result}} följare.</h3>
+                                    <h3>{{this.viewObj.form.data.0.linkedin.0.followers.newCount}} nya följare.</h3>
+                                    <br>
+                                    <h3>{{this.viewObj.form.data.0.linkedin.0.followers.totalCount}} följare.</h3>
                                     <br>
                                 {{/if}}
                                 {{#if this.queries.linkedinInteractions}}
-                                    <h3>{{this.viewObj.form.data.0.linkedin.linkedinInteractions.result}} interaktioner.</h3>
+                                    <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.clicks}} klick.</h3>
+                                    <br>
+                                    <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.comments}} kommentarer.</h3>
+                                    <br>
+                                    <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.engagement}} interaktioner.</h3>
+                                    <br>
+                                    <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.impressions}} intryck.</h3>
+                                    <br>
+                                    <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.likes}} likes.</h3>
+                                    <br>
+                                    <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.shares}} delningar.</h3>
                                     <br>
                                 {{/if}}
                             {{/if}}
