@@ -84,6 +84,9 @@
                 var visitorsInTotalPerMonth = [0, 0 ,0];
 
                 {{#if this.queries.youtube}}
+                visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.youtube.youtube.views}});
+                visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.youtube.youtube.views}});
+                visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.youtube.youtube.views}});
                 {{/if}}
 
                 {{#if this.queries.analytics}}
