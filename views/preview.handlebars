@@ -179,142 +179,160 @@
         <div id="stats" class="toTheRight">
             <div class="card">
                     <div class="header">
-                            {{#if this.queries.adwords}}
-                                <h3 class="title">AdWords</h3>
-                                {{#if this.queries.adwordsClick}}
-                                    <h3>{{this.viewObj.form.data.0.adwords.adwordsClick.result}} klickningar.</h3>
-                                    <br>
-                                {{/if}}
-                                {{#if this.queries.adwordsCpc}}
-                                    <h3>{{this.viewObj.form.data.0.adwords.adwordsCpc.result}} kostnad per klick.</h3>
-                                    <br>
-                                {{/if}}
-                                {{#if this.queries.adwordsViews}}
-                                    <h3>{{this.viewObj.form.data.0.adwords.adwordsViews.result}} visningar.</h3>
-                                    <br>
-                                {{/if}}
-                            {{/if}}
-                            {{#if this.queries.facebook}}
-                                <h3 class="title">Facebook</h3>
-                                {{#if this.queries.facebookLikes}}
-                                    <h3>{{this.viewObj.form.data.0.facebook.facebookLikes.result}} gillningar.</h3>
-                                    <br>
-                                {{/if}}
-                            {{/if}}
-                            {{#if this.queries.youtube}}
-                                <h3 class="title">Youtube</h3>
-                                {{#if this.queries.youtubeViews}}
-                                    <h3>{{this.viewObj.form.data.0.youtube.youtube.views}} visningar.</h3>
-                                    <br>
-                                {{/if}}
-                            {{/if}}
-                            {{#if this.queries.across}}
-                                <h3 class="title">Tynt/33across</h3>
-                                {{#if this.queries.acrossShares}}
-                                    <h3>{{this.viewObj.form.data.0.across.monthly.0.shares}} delningar.</h3>
-                                    <br>
-                                {{/if}}
-                                {{#if this.queries.acrossVisitors}}
-                                    <h3>{{this.viewObj.form.data.0.across.monthly.0.visitors}} besökare.</h3>
-                                    <br>
-                                {{/if}}
-                            {{/if}}
-                            {{#if this.queries.addthis}}
-                                <h3 class="title">AddThis</h3>
-                                {{#if this.queries.addthisClick}}
-                                    <h3>{{this.viewObj.form.data.0.addthis.addthisClick.result}} klickningar.</h3>
-                                    <br>
-                                {{/if}}
-                            {{/if}}
-                            {{#if this.queries.twitter}}
-                                <h3 class="title">Twitter</h3>
-                                {{#if this.queries.twitterFollowers}}
-                                    <h3>{{this.viewObj.form.data.0.twitter.followers}} följare.</h3>
-                                    <br>
-                                {{/if}}
-                            {{/if}}
-                            {{#if this.queries.linkedin}}
-                                <h3 class="title">LinkedIn</h3>
-                                {{#if this.queries.linkedinFollowers}}
-                                    <h3>{{this.viewObj.form.data.0.linkedin.0.followers.newCount}} nya följare.</h3>
-                                    <br>
-                                    <h3>{{this.viewObj.form.data.0.linkedin.0.followers.totalCount}} följare.</h3>
-                                    <br>
-                                {{/if}}
-                                {{#if this.queries.linkedinInteractions}}
-                                    <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.clicks}} klick.</h3>
-                                    <br>
-                                    <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.comments}} kommentarer.</h3>
-                                    <br>
-                                    <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.engagement}} interaktioner.</h3>
-                                    <br>
-                                    <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.impressions}} intryck.</h3>
-                                    <br>
-                                    <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.likes}} likes.</h3>
-                                    <br>
-                                    <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.shares}} delningar.</h3>
-                                    <br>
-                                {{/if}}
-                            {{/if}}
-                            {{#if this.queries.moz}}
-                                <h3 class="title">Moz</h3>
-                                {{#if this.queries.mozKeywords}}
-                                    <h3>{{this.viewObj.form.data.0.moz.mozKeywords.result}} nyckelord.</h3>
-                                    <br>
-                                {{/if}}
-                            {{/if}}
-                            {{#if this.queries.instagram}}
-                                <h3 class="title">Instagram</h3>
-                                {{#if this.queries.instagramLikes}}
-                                    <h3>{{this.viewObj.form.data.0.instagram.likes}} likes.</h3>
-                                    <br>
-                                {{/if}}
-                                {{#if this.queries.instagramComments}}
-                                    <h3>{{this.viewObj.form.data.0.instagram.comments}} kommentarer.</h3>
-                                    <br>
-                                {{/if}}
-                                {{#if this.queries.instagramTags}}
-                                    <h3>{{this.viewObj.form.data.0.instagram.tags}} taggningar.</h3>
-                                    <br>
-                                {{/if}}
-                                {{#if this.queries.instagramTaggedUsers}}
-                                    <h3>{{this.viewObj.form.data.0.instagram.taggedUsers}} taggade användare.</h3>
-                                    <br>
-                                {{/if}}
-
-                            {{/if}}
-
-                            {{#if this.queries.analytics}}
-                                <h3 class="title">Analytics</h3>
-                            {{#if this.queries.analyticsViews}}
-                                <h3>{{this.viewObj.form.data.0.analytics.baseFigures.views}} visningar.</h3>
-                                <br>
-                            {{/if}}
-                            {{#if this.queries.analyticsUniqueViews}}
-                                <h3>{{this.viewObj.form.data.0.analytics.baseFigures.uniqueViews}} unika visningar.</h3>
-                                <br>
-                            {{/if}}
-                            {{#if this.queries.analyticsStrongestRedirects}}
-                                {{#each this.viewObj.form.data.0.analytics.topLanding.analyticsStrongestRedirects}}
-                                    <h3>"{{this.[0]}}" är en av de starkaste ingångskanalerna.</h3>
-                                    <br>
-                                {{/each}}
-                            {{/if}}
-                            {{#if this.queries.analyticsMostVisitedPages}}
-                                {{#each this.viewObj.form.data.0.analytics.mostVisited.analyticsMostVisitedPages}}
-                                    <h3>"{{this.[0]}}" är en av de mest besökta sidorna.</h3>
-                                    <br>
-                                {{/each}}
-                            {{/if}}
-                            {{#if this.queries.analyticsAverageTime}}
-                                <h3>{{this.viewObj.form.data.0.analytics.baseFigures.averageTime}} är genomsnittlig tid på sidan.</h3>
-                                <br>
-                            {{/if}}
-                            {{#if this.queries.analyticsAverageVisitedPerPages}}
-                                <h3>{{this.viewObj.form.data.0.analytics.baseFigures.averageVisitedPerPages}} är genomsnittligt antal besökta sidor.</h3>
-                                <br>
-                            {{/if}}
-                        {{/if}}
+                      {{#if this.queries.adwords}}
+                          {{#if this.viewObj.form.data.0.adwords}}
+                              <h3 class="title">AdWords</h3>
+                              {{#if this.queries.adwordsClick}}
+                                  <h3>{{this.viewObj.form.data.0.adwords.adwordsClick.result}} klickningar.</h3>
+                                  <br>
+                              {{/if}}
+                              {{#if this.queries.adwordsCpc}}
+                                  <h3>{{this.viewObj.form.data.0.adwords.adwordsCpc.result}} kostnad per klick.</h3>
+                                  <br>
+                              {{/if}}
+                              {{#if this.queries.adwordsViews}}
+                                  <h3>{{this.viewObj.form.data.0.adwords.adwordsViews.result}} visningar.</h3>
+                                  <br>
+                              {{/if}}
+                          {{/if}}
+                      {{/if}}
+                      {{#if this.queries.facebook}}
+                          {{#if this.viewObj.form.data.0.facebook}}
+                              <h3 class="title">Facebook</h3>
+                              {{#if this.queries.facebookLikes}}
+                                  <h3>{{this.viewObj.form.data.0.facebook.facebookLikes.result}} gillningar.</h3>
+                                  <br>
+                              {{/if}}
+                          {{/if}}
+                      {{/if}}
+                      {{#if this.queries.youtube}}
+                          {{#if this.viewObj.form.data.0.youtube}}
+                              <h3 class="title">Youtube</h3>
+                              {{#if this.queries.youtubeViews}}
+                                  <h3>{{this.viewObj.form.data.0.youtube.youtube.views}} visningar.</h3>
+                                  <br>
+                              {{/if}}
+                          {{/if}}
+                      {{/if}}
+                      {{#if this.queries.across}}
+                          {{#if this.viewObj.form.data.0.across}}
+                              <h3 class="title">Tynt/33across</h3>
+                              {{#if this.queries.acrossShares}}
+                                  <h3>{{this.viewObj.form.data.0.across.monthly.0.shares}} delningar.</h3>
+                                  <br>
+                              {{/if}}
+                              {{#if this.queries.acrossVisitors}}
+                                  <h3>{{this.viewObj.form.data.0.across.monthly.0.visitors}} besökare.</h3>
+                                  <br>
+                              {{/if}}
+                          {{/if}}
+                      {{/if}}
+                      {{#if this.queries.addthis}}
+                          {{#if this.viewObj.form.data.0.addthis}}
+                              <h3 class="title">AddThis</h3>
+                              {{#if this.queries.addthisClick}}
+                                  <h3>{{this.viewObj.form.data.0.addthis.addthisClick.result}} klickningar.</h3>
+                                  <br>
+                              {{/if}}
+                          {{/if}}
+                      {{/if}}
+                      {{#if this.queries.twitter}}
+                          {{#if this.viewObj.form.data.0.twitter}}
+                              <h3 class="title">Twitter</h3>
+                              {{#if this.queries.twitterFollowers}}
+                                  <h3>{{this.viewObj.form.data.0.twitter.followers}} följare.</h3>
+                                  <br>
+                              {{/if}}
+                          {{/if}}
+                      {{/if}}
+                      {{#if this.queries.linkedin}}
+                          {{#if this.viewObj.form.data.0.linkedin}}
+                              <h3 class="title">LinkedIn</h3>
+                              {{#if this.queries.linkedinFollowers}}
+                                  <h3>{{this.viewObj.form.data.0.linkedin.0.followers.newCount}} nya följare.</h3>
+                                  <br>
+                                  <h3>{{this.viewObj.form.data.0.linkedin.0.followers.totalCount}} följare.</h3>
+                                  <br>
+                              {{/if}}
+                              {{#if this.queries.linkedinInteractions}}
+                                  <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.clicks}} klick.</h3>
+                                  <br>
+                                  <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.comments}} kommentarer.</h3>
+                                  <br>
+                                  <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.engagement}} interaktioner.</h3>
+                                  <br>
+                                  <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.impressions}} intryck.</h3>
+                                  <br>
+                                  <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.likes}} likes.</h3>
+                                  <br>
+                                  <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.shares}} delningar.</h3>
+                                  <br>
+                              {{/if}}
+                          {{/if}}
+                      {{/if}}
+                      {{#if this.queries.moz}}
+                          {{#if this.viewObj.form.data.0.moz}}
+                              <h3 class="title">Moz</h3>
+                              {{#if this.queries.mozKeywords}}
+                                  <h3>{{this.viewObj.form.data.0.moz.mozKeywords.result}} nyckelord.</h3>
+                                  <br>
+                              {{/if}}
+                          {{/if}}
+                      {{/if}}
+                      {{#if this.queries.instagram}}
+                          {{#if this.viewObj.form.data.0.instagram}}
+                              <h3 class="title">Instagram</h3>
+                              {{#if this.queries.instagramLikes}}
+                                  <h3>{{this.viewObj.form.data.0.instagram.likes}} likes.</h3>
+                                  <br>
+                              {{/if}}
+                              {{#if this.queries.instagramComments}}
+                                  <h3>{{this.viewObj.form.data.0.instagram.comments}} kommentarer.</h3>
+                                  <br>
+                              {{/if}}
+                              {{#if this.queries.instagramTags}}
+                                  <h3>{{this.viewObj.form.data.0.instagram.tags}} taggningar.</h3>
+                                  <br>
+                              {{/if}}
+                              {{#if this.queries.instagramTaggedUsers}}
+                                  <h3>{{this.viewObj.form.data.0.instagram.taggedUsers}} taggade användare.</h3>
+                                  <br>
+                              {{/if}}
+                          {{/if}}
+                      {{/if}}
+                      {{#if this.queries.analytics}}
+                          {{#if this.viewObj.form.data.0.analytics}}
+                              <h3 class="title">Analytics</h3>
+                              {{#if this.queries.analyticsViews}}
+                                  <h3>{{this.viewObj.form.data.0.analytics.baseFigures.views}} visningar.</h3>
+                                  <br>
+                              {{/if}}
+                              {{#if this.queries.analyticsUniqueViews}}
+                                  <h3>{{this.viewObj.form.data.0.analytics.baseFigures.uniqueViews}} unika visningar.</h3>
+                                  <br>
+                              {{/if}}
+                              {{#if this.queries.analyticsStrongestRedirects}}
+                                  {{#each this.viewObj.form.data.0.analytics.topLanding.analyticsStrongestRedirects}}
+                                      <h3>"{{this.[0]}}" är en av de starkaste ingångskanalerna.</h3>
+                                      <br>
+                                  {{/each}}
+                              {{/if}}
+                              {{#if this.queries.analyticsMostVisitedPages}}
+                                  {{#each this.viewObj.form.data.0.analytics.mostVisited.analyticsMostVisitedPages}}
+                                      <h3>"{{this.[0]}}" är en av de mest besökta sidorna.</h3>
+                                      <br>
+                                  {{/each}}
+                              {{/if}}
+                              {{#if this.queries.analyticsAverageTime}}
+                                  <h3>{{this.viewObj.form.data.0.analytics.baseFigures.averageTime}} genomsnittlig tid på sidan.</h3>
+                                  <br>
+                              {{/if}}
+                              {{#if this.queries.analyticsAverageVisitedPerPages}}
+                                  <h3>{{this.viewObj.form.data.0.analytics.baseFigures.averageVisitedPerPages}} genomsnittligt antal besökta sidor.</h3>
+                                  <br>
+                              {{/if}}
+                          {{/if}}
+                      {{/if}}
                     </div>
             </div>
         </div>
