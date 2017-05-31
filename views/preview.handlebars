@@ -90,7 +90,7 @@
                 {{/if}}
 
                 {{#if this.queries.analytics}}
-                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.analytics.baseFigures.viewst}});
+                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.analytics.baseFigures.views}});
                     visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.analytics.baseFigures.views}});
                     visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.analytics.baseFigures.views}});
                 {{/if}}
@@ -145,6 +145,8 @@
                 var percentages = [];
 
                 {{#if this.queries.youtube}}
+                medias.push('YouTube');
+                percentages.push(Number({{this.viewObj.form.data.0.youtube.youtube.views}}));
                 {{/if}}
 
                 {{#if this.queries.analytics}}
