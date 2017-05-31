@@ -148,3 +148,9 @@
 #adminText {
     margin-top: 120px;
 }
+
+textarea {
+    width: 100%;
+    overflow: hidden;
+    border: none;
+}

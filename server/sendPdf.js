@@ -29,7 +29,7 @@ function phantomHtmlToPdf(html, res) {
     var config = {
       html: '<head><meta charset="utf-8" /></head>' + html,
       paperSize: {
-        orientation: 'landscape'
+        //orientation: 'landscape'
       }
     }
     pdf(config, function(err, f) {
