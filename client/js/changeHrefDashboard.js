@@ -51,6 +51,12 @@ function changeHref() {
   var addthis = document.querySelector('#addthis');
   var addthisClick = document.querySelector('#addthis-click');
 
+  var instagram = document.querySelector('#instagram');
+  var instagramLikes = document.querySelector('#instagram-likes');
+  var instagramComments = document.querySelector('#instagram-comments');
+  var instagramTags = document.querySelector('#instagram-tags');
+  var instagramTaggedUsers = document.querySelector('#instagram-taggedUsers');
+
   var twitter = document.querySelector('#twitter');
   var twitterFollowers = document.querySelector('#twitter-followers');
 
@@ -118,6 +124,19 @@ function changeHref() {
         href += '&twitter=active';
     if (twitterFollowers.checked)
         href += '&twitterFollowers=active';
+  }
+
+  if (instagram && instagram.checked) {
+    if (instagram.checked)
+        href += '&instagram=active';
+    if (instagramLikes.checked)
+        href += '&instagramLikes=active';
+    if (instagramComments.checked)
+        href += '&instagramComments=active';
+    if (instagramTags.checked)
+        href += '&instagramTags=active';
+    if (instagramTaggedUsers.checked)
+        href += '&instagramTaggedUsers=active';
   }
 
   if (analytics && analytics.checked) {

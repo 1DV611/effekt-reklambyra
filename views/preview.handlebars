@@ -136,6 +136,11 @@
                     visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.moz.mozKeywords.result}});
                 {{/if}}
 
+                {{#if this.queries.instagram}}
+                {{/if}}
+
+
+
                 // Skapa datan för stapel-diagrammet:
 
                 var barData = createData(months, visitorsInTotalPerMonth);
@@ -186,6 +191,9 @@
                     medias.push('Moz');
                     percentages.push(Number({{this.viewObj.form.data.0.moz.mozKeywords.result}}));
                 {{/if}}
+                {{#if this.queries.instagram}}
+                {{/if}}
+
 
                 // Skapa datan för paj-diagrammet:
 
@@ -276,6 +284,27 @@
                                     <br>
                                 {{/if}}
                             {{/if}}
+                            {{#if this.queries.instagram}}
+                                <h3 class="title">Instagram</h3>
+                                {{#if this.queries.instagramLikes}}
+                                    <h3>{{this.viewObj.form.data.0.instagram.likes}} likes.</h3>
+                                    <br>
+                                {{/if}}
+                                {{#if this.queries.instagramComments}}
+                                    <h3>{{this.viewObj.form.data.0.instagram.comments}} kommentarer.</h3>
+                                    <br>
+                                {{/if}}
+                                {{#if this.queries.instagramTags}}
+                                    <h3>{{this.viewObj.form.data.0.instagram.tags}} taggningar.</h3>
+                                    <br>
+                                {{/if}}
+                                {{#if this.queries.instagramTaggedUsers}}
+                                    <h3>{{this.viewObj.form.data.0.instagram.taggedUsers}} taggade användare.</h3>
+                                    <br>
+                                {{/if}}
+
+                            {{/if}}
+
                             {{#if this.queries.analytics}}
                                 <h3 class="title">Analytics</h3>
                             {{#if this.queries.analyticsViews}}
