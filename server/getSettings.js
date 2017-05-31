@@ -19,7 +19,7 @@ var allMediaNames = [
  * bygg ett objekt för Settings-vyn
  */
 function getSettings(req, res) {
-  getUserAccess(req.user.id)
+  getUserAccess(req.session.authZeroUserID)
     .then(function (apiAccess) {
       apiAccessKeys = Object.keys(apiAccess._doc);
 
