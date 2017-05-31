@@ -10,9 +10,13 @@ var monthToNumber = require('./helpers/monthToNumber.js');
 function pdfGenerator(user, query, month, year, summary, optimization, recommendation) {
   return new Promise(function(resolve, reject) {
   getReportAndDataByMonthAndYear(user, query, monthToNumber(month), year).then(function(context) {
+    var obj = {
+      viewObj: context,
+      queries: context.queries
+    };
     readFromFile('./views/preview.handlebars')
       .then(function(fileContent) {
-        return fillHandlebarsContext(context, fileContent);
+        return fillHandlebarsContext(obj, fileContent);
       })
       .then(addCss)
       .then(function(cssHtml) {
