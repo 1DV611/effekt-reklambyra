@@ -31,7 +31,7 @@ function updateSocialChannelProfile(sessionUserID, profile) {
 
     queryObj = {
       provider: profile.provider,
-      access: encryptSensitiveProfileProperties(profile),
+      access: encryptSensitiveProfileProperties(profile)
     };
 
     updateObj[queryObj.provider] = queryObj;
