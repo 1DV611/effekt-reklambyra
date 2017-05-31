@@ -20,10 +20,10 @@ module.exports = function (profile) {
   // not actually needed to authenticate twitter for this,
   // is enough with the screen name for the data
   // that you want.
-  var userId = JSON.parse(decrypt.decryptText(profile.profile))._json.id;
-  var screenName = JSON.parse(decrypt.decryptText(profile.profile))._json.screen_name;
+  var userId = profile.id;
+  var screenName = profile.extraParams.user_id;
 
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     client.get('users/show', { user_id: userId, screen_name: screenName },
       function (error, result, response) {
       if (error) {
