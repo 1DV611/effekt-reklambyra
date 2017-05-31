@@ -55,6 +55,7 @@ function getReportByMonthAnYear(user, query, month, year) {
    * **/
   if (currentMonthAndYear(month, year)) {
     return new Promise(function (resolve, reject) {
+      promises = [];
 
       promises.push(getCurrentApiData(user.id, startDate));
       promises.push(getReport(user.id, previousDate));
@@ -76,6 +77,8 @@ function getReportByMonthAnYear(user, query, month, year) {
     });
   } else {
     return new Promise(function (resolve, reject) {
+      promises = [];
+
       promises.push(getReport(user.id, startDate));
       promises.push(getReport(user.id, previousDate));
       promises.push(getReport(user.id, previousPreviousDate));
