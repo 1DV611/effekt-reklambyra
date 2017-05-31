@@ -43,9 +43,10 @@ router.get('/report/:month/:year',
   ensureLoggedIn,
   function (req, res) {
     req.app.locals.queries = req.query;
-    getReportAndDataByMonthAndYear(req.user, req.query, req.params.month, req.params.year).then(function (viewObj) {
-      res.render('preview', { user: req.user, viewObj: viewObj });
-    });
+    getReportAndDataByMonthAndYear(req.user, req.query, req.params.month, req.params.year)
+      .then(function (viewObj) {
+        res.render('preview', { user: req.user, viewObj: viewObj });
+      });
   }
 );
 

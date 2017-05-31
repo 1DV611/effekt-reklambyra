@@ -6,7 +6,7 @@ var months = ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
   'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'
 ];
 var promises = [];
-var viewObj;
+var viewObj = {};
 var startDate;
 var previousDate;
 var previousPreviousDate;
