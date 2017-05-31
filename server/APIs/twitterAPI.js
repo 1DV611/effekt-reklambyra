@@ -21,7 +21,7 @@ module.exports = function (profile) {
   // is enough with the screen name for the data
   // that you want.
   var userId = profile.id;
-  var screenName = profile.extraParams.user_id;
+  var screenName = profile.extraParams.screen_name;
 
   return new Promise(function (resolve) {
     client.get('users/show', { user_id: userId, screen_name: screenName },

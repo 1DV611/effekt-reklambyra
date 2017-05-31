@@ -53,8 +53,8 @@ module.exports = function (accessObj, startDate, accessUser) {
         { 'google.access.accessToken': encrypt.encryptText(tokens.access_token),
           'google.access.refreshToken': encrypt.encryptText(tokens.refresh_token),
           'google.access.extraParams.id_token': encrypt.encryptText(tokens.id_token),
-          'google.access.extraParams.token_type': encrypt.encryptText(tokens.token_type),
-          'google.access.extraParams.expiry_date': encrypt.encryptText(tokens.expiry_date.toString()),
+          'google.access.extraParams.token_type': tokens.token_type,
+          'google.access.extraParams.expiry_date': tokens.expiry_date.toString(),
           'google.access.extraParams.access_token': encrypt.encryptText(tokens.access_token)
         },
         { new: true },
@@ -83,35 +83,6 @@ module.exports = function (accessObj, startDate, accessUser) {
         }
       };
 
-      //todo Gamla return objekt såg ut såhär. kan vi ta  bort den här kommentaren?
-      // var returnObj = {
-      //   youtube: {
-      //     views: {result: values[0], description: ' visningar.'},
-      //   },
-      //   analytics: {
-      //     analyticsViews: {result: values[1].analyticsViews, description: ' visningar.'},
-      //     analyticsUniqueViews: {
-      //       result: values[1].analyticsUniqueViews,
-      //       description: ' unika visningar.'
-      //     },
-      //     analyticsStrongestRedirects: {
-      //       result: values[3].analyticsStrongestRedirects,
-      //       description: ' är de starkaste ingångskanalerna.'
-      //     },
-      //     analyticsMostVisitedPages: {
-      //       result: values[2].analyticsMostVisitedPages,
-      //       description: ' är de mest besökta sidorna.'
-      //     },
-      //     analyticsAverageTime: {
-      //       result: values[1].analyticsAverageTime,
-      //       description: ' genomsnittlig tid på sidan.'
-      //     },
-      //     analyticsAverageVisitedPerPages: {
-      //       result: values[1].analyticsAverageVisitedPerPages,
-      //       description: ' genomsnittligt antal besökta sidor.'
-      //     },
-      //   },
-      // };
       resolve(returnObj);
     });
   }).catch(function (error) {
