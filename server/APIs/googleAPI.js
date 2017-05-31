@@ -31,8 +31,10 @@ var endDateString;
 
 module.exports = function (accessObj, startDate, accessUser) {
   var relevantDate = dateHelper(startDate);
-  //  TODO: anpassa så att 0 läggs till på månader som inte är tvåsiffriga
-  startDateString = relevantDate.year + '-0' + relevantDate.month + '-' + '01';
+
+  //
+  startDateString = relevantDate.year + '-' + relevantDate.addedMonthWithZeroString + '-01';
+
   //  TODO: Anpassa endDate för scenario nuvarande månad resp avslutad månad
   endDateString = new Date().toISOString().substring(0, 10);
 
@@ -102,7 +104,7 @@ function youtubeViews() {
     // The api explorer is very useful: https://developers.google.com/apis-explorer
     youtubeAnalytics.reports.query(obj, function (err, body) {
       if (err || !body) {
-        return resolve({ error: err.message || 'no youtube analytics for user' });
+        return resolve({ error: 'youtubeViews error: ' + err.message || 'no youtube analytics for user' });
       }
 
       resolve({ youtube: { views: body.rows[0][0] } });
@@ -116,7 +118,7 @@ function analyticsBaseFigures() {
     obj['auth'] = oauth2Client;
     analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
       if (err || !bodyProfile) {
-        return resolve({ error: err.message || 'no analytics management account for user' });
+        return resolve({ error: 'analyticsBaseFigures error: ' + err.message || 'no analytics management account for user' });
       }
 
       obj['end-date'] = endDateString;
@@ -126,7 +128,7 @@ function analyticsBaseFigures() {
       obj['auth'] = oauth2Client;
       analytics.data.ga.get(obj, function (errData, bodyData) {
         if (errData || !bodyData) {
-          return resolve({ error: errData.message || 'analytics account summary data not recieved' });
+          return resolve({ error: 'analyticsBaseFigures error: ' + errData.message || 'analytics account summary data not recieved' });
         }
 
         var results = bodyData.totalsForAllResults;
@@ -151,7 +153,7 @@ function analyticsMostVisited() {
 
     analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
       if (err || !bodyProfile) {
-        return resolve({ error: err.message || 'no analytics most visited recieved'});
+        return resolve({ error: 'analyticsMostVisited error: ' + err.message || 'no analytics most visited recieved'});
       }
 
       obj['end-date'] = endDateString;
@@ -164,7 +166,7 @@ function analyticsMostVisited() {
       obj['auth'] = oauth2Client;
       analytics.data.ga.get(obj, function (errData, bodyData) {
         if (errData || !bodyData) {
-          return resolve({ error: errData.message || 'no analytics page views data recieved '});
+          return resolve({ error: 'analyticsMostVisited data.ga.get error: ' + errData.message || 'no analytics page views data recieved '});
         }
 
         var results = bodyData.rows;
@@ -182,7 +184,7 @@ function analyticsTopLanding() {
 
     analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
       if (err || !bodyProfile) {
-        return resolve({ error: err.message || 'no analytics management account summary for user' });
+        return resolve({ error: 'analyticsTopLanding error: ' + err.message || 'no analytics management account summary for user' });
       }
 
       obj['end-date'] = endDateString;
@@ -196,7 +198,7 @@ function analyticsTopLanding() {
 
       analytics.data.ga.get(obj, function (errData, bodyData) {
         if (errData || !bodyData) {
-          return resolve({ error: errData.message || 'analytics top landing error' });
+          return resolve({ error: 'analyticsTopLending data.ga.get error: ' + errData.message || 'analytics top landing error' });
         }
 
         var results = bodyData.rows;

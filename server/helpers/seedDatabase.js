@@ -32,5 +32,12 @@ function seedDatabase(access) {
   })
 }
 
+function seedEntireDatabase() {
+  timeStamps.dates.forEach(function (timeStamp) {
+    cronJob.monthly(timeStamp)
+  })
+}
+
 exports.seed = seedDatabase;
 exports.addDate = addDate;
+exports.seedEntire = seedEntireDatabase;
