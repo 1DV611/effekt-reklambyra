@@ -174,9 +174,9 @@
                     medias.push('AddThis');
                     percentages.push(Number({{this.viewObj.form.data.0.addthis.addthisClick.result}}));
                 {{/if}}
-                {{#if this.queries.addthis}}
+                {{#if this.queries.twitter}}
                     medias.push('Twitter');
-                    percentages.push(Number({{this.viewObj.form.data.0.twitter.twitterViews.result}}));
+                    percentages.push(Number({{this.viewObj.form.data.0.twitter.followers}}));
                 {{/if}}
                 {{#if this.queries.linkedin}}
                     medias.push('LinkedIn');
@@ -253,8 +253,8 @@
                             {{/if}}
                             {{#if this.queries.twitter}}
                                 <h3 class="title">Twitter</h3>
-                                {{#if this.queries.twitterViews}}
-                                    <h3>{{this.viewObj.form.data.0.twitter.twitterViews.result}} visningar.</h3>
+                                {{#if this.queries.twitterFollowers}}
+                                    <h3>{{this.viewObj.form.data.0.twitter.followers}} följare.</h3>
                                     <br>
                                 {{/if}}
                             {{/if}}

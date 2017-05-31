@@ -52,7 +52,7 @@ function changeHref() {
   var addthisClick = document.querySelector('#addthis-click');
 
   var twitter = document.querySelector('#twitter');
-  var twitterViews = document.querySelector('#twitter-views');
+  var twitterFollowers = document.querySelector('#twitter-followers');
 
   var analytics = document.querySelector('#analytics');
   var analyticsViews = document.querySelector('#analytics-views');
@@ -116,8 +116,8 @@ function changeHref() {
   if (twitter && twitter.checked) {
     if (twitter.checked)
         href += '&twitter=active';
-    if (twitterViews.checked)
-        href += '&twitterViews=active';
+    if (twitterFollowers.checked)
+        href += '&twitterFollowers=active';
   }
 
   if (analytics && analytics.checked) {
