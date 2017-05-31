@@ -5,7 +5,7 @@ var propertiesToEncrypt = ['username', 'password', 'pubID', 'secret_api_key', 's
 var encrypt = require('./encrypt');
 
 /**
- * Krypterar de properties som fins i propertiesToEncrypt, sparar alla andra properties på
+ * Krypterar de properties som finns i propertiesToEncrypt, sparar alla andra properties på
  * profilen okrypterat.
  */
 module.exports = function (profile) {
@@ -19,7 +19,7 @@ module.exports = function (profile) {
 
     } else {
 
-      // Då accessTokens etc även ibland ligger under extra Params går vi även igenom den
+      // Då accessTokens etc även ibland ligger under extraParams går vi även igenom den
       if (property === 'extraParams') {
 
         for (var subProperty in profile['extraParams']) {

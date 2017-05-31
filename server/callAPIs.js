@@ -59,7 +59,7 @@ function allAPIsMonthly(access, startDateInUnix) {
     }
 
     if (access.addthis) {
-      promises.push(addThisAPI(access.addthis, startDateInUnix));
+      promises.push(addThisAPI(access.addthis.access, startDateInUnix));
     }
 
     Promise.all(promises).then(function (apiData) {
