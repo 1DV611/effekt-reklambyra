@@ -84,58 +84,56 @@
                 var visitorsInTotalPerMonth = [0, 0 ,0];
 
                 {{#if this.queries.youtube}}
-                    visitorsInTotalPerMonth[0] += Number({{this.form.data.2.youtube.views.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.form.data.1.youtube.views.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.form.data.0.youtube.views.result}});
+                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.youtube.views.result}});
+                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.youtube.views.result}});
+                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.youtube.views.result}});
                 {{/if}}
 
                 {{#if this.queries.analytics}}
-                    visitorsInTotalPerMonth[0] += Number({{this.form.data.2.analytics.analyticsViews.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.form.data.1.analytics.analyticsViews.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.form.data.0.analytics.analyticsViews.result}});
+                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.analytics.analyticsViews.result}});
+                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.analytics.analyticsViews.result}});
+                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.analytics.analyticsViews.result}});
                 {{/if}}
 
                 {{#if this.queries.adwords}}
-                    visitorsInTotalPerMonth[0] += Number({{this.form.data.2.adwords.adwordsViews.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.form.data.1.adwords.adwordsViews.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.form.data.0.adwords.adwordsViews.result}});
+                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.adwords.adwordsViews.result}});
+                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.adwords.adwordsViews.result}});
+                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.adwords.adwordsViews.result}});
                 {{/if}}
 
                 {{#if this.queries.facebook}}
-                    visitorsInTotalPerMonth[0] += Number({{this.form.data.2.facebook.facebookLikes.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.form.data.1.facebook.facebookLikes.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.form.data.0.facebook.facebookLikes.result}});
+                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.facebook.facebookLikes.result}});
+                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.facebook.facebookLikes.result}});
+                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.facebook.facebookLikes.result}});
                 {{/if}}
 
                 {{#if this.queries.tynt}}
-                    visitorsInTotalPerMonth[0] += Number({{this.form.data.2.tynt.tyntCopied.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.form.data.1.tynt.tyntCopied.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.form.data.0.tynt.tyntCopied.result}});
+                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.tynt.tyntCopied.result}});
+                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.tynt.tyntCopied.result}});
+                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.tynt.tyntCopied.result}});
                 {{/if}}
 
                 {{#if this.queries.addthis}}
-                    visitorsInTotalPerMonth[0] += Number({{this.form.data.2.addthis.addthisClick.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.form.data.1.addthis.addthisClick.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.form.data.0.addthis.addthisClick.result}});
+                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.addthis.addthisClick.result}});
+                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.addthis.addthisClick.result}});
+                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.addthis.addthisClick.result}});
                 {{/if}}
 
-                {{#if this.queries.twitter}}
-                    visitorsInTotalPerMonth[0] += Number({{this.form.data.2.twitter.twitterViews.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.form.data.1.twitter.twitterViews.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.form.data.0.twitter.twitterViews.result}});
-                {{/if}}
+                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.twitter.twitterViews.result}});
+                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.twitter.twitterViews.result}});
+                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.twitter.twitterViews.result}});
 
                 {{#if this.queries.linkedin}}
-                    visitorsInTotalPerMonth[0] += Number({{this.form.data.2.linkedin.linkedinFollowers.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.form.data.1.linkedin.linkedinFollowers.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.form.data.0.linkedin.linkedinFollowers.result}});
+                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.linkedin.linkedinFollowers.result}});
+                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.linkedin.linkedinFollowers.result}});
+                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.linkedin.linkedinFollowers.result}});
                 {{/if}}
 
 
                 {{#if this.queries.moz}}
-                    visitorsInTotalPerMonth[0] += Number({{this.form.data.2.moz.mozKeywords.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.form.data.1.moz.mozKeywords.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.form.data.0.moz.mozKeywords.result}});
+                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.moz.mozKeywords.result}});
+                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.moz.mozKeywords.result}});
+                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.moz.mozKeywords.result}});
                 {{/if}}
 
                 // Skapa datan för stapel-diagrammet:
@@ -149,45 +147,44 @@
 
                 {{#if this.queries.youtube}}
                     medias.push('Youtube');
-                    percentages.push(Number({{this.form.data.0.youtube.views.result}}));
+                    percentages.push(Number({{this.viewObj.form.data.0.youtube.views.result}}));
                 {{/if}}
 
                 {{#if this.queries.analytics}}
                     medias.push('Analytics');
-                    percentages.push(Number({{this.form.data.0.analytics.analyticsViews.result}}));
+                    percentages.push(Number({{this.viewObj.form.data.0.analytics.analyticsViews.result}}));
                 {{/if}}
 
                 {{#if this.queries.adwords}}
                     medias.push('AdWords');
-                    percentages.push(Number({{this.form.data.0.adwords.adwordsViews.result}}));
+                    percentages.push(Number({{this.viewObj.form.data.0.adwords.adwordsViews.result}}));
                 {{/if}}
 
                 {{#if this.queries.facebook}}
                     medias.push('Facebook');
-                    percentages.push(Number({{this.form.data.0.facebook.facebookLikes.result}}));
+                    percentages.push(Number({{this.viewObj.form.data.0.facebook.facebookLikes.result}}));
                 {{/if}}
 
                 {{#if this.queries.tynt}}
                     medias.push('Tynt');
-                    percentages.push(Number({{this.form.data.0.tynt.tyntCopied.result}}));
+                    percentages.push(Number({{this.viewObj.form.data.0.tynt.tyntCopied.result}}));
                 {{/if}}
 
                 {{#if this.queries.addthis}}
                     medias.push('AddThis');
-                    percentages.push(Number({{this.form.data.0.addthis.addthisClick.result}}));
+                    percentages.push(Number({{this.viewObj.form.data.0.addthis.addthisClick.result}}));
                 {{/if}}
-
-                {{#if this.queries.twitter}}
+                {{#if this.queries.addthis}}
                     medias.push('Twitter');
-                    percentages.push(Number({{this.form.data.0.twitter.twitterViews.result}}));
+                    percentages.push(Number({{this.viewObj.form.data.0.twitter.twitterViews.result}}));
                 {{/if}}
                 {{#if this.queries.linkedin}}
                     medias.push('LinkedIn');
-                    percentages.push(Number({{this.form.data.0.linkedin.linkedinFollowers.result}}));
+                    percentages.push(Number({{this.viewObj.form.data.0.linkedin.linkedinFollowers.result}}));
                 {{/if}}
                 {{#if this.queries.moz}}
                     medias.push('Moz');
-                    percentages.push(Number({{this.form.data.0.moz.mozKeywords.result}}));
+                    percentages.push(Number({{this.viewObj.form.data.0.moz.mozKeywords.result}}));
                 {{/if}}
 
                 // Skapa datan för paj-diagrammet:
@@ -214,99 +211,99 @@
                             {{#if this.queries.adwords}}
                                 <h3 class="title">AdWords</h3>
                                 {{#if this.queries.adwordsClick}}
-                                    <h3>{{this.form.data.0.adwords.adwordsClick.result}} klickningar.</h3>
+                                    <h3>{{this.viewObj.form.data.0.adwords.adwordsClick.result}} klickningar.</h3>
                                     <br>
                                 {{/if}}
                                 {{#if this.queries.adwordsCpc}}
-                                    <h3>{{this.form.data.0.adwords.adwordsCpc.result}} kostnad per klick.</h3>
+                                    <h3>{{this.viewObj.form.data.0.adwords.adwordsCpc.result}} kostnad per klick.</h3>
                                     <br>
                                 {{/if}}
                                 {{#if this.queries.adwordsViews}}
-                                    <h3>{{this.form.data.0.adwords.adwordsViews.result}} visningar.</h3>
+                                    <h3>{{this.viewObj.form.data.0.adwords.adwordsViews.result}} visningar.</h3>
                                     <br>
                                 {{/if}}
                             {{/if}}
                             {{#if this.queries.facebook}}
                                 <h3 class="title">Facebook</h3>
                                 {{#if this.queries.facebookLikes}}
-                                    <h3>{{this.form.data.0.facebook.facebookLikes.result}} gillningar.</h3>
+                                    <h3>{{this.viewObj.form.data.0.facebook.facebookLikes.result}} gillningar.</h3>
                                     <br>
                                 {{/if}}
                             {{/if}}
                             {{#if this.queries.youtube}}
                                 <h3 class="title">Youtube</h3>
                                 {{#if this.queries.youtubeViews}}
-                                    <h3>{{this.form.data.0.youtube.views.result}} visningar.</h3>
+                                    <h3>{{this.viewObj.form.data.0.youtube.views.result}} visningar.</h3>
                                     <br>
                                 {{/if}}
                             {{/if}}
                             {{#if this.queries.tynt}}
                                 <h3 class="title">Tynt/33across</h3>
                                 {{#if this.queries.tyntCopied}}
-                                    <h3>{{this.form.data.0.tynt.tyntCopied.result}} kopieringar.</h3>
+                                    <h3>{{this.viewObj.form.data.0.tynt.tyntCopied.result}} kopieringar.</h3>
                                     <br>
                                 {{/if}}
                             {{/if}}
                             {{#if this.queries.addthis}}
                                 <h3 class="title">AddThis</h3>
                                 {{#if this.queries.addthisClick}}
-                                    <h3>{{this.form.data.0.addthis.addthisClick.result}} klickningar.</h3>
+                                    <h3>{{this.viewObj.form.data.0.addthis.addthisClick.result}} klickningar.</h3>
                                     <br>
                                 {{/if}}
                             {{/if}}
                             {{#if this.queries.twitter}}
                                 <h3 class="title">Twitter</h3>
                                 {{#if this.queries.twitterViews}}
-                                    <h3>{{this.form.data.0.twitter.twitterViews.result}} visningar.</h3>
+                                    <h3>{{this.viewObj.form.data.0.twitter.twitterViews.result}} visningar.</h3>
                                     <br>
                                 {{/if}}
                             {{/if}}
                             {{#if this.queries.linkedin}}
                                 <h3 class="title">LinkedIn</h3>
                                 {{#if this.queries.linkedinFollowers}}
-                                    <h3>{{this.form.data.0.linkedin.linkedinFollowers.result}} följare.</h3>
+                                    <h3>{{this.viewObj.form.data.0.linkedin.linkedinFollowers.result}} följare.</h3>
                                     <br>
                                 {{/if}}
                                 {{#if this.queries.linkedinInteractions}}
-                                    <h3>{{this.form.data.0.linkedin.linkedinInteractions.result}} interaktioner.</h3>
+                                    <h3>{{this.viewObj.form.data.0.linkedin.linkedinInteractions.result}} interaktioner.</h3>
                                     <br>
                                 {{/if}}
                             {{/if}}
                             {{#if this.queries.moz}}
                                 <h3 class="title">Moz</h3>
                                 {{#if this.queries.mozKeywords}}
-                                    <h3>{{this.form.data.0.moz.mozKeywords.result}} nyckelord.</h3>
+                                    <h3>{{this.viewObj.form.data.0.moz.mozKeywords.result}} nyckelord.</h3>
                                     <br>
                                 {{/if}}
                             {{/if}}
                             {{#if this.queries.analytics}}
                                 <h3 class="title">Analytics</h3>
                             {{#if this.queries.analyticsViews}}
-                                <h3>{{this.form.data.0.analytics.analyticsViews.result}} visningar.</h3>
+                                <h3>{{this.viewObj.form.data.0.analytics.analyticsViews.result}} visningar.</h3>
                                 <br>
                             {{/if}}
                             {{#if this.queries.analyticsUniqueViews}}
-                                <h3>{{this.form.data.0.analytics.analyticsUniqueViews.result}} unika visningar.</h3>
+                                <h3>{{this.viewObj.form.data.0.analytics.analyticsUniqueViews.result}} unika visningar.</h3>
                                 <br>
                             {{/if}}
                             {{#if this.queries.analyticsStrongestRedirects}}
-                                {{#each this.form.data.0.analytics.analyticsStrongestRedirects}}
+                                {{#each this.viewObj.form.data.0.analytics.analyticsStrongestRedirects}}
                                     <h3>{{this.result}} är en av de starkaste ingångskanalerna.</h3>
                                     <br>
                                 {{/each}}
                             {{/if}}
                             {{#if this.queries.analyticsMostVisitedPages}}
-                                {{#each this.form.data.0.analytics.analyticsMostVisitedPages}}
+                                {{#each this.viewObj.form.data.0.analytics.analyticsMostVisitedPages}}
                                     <h3>{{this.result}} är en av de mest besökta sidorna.</h3>
                                     <br>
                                 {{/each}}
                             {{/if}}
                             {{#if this.queries.analyticsAverageTime}}
-                                <h3>{{this.form.data.0.analytics.analyticsAverageTime.result}} genomsnittlig tid på sidan.</h3>
+                                <h3>{{this.viewObj.form.data.0.analytics.analyticsAverageTime.result}} genomsnittlig tid på sidan.</h3>
                                 <br>
                             {{/if}}
                             {{#if this.queries.analyticsAverageVisitedPerPages}}
-                                <h3>{{this.form.data.0.analytics.analyticsAverageVisitedPerPages.result}} genomsnittligt antal besökta sidor.</h3>
+                                <h3>{{this.viewObj.form.data.0.analytics.analyticsAverageVisitedPerPages.result}} genomsnittligt antal besökta sidor.</h3>
                                 <br>
                             {{/if}}
                         {{/if}}
