@@ -6,24 +6,24 @@
                 <form method="post" action="/user/pdf">
                 <div id="summary">
                     <h3>Sammanfattning:</h3>
-                    {{#if this.report.0.summary}}
-                        <p>{{this.report.0.summary}}</p>
+                    {{#if this.viewObj.form.report.0.summary}}
+                        <p>{{this.viewObj.form.report.0.summary}}</p>
                     {{else}}
                         <textarea id="summaryTextarea" name="summary" class="form-control"></textarea>
                     {{/if}}
                 </div>
                 <div id="optimization">
                     <h3>Optimering:</h3>
-                    {{#if this.report.0.optimization}}
-                            <p>{{this.report.0.optimization}}</p>
+                    {{#if this.viewObj.form.report.0.optimization}}
+                            <p>{{this.viewObj.form.report.0.optimization}}</p>
                     {{else}}
                         <textarea id="optimizationTextarea" name="optimization" class="form-control"></textarea>
                     {{/if}}
                 </div>
                 <div id="recommendation">
                     <h3>Rekommendation:</h3>
-                    {{#if this.report.0.recommendation}}
-                        <p>{{this.report.0.recommendation}}</p>
+                    {{#if this.viewObj.form.report.0.recommendation}}
+                        <p>{{this.viewObj.form.report.0.recommendation}}</p>
                     {{else}}
                         <textarea id="recommendationTextarea" name="recommendation" class="form-control"></textarea>
                     {{/if}}
