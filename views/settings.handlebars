@@ -104,7 +104,7 @@
     function openExternalAuth(name, activate) {
           var path = '../auth' + name;
           if (activate) {
-              window.open('../auth/' + name);
+              window.location.replace('../auth/' + name);
           }
     }
 </script>

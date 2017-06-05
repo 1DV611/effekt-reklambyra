@@ -4,34 +4,35 @@
         <div id="adminText">
             {{#if this.user.admin}}
                 <form method="post" action="/user/pdf">
-                <div id="summary">
-                    <h3>Sammanfattning:</h3>
-                    {{#if this.viewObj.form.report.0.summary}}
-                        <p>{{this.viewObj.form.report.0.summary}}</p>
-                    {{else}}
-                        <textarea id="summaryTextarea" name="summary" class="form-control"></textarea>
-                    {{/if}}
-                </div>
-                <div id="optimization">
-                    <h3>Optimering:</h3>
-                    {{#if this.viewObj.form.report.0.optimization}}
-                            <p>{{this.viewObj.form.report.0.optimization}}</p>
-                    {{else}}
-                        <textarea id="optimizationTextarea" name="optimization" class="form-control"></textarea>
-                    {{/if}}
-                </div>
-                <div id="recommendation">
-                    <h3>Rekommendation:</h3>
-                    {{#if this.viewObj.form.report.0.recommendation}}
-                        <p>{{this.viewObj.form.report.0.recommendation}}</p>
-                    {{else}}
-                        <textarea id="recommendationTextarea" name="recommendation" class="form-control"></textarea>
-                    {{/if}}
-                </div>
+                    <div id="summary">
+                        <h3>Sammanfattning:</h3>
+                        <textarea id="summaryTextarea" name="summary" class="form-control">{{this.viewObj.form.report.0.summary}}</textarea>
+                    </div>
+                    <div id="optimization">
+                        <h3>Optimering:</h3>
+                        <textarea id="optimizationTextarea" name="optimization" class="form-control">{{this.viewObj.form.report.0.optimization}}</textarea>
+                    </div>
+                    <div id="recommendation">
+                        <h3>Rekommendation:</h3>
+                        <textarea id="recommendationTextarea" name="recommendation" class="form-control">{{this.viewObj.form.report.0.recommendation}}</textarea>
+                    </div>
                     <input type="hidden" name="month" value="{{this.queries.month}}">
                     <input type="hidden" name="year" value="{{this.queries.year}}">
                     <input id="createPdfButton" class="btn btn-default" type="submit" value="Spara och skapa PDF-fil">
                 </form>
+            {{else}}
+                <div id="summary">
+                    <h3>Sammanfattning:</h3>
+                    <textarea id="summaryTextarea" name="summary" class="form-control" readonly>{{this.viewObj.form.report.0.summary}}</textarea>
+                </div>
+                <div id="optimization">
+                    <h3>Optimering:</h3>
+                    <textarea id="optimizationTextarea" name="optimization" class="form-control" readonly>{{this.viewObj.form.report.0.optimization}}</textarea>
+                </div>
+                <div id="recommendation">
+                    <h3>Rekommendation:</h3>
+                    <textarea id="recommendationTextarea" name="recommendation" class="form-control" readonly>{{this.viewObj.form.report.0.recommendation}}</textarea>
+                </div>
             {{/if}}
         </div>
 
