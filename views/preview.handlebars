@@ -323,11 +323,11 @@
                                   {{/each}}
                               {{/if}}
                               {{#if this.queries.analyticsAverageTime}}
-                                  <h3>{{this.viewObj.form.data.0.analytics.baseFigures.averageTime}} genomsnittlig tid på sidan.</h3>
+                                  <h3><span>{{this.viewObj.form.data.0.analytics.baseFigures.averageTime}}</span> genomsnittlig tid på sidan.</h3>
                                   <br>
                               {{/if}}
                               {{#if this.queries.analyticsAverageVisitedPerPages}}
-                                  <h3>{{this.viewObj.form.data.0.analytics.baseFigures.averageVisitedPerPages}} genomsnittligt antal besökta sidor.</h3>
+                                  <h3><span>{{this.viewObj.form.data.0.analytics.baseFigures.averageVisitedPerPages}}</span> genomsnittligt antal besökta sidor.</h3>
                                   <br>
                               {{/if}}
                           {{/if}}
@@ -337,3 +337,9 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var spans = document.getElementById('stats').getElementsByTagName('span');
+    for (let i = 0; i < spans.length; i += 1) {
+      spans[i].textContent = Math.round(Number(spans[i].textContent) * 100) / 100;
+    }
+</script>
