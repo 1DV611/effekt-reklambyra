@@ -42,7 +42,9 @@ router.get('/dashboard',
 router.get('/report/:month/:year',
   ensureLoggedIn,
   function (req, res) {
+    // Kom ihåg query för ev. pdf-generering
     req.app.locals.queries = req.query;
+
     getReportAndDataByMonthAndYear(req.user, req.query, req.params.month, req.params.year)
       .then(function (viewObj) {
         res.render('preview', { user: req.user, viewObj: viewObj });
@@ -103,7 +105,9 @@ router.post('/updatesettings',
     res.redirect('settings');
   });
 
-//  sparar manuellt inknappad information och skapar pdf
+//  sparar manuellt inmatad information och skapar pdf
+//  Funktionen är beroende av att req.app.locals.queries
+//  sätts i routen för /user/report/:month/:year
 router.post('/pdf',
   ensureLoggedIn,
   function (req, res, next) {

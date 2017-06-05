@@ -7,6 +7,9 @@ var cheerio = require('cheerio');
 var getReportAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getReportAndDataByMonthAndYear');
 var monthToNumber = require('./helpers/monthToNumber.js');
 
+/**
+ * Skapar en kombination av html, css och javascript som fungerar som underlag för en pdf-rapport. Kombinationen baseras till stor del på filen views/preview.handlebars, vilket gör att ändringar i denna fil påverkar funktionens resultat.
+ */
 function pdfGenerator(user, query, month, year, summary, optimization, recommendation) {
   return new Promise(function(resolve, reject) {
   getReportAndDataByMonthAndYear(user, query, monthToNumber(month), year).then(function(context) {
@@ -28,6 +31,9 @@ function pdfGenerator(user, query, month, year, summary, optimization, recommend
   });
 }
 
+/*
+ * Läser data från angiven fil
+ */
 function readFromFile(path) {
   return new Promise(function(resolve, reject) {
     fs.readFile(path, 'utf-8', function (err, data) {
@@ -37,6 +43,10 @@ function readFromFile(path) {
   })
 }
 
+/*
+ * Hämtar styling från css-filer och konkatenerar med html.
+ * Vilka css-filer som refereras styrs av filen views/preview.handlebars.
+ */
 function addCss(html) {
   return new Promise(function(resolve, reject) {
     var external_refs = " \
@@ -53,11 +63,17 @@ function addCss(html) {
   });
 }
 
+/*
+ * Applicerar data till html med hjälp av Handlebars
+ */
 function fillHandlebarsContext(context, html) {
   var template = handlebars.compile(html);
   return template(context);
 }
 
+/*
+ * Fyller i rapportens textfält
+ */
 function postProcess(html, summary, optimization, recommendation) {
   var $ = cheerio.load(html);
   $('#summaryTextarea').text(summary);
