@@ -52,14 +52,12 @@
                 <canvas id="canvasPieChart" width="400" height="400"></canvas>
             </div>
 
-            <!-- Läggs till om det finns extra tid.
             <div class="card">
                 <div class="header">
                     <h4 class="title">Ingångskällor</h4>
                 </div>
                 <canvas id="canvasDoughnutChart" width="400" height="400"></canvas>
             </div>
-            -->
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
             <script src="/js/lib/charts/createChart.js"></script>
@@ -68,10 +66,7 @@
 
                 var canvasBarChart = document.querySelector("#canvasBarChart");
                 var canvasPieChart = document.querySelector("#canvasPieChart");
-
-                /* Läggs till om det finns extra tid.
                 var canvasDoughnutChart = document.querySelector("#canvasDoughnutChart");
-                */
 
 
                 // Månaderna i stapel-diagrammet:
@@ -122,30 +117,44 @@
 
                 var barData = createData(months, visitorsInTotalPerMonth);
 
-                // Fördelningen mellan medier givet hur stor andel räknat på visningar/klickningar per media:
+                // De fyra mest besökta sidorna:
 
-                var medias = [];
-                var percentages = [50, 25, 15, 10];
+                var pages = [];
+                var percentagesPerPage = [];
 
                 {{#if this.queries.analyticsMostVisitedPages}}
                         {{#each this.viewObj.form.data.0.analytics.mostVisited.analyticsMostVisitedPages}}
-                            medias.push('{{this.[0]}}');
+                            pages.push('{{this.[0]}}');
+                            percentagesPerPage.push(Number({{this.[2]}}));
                         {{/each}}
                 {{/if}}
 
 
                 // Skapa datan för paj-diagrammet:
 
-                var pieData = createData(medias, percentages);
+                var pieData = createData(pages, percentagesPerPage);
 
-                //Skapa stapel- och paj-diagrammet:
+                // De fyra starkaste ingångskanalerna:
+
+                var channels = [];
+                var percentagesPerChannel = [];
+
+                {{#if this.queries.analyticsStrongestRedirects}}
+                        {{#each this.viewObj.form.data.0.analytics.topLanding.analyticsStrongestRedirects}}
+                                    channels.push('{{this.[0]}}');
+                                    percentagesPerChannel.push(Number({{this.[1]}}));
+                        {{/each}}
+                {{/if}}
+
+                // Skapa datan för munk-diagrammet:
+
+                var doughnutData = createData(channels, percentagesPerChannel);
+
+                //Skapa stapel-, paj- och munk-diagrammet:
 
                 var barChart = createChart('bar', canvasBarChart, barData);
                 var pieChart = createChart('pie', canvasPieChart, pieData);
-
-                /* Läggs till om det finns extra tid.
-                var doughnutChart = createChart('doughnut', canvasDoughnutChart, data);
-                */
+                var doughnutChart = createChart('doughnut', canvasDoughnutChart, doughnutData);
 
             </script>
         </div>
@@ -286,12 +295,6 @@
                               {{#if this.queries.analyticsUniqueViews}}
                                   <h3>{{this.viewObj.form.data.0.analytics.baseFigures.uniqueViews}} unika visningar.</h3>
                                   <br>
-                              {{/if}}
-                              {{#if this.queries.analyticsStrongestRedirects}}
-                                  {{#each this.viewObj.form.data.0.analytics.topLanding.analyticsStrongestRedirects}}
-                                      <h3>"{{this.[0]}}" är en av de starkaste ingångskanalerna.</h3>
-                                      <br>
-                                  {{/each}}
                               {{/if}}
                               {{#if this.queries.analyticsAverageTime}}
                                   <h3><span>{{this.viewObj.form.data.0.analytics.baseFigures.averageTime}}</span> genomsnittlig tid på sidan.</h3>
