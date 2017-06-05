@@ -124,35 +124,12 @@
                 // Fördelningen mellan medier givet hur stor andel räknat på visningar/klickningar per media:
 
                 var medias = [];
-                var percentages = [];
+                var percentages = [50, 25, 15, 10];
 
-                {{#if this.queries.youtube}}
-                medias.push('YouTube');
-                percentages.push(Number({{this.viewObj.form.data.0.youtube.youtube.views}}));
-                {{/if}}
-
-                {{#if this.queries.analytics}}
-                    medias.push('Analytics');
-                    percentages.push(Number({{this.viewObj.form.data.0.analytics.baseFigures.views}}));
-                {{/if}}
-
-                {{#if this.queries.adwords}}
-                    medias.push('AdWords');
-                    percentages.push(Number({{this.viewObj.form.data.0.adwords.adwordsViews.result}}));
-                {{/if}}
-
-                {{#if this.queries.across}}
-                medias.push('Tynt/33across');
-                percentages.push(Number({{this.viewObj.form.data.0.across.monthly.0.visitors}}));
-                {{/if}}
-
-                {{#if this.queries.addthis}}
-                    medias.push('AddThis');
-                    percentages.push(Number({{this.viewObj.form.data.0.addthis.addthisClick.result}}));
-                {{/if}}
-                {{#if this.queries.linkedin}}
-                    medias.push('LinkedIn');
-                    percentages.push(Number({{this.viewObj.form.data.0.linkedin.0.interactions.clicks}}));
+                {{#if this.queries.analyticsMostVisitedPages}}
+                        {{#each this.viewObj.form.data.0.analytics.mostVisited.analyticsMostVisitedPages}}
+                            medias.push('{{this.[0]}}');
+                        {{/each}}
                 {{/if}}
 
 
@@ -312,12 +289,6 @@
                               {{#if this.queries.analyticsStrongestRedirects}}
                                   {{#each this.viewObj.form.data.0.analytics.topLanding.analyticsStrongestRedirects}}
                                       <h3>"{{this.[0]}}" är en av de starkaste ingångskanalerna.</h3>
-                                      <br>
-                                  {{/each}}
-                              {{/if}}
-                              {{#if this.queries.analyticsMostVisitedPages}}
-                                  {{#each this.viewObj.form.data.0.analytics.mostVisited.analyticsMostVisitedPages}}
-                                      <h3>"{{this.[0]}}" är en av de mest besökta sidorna.</h3>
                                       <br>
                                   {{/each}}
                               {{/if}}
