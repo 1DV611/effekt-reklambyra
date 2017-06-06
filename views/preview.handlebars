@@ -77,43 +77,17 @@
 
                 var visitorsInTotalPerMonth = [0, 0 ,0];
 
-                // Lägger till summan för "Mest besök" för de tre månaderna till Utvecklingsdiagrammet:
+                // Lägger till unika besökare för de tre månaderna till Utvecklingsdiagrammet:
 
                 {{#if this.queries.analyticsMostVisitedPages}}
-                    {{#if this.viewObj.form.data.2.analytics.mostVisited.analyticsMostVisitedPages}}
-                        {{#each this.viewObj.form.data.2.analytics.mostVisited.analyticsMostVisitedPages}}
-                            visitorsInTotalPerMonth[0] += Number({{this.[2]}});
-                        {{/each}}
+                    {{#if this.viewObj.form.data.2.analytics.baseFigures.uniqueViews}}
+                            visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.analytics.baseFigures.uniqueViews}});
                     {{/if}}
-                    {{#if this.viewObj.form.data.1.analytics.mostVisited.analyticsMostVisitedPages}}
-                        {{#each this.viewObj.form.data.1.analytics.mostVisited.analyticsMostVisitedPages}}
-                        visitorsInTotalPerMonth[1] += Number({{this.[2]}});
-                        {{/each}}
+                    {{#if this.viewObj.form.data.1.analytics.baseFigures.uniqueViews}}
+                        visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.analytics.baseFigures.uniqueViews}});
                     {{/if}}
-                    {{#if this.viewObj.form.data.0.analytics.mostVisited.analyticsMostVisitedPages}}
-                        {{#each this.viewObj.form.data.0.analytics.mostVisited.analyticsMostVisitedPages}}
-                        visitorsInTotalPerMonth[2] += Number({{this.[2]}});
-                        {{/each}}
-                    {{/if}}
-                {{/if}}
-
-                // Lägger till summan för "Ingångskällor" för de tre månaderna till Utvecklingsdiagrammet:
-
-                {{#if this.queries.analyticsStrongestRedirects}}
-                    {{#if this.viewObj.form.data.2.analytics.topLanding.analyticsStrongestRedirects}}
-                        {{#each this.viewObj.form.data.2.analytics.topLanding.analyticsStrongestRedirects}}
-                            visitorsInTotalPerMonth[0] += Number({{this.[1]}});
-                        {{/each}}
-                    {{/if}}
-                    {{#if this.viewObj.form.data.1.analytics.topLanding.analyticsStrongestRedirects}}
-                        {{#each this.viewObj.form.data.1.analytics.topLanding.analyticsStrongestRedirects}}
-                            visitorsInTotalPerMonth[1] += Number({{this.[1]}});
-                        {{/each}}
-                    {{/if}}
-                    {{#if this.viewObj.form.data.0.analytics.topLanding.analyticsStrongestRedirects}}
-                        {{#each this.viewObj.form.data.0.analytics.topLanding.analyticsStrongestRedirects}}
-                            visitorsInTotalPerMonth[2] += Number({{this.[1]}});
-                        {{/each}}
+                    {{#if this.viewObj.form.data.0.analytics.baseFigures.uniqueViews}}
+                        visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.analytics.baseFigures.uniqueViews}});
                     {{/if}}
                 {{/if}}
 
