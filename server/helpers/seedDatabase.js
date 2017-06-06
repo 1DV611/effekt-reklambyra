@@ -1,6 +1,7 @@
 'use strict';
 var fs = require('fs');
 var dateToEpoch = require('./dateToEpoch');
+var delayedArrayLoop = require('./delayedArrayLoop');
 
 /**
  * Används som helper för att samla historisk data när en användare lägger till en ny access.
@@ -33,9 +34,9 @@ function seedDatabase(access) {
 }
 
 function seedEntireDatabase() {
-  timeStamps.dates.forEach(function (timeStamp) {
+  delayedArrayLoop(timeStamps.dates, function (timeStamp) {
     cronJob.monthly(timeStamp)
-  })
+  }, 10000);
 }
 
 exports.seed = seedDatabase;

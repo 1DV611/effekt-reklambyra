@@ -23,14 +23,20 @@ module.exports = function (profile, startDate) {
 
     linkedin.companies.asAdmin(function (err, isAdminFor) {
       if (err) {
-        return resolve({ linkedin: { error: err.message }});
+        return resolve({ linkedin: { error: err.message}});
       }
+
+      if (isAdminFor.status === 401) {
+        return resolve({ linkedin: { error: isAdminFor.message}});
+
+      }
+
       isAdminFor.values.forEach(function (companyPage) {
         result.push(getCompanyStatsFor(companyPage));
       });
 
       Promise.all(result).then(function (linkedInData) {
-        var returnObj = { linkedin: linkedInData };
+        var returnObj = { linkedin: linkedInData[0] }; // promise.all ger en array, iaf fler API calls läggs till
         resolve(returnObj);
       });
     });
@@ -53,12 +59,15 @@ function getCompanyStatsFor(companyPage) {
      */
     linkedin.companies.company_stats(companyPage.id, function (error, companyStats) {
 
-      if (error || !companyStats) {
-        return resolve({ error: 'linkedin API error' });
+      if (error) {
+        return resolve({ error: 'linkedin API error: ' + error.message });
       }
 
-      returnObj.interactions = interactionsForMonth(
-        companyStats.statusUpdateStatistics.viewsByMonth);
+      if (companyStats.message) {
+        return resolve({ error: companyStats.message });
+      }
+
+      returnObj.interactions = interactionsForMonth(companyStats.statusUpdateStatistics.viewsByMonth);
       returnObj.followers = followersForMonth(companyStats.followStatistics.countsByMonth);
       resolve(returnObj);
 

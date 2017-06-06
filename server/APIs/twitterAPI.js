@@ -28,7 +28,7 @@ module.exports = function (profile) {
       function (error, result, response) {
       if (error) {
         console.error('twitter api error: ', error);
-        resolve({ twitter: { error: error[0].message } });
+        return resolve({ twitter: { error: error } }); //todo twitter ger en array med errors vid fler än ett, därav hela objektet istället för error.message kan det det problem med DB on vi sparar en array istället för Object?
       }
 
       var returnObj = {
