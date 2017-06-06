@@ -50,25 +50,31 @@ module.exports = function (accessObj, startDate, accessUser) {
 
     oauth2Client.refreshAccessToken(function (err, tokens) {
 
-      ApiAccess.findOneAndUpdate(
-        { user: accessUser },
-        { 'google.access.accessToken': encrypt.encryptText(tokens.access_token),
-          'google.access.refreshToken': encrypt.encryptText(tokens.refresh_token),
-          'google.access.extraParams.id_token': encrypt.encryptText(tokens.id_token),
-          'google.access.extraParams.token_type': tokens.token_type,
-          'google.access.extraParams.expiry_date': tokens.expiry_date.toString(),
-          'google.access.extraParams.access_token': encrypt.encryptText(tokens.access_token)
-        },
-        { new: true },
-        function (error, matchingApiAccess) {
-          if (error) {
-            console.log(error);
-          }
+      if (err) {
+        return console.error(err)
+      }
 
-          if (matchingApiAccess === null) {
-            throw new Error('No user to save token to'); // todo how to handle this?
-          }
-        });
+      if (tokens) {
+        ApiAccess.findOneAndUpdate(
+            { user: accessUser },
+            { 'google.access.accessToken': encrypt.encryptText(tokens.access_token),
+              'google.access.refreshToken': encrypt.encryptText(tokens.refresh_token),
+              'google.access.extraParams.id_token': encrypt.encryptText(tokens.id_token),
+              'google.access.extraParams.token_type': tokens.token_type,
+              'google.access.extraParams.expiry_date': tokens.expiry_date.toString(),
+              'google.access.extraParams.access_token': encrypt.encryptText(tokens.access_token)
+            },
+            { new: true },
+            function (error, matchingApiAccess) {
+              if (error) {
+                console.log(error);
+              }
+
+              if (matchingApiAccess === null) {
+                throw new Error('No user to save token to'); // todo how to handle this?
+              }
+            });
+      }
     });
 
     var result = [youtubeViews(), analyticsBaseFigures(), analyticsMostVisited(),
@@ -121,9 +127,10 @@ function analyticsBaseFigures() {
         return resolve({ error: 'analyticsBaseFigures error: ' + err.message || 'no analytics management account for user' });
       }
 
+
       obj['end-date'] = endDateString;
       obj['start-date'] = startDateString;
-      obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id;
+      obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id; //profiles[0] har adwords trafik enbart, profile[1] all webbplatsdata
       obj['metrics'] = 'ga:pageviews,ga:uniquePageviews,ga:avgTimeOnPage,ga:avgSessionDuration,ga:pageViewsPerSession';
       obj['auth'] = oauth2Client;
       analytics.data.ga.get(obj, function (errData, bodyData) {

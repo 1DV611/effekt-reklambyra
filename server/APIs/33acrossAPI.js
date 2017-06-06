@@ -33,6 +33,7 @@ function monthly(access, unixTimeStamp) {
   site_guid = decrypt.decryptText(access.site_guid);
 
   var relevantDate = epochToDate(unixTimeStamp);
+
   var results = [socialAPI(relevantDate)];
 
   return new Promise(function (resolve) {
@@ -101,11 +102,13 @@ function socialAPI(date) {
     var queryString = 'https://api.tynt.com/publisher/v1/social/' + type + '?site_guid='
       + site_guid + '&api_key=' + secret_api_key;
 
+    // ger data för 12 veckor tillbaka indelat på week_ending där sista dag är Söndag
+    // t ex 2017-03-26, 2017-04-30, 2017-05-21
     request(queryString, function (err, res, body) {
       if (err || !body) {
         return resolve({ error: '33across social API error: ' + err.message });
       }
-      console.log(body)
+
       try {
         var obj = JSON.parse(body);
         console.log(obj);

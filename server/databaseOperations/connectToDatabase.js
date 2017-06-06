@@ -18,7 +18,7 @@ function connect(credential) {
 
   db.once('open', function () {
     console.log('Connected to MongoLab DB');
-  //  seedDatabase.seedEntire();
+   seedDatabase.seedEntire();
   });
 }
 

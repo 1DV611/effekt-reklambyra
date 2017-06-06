@@ -30,8 +30,14 @@ module.exports = function (access, timeStamp) {
   var tokenObj = { access_token: decrypt.decryptText(access.accessToken) };
   relevantDate = epochToDate(timeStamp);
 
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     client.get('users/self/media/recent', tokenObj).then(function (user) {
+      console.log(user);
+
+      if (!user.data)  {
+        console.error(user);
+      }
+
       var returnObj = { instagram: filterByMonthYear(user.data) };
       resolve(returnObj);
     });
