@@ -52,14 +52,12 @@
                 <canvas id="canvasPieChart" width="400" height="400"></canvas>
             </div>
 
-            <!-- Läggs till om det finns extra tid.
             <div class="card">
                 <div class="header">
                     <h4 class="title">Ingångskällor</h4>
                 </div>
                 <canvas id="canvasDoughnutChart" width="400" height="400"></canvas>
             </div>
-            -->
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
             <script src="/js/lib/charts/createChart.js"></script>
@@ -68,107 +66,73 @@
 
                 var canvasBarChart = document.querySelector("#canvasBarChart");
                 var canvasPieChart = document.querySelector("#canvasPieChart");
-
-                /* Läggs till om det finns extra tid.
                 var canvasDoughnutChart = document.querySelector("#canvasDoughnutChart");
-                */
 
 
                 // Månaderna i stapel-diagrammet:
 
                 var months = ['{{this.queries.monthBeforePreviousMonth}}', '{{this.queries.previousMonth}}', '{{this.queries.month}}'];
 
-                // Totalen av visningar/klickningar per media för de tre givna månaderna:
+                // Summan gällande "Mest besök" och "Ingångskällor" för de tre givna månaderna för Utvecklingsdiagrammet:
 
                 var visitorsInTotalPerMonth = [0, 0 ,0];
 
-                {{#if this.queries.youtube}}
-                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.youtube.youtube.views}});
-                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.youtube.youtube.views}});
-                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.youtube.youtube.views}});
+                // Lägger till unika besökare för de tre månaderna till Utvecklingsdiagrammet:
+
+                {{#if this.queries.analyticsMostVisitedPages}}
+                    {{#if this.viewObj.form.data.2.analytics.baseFigures.uniqueViews}}
+                            visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.analytics.baseFigures.uniqueViews}});
+                    {{/if}}
+                    {{#if this.viewObj.form.data.1.analytics.baseFigures.uniqueViews}}
+                        visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.analytics.baseFigures.uniqueViews}});
+                    {{/if}}
+                    {{#if this.viewObj.form.data.0.analytics.baseFigures.uniqueViews}}
+                        visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.analytics.baseFigures.uniqueViews}});
+                    {{/if}}
                 {{/if}}
 
-                {{#if this.queries.analytics}}
-                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.analytics.baseFigures.views}});
-                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.analytics.baseFigures.views}});
-                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.analytics.baseFigures.views}});
-                {{/if}}
-
-                {{#if this.queries.adwords}}
-                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.adwords.adwordsViews.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.adwords.adwordsViews.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.adwords.adwordsViews.result}});
-                {{/if}}
-
-                {{#if this.queries.across}}
-                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.across.monthly.0.visitors}});
-                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.across.monthly.0.visitors}});
-                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.across.monthly.0.visitors}});
-                {{/if}}
-
-                {{#if this.queries.addthis}}
-                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.addthis.addthisClick.result}});
-                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.addthis.addthisClick.result}});
-                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.addthis.addthisClick.result}});
-                {{/if}}
-
-                {{#if this.queries.linkedin}}
-                    visitorsInTotalPerMonth[0] += Number({{this.viewObj.form.data.2.linkedin.0.interactions.clicks}});
-                    visitorsInTotalPerMonth[1] += Number({{this.viewObj.form.data.1.linkedin.0.interactions.clicks}});
-                    visitorsInTotalPerMonth[2] += Number({{this.viewObj.form.data.0.linkedin.0.interactions.clicks}});
-                {{/if}}
-
-                // Skapa datan för stapel-diagrammet:
+                // Skapa datan för "Utveckling"(stapel)-diagrammet:
 
                 var barData = createData(months, visitorsInTotalPerMonth);
 
-                // Fördelningen mellan medier givet hur stor andel räknat på visningar/klickningar per media:
+                // Datan för de fyra mest besökta sidorna:
 
-                var medias = [];
-                var percentages = [];
+                var pages = [];
+                var percentagesPerPage = [];
 
-                {{#if this.queries.youtube}}
-                medias.push('YouTube');
-                percentages.push(Number({{this.viewObj.form.data.0.youtube.youtube.views}}));
-                {{/if}}
-
-                {{#if this.queries.analytics}}
-                    medias.push('Analytics');
-                    percentages.push(Number({{this.viewObj.form.data.0.analytics.baseFigures.views}}));
-                {{/if}}
-
-                {{#if this.queries.adwords}}
-                    medias.push('AdWords');
-                    percentages.push(Number({{this.viewObj.form.data.0.adwords.adwordsViews.result}}));
-                {{/if}}
-
-                {{#if this.queries.across}}
-                medias.push('Tynt/33across');
-                percentages.push(Number({{this.viewObj.form.data.0.across.monthly.0.visitors}}));
-                {{/if}}
-
-                {{#if this.queries.addthis}}
-                    medias.push('AddThis');
-                    percentages.push(Number({{this.viewObj.form.data.0.addthis.addthisClick.result}}));
-                {{/if}}
-                {{#if this.queries.linkedin}}
-                    medias.push('LinkedIn');
-                    percentages.push(Number({{this.viewObj.form.data.0.linkedin.0.interactions.clicks}}));
+                {{#if this.queries.analyticsMostVisitedPages}}
+                        {{#each this.viewObj.form.data.0.analytics.mostVisited.analyticsMostVisitedPages}}
+                            pages.push('{{this.[0]}}');
+                            percentagesPerPage.push(Number({{this.[2]}}));
+                        {{/each}}
                 {{/if}}
 
 
-                // Skapa datan för paj-diagrammet:
+                // Skapa datan för "Mest besök"(paj)-diagrammet:
 
-                var pieData = createData(medias, percentages);
+                var pieData = createData(pages, percentagesPerPage);
 
-                //Skapa stapel- och paj-diagrammet:
+                // Datan för de fyra starkaste ingångskanalerna:
+
+                var channels = [];
+                var percentagesPerChannel = [];
+
+                {{#if this.queries.analyticsStrongestRedirects}}
+                        {{#each this.viewObj.form.data.0.analytics.topLanding.analyticsStrongestRedirects}}
+                                    channels.push('{{this.[0]}}');
+                                    percentagesPerChannel.push(Number({{this.[1]}}));
+                        {{/each}}
+                {{/if}}
+
+                // Skapa datan för "Ingångskällor"(munk)-diagrammet:
+
+                var doughnutData = createData(channels, percentagesPerChannel);
+
+                //Skapa "Utveckling"(stapel)-, "Mest besök"(paj)- och "Ingångskällor"(munk)-diagrammet:
 
                 var barChart = createChart('bar', canvasBarChart, barData);
                 var pieChart = createChart('pie', canvasPieChart, pieData);
-
-                /* Läggs till om det finns extra tid.
-                var doughnutChart = createChart('doughnut', canvasDoughnutChart, data);
-                */
+                var doughnutChart = createChart('doughnut', canvasDoughnutChart, doughnutData);
 
             </script>
         </div>
@@ -310,24 +274,12 @@
                                   <h3>{{this.viewObj.form.data.0.analytics.baseFigures.uniqueViews}} unika visningar.</h3>
                                   <br>
                               {{/if}}
-                              {{#if this.queries.analyticsStrongestRedirects}}
-                                  {{#each this.viewObj.form.data.0.analytics.topLanding.analyticsStrongestRedirects}}
-                                      <h3>"{{this.[0]}}" är en av de starkaste ingångskanalerna.</h3>
-                                      <br>
-                                  {{/each}}
-                              {{/if}}
-                              {{#if this.queries.analyticsMostVisitedPages}}
-                                  {{#each this.viewObj.form.data.0.analytics.mostVisited.analyticsMostVisitedPages}}
-                                      <h3>"{{this.[0]}}" är en av de mest besökta sidorna.</h3>
-                                      <br>
-                                  {{/each}}
-                              {{/if}}
                               {{#if this.queries.analyticsAverageTime}}
-                                  <h3>{{this.viewObj.form.data.0.analytics.baseFigures.averageTime}} genomsnittlig tid på sidan.</h3>
+                                  <h3><span>{{this.viewObj.form.data.0.analytics.baseFigures.averageTime}}</span> genomsnittlig tid på sidan.</h3>
                                   <br>
                               {{/if}}
                               {{#if this.queries.analyticsAverageVisitedPerPages}}
-                                  <h3>{{this.viewObj.form.data.0.analytics.baseFigures.averageVisitedPerPages}} genomsnittligt antal besökta sidor.</h3>
+                                  <h3><span>{{this.viewObj.form.data.0.analytics.baseFigures.averageVisitedPerPages}}</span> genomsnittligt antal besökta sidor.</h3>
                                   <br>
                               {{/if}}
                           {{/if}}
@@ -337,3 +289,9 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var spans = document.getElementById('stats').getElementsByTagName('span');
+    for (var i = 0; i < spans.length; i += 1) {
+      spans[i].textContent = Math.round(Number(spans[i].textContent) * 100) / 100;
+    }
+</script>
