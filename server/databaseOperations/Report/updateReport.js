@@ -4,6 +4,10 @@ var updateObj;
 function updateReport(userProfileId, month, year, summary, optimization, recommendation) {
   var startDate = new Date(year, month, 1, 0, 0, 0, 1);
 
+  // Tidszonsanpassningar
+  var moreThan = new Date(startDate.setDate(startDate.getDate() - 1));
+  var lessThan = new Date(startDate.setDate(startDate.getDate() + 2));
+
   updateObj = {
     summary: summary, // string
     optimization: optimization, // string
@@ -11,8 +15,9 @@ function updateReport(userProfileId, month, year, summary, optimization, recomme
   };
   return new Promise(function(resolve, reject) {
     Report.findOneAndUpdate(
-      { user: userProfileId,
-        startDate: startDate
+      {
+        user: userProfileId,
+        startDate: { $gt: moreThan, $lt: lessThan }
       },
       updateObj,
       { new: true },
