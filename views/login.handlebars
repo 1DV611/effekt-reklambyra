@@ -1,6 +1,5 @@
 <div id="root" style="width: 280px; margin: 40px auto; padding: 10px;">
     <script>
-
         var options = {
             auth: {
                 redirectUrl: '{{env.AUTH0_CALLBACK_URL}}',
@@ -9,7 +8,13 @@
             },
             allowSignUp: false,
             theme: {
-                logo: 'http://effectmedia.effecttv.se/2015/06/effect_46.png'
+                logo: 'http://effectmedia.effecttv.se/2015/06/effect_46.png',
+                primaryColor: '#E021AA'
+            },
+            allowedConnections: ['Username-Password-Authentication'],
+            language: 'sv',
+            languageDictionary: {
+              title: 'Effect Kundlogin'
             }
 
         };
