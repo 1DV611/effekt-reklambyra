@@ -55,46 +55,26 @@ function getReportByMonthAnYear(user, query, month, year) {
    * **/
   if (currentMonthAndYear(month, year)) {
     return new Promise(function (resolve, reject) {
-      promises = [];
-
-      promises.push(getCurrentApiData(user.id, startDate));
-      promises.push(getReport(user.id, previousDate));
-      promises.push(getReport(user.id, previousPreviousDate));
-
-      Promise.all(promises).then(function (data) {
-        viewObj.form.data = [];
-        viewObj.form.report = [];
-
-        data.forEach(function (monthData) {
-          viewObj.form.data.push(monthData.data);
-          viewObj.form.report.push(monthData.report);
+      getCurrentApiData(user.id, startDate).then(function(r1) {
+        getReport(user.id, previousDate).then(function(r2) {
+          getReport(user.id, previousPreviousDate).then(function(r3) {
+            viewObj.form.data = [r1.data, r2.data, r3.data];
+            viewObj.form.report = [r1.report, r2.report, r3.report];
+            resolve(viewObj);
+          });
         });
-
-        resolve(viewObj);
-      }).catch(function (error) {
-        resolve(error);
       });
     });
   } else {
     return new Promise(function (resolve, reject) {
-      promises = [];
-
-      promises.push(getReport(user.id, startDate));
-      promises.push(getReport(user.id, previousDate));
-      promises.push(getReport(user.id, previousPreviousDate));
-
-      Promise.all(promises).then(function (data) {
-        viewObj.form.data = [];
-        viewObj.form.report = [];
-
-        data.forEach(function (monthData) {
-          viewObj.form.data.push(monthData.data);
-          viewObj.form.report.push(monthData.report);
+      getReport(user.id, startDate).then(function(r1) {
+        getReport(user.id, previousDate).then(function(r2) {
+          getReport(user.id, previousPreviousDate).then(function(r3) {
+            viewObj.form.data = [r1.data, r2.data, r3.data];
+            viewObj.form.report = [r1.report, r2.report, r3.report];
+            resolve(viewObj);
+          });
         });
-
-        resolve(viewObj);
-      }).catch(function (error) {
-        resolve(error);
       });
     });
   }
