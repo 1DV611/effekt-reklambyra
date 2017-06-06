@@ -22,8 +22,8 @@ const ApiDataSchema = new Schema({
   twitter: { type: Object },
   analytics: { type: Object },
   linkedin: { type: Object },
-  moz: { type: Object }
-  // TODO: Instagram?
+  moz: { type: Object },
+  instagram: { type: Object }
 });
 
 ApiDataSchema.post('save', handleDuplicateKeyError);
