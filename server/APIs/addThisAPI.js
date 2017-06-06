@@ -50,11 +50,14 @@ function requestAPIData(APIurl, endpoint, pubID) {
   return new Promise(function (resolve) {
 
     request(APIurl + endpoint + pubID, function (err, res, body) {
-      if (body) var parsedBody = JSON.parse(body);
-      if (err || parsedBody.error) return resolve({ error: 'addThis API error: ' + parsedBody.error.message });
+      if (body) {
+        var parsedBody = JSON.parse(body);
+        if (parsedBody.error) return resolve({ error: 'addThis API error: ' + parsedBody.error.message });
+      }
 
-      var obj = JSON.parse(res.body);
-      resolve(toFilterByMonth(obj));
+      if (err) return resolve({ error: 'addThis API error: ' + err.message});
+
+      resolve(toFilterByMonth(parsedBody));
     });
   });
 }
