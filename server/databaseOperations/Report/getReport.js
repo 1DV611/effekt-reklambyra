@@ -11,28 +11,26 @@ var obj;
 function getReport(userId, startDate) {
   moreThan = new Date(startDate.setDate(startDate.getDate() - 1));
   lessThan = new Date(startDate.setDate(startDate.getDate() + 2));
+  return new Promise(function(resolve, reject) {
+    return Report.findOne({
+      user: userId,
+      startDate: { $gt: moreThan, $lt: lessThan }
+    }).then(function (report) {
+      if (report === null) {
+        reject('getReport() - No report found for user ' + userId + ' with startDate between ' + lessThan + ' and ' + moreThan + '.');
+      }
+      reportData = report;
+      return report;
+    }).then(function (report) {
+      return getDataFor(report);
+    }).then(function (apiData) {
+      obj = {};
 
-  return Report.findOne({
-    user: userId,
-    startDate: { $gt: moreThan, $lt: lessThan }
-  }).then(function (report) {
-    if (report === null) console.log('No such report!"');
-    reportData = report;
-    return report;
-  }).then(function (report) {
-    return getDataFor(report);
-  }).then(function (apiData) {
-    obj = {};
-
-    obj.data = apiData;
-    obj.report = reportData;
-    return obj;
-  })
-    .catch(function (error) {
-      console.log(error);
-    });
+      obj.data = apiData;
+      obj.report = reportData;
+      resolve(obj);
+    }).catch(function(err) { reject(err); });
+  });
 }
-
-//  TODO: Data not gotten from existing lars reports http://localhost:3000/user/report/2/2016
 
 module.exports = getReport;

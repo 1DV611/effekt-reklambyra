@@ -48,6 +48,9 @@ router.get('/report/:month/:year',
     getReportAndDataByMonthAndYear(req.user, req.query, req.params.month, req.params.year)
       .then(function (viewObj) {
         res.render('preview', { user: req.user, viewObj: viewObj });
+      }).catch(function(err) {
+        console.log('ERROR: GET /report/:month/:year:', err);
+        res.render('500', {err: err});
       });
   }
 );

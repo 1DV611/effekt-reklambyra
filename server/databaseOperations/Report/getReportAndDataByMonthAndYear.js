@@ -55,27 +55,27 @@ function getReportByMonthAnYear(user, query, month, year) {
    * **/
   if (currentMonthAndYear(month, year)) {
     return new Promise(function (resolve, reject) {
-      getCurrentApiData(user.id, startDate).then(function(r1) {
-        getReport(user.id, previousDate).then(function(r2) {
-          getReport(user.id, previousPreviousDate).then(function(r3) {
+      return getCurrentApiData(user.id, startDate).then(function(r1) {
+        return getReport(user.id, previousDate).then(function(r2) {
+          return getReport(user.id, previousPreviousDate).then(function(r3) {
             viewObj.form.data = [r1.data, r2.data, r3.data];
             viewObj.form.report = [r1.report, r2.report, r3.report];
             resolve(viewObj);
           });
         });
-      });
+      }).catch(function(err) { reject(err); });
     });
   } else {
     return new Promise(function (resolve, reject) {
-      getReport(user.id, startDate).then(function(r1) {
-        getReport(user.id, previousDate).then(function(r2) {
-          getReport(user.id, previousPreviousDate).then(function(r3) {
+      return getReport(user.id, startDate).then(function(r1) {
+        return getReport(user.id, previousDate).then(function(r2) {
+          return getReport(user.id, previousPreviousDate).then(function(r3) {
             viewObj.form.data = [r1.data, r2.data, r3.data];
             viewObj.form.report = [r1.report, r2.report, r3.report];
             resolve(viewObj);
           });
         });
-      });
+      }).catch(function(err) { reject(err) });
     });
   }
 }
