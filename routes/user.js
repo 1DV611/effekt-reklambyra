@@ -149,8 +149,17 @@ router.post('/pdf',
 router.get('/test/:month/:year',
     ensureLoggedIn,
     function (req, res) {
-      createApiData(createReport(req.user.id, req.params.month, req.params.year));
-      res.render('reports', {user: req.user});
-    });
+      createReport(req.user.id, req.params.month, req.params.year)
+        .then(function (report) {
+          if (report !== undefined) {
+            createApiData(report);
+            res.render('reports', { user: req.user });
+          } else {
+            res.render('500', { err: 'Report already exists.' });
+          }
+        }).catch(function (err) {
+          res.render('500', { err: err });
+        });
+});
 
 module.exports = router;

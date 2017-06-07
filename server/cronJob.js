@@ -41,8 +41,17 @@ function dailyUpdate(date) {
 function updateEach (APIAccess, date) {
   var currentDate = epochToDate(date);
 
-  createApiData(createReport(APIAccess.user, currentDate.month, currentDate.year));
-};
+  createReport(APIAccess.user, currentDate.month, currentDate.year)
+    .then(function (report) {
+      if (report !== undefined) {
+        createApiData(report);
+      }
+    }).catch(function (error) {
+      throw error;
+    });
+
+  //  createApiData(createReport(APIAccess.user, currentDate.month, currentDate.year));
+}
 
 exports.monthly = monthlyUpdate;
 exports.daily = dailyUpdate;
