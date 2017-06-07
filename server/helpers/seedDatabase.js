@@ -2,6 +2,7 @@
 var fs = require('fs');
 var dateToEpoch = require('./dateToEpoch');
 var delayedArrayLoop = require('./delayedArrayLoop');
+var apiAccess = require('../databaseOperations/schemas/ApiAccess');
 
 /**
  * Används som helper för att samla historisk data när en användare lägger till en ny access.
@@ -28,9 +29,9 @@ function addDate() {
  * Anropar samma funktion som när
  */
 function seedDatabase(access) {
-  timeStamps.dates.forEach(function (timestamp) {
-    cronJob.updateEach(access, timestamp)
-  })
+  delayedArrayLoop(timeStamps.dates, function (timeStamp) {
+    cronJob.updateEach(access, timeStamp)
+  }, 10000);
 }
 
 function seedEntireDatabase() {
@@ -39,6 +40,23 @@ function seedEntireDatabase() {
   }, 10000);
 }
 
+function forUser(id) {
+  apiAccess.findOne({user: id}).then(function (access) {
+
+    // tar bort apier som inte ger historisk data for att undvika att de populerar databasen med samma manader.
+    if (access) {
+      var historicalOnly = access._doc;
+      historicalOnly.twitter = null;
+      historicalOnly.tynt = null;
+      seedDatabase(historicalOnly);
+    } else {
+      console.error('no access returned')
+    }
+
+  });
+}
+
 exports.seed = seedDatabase;
 exports.addDate = addDate;
 exports.seedEntire = seedEntireDatabase;
+exports.forUser = forUser;

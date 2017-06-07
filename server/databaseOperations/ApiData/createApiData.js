@@ -11,10 +11,12 @@ var newApiData;
 function createApiData(report) {
   return ApiAccess.findOne({ user: report.user })
     .then(function (access) {
+      console.log(report.startDate);
       return callAPIs.monthly(access, dateToEpoch(report.startDate))
         .then(function (data) {
           return data;
         }).catch(function (error) {
+          console.error(error);
           throw error;
         });
     }).then(function (data) {

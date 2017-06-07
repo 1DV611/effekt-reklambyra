@@ -14,7 +14,7 @@ module.exports = function (array, callback, interval) {
   var newLoopTimer = new LoopTimer(function (time) {
     var element = array.shift();
     callback(element, time - start);
-    array.push(element);
+   // array.push(element);
   }, interval);
 
   var start = newLoopTimer.start();

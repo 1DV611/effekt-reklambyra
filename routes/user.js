@@ -1,3 +1,4 @@
+'use strict';
 var express = require('express');
 var passport = require('passport');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
@@ -13,6 +14,8 @@ var updateSocialChannelProfile = require('./../server/databaseOperations/ApiAcce
 var saveReport = require('./../server/saveReport.js');
 var sendPdf = require('./../server/sendPdf.js');
 var pdfGenerator = require('../server/pdfGenerator.js');
+var seedDatabase = require('../server/helpers/seedDatabase');
+
 var reports;
 
 /**
@@ -23,36 +26,36 @@ var reports;
 
 //  Hämtar användarprofil från auth0.
 router.get('/',
-  ensureLoggedIn,
-  function (req, res) {
-    res.render('dashboard', { user: req.user });
-  });
+    ensureLoggedIn,
+    function (req, res) {
+      res.render('dashboard', {user: req.user});
+    });
 
 //  Visar dashboarden i vilken rapport kan väljas baserat på månad och år för inloggad användare
 router.get('/dashboard',
-  ensureLoggedIn,
-  function (req, res) {
-    res.render('dashboard', { user: req.user });
-  });
+    ensureLoggedIn,
+    function (req, res) {
+      res.render('dashboard', {user: req.user});
+    });
 
 /**
  * Hämtar användarens rapport och apidata för perioden, exemplevis localhost:3000/report/1/2016
  * hämtar data för februari 2016 och returnerar preview-sidan med
  * form: { report: report, data: data } */
 router.get('/report/:month/:year',
-  ensureLoggedIn,
-  function (req, res) {
-    // Kom ihåg query för ev. pdf-generering
-    req.app.locals.queries = req.query;
+    ensureLoggedIn,
+    function (req, res) {
+      // Kom ihåg query för ev. pdf-generering
+      req.app.locals.queries = req.query;
 
-    getReportAndDataByMonthAndYear(req.user, req.query, req.params.month, req.params.year)
-      .then(function (viewObj) {
-        res.render('preview', { user: req.user, viewObj: viewObj });
-      }).catch(function(err) {
+      getReportAndDataByMonthAndYear(req.user, req.query, req.params.month, req.params.year)
+          .then(function (viewObj) {
+            res.render('preview', {user: req.user, viewObj: viewObj});
+          }).catch(function (err) {
         console.log('ERROR: GET /report/:month/:year:', err);
         res.render('500', {err: err});
       });
-  }
+    }
 );
 
 /**
@@ -60,86 +63,94 @@ router.get('/report/:month/:year',
  * { reports: reports, data: data } listas på reports-sidan
  */
 router.get('/reports/:month/:year',
-  ensureLoggedIn,
-  function (req, res) {
-    reports = getAllReportsAndDataByMonthAndYear(req.params.month, req.params.year);
-    res.render('reports', { user: req.user, reports: reports });
-  });
+    ensureLoggedIn,
+    function (req, res) {
+      reports = getAllReportsAndDataByMonthAndYear(req.params.month, req.params.year);
+      res.render('reports', {user: req.user, reports: reports});
+    });
 
 //  hämtar inställningssida för inloggad användare
 router.get('/settings',
 
-  ensureLoggedIn,
-  getSettings);
+    ensureLoggedIn,
+    getSettings);
 
 //  inaktivera media och återvänder till settings
 router.post('/updatesettings',
-  ensureLoggedIn,
-  function (req, res, next) {
-    var socialChannels = [];
-    if (!req.body.adwords) {
-      socialChannels.push('adwords');
-    }
-    if (!req.body.facebook) {
-      socialChannels.push('facebook');
-    }
-    if (!req.body.tynt) {
-      socialChannels.push('tynt');
-    }
-    if (!req.body.addthis) {
-      socialChannels.push('addthis');
-    }
-    if (!req.body.twitter) {
-      socialChannels.push('twitter');
-    }
-    if (!req.body.linkedin) {
-      socialChannels.push('linkedin');
-    }
-    if (!req.body.moz) {
-      socialChannels.push('moz');
-    }
-    if (!req.body.instagram) {
-      socialChannels.push('instagram');
-    }
-    if (!req.body.google) {
-      socialChannels.push('google');
-    }
-    updateSocialChannelProfile(req.user.id, socialChannels);
-    res.redirect('settings');
-  });
+    ensureLoggedIn,
+    function (req, res, next) {
+      var socialChannels = [];
+      if (!req.body.adwords) {
+        socialChannels.push('adwords');
+      }
+      if (!req.body.facebook) {
+        socialChannels.push('facebook');
+      }
+      if (!req.body.tynt) {
+        socialChannels.push('tynt');
+      }
+      if (!req.body.addthis) {
+        socialChannels.push('addthis');
+      }
+      if (!req.body.twitter) {
+        socialChannels.push('twitter');
+      }
+      if (!req.body.linkedin) {
+        socialChannels.push('linkedin');
+      }
+      if (!req.body.moz) {
+        socialChannels.push('moz');
+      }
+      if (!req.body.instagram) {
+        socialChannels.push('instagram');
+      }
+      if (!req.body.google) {
+        socialChannels.push('google');
+      }
+      updateSocialChannelProfile(req.user.id, socialChannels);
+      res.redirect('settings');
+    });
+
+// callar alla apier med inloggad users access objekt
+router.get('/settings/update-database',
+    ensureLoggedIn,
+    function (req, res) {
+      seedDatabase.forUser(req.user.id);
+      res.redirect('/user/settings');
+    });
 
 //  sparar manuellt inmatad information och skapar pdf
 //  Funktionen är beroende av att req.app.locals.queries
 //  sätts i routen för /user/report/:month/:year
 router.post('/pdf',
-  ensureLoggedIn,
-  function (req, res, next) {
-    saveReport(req, res, next).then(function(report) {
-      return pdfGenerator(
-        req.user,
-        req.app.locals.queries,
-        req.body.month,
-        req.body.year,
-        report.summary,
-        report.optimization,
-        report.recommendation,
-        res
-      ).then(function(source) {
-        return sendPdf(source, res)
+    ensureLoggedIn,
+    function (req, res, next) {
+      saveReport(req, res, next).then(function (report) {
+        return pdfGenerator(
+            req.user,
+            req.app.locals.queries,
+            req.body.month,
+            req.body.year,
+            report.summary,
+            report.optimization,
+            report.recommendation,
+            res
+        ).then(function (source) {
+          return sendPdf(source, res)
+        });
+      }).catch(function (err) {
+        console.log('ERROR: POST /PDF:', err);
+        res.render('500', {err: err});
       });
-    }).catch(function(err) {
-      console.log('ERROR: POST /PDF:', err);
-      res.render('500', {err: err});
-    });
-  }
+    }
 );
 
 //  testa att skapa rapport - använd i cronJob?
 router.get('/test/:month/:year',
-  ensureLoggedIn,
-  function (req, res) {
-    createApiData(createReport(req.user.id, req.params.month, req.params.year));
-    res.render('reports', { user: req.user });
-  });
+    ensureLoggedIn,
+    function (req, res) {
+      createApiData(createReport(req.user.id, req.params.month, req.params.year));
+      res.render('reports', {user: req.user});
+    });
 
 module.exports = router;
