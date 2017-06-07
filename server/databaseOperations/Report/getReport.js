@@ -9,9 +9,9 @@ var obj;
  * Hämtar Report och matchande data
  */
 function getReport(userId, startDate) {
-  moreThan = new Date(startDate.setDate(startDate.getDate() - 1));
-  lessThan = new Date(startDate.setDate(startDate.getDate() + 2));
-  return new Promise(function(resolve, reject) {
+  moreThan = new Date(startDate.setDate(startDate.getDate() - 1)).toISOString();
+  lessThan = new Date(startDate.setDate(startDate.getDate() + 2)).toISOString();
+  return new Promise(function (resolve, reject) {
     return Report.findOne({
       user: userId,
       startDate: { $gt: moreThan, $lt: lessThan }
@@ -29,7 +29,8 @@ function getReport(userId, startDate) {
       obj.data = apiData;
       obj.report = reportData;
       resolve(obj);
-    }).catch(function(err) { reject(err); });
+    })
+      .catch(function (err) { reject(err); });
   });
 }
 

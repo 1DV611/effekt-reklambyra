@@ -21,25 +21,24 @@ function createApiData(report) {
         });
     }).then(function (data) {
 
-    var obj = {
-      report: report._id
-    };
+      var obj = {
+        report: report._id
+      };
 
-    for (var prop in data) {
-      obj[prop] = data[prop];
-    }
+      for (var prop in data) {
+        obj[prop] = data[prop];
+      }
 
-    newApiData = new ApiData(obj);
+      newApiData = new ApiData(obj);
 
-    newApiData.save(function (error) {
-      if (error) throw error;
+      newApiData.save(function (error) {
+        if (error) throw error;
+      });
+
+      return newApiData;
+    }).catch(function (error) {
+      throw error;
     });
-
-    return newApiData;
-
-  }).catch(function (error) {
-    throw error;
-  });
 }
 
 module.exports = createApiData;
