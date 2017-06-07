@@ -67,7 +67,7 @@ module.exports = function (accessObj, startDate, accessUser) {
             { new: true },
             function (error, matchingApiAccess) {
               if (error) {
-                console.log(error);
+                console.error(error);
               }
 
               if (matchingApiAccess === null) {
@@ -80,7 +80,6 @@ module.exports = function (accessObj, startDate, accessUser) {
     var result = [youtubeViews(), analyticsBaseFigures(), analyticsMostVisited(),
       analyticsTopLanding()];
     Promise.all(result).then(function (values) {
-      console.log(values);
 
       var returnObj = {
         youtube: values[0],

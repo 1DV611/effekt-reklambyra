@@ -1,7 +1,8 @@
 'use strict';
 
 var request = require('request');
-var dateHelper = require('../helpers/epochToDate');
+var epochToDate = require('../helpers/epochToDate');
+var dateToEpoch = require('../helpers/dateToEpoch');
 var relevantDate;
 var decrypt = require('../helpers/decrypt');
 var dotenv = require('dotenv');
@@ -9,6 +10,7 @@ var dotenv = require('dotenv');
 dotenv.load();
 
 // https://www.addthis.com/academy/addthis-analytics-api/
+// https://addthis.desk.com/customer/portal/articles/381264-addthis-analytics-api
 // struktur på en endpoint https://username:password@api.addthis.com/analytics/1.0/pub/<metric>[/<dimension>].<format>[?<params>]
 var endpoints = ['/shares/day.json?period=month&pubid=',
   '/clicks/day.json?period=month&pubid=',
@@ -26,23 +28,26 @@ module.exports = function (access, startDate) {
   var pubID = decrypt.decryptText(access.pubID);
 
   var APIurl = 'https://' + username + ':' + password + '@api.addthis.com/analytics/1.0/pub';
-  relevantDate = dateHelper(startDate);
-  var resultPromises = [];
+  relevantDate = epochToDate(startDate);
+  // var currentDate = epochToDate(dateToEpoch(new Date()));
 
   return new Promise(function (resolve) {
 
-    endpoints.forEach(function (endpoint) {
-      resultPromises.push(requestAPIData(APIurl, endpoint, pubID));
-    });
+    // addThis ger bara data för senaste två månaderna.
 
-    Promise.all(resultPromises).then(function (result) {
-      var returnObj = {
-        addThis: result
-      };
+      var resultPromises = [];
 
-      console.log(result);
-      resolve(returnObj);
-    });
+      endpoints.forEach(function (endpoint) {
+        resultPromises.push(requestAPIData(APIurl, endpoint, pubID));
+      });
+
+      Promise.all(resultPromises).then(function (result) {
+        var returnObj = {
+          addThis: result
+        };
+
+        resolve(returnObj);
+      });
   });
 };
 
@@ -67,13 +72,12 @@ function toFilterByMonth(APIData) {
   var desiredYearString = relevantDate.year.toString();
   var desiredYearMonth = desiredYearString.slice(2) + desiredMonthString;
 
-  var result = {
-
-  };
+  var result = {};
 
   //sparar data för sharers, clickers, users, shares, clicks
   APIData.forEach(function (day) {
     var dataYearMonth = day.date.slice(0,4);
+    console.log(day.date);
 
     if (dataYearMonth === desiredYearMonth) {
 

@@ -32,7 +32,6 @@ module.exports = function (access, timeStamp) {
 
   return new Promise(function (resolve) {
     client.get('users/self/media/recent', tokenObj).then(function (user) {
-      console.log(user);
 
       if (!user.data)  {
         console.error(user);

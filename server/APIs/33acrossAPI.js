@@ -3,6 +3,7 @@
 var request = require('request');
 var dotenv = require('dotenv');
 var epochToDate = require('../helpers/epochToDate');
+var dateToEpoch = require('../helpers/dateToEpoch');
 var decrypt = require('../helpers/decrypt');
 var api_url = 'https://api.tynt.com/publisher/v2/realtime_stats/page_copies';
 var andSiteGuid = '?site_guid=';
@@ -33,14 +34,23 @@ function monthly(access, unixTimeStamp) {
   site_guid = decrypt.decryptText(access.site_guid);
 
   var relevantDate = epochToDate(unixTimeStamp);
-
-  var results = [socialAPI(relevantDate)];
+  var currentDate = epochToDate(dateToEpoch(new Date()));
 
   return new Promise(function (resolve) {
-    Promise.all(results).then(function (result) {
-      var resultObj = { across: { monthly: result } };
-      resolve(resultObj);
-    });
+
+    // across ger endast data för 12 veckor bakåt i tiden, därför anropas inte APIet med datum som är mer än 3 månader från idag.
+    if (currentDate.year === relevantDate.year && currentDate.month - relevantDate.month < 3) {
+
+      var results = [socialAPI(relevantDate)];
+
+      Promise.all(results).then(function (result) {
+        var resultObj = {across: {monthly: result}};
+        resolve(resultObj);
+      });
+
+    } else {
+      resolve({across: {error: relevantDate.full + ' är mer än 12 veckor ifrån ' + currentDate.full }})
+    }
   });
 }
 
@@ -51,7 +61,7 @@ function daily(access) {
 
   return new Promise(function (resolve) {
     Promise.all(results).then(function (result) {
-      var resultObj = { across: { daily: result } };
+      var resultObj = {across: {daily: result}};
       resolve(resultObj);
     });
   });
@@ -61,11 +71,11 @@ function pageCopiesAPI() {
   return new Promise(function (resolve) {
 
     var queryString = api_url + andSiteGuid + site_guid + andApiKey + secret_api_key +
-      andStartTime + start_time + andLimit + limit;
+        andStartTime + start_time + andLimit + limit;
 
     request(queryString, function (err, res, body) {
       if (err || !body) {
-        return resolve({ error: '33across page copies API error: ' + err.message });
+        return resolve({error: '33across page copies API error: ' + err.message});
       }
 
       var obj = JSON.parse(body);
@@ -100,22 +110,21 @@ function socialAPI(date) {
   return new Promise(function (resolve) {
     var type = 'total';
     var queryString = 'https://api.tynt.com/publisher/v1/social/' + type + '?site_guid='
-      + site_guid + '&api_key=' + secret_api_key;
+        + site_guid + '&api_key=' + secret_api_key;
 
     // ger data för 12 veckor tillbaka indelat på week_ending där sista dag är Söndag
     // t ex 2017-03-26, 2017-04-30, 2017-05-21
     request(queryString, function (err, res, body) {
       if (err || !body) {
-        return resolve({ error: '33across social API error: ' + err.message });
+        return resolve({error: '33across social API error: ' + err.message});
       }
 
       try {
         var obj = JSON.parse(body);
-        console.log(obj);
         resolve(filterForMonth(obj, date));
       } catch (e) {
         console.error(e);
-        resolve({error: e.message })
+        resolve({error: e.message})
       }
 
     });
