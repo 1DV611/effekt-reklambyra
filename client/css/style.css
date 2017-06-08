@@ -134,7 +134,6 @@ html, body {
     text-align: center;
 }
 .cardCharts {
-  text-align: left;
     display: inline-block;
     width:31%;
     background-color: white;
@@ -145,6 +144,7 @@ html, body {
   width: 100%;
   background-color: white;
   overflow: hidden;
+  text-align: center;
 }
 .apiStat {
   padding: 10px;
