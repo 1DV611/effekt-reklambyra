@@ -154,3 +154,11 @@ textarea {
     overflow: hidden;
     border: none;
 }
+
+.hidden-options {
+    display:none;
+}
+
+.visible-options {
+    display: unset;
+}

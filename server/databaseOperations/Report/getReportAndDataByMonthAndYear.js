@@ -38,6 +38,10 @@ function getReportByMonthAnYear(user, query, month, year) {
       previousPreviousDate = new Date(year, (month - 2), 1, 0, 0, 0, 1);
   }
 
+  console.log(startDate);
+  console.log(previousDate);
+  console.log(previousPreviousDate);
+
   viewObj = {
     user: user,
     customer: query.customer,

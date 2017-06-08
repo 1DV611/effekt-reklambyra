@@ -7,6 +7,7 @@ var router = express.Router();
 var createReport = require('./../server/databaseOperations/Report/createReport');
 var createApiData = require('./../server/databaseOperations/ApiData/createApiData');
 
+var getMonthsAndYearsOfUserReports = require('./../server/databaseOperations/Report/getMonthsAndYearsOfUserReports');
 var getReportAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getReportAndDataByMonthAndYear');
 var getAllReportsAndDataByMonthAndYear = require('./../server/databaseOperations/Report/getAllReportsByMonthAndYear');
 var getSettings = require('./../server/getSettings.js');
@@ -28,14 +29,28 @@ var reports;
 router.get('/',
     ensureLoggedIn,
     function (req, res) {
-      res.render('dashboard', {user: req.user});
+      getMonthsAndYearsOfUserReports(req.user.id)
+        .then(function (dates) {
+          console.log(dates);
+          res.render('dashboard', { user: req.user, dates: dates });
+        }).catch(function (err) {
+          console.log('ERROR: GET /dashboard:', err);
+          res.render('500', { err: err });
+        });
     });
 
 //  Visar dashboarden i vilken rapport kan väljas baserat på månad och år för inloggad användare
 router.get('/dashboard',
     ensureLoggedIn,
     function (req, res) {
-      res.render('dashboard', {user: req.user});
+      getMonthsAndYearsOfUserReports(req.user.id)
+        .then(function (dates) {
+          console.log(dates);
+          res.render('dashboard', { user: req.user, dates: dates });
+        }).catch(function (err) {
+          console.log('ERROR: GET /dashboard:', err);
+          res.render('500', { err: err });
+        });
     });
 
 /**
