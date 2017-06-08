@@ -10,7 +10,7 @@ var monthToNumber = require('./helpers/monthToNumber.js');
 /**
  * Skapar en kombination av html, css och javascript som fungerar som underlag för en pdf-rapport. Kombinationen baseras till stor del på filen views/preview.handlebars, vilket gör att ändringar i denna fil påverkar funktionens resultat.
  */
-function pdfGenerator(user, query, month, year, summary, optimization, recommendation) {
+function generateHtmlForPdf(user, query, month, year, summary, optimization, recommendation) {
   return new Promise(function(resolve, reject) {
   getReportAndDataByMonthAndYear(user, query, monthToNumber(month), year).then(function(context) {
     var obj = {
@@ -83,4 +83,4 @@ function postProcess(html, summary, optimization, recommendation) {
   return $.html();
 }
 
-module.exports = pdfGenerator;
+module.exports = generateHtmlForPdf;

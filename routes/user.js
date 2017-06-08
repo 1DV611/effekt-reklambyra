@@ -14,7 +14,7 @@ var getSettings = require('./../server/getSettings.js');
 var updateSocialChannelProfile = require('./../server/databaseOperations/ApiAccess/updateSocialChannelProfile');
 var saveReport = require('./../server/saveReport.js');
 var sendPdf = require('./../server/sendPdf.js');
-var pdfGenerator = require('../server/pdfGenerator.js');
+var generateHtmlForPdf = require('../server/generateHtmlForPdf.js');
 var seedDatabase = require('../server/helpers/seedDatabase');
 
 var reports;
@@ -141,7 +141,7 @@ router.post('/pdf',
     ensureLoggedIn,
     function (req, res, next) {
       saveReport(req, res, next).then(function (report) {
-        return pdfGenerator(
+        return generateHtmlForPdf(
             req.user,
             req.app.locals.queries,
             req.body.month,
