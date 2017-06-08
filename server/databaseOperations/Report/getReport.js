@@ -17,7 +17,7 @@ function getReport(userId, startDate) {
       startDate: { $gt: moreThan, $lt: lessThan }
     }).then(function (report) {
       if (report === null) {
-        reject('getReport() - No report found for user ' + userId + ' with startDate between ' + moreThan + ' and ' + lessThan + '.');
+        resolve({});
       }
       reportData = report;
       return report;
