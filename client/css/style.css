@@ -1,3 +1,8 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
 .main-panel {
     width: 100%;
     background-color: #1d8eba;
@@ -21,8 +26,7 @@
     text-align: right;
     background-color: white;
     padding-top:2%;
-    padding-right:2%;
-
+    margin-right:2%;
 }
 
 .img-circle {
@@ -53,7 +57,7 @@
 }
 
 .report-settings {
-    padding: 2%;
+    padding: 1%;
 }
 
 .social-container {
@@ -124,16 +128,51 @@
 }
 
 #charts {
-    width: 50%;
-    margin-top: 50px;
+    width: 100%;
+    margin-top: 12px;
     padding: 10px;
+    text-align: center;
+}
+.cardCharts {
+    display: inline-block;
+    width:31%;
+    background-color: white;
+    padding: 10px;
+}
+.cardStats {
+  margin: 0 auto;
+  width: 100%;
+  background-color: white;
+  overflow: hidden;
+}
+.apiStat {
+  padding: 10px;
+  float: left;
+  border-radius: 4px;
+  height: 100%;
+  padding-bottom: 100%;
+  margin-bottom: -100%;
+  border: 0.5px whitesmoke solid;
 }
 
 #stats{
-    width: 40%;
+    width: 100%;
     margin: 40px auto;
-    padding: 20px;
+    margin-top: -17px;
+    padding: 10px;
 }
+
+#previewHeader {
+  width: 100%;
+  padding: 20px;
+  margin: 0px;
+  overflow: auto;
+  background-color: #00ADEF;
+  font-family: arial,Impact;
+  font-size: 40px;
+  color: white;
+}
+
 .toTheLeft {
     float: left;
 }
@@ -141,18 +180,22 @@
     float: right;
 }
 
+#adminText {
+
+}
 .hidden {
     visibility: hidden;
-}
-
-#adminText {
-    margin-top: 120px;
 }
 
 textarea {
     width: 100%;
     overflow: hidden;
     border: none;
+}
+.preview-content-place {
+  width: 100%;
+  background-color: white;
+  border-radius: 4px;
 }
 
 .hidden-options {
