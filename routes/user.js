@@ -64,10 +64,10 @@ router.get('/report/:month/:year',
 
       getReportAndDataByMonthAndYear(req.user, req.query, req.params.month, req.params.year)
           .then(function (viewObj) {
-            res.render('preview', {user: req.user, viewObj: viewObj});
+            res.render('preview', { user: req.user, viewObj: viewObj });
           }).catch(function (err) {
         console.log('ERROR: GET /report/:month/:year:', err);
-        res.render('500', {err: err});
+        res.render('500', { err: err });
       });
     }
 );
@@ -80,7 +80,7 @@ router.get('/reports/:month/:year',
     ensureLoggedIn,
     function (req, res) {
       reports = getAllReportsAndDataByMonthAndYear(req.params.month, req.params.year);
-      res.render('reports', {user: req.user, reports: reports});
+      res.render('reports', { user: req.user, reports: reports });
     });
 
 //  hämtar inställningssida för inloggad användare
@@ -97,30 +97,39 @@ router.post('/updatesettings',
       if (!req.body.adwords) {
         socialChannels.push('adwords');
       }
+
       if (!req.body.facebook) {
         socialChannels.push('facebook');
       }
+
       if (!req.body.tynt) {
         socialChannels.push('tynt');
       }
+
       if (!req.body.addthis) {
         socialChannels.push('addthis');
       }
+
       if (!req.body.twitter) {
         socialChannels.push('twitter');
       }
+
       if (!req.body.linkedin) {
         socialChannels.push('linkedin');
       }
+
       if (!req.body.moz) {
         socialChannels.push('moz');
       }
+
       if (!req.body.instagram) {
         socialChannels.push('instagram');
       }
+
       if (!req.body.google) {
         socialChannels.push('google');
       }
+
       updateSocialChannelProfile(req.user.id, socialChannels);
       res.redirect('settings');
     });
@@ -150,11 +159,11 @@ router.post('/pdf',
             report.recommendation,
             res
         ).then(function (source) {
-          return sendPdf(source, res)
+          return sendPdf(source, res);
         });
       }).catch(function (err) {
         console.log('ERROR: POST /PDF:', err);
-        res.render('500', {err: err});
+        res.render('500', { err: err });
       });
     }
 );
@@ -174,6 +183,6 @@ router.get('/test/:month/:year',
         }).catch(function (err) {
           res.render('500', { err: err });
         });
-});
+    });
 
 module.exports = router;

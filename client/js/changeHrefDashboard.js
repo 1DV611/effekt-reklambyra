@@ -3,7 +3,7 @@
  * vad som ska visas.
  */
 
-function changeHref() {
+function changeHrefPreview() {
 
   // Koppla till preview-knappen på dashboard-sidan:
 
@@ -178,4 +178,23 @@ function changeHref() {
   // Lägger till datan som ska skickas med på preview-knappen på dashboarden:
 
   previewButton.href = href;
+}
+
+/**
+ * Lägger på månad och år på href:en för att reports-vyn ska veta
+ * vad som ska visas.
+ */
+
+function changeHrefReports() {
+
+  // Koppla till showAllReportsButton-knappen på dashboard-sidan:
+
+  var showAllReportsButton = document.querySelector('#showAllReportsButton');
+
+  // Lägg till månad och år på href:en utifrån det som skrivits i input-fälten på dashboard-sidan:
+
+  var href = '/user/reports/' + months.value + '/' + years.value;
+
+  showAllReportsButton.href = href;
+
 }

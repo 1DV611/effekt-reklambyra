@@ -160,8 +160,16 @@
                 </div>
             </div>
             <div class="left-button-div">
-                <a id="previewButton" href="" onclick="changeHref()" class="btn btn-default">Förhandsvisa</a>
+                <a id="previewButton" href="" onclick="changeHrefPreview()" class="btn btn-default">Förhandsvisa månadsrapport</a>
             </div>
+
+            <br>
+
+            {{#if this.user.admin}}
+                <div class="left-button-div">
+                    <a id="showAllReportsButton" href="" onclick="changeHrefReports()" class="btn btn-default">Visa alla månadsrapporterna</a>
+                </div>
+            {{/if}}
 
             <script src="/js/changeHrefDashboard.js"></script>
             <script src="/js/lib/checkSelectedYear.js"></script>
