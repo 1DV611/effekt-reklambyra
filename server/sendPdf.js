@@ -51,7 +51,7 @@ function phantomHtmlToPdf(html, res) {
     }
     pdf(config, function(err, f) {
       if (err) {
-        reject('phantomHtmlToPdf(): Failed to produce pdf:');
+        reject('phantomHtmlToPdf(): Failed to produce pdf:', err);
         return;
       }
       setHeaders(res);
