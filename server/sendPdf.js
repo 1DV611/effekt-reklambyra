@@ -23,7 +23,7 @@ function htmlPdf(html, res) {
   return new Promise(function(resolve, reject) {
     var pdf = require('html-pdf');
     var config = {
-      // orientation: 'landscape'
+      orientation: 'landscape'
     };
     pdf.create(html, config).toStream(function(err, stream) {
       if (err) {
@@ -46,7 +46,7 @@ function phantomHtmlToPdf(html, res) {
     var config = {
       html: '<head><meta charset="utf-8" /></head>' + html,
       paperSize: {
-        // orientation: 'landscape'
+         orientation: 'landscape'
       }
     }
     pdf(config, function(err, f) {
@@ -69,4 +69,3 @@ function setHeaders(res) {
 }
 
 module.exports = sendPdf;
-
