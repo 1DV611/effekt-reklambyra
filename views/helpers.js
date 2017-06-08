@@ -26,13 +26,22 @@ module.exports = {
       }
       return false;
     },
-    createChartTemplate: function (name) {
-      name = Handlebars.Utils.escapeExpression(name);
+    optionTemplate: function (year, months) {
+      var allOptions = '';
+      var namesOf = ['januari', 'februari', 'mars', 'april', 'maj', 'juni',
+        'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
 
-      var chartTemplate = '<div class="card"><div class="header"><h4 class="title">' + name + '</h4></div><canvas id="' + name + '" width="400" height="400"></canvas></div>';
-      return new Handlebars.SafeString(chartTemplate);
+      var uniqueArray = months.filter(function (item, index) {
+        return months.indexOf(item) === index;
+      });
+
+      uniqueArray.forEach(function (month) {
+        var option = '<option class="' + year + '" value="' + month + '" selected>' + namesOf[month] + '</option>';
+        allOptions += option;
+      });
+
+      return new Handlebars.SafeString(allOptions);
     }
   },
-
-  defaultLayout: 'main',
+  defaultLayout: 'main'
 }

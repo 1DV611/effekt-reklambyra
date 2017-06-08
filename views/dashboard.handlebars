@@ -26,10 +26,10 @@
             </div>
             <div class="social-container">
                 <div class="social-name"><span>Adwords</span></div>
-                    <div class="social-switch">
-                        <input id="adwords" name="adwords" class="cmn-toggle cmn-toggle-round" type="checkbox" checked>
-                        <label for="adwords"></label>
-                    </div>
+                <div class="social-switch">
+                    <input id="adwords" name="adwords" class="cmn-toggle cmn-toggle-round" type="checkbox" checked>
+                    <label for="adwords"></label>
+                </div>
                 <div class="social-features">
                     <input id="adwords-click" name="adwordsClick" type="checkbox" checked>
                     <label for="adwordsClick">Klick </label>
@@ -50,10 +50,10 @@
                     <label for="analyticsViews">Visningar </label>
                     <input id="analytics-unique-views" name="analyticsUniqueViews" type="checkbox" checked>
                     <label for="analyticsUniqueViews">Unika visningar </label>
-                        <input id="analytics-4-strongest-redirects" name="analyticsStrongestRedirects" type="checkbox" checked>
-                        <label for="analyticsStrongestRedirects">4 starkaste ingångskanalerna </label>
-                        <input id="analytics-4-most-visited-pages" name="analyticsMostVisitedPages" type="checkbox" checked>
-                        <label for="analyticsMostVisitedPages">4 mest besökta sidorna </label>
+                    <input id="analytics-4-strongest-redirects" name="analyticsStrongestRedirects" type="checkbox" checked>
+                    <label for="analyticsStrongestRedirects">4 starkaste ingångskanalerna </label>
+                    <input id="analytics-4-most-visited-pages" name="analyticsMostVisitedPages" type="checkbox" checked>
+                    <label for="analyticsMostVisitedPages">4 mest besökta sidorna </label>
                     <input id="analytics-average-time" name="analyticsAverageTime" type="checkbox" checked>
                     <label for="analyticsAverageTime">Genomsnittlig tid på sidan </label>
                     <input id="analytics-average-visited-per-pages" name="analyticsAverageVisitedPerPages" type="checkbox" checked>
@@ -140,48 +140,31 @@
             <br>
             <div class="social-container">
                 <div class="social-name">
-                    <span>Månad: </span>
-                    <select id="months" name="months">
-                        <option value="0">Januari</option>
-                        <option value="1">Februari</option>
-                        <option value="2">Mars</option>
-                        <option value="3">April</option>
-                        <option value="4">Maj</option>
-                        <option value="5">Juni</option>
-                        <option value="6">Juli</option>
-                        <option value="7">Augusti</option>
-                        <option value="8">September</option>
-                        <option value="9">Oktober</option>
-                        <option value="10">November</option>
-                        <option value="11">December</option>
+                    <span>År: </span>
+                    <select id="years" name="years">
+                        {{#each dates}}
+                            <option value="{{@key}}" selected>{{@key}}</option>
+                        {{/each}}
                     </select>
                 </div>
             </div>
             <br>
             <div class="social-container">
                 <div class="social-name">
-                    <span>År: </span>
-                    <select id="years" name="years">
-                    <script>
-
-                        //Skapa en select-input med options för alla år från 2005 tills i år:
-
-                        var date = new Date();
-                        var year = date.getFullYear();
-                        for(var i = 2005; i < year+1; i++){
-                            document.write('<option value="'+i+'">'+i+'</option>');
-                        }
-                    </script>
+                    <span>Månad: </span>
+                    <select id="months" name="months">
+                        {{#each dates}}
+                                {{optionTemplate @key this}}
+                        {{/each}}
                     </select>
                 </div>
             </div>
-
             <div class="left-button-div">
                 <a id="previewButton" href="" onclick="changeHref()" class="btn btn-default">Förhandsvisa</a>
             </div>
 
             <script src="/js/changeHrefDashboard.js"></script>
-
+            <script src="/js/lib/checkSelectedYear.js"></script>
         </form>
     </div>
 </div>
