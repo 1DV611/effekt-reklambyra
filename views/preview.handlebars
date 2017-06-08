@@ -7,15 +7,15 @@
             {{#if this.user.admin}}
                 <form method="post" action="/user/pdf">
                     <div id="summary">
-                        <h3>Sammanfattning:</h3>
+                        <h3><b>Sammanfattning:</b></h3>
                         <textarea id="summaryTextarea" name="summary" class="form-control">{{this.viewObj.form.report.0.summary}}</textarea>
                     </div>
                     <div id="optimization">
-                        <h3>Optimering:</h3>
+                        <h3><b>Optimering:</b></h3>
                         <textarea id="optimizationTextarea" name="optimization" class="form-control">{{this.viewObj.form.report.0.optimization}}</textarea>
                     </div>
                     <div id="recommendation">
-                        <h3>Rekommendation:</h3>
+                        <h3><b>Rekommendation:</b></h3>
                         <textarea id="recommendationTextarea" name="recommendation" class="form-control">{{this.viewObj.form.report.0.recommendation}}</textarea>
                     </div>
                     <input type="hidden" name="month" value="{{this.queries.month}}">
@@ -227,23 +227,23 @@
                           <div class=apiStat>
                             <h3 class="title">LinkedIn</h3>
                             {{#if this.queries.linkedinFollowers}}
-                                <h3>{{this.viewObj.form.data.0.linkedin.0.followers.newCount}} nya följare.</h3>
+                                <h3>{{this.viewObj.form.data.0.linkedin.followers.newCount}} nya följare.</h3>
 
-                                <h3>{{this.viewObj.form.data.0.linkedin.0.followers.totalCount}} följare.</h3>
+                                <h3>{{this.viewObj.form.data.0.linkedin.followers.totalCount}} följare.</h3>
 
                             {{/if}}
                             {{#if this.queries.linkedinInteractions}}
-                                <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.clicks}} klick.</h3>
+                                <h3>{{this.viewObj.form.data.0.linkedin.interactions.clicks}} klick.</h3>
 
-                                <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.comments}} kommentarer.</h3>
+                                <!--<h3>{{this.viewObj.form.data.0.linkedin.interactions.comments}} kommentarer.</h3>-->
 
-                                <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.engagement}} interaktioner.</h3>
+                                <!--<h3><span>{{this.viewObj.form.data.0.linkedin.interactions.engagement}}</span> interaktioner.</h3>-->
 
-                                <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.impressions}} intryck.</h3>
+                                <h3>{{this.viewObj.form.data.0.linkedin.interactions.impressions}} intryck.</h3>
 
-                                <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.likes}} likes.</h3>
+                                <h3>{{this.viewObj.form.data.0.linkedin.interactions.likes}} likes.</h3>
 
-                                <h3>{{this.viewObj.form.data.0.linkedin.0.interactions.shares}} delningar.</h3>
+                                <!--<h3>{{this.viewObj.form.data.0.linkedin.interactions.shares}} delningar.</h3>-->
 
                             {{/if}}
                           </div>
