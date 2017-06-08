@@ -45,7 +45,6 @@ router.get('/dashboard',
     function (req, res) {
       getMonthsAndYearsOfUserReports(req.user.id)
         .then(function (dates) {
-          console.log(dates);
           res.render('dashboard', { user: req.user, dates: dates });
         }).catch(function (err) {
           console.log('ERROR: GET /dashboard:', err);

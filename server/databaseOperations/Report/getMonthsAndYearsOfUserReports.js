@@ -1,5 +1,5 @@
 var Report = require('./../schemas/Report');
-var dates = {};
+var dates;
 
 /**
  * Returnerar object med årtals properties med värdet array med månader
@@ -10,6 +10,7 @@ function getMonthsAndYearsOfUserReports(userID) {
     Report.find({
       user: userID
     }).then(function (reports) {
+      dates = {};
       reports.forEach(function (report) {
         if (Object.prototype.hasOwnProperty.call(dates, report.startDate.getFullYear())) {
           dates[report.startDate.getFullYear()].push(report.startDate.getMonth());
