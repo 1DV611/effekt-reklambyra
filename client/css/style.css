@@ -127,12 +127,35 @@ html, body {
     font-variant: small-caps;
 }
 
+#datepicker {
+    width: 90%;
+    margin-bottom: 3%;
+    padding-left: 1%;
+}
+
+#yearpicker, #monthpicker{
+    display: inline-block;
+    padding-right: 2%;
+}
+
+#years, #months {
+    padding-left: 2%;
+    display: inline-block;
+}
+
+select {
+    display:inline-block;
+    cursor:pointer;
+    padding: 1%;
+}
+
 #charts {
     width: 100%;
     margin-top: 12px;
     padding: 10px;
     text-align: center;
 }
+
 .cardCharts {
     display: inline-block;
     width:31%;

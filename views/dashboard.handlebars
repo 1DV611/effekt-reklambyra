@@ -3,15 +3,50 @@
     <!--- Välj en kund --->
     <div class="report-settings">
         <form id="customer-statistics" method="post" action="/user/preview">
-            <div class="customer-container">
+
+                <div class="customer-container">
                 <div class="customer-label">
                     <span>Kund </span>
                 </div>
                 <div class="customer-input">
-                    <input class="form-control" id="customer" name="customer" type="text" placeholder="kundens namn - autocomplete" value="byggaute" />
+                    {{#if user.admin}}
+                    <input class="form-control" id="customer" name="customer" list="customer-datalist" type="text" value="" />
+                        <datalist id="customer-datalist"></datalist>
+                    {{else}}
+                        <input class="form-control" id="customer" name="customer" list="customer-datalist" type="text" value="{{user.displayName}}" />
+                    {{/if}}
                 </div>
             </div>
-
+            <div class="social-container">
+            <div id="datepicker">
+                <div id="yearpicker">
+                    <div class="social-name">
+                        <span>År </span>
+                        <select id="years" name="years">
+                            {{#if user.admin}}
+                            {{else}}
+                                {{#each dates}}
+                                    <option value="{{@key}}" selected>{{@key}}</option>
+                                {{/each}}
+                            {{/if}}
+                        </select>
+                    </div>
+                </div>
+                <div id="monthpicker">
+                    <div class="social-name">
+                        <span>Månad </span>
+                        <select id="months" name="months">
+                            {{#if user.admin}}
+                            {{else}}
+                                {{#each dates}}
+                                    {{optionTemplate @key this}}
+                                {{/each}}
+                            {{/if}}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            </div>
             <!--- Välj medier, features, månad och år för preview: --->
             <div class="social-container">
                 <div class="social-name"><span>AddThis</span></div>
@@ -138,27 +173,6 @@
                 </div>
             </div>
             <br>
-            <div class="social-container">
-                <div class="social-name">
-                    <span>År: </span>
-                    <select id="years" name="years">
-                        {{#each dates}}
-                            <option value="{{@key}}" selected>{{@key}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-            </div>
-            <br>
-            <div class="social-container">
-                <div class="social-name">
-                    <span>Månad: </span>
-                    <select id="months" name="months">
-                        {{#each dates}}
-                                {{optionTemplate @key this}}
-                        {{/each}}
-                    </select>
-                </div>
-            </div>
             <div class="left-button-div">
                 <a id="previewButton" href="" onclick="changeHrefPreview()" class="btn btn-default">Förhandsvisa månadsrapport</a>
             </div>
@@ -172,9 +186,14 @@
                 </div>
             {{/if}}
             --->
+            {{#if user.admin}}
+            <script src="/js/lib/dashboardAjax/adminGetUsersForAutoComplete.js"></script>
+            <script src="/js/lib/dashboardAjax/adminPopulateForSelectedUser.js"></script>
+            {{else}}
+            <script src="/js/lib/populateYearAndMonthSelectsForNonAdminUser.js"></script>
+            {{/if}}
 
             <script src="/js/changeHrefDashboard.js"></script>
-            <script src="/js/lib/checkSelectedYear.js"></script>
         </form>
     </div>
 </div>
