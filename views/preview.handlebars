@@ -1,5 +1,5 @@
 <div class="preview-content-place">
-    <div class="report-settings">
+    <div class="report-preview">
         <div id="previewHeader">
           <div class="toTheLeft">{{this.queries.customer}}</div> <div class="toTheRight">{{this.queries.month}} {{this.queries.year}}</div>
         </div>
@@ -41,20 +41,20 @@
         <!-- Div:en för diagrammen: -->
 
         <div id="charts" class="toTheLeft">
-            <div class="cardCharts">
+            <div class="cardChartsDevelopment">
                 <div class="header">
                     <h4 class="title">Utveckling</h4>
                 </div>
                 <canvas id="canvasBarChart" width="400" height="400"></canvas>
             </div>
-            <div class="cardCharts">
+            <div class="cardChartsMostVisited">
                 <div class="header">
                     <h4 class="title">Mest besök</h4>
                 </div>
                 <canvas id="canvasPieChart" width="400" height="400"></canvas>
             </div>
 
-            <div class="cardCharts">
+            <div class="cardChartsTopLanding">
                 <div class="header">
                     <h4 class="title">Ingångskällor</h4>
                 </div>
@@ -267,7 +267,7 @@
                       {{#if this.queries.linkedin}}
                           <div class=apiStat>
                             <h3 class="title">LinkedIn</h3>
-                            {{#if this.queries.linkedinFollowers}}
+                            <!--{{#if this.queries.linkedinFollowers}}
                                 <h3>
                                     {{#if this.viewObj.form.data.0.linkedin.followers.newCount}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.followers.newCount}}</span></b>
@@ -275,7 +275,7 @@
                                     <h3><b>-</b>
                                     {{/if}}
                                     <br />Nya följare
-                                </h3>
+                                </h3>-->
                                 <h3>
                                     {{#if this.viewObj.form.data.0.linkedin.followers.totalCount}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.followers.totalCount}}</span></b>
@@ -286,6 +286,7 @@
                                 </h3>
                             {{/if}}
                             {{#if this.queries.linkedinInteractions}}
+                                <!-- Kommenterade bort några för att få det att passa i PDF:en -->
                                 <h3>
                                     {{#if this.viewObj.form.data.0.linkedin.interactions.clicks}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.interactions.clicks}}</span></b>
@@ -294,9 +295,22 @@
                                     {{/if}}
                                     <br />Klick
                                 </h3>
-                                <!--<h3>{{this.viewObj.form.data.0.linkedin.interactions.comments}} kommentarer.</h3>-->
-
-                                <!--<h3><span>{{this.viewObj.form.data.0.linkedin.interactions.engagement}}</span> interaktioner.</h3>-->
+                                <!--<h3>
+                                    {{#if this.viewObj.form.data.0.linkedin.interactions.comments}}
+                                    <b><span>{{this.viewObj.form.data.0.linkedin.interactions.comments}}</span></b>
+                                    {{else}}
+                                    <h3><b>-</b>
+                                    {{/if}}
+                                    <br />Kommentarer
+                                </h3>-->
+                                <!--<h3>
+                                    {{#if this.viewObj.form.data.0.linkedin.interactions.engagement}}
+                                    <b><span>{{this.viewObj.form.data.0.linkedin.interactions.engagement}}</span></b>
+                                    {{else}}
+                                    <h3><b>-</b>
+                                    {{/if}}
+                                    <br />Interaktioner
+                                </h3>-->
                                 <h3>
                                     {{#if this.viewObj.form.data.0.linkedin.interactions.impressions}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.interactions.impressions}}</span></b>
@@ -313,9 +327,14 @@
                                     {{/if}}
                                     <br />Gillningar
                                 </h3>
-
-                                <!--<h3>{{this.viewObj.form.data.0.linkedin.interactions.shares}} delningar.</h3>-->
-
+                                <!--<h3>
+                                    {{#if this.viewObj.form.data.0.linkedin.interactions.shares}}
+                                    <b><span>{{this.viewObj.form.data.0.linkedin.interactions.shares}}</span></b>
+                                    {{else}}
+                                    <h3><b>-</b>
+                                    {{/if}}
+                                    <br />Delningar
+                                </h3>-->
                             {{/if}}
                           </div>
                       {{/if}}
