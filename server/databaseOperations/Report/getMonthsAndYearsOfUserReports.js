@@ -2,7 +2,7 @@ var Report = require('./../schemas/Report');
 var dates;
 
 /**
- * Returnerar object med årtals properties med värdet array med månader
+ * Returnerar objekt med årtals properties med värdet array med månader
  * @param userID
  */
 function getMonthsAndYearsOfUserReports(userID) {
