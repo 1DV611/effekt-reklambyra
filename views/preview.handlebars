@@ -8,15 +8,15 @@
                 <form method="post" action="/user/pdf">
                     <div id="summary">
                         <h3><b>Sammanfattning:</b></h3>
-                        <textarea id="summaryTextarea" name="summary" class="form-control">{{this.viewObj.form.report.0.summary}}</textarea>
+                        <textarea id="summaryTextarea" name="summary" class="form-control" rows="4">{{this.viewObj.form.report.0.summary}}</textarea>
                     </div>
                     <div id="optimization">
                         <h3><b>Optimering:</b></h3>
-                        <textarea id="optimizationTextarea" name="optimization" class="form-control">{{this.viewObj.form.report.0.optimization}}</textarea>
+                        <textarea id="optimizationTextarea" name="optimization" class="form-control" rows="3">{{this.viewObj.form.report.0.optimization}}</textarea>
                     </div>
                     <div id="recommendation">
                         <h3><b>Rekommendation:</b></h3>
-                        <textarea id="recommendationTextarea" name="recommendation" class="form-control">{{this.viewObj.form.report.0.recommendation}}</textarea>
+                        <textarea id="recommendationTextarea" name="recommendation" class="form-control" rows="2">{{this.viewObj.form.report.0.recommendation}}</textarea>
                     </div>
                     <input type="hidden" name="month" value="{{this.queries.month}}">
                     <input type="hidden" name="year" value="{{this.queries.year}}">
@@ -264,10 +264,25 @@
                             {{/if}}
                           </div>
                       {{/if}}
+                      {{#if this.queries.moz}}
+                          <div class=apiStat>
+                            <h3 class="title">Moz</h3>
+                            {{#if this.queries.mozKeywords}}
+                                <h3>
+                                    {{#if this.viewObj.form.data.0.moz.mozKeywords.result}}
+                                    <b><span>{{this.viewObj.form.data.0.moz.mozKeywords.result}}</span></b>
+                                    {{else}}
+                                    <h3><b>-</b>
+                                    {{/if}}
+                                    <br />Nyckelord
+                                </h3>
+                            {{/if}}
+                          </div>
+                      {{/if}}
                       {{#if this.queries.linkedin}}
                           <div class=apiStat>
                             <h3 class="title">LinkedIn</h3>
-                            <!--{{#if this.queries.linkedinFollowers}}
+                            {{#if this.queries.linkedinFollowers}}
                                 <h3>
                                     {{#if this.viewObj.form.data.0.linkedin.followers.newCount}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.followers.newCount}}</span></b>
@@ -275,7 +290,7 @@
                                     <h3><b>-</b>
                                     {{/if}}
                                     <br />Nya följare
-                                </h3>-->
+                                </h3>
                                 <h3>
                                     {{#if this.viewObj.form.data.0.linkedin.followers.totalCount}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.followers.totalCount}}</span></b>
@@ -286,7 +301,6 @@
                                 </h3>
                             {{/if}}
                             {{#if this.queries.linkedinInteractions}}
-                                <!-- Kommenterade bort några för att få det att passa i PDF:en -->
                                 <h3>
                                     {{#if this.viewObj.form.data.0.linkedin.interactions.clicks}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.interactions.clicks}}</span></b>
@@ -295,22 +309,22 @@
                                     {{/if}}
                                     <br />Klick
                                 </h3>
-                                <!--<h3>
+                                <h3>
                                     {{#if this.viewObj.form.data.0.linkedin.interactions.comments}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.interactions.comments}}</span></b>
                                     {{else}}
                                     <h3><b>-</b>
                                     {{/if}}
                                     <br />Kommentarer
-                                </h3>-->
-                                <!--<h3>
+                                </h3>
+                                <h3>
                                     {{#if this.viewObj.form.data.0.linkedin.interactions.engagement}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.interactions.engagement}}</span></b>
                                     {{else}}
                                     <h3><b>-</b>
                                     {{/if}}
                                     <br />Interaktioner
-                                </h3>-->
+                                </h3>
                                 <h3>
                                     {{#if this.viewObj.form.data.0.linkedin.interactions.impressions}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.interactions.impressions}}</span></b>
@@ -327,28 +341,13 @@
                                     {{/if}}
                                     <br />Gillningar
                                 </h3>
-                                <!--<h3>
+                                <h3>
                                     {{#if this.viewObj.form.data.0.linkedin.interactions.shares}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.interactions.shares}}</span></b>
                                     {{else}}
                                     <h3><b>-</b>
                                     {{/if}}
                                     <br />Delningar
-                                </h3>-->
-                            {{/if}}
-                          </div>
-                      {{/if}}
-                      {{#if this.queries.moz}}
-                          <div class=apiStat>
-                            <h3 class="title">Moz</h3>
-                            {{#if this.queries.mozKeywords}}
-                                <h3>
-                                    {{#if this.viewObj.form.data.0.moz.mozKeywords.result}}
-                                    <b><span>{{this.viewObj.form.data.0.moz.mozKeywords.result}}</span></b>
-                                    {{else}}
-                                    <h3><b>-</b>
-                                    {{/if}}
-                                    <br />Nyckelord
                                 </h3>
                             {{/if}}
                           </div>
@@ -443,6 +442,7 @@
                             {{/if}}
                           </div>
                       {{/if}}
+
                     </div>
             </div>
         </div>
