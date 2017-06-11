@@ -7,15 +7,15 @@
             {{#if this.user.admin}}
                 <form method="post" action="/user/pdf">
                     <div id="summary">
-                        <h3><b>Sammanfattning:</b></h3>
+                        <h4><b>Sammanfattning:</b></h4>
                         <textarea id="summaryTextarea" name="summary" class="form-control" rows="4">{{this.viewObj.form.report.0.summary}}</textarea>
                     </div>
                     <div id="optimization">
-                        <h3><b>Optimering:</b></h3>
+                        <h4><b>Optimering:</b></h4>
                         <textarea id="optimizationTextarea" name="optimization" class="form-control" rows="3">{{this.viewObj.form.report.0.optimization}}</textarea>
                     </div>
                     <div id="recommendation">
-                        <h3><b>Rekommendation:</b></h3>
+                        <h4><b>Rekommendation:</b></h4>
                         <textarea id="recommendationTextarea" name="recommendation" class="form-control" rows="2">{{this.viewObj.form.report.0.recommendation}}</textarea>
                     </div>
                     <input type="hidden" name="month" value="{{this.queries.month}}">
@@ -24,15 +24,15 @@
                 </form>
             {{else}}
                 <div id="summary">
-                    <h3>Sammanfattning:</h3>
+                    <h4>Sammanfattning:</h4>
                     <textarea id="summaryTextarea" name="summary" class="form-control" readonly>{{this.viewObj.form.report.0.summary}}</textarea>
                 </div>
                 <div id="optimization">
-                    <h3>Optimering:</h3>
+                    <h4>Optimering:</h4>
                     <textarea id="optimizationTextarea" name="optimization" class="form-control" readonly>{{this.viewObj.form.report.0.optimization}}</textarea>
                 </div>
                 <div id="recommendation">
-                    <h3>Rekommendation:</h3>
+                    <h4>Rekommendation:</h4>
                     <textarea id="recommendationTextarea" name="recommendation" class="form-control" readonly>{{this.viewObj.form.report.0.recommendation}}</textarea>
                 </div>
             {{/if}}
@@ -146,299 +146,299 @@
                     <div class="header">
                       {{#if this.queries.adwords}}
                               <div class=apiStat>
-                                <h3 class="title">AdWords</h3>
+                                <h4 class="title">AdWords</h4>
                                 {{#if this.queries.adwordsClick}}
-                                    <h3>
+                                    <h4>
                                         {{#if this.viewObj.form.data.0.adwords.adwordsClick.result}}
                                         <b><span>{{this.viewObj.form.data.0.adwords.adwordsClick.result}}</span></b>
                                         {{else}}
-                                        <h3><b>-</b>
+                                        <h4><b>-</b>
                                         {{/if}}
                                         <br />Klickningar
-                                    </h3>
+                                    </h4>
                                 {{/if}}
                                 {{#if this.queries.adwordsCpc}}
-                                    <h3>
+                                    <h4>
                                         {{#if this.viewObj.form.data.0.adwords.adwordsCpc.result}}
                                         <b><span>{{this.viewObj.form.data.0.adwords.adwordsCpc.result}}</span></b>
                                         {{else}}
-                                        <h3><b>-</b>
+                                        <h4><b>-</b>
                                         {{/if}}
                                         <br />Kostnad per klick
-                                    </h3>
+                                    </h4>
                                 {{/if}}
                                 {{#if this.queries.adwordsViews}}
-                                    <h3>
+                                    <h4>
                                         {{#if this.viewObj.form.data.0.adwords.adwordsViews.result}}
                                         <b><span>{{this.viewObj.form.data.0.adwords.adwordsViews.result}}</span></b>
                                         {{else}}
-                                        <h3><b>-</b>
+                                        <h4><b>-</b>
                                         {{/if}}
                                         <br />Visningar
-                                    </h3>
+                                    </h4>
                                 {{/if}}
                               </div>
                       {{/if}}
                       {{#if this.queries.facebook}}
                           <div class=apiStat>
-                            <h3 class="title">Facebook</h3>
+                            <h4 class="title">Facebook</h4>
                             {{#if this.queries.facebookLikes}}
-                                <h3>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.facebook.facebookLikes.result}}
                                     <b><span>{{this.viewObj.form.data.0.facebook.facebookLikes.result}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Gillningar
-                                </h3>
+                                </h4>
                             {{/if}}
                           </div>
                       {{/if}}
                       {{#if this.queries.youtube}}
                           <div class=apiStat>
-                            <h3 class="title">Youtube</h3>
+                            <h4 class="title">Youtube</h4>
                             {{#if this.queries.youtubeViews}}
-                                <h3>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.youtube.youtube.views}}
                                     <b><span>{{this.viewObj.form.data.0.youtube.youtube.views}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Visningar
-                                </h3>
+                                </h4>
                             {{/if}}
                           </div>
                       {{/if}}
                       {{#if this.queries.across}}
                           <div class=apiStat>
-                            <h3 class="title">Tynt/33across</h3>
+                            <h4 class="title">Tynt/33across</h4>
                             {{#if this.queries.acrossShares}}
-                                <h3>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.across.monthly.0.shares}}
                                     <b><span>{{this.viewObj.form.data.0.across.monthly.0.shares}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Delningar
-                                </h3>
+                                </h4>
                             {{/if}}
                             {{#if this.queries.acrossVisitors}}
-                                <h3>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.across.monthly.0.visitors}}
                                     <b><span>{{this.viewObj.form.data.0.across.monthly.0.visitors}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Besökare
-                                </h3>
+                                </h4>
                             {{/if}}
                           </div>
                       {{/if}}
                       {{#if this.queries.addthis}}
                           <div class=apiStat>
-                            <h3 class="title">AddThis</h3>
+                            <h4 class="title">AddThis</h4>
                             {{#if this.queries.addthisClick}}
-                                <h3>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.addthis.addthisClick.result}}
                                     <b><span>{{this.viewObj.form.data.0.addthis.addthisClick.result}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Klickningar
-                                </h3>
+                                </h4>
                             {{/if}}
                           </div>
                       {{/if}}
                       {{#if this.queries.twitter}}
                           <div class=apiStat>
-                            <h3 class="title">Twitter</h3>
+                            <h4 class="title">Twitter</h4>
                             {{#if this.queries.twitterFollowers}}
-                                <h3>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.twitter.followers}}
                                     <b><span>{{this.viewObj.form.data.0.twitter.followers}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Följare
-                                </h3>
+                                </h4>
                             {{/if}}
                           </div>
                       {{/if}}
                       {{#if this.queries.moz}}
                           <div class=apiStat>
-                            <h3 class="title">Moz</h3>
+                            <h4 class="title">Moz</h4>
                             {{#if this.queries.mozKeywords}}
-                                <h3>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.moz.mozKeywords.result}}
                                     <b><span>{{this.viewObj.form.data.0.moz.mozKeywords.result}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Nyckelord
-                                </h3>
+                                </h4>
                             {{/if}}
                           </div>
                       {{/if}}
                       {{#if this.queries.linkedin}}
                           <div class=apiStat>
-                            <h3 class="title">LinkedIn</h3>
+                            <h4 class="title">LinkedIn</h4>
                             {{#if this.queries.linkedinFollowers}}
-                                <h3>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.linkedin.followers.newCount}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.followers.newCount}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Nya följare
-                                </h3>
-                                <h3>
+                                </h4>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.linkedin.followers.totalCount}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.followers.totalCount}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Följare
-                                </h3>
+                                </h4>
                             {{/if}}
                             {{#if this.queries.linkedinInteractions}}
-                                <h3>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.linkedin.interactions.clicks}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.interactions.clicks}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Klick
-                                </h3>
-                                <h3>
+                                </h4>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.linkedin.interactions.comments}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.interactions.comments}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Kommentarer
-                                </h3>
-                                <h3>
+                                </h4>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.linkedin.interactions.engagement}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.interactions.engagement}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Interaktioner
-                                </h3>
-                                <h3>
+                                </h4>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.linkedin.interactions.impressions}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.interactions.impressions}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Intryck
-                                </h3>
-                                <h3>
+                                </h4>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.linkedin.interactions.likes}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.interactions.likes}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Gillningar
-                                </h3>
-                                <h3>
+                                </h4>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.linkedin.interactions.shares}}
                                     <b><span>{{this.viewObj.form.data.0.linkedin.interactions.shares}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Delningar
-                                </h3>
+                                </h4>
                             {{/if}}
                           </div>
                       {{/if}}
                       {{#if this.queries.instagram}}
                           <div class=apiStat>
-                            <h3 class="title">Instagram</h3>
+                            <h4 class="title">Instagram</h4>
                             {{#if this.queries.instagramLikes}}
-                                <h3>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.instagram.likes}}
                                     <b><span>{{this.viewObj.form.data.0.instagram.likes}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Gillningar
-                                </h3>
+                                </h4>
                             {{/if}}
                             {{#if this.queries.instagramComments}}
-                                <h3>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.instagram.comments}}
                                     <b><span>{{this.viewObj.form.data.0.instagram.comments}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Kommentarer
-                                </h3>
+                                </h4>
                             {{/if}}
                             {{#if this.queries.instagramTags}}
-                                <h3>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.instagram.tags}}
                                     <b><span>{{this.viewObj.form.data.0.instagram.tags}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Taggningar
-                                </h3>
+                                </h4>
                             {{/if}}
                             {{#if this.queries.instagramTaggedUsers}}
-                                <h3>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.instagram.taggedUsers}}
                                     <b><span>{{this.viewObj.form.data.0.instagram.taggedUsers}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Taggade användare
-                                </h3>
+                                </h4>
                             {{/if}}
                           </div>
                       {{/if}}
                       {{#if this.queries.analytics}}
                           <div class=apiStat>
-                            <h3 class="title">Analytics</h3>
+                            <h4 class="title">Analytics</h4>
                             {{#if this.queries.analyticsViews}}
-                                <h3>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.analytics.baseFigures.views}}
                                     <b><span>{{this.viewObj.form.data.0.analytics.baseFigures.views}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Visningar
-                                </h3>
+                                </h4>
                             {{/if}}
                             {{#if this.queries.analyticsUniqueViews}}
-                                <h3>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.analytics.baseFigures.uniqueViews}}
                                     <b><span>{{this.viewObj.form.data.0.analytics.baseFigures.uniqueViews}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Unika visningar
-                                </h3>
+                                </h4>
                             {{/if}}
                             {{#if this.queries.analyticsAverageTime}}
-                                <h3>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.analytics.baseFigures.averageTime}}
                                     <b><span>{{this.viewObj.form.data.0.analytics.baseFigures.averageTime}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Genomsnittlig tid på sidan
-                                </h3>
+                                </h4>
                             {{/if}}
                             {{#if this.queries.analyticsAverageVisitedPerPages}}
-                                <h3>
+                                <h4>
                                     {{#if this.viewObj.form.data.0.analytics.baseFigures.averageVisitedPerPages}}
                                     <b><span>{{this.viewObj.form.data.0.analytics.baseFigures.averageVisitedPerPages}}</span></b>
                                     {{else}}
-                                    <h3><b>-</b>
+                                    <h4><b>-</b>
                                     {{/if}}
                                     <br />Genomsnittligt antal besökta sidor
-                                </h3>
+                                </h4>
                             {{/if}}
                           </div>
                       {{/if}}
