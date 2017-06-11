@@ -45,13 +45,13 @@ module.exports = function (accessObj, startDate, accessUser) {
   return new Promise(function (resolve) {
     oauth2Client.setCredentials({
       access_token: decrypt.decryptText(accessObj.accessToken),
-      refresh_token: decrypt.decryptText(accessObj.refreshToken)
+      refresh_token: decrypt.decryptText(accessObj.refreshToken),
     });
 
     oauth2Client.refreshAccessToken(function (err, tokens) {
 
       if (err) {
-        return console.error(err)
+        return console.error(err);
       }
 
       if (tokens) {
@@ -62,7 +62,7 @@ module.exports = function (accessObj, startDate, accessUser) {
               'google.access.extraParams.id_token': encrypt.encryptText(tokens.id_token),
               'google.access.extraParams.token_type': tokens.token_type,
               'google.access.extraParams.expiry_date': tokens.expiry_date.toString(),
-              'google.access.extraParams.access_token': encrypt.encryptText(tokens.access_token)
+              'google.access.extraParams.access_token': encrypt.encryptText(tokens.access_token),
             },
             { new: true },
             function (error, matchingApiAccess) {
@@ -78,7 +78,7 @@ module.exports = function (accessObj, startDate, accessUser) {
     });
 
     var result = [youtubeViews(), analyticsBaseFigures(), analyticsMostVisited(),
-      analyticsTopLanding()];
+      analyticsTopLanding(), ];
     Promise.all(result).then(function (values) {
 
       var returnObj = {
@@ -86,8 +86,8 @@ module.exports = function (accessObj, startDate, accessUser) {
         analytics: {
           baseFigures: values[1],
           mostVisited: values[2],
-          topLanding: values[3]
-        }
+          topLanding: values[3],
+        },
       };
 
       resolve(returnObj);
@@ -126,7 +126,6 @@ function analyticsBaseFigures() {
         return resolve({ error: 'analyticsBaseFigures error: ' + err.message || 'no analytics management account for user' });
       }
 
-
       obj['end-date'] = endDateString;
       obj['start-date'] = startDateString;
       obj['ids'] = 'ga:' + bodyProfile.items[0].webProperties[0].profiles[1].id; //profiles[0] har adwords trafik enbart, profile[1] all webbplatsdata
@@ -144,7 +143,7 @@ function analyticsBaseFigures() {
           strongestRedirects: '',
           mostVisitedPages: '',
           averageTime: results['ga:avgSessionDuration'],
-          averageVisitedPerPages: results['ga:pageViewsPerSession']
+          averageVisitedPerPages: results['ga:pageViewsPerSession'],
         };
         resolve(baseFigures);
       });
@@ -159,7 +158,7 @@ function analyticsMostVisited() {
 
     analytics.management.accountSummaries.list(obj, function (err, bodyProfile) {
       if (err || !bodyProfile) {
-        return resolve({ error: 'analyticsMostVisited error: ' + err.message || 'no analytics most visited recieved'});
+        return resolve({ error: 'analyticsMostVisited error: ' + err.message || 'no analytics most visited recieved' });
       }
 
       obj['end-date'] = endDateString;
@@ -172,7 +171,7 @@ function analyticsMostVisited() {
       obj['auth'] = oauth2Client;
       analytics.data.ga.get(obj, function (errData, bodyData) {
         if (errData || !bodyData) {
-          return resolve({ error: 'analyticsMostVisited data.ga.get error: ' + errData.message || 'no analytics page views data recieved '});
+          return resolve({ error: 'analyticsMostVisited data.ga.get error: ' + errData.message || 'no analytics page views data recieved ' });
         }
 
         var results = bodyData.rows;

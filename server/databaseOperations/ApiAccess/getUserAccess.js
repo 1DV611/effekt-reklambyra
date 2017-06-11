@@ -10,7 +10,7 @@ mongoose.Promise = global.Promise;
 function getUserAPIAccess(userId) {
   return new Promise(function (resolve, reject) {
     ApiAccess.findOne({
-      user: userId
+      user: userId,
     }).then(function (doc) {
       resolve(doc);
     }).catch(function (error) {

@@ -79,7 +79,6 @@ function changeHrefForPreview() {
   var moz = document.querySelector('#moz');
   var mozKeywords = document.querySelector('#moz-keywords');
 
-
   // Vilka medier och features som blivit iklickade på dashboard-sidan:
 
   if (adwords && adwords.checked) {

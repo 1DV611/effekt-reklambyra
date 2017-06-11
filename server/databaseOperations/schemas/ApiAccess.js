@@ -7,14 +7,14 @@ const ApiAccessSchema = new Schema({
   timestamp: {
     type: Date,
     required: true,
-    default: Date.now },
+    default: Date.now, },
   updated: { type: Date },
   user: {
     type: Schema.Types.String,
     ref: 'User',
     justOne: true,
     //unique: [true, 'User already has ApiAccess!'],
-    required: [true, 'A user reference is required!'] },
+    required: [true, 'A user reference is required!'], },
   google: { type: Object },
   facebook: { type: Object },
   tynt: { type: Object },
@@ -22,7 +22,7 @@ const ApiAccessSchema = new Schema({
   twitter: { type: Object },
   linkedin: { type: Object },
   moz: { type: Object },
-  instagram: { type: Object }
+  instagram: { type: Object },
 });
 
 ApiAccessSchema.post('save', handleDuplicateKeyError);

@@ -65,37 +65,37 @@ passport.use(new Auth0Strategy({
   domain: process.env.AUTH0_DOMAIN,
   clientID: process.env.AUTH0_CLIENT_ID,
   clientSecret: process.env.AUTH0_CLIENT_SECRET,
-  callbackURL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback'
+  callbackURL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback',
 }, userLoginCallback));
 
 passport.use(new GoogleOauthStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: process.env.BASE_URL + '/auth/google/callback'
+  callbackURL: process.env.BASE_URL + '/auth/google/callback',
 }, socialChannelCallback));
 
 passport.use(new InstagramStrategy({
   clientID: process.env.INSTAGRAM_CLIENT_ID,
   clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
-  callbackURL: process.env.BASE_URL + '/auth/instagram/callback'
+  callbackURL: process.env.BASE_URL + '/auth/instagram/callback',
 }, socialChannelCallback));
 
 passport.use(new LinkedinStrategy({
   clientID: process.env.LINKEDIN_CLIENT_ID,
   clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
-  callbackURL: process.env.BASE_URL + '/auth/linkedin/callback'
+  callbackURL: process.env.BASE_URL + '/auth/linkedin/callback',
 }, socialChannelCallback));
 
 passport.use(new TwitterStrategy({
   consumerKey: process.env.TWITTER_CONSUMER_KEY,
   consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-  callbackURL: process.env.BASE_URL + '/auth/twitter/callback'
+  callbackURL: process.env.BASE_URL + '/auth/twitter/callback',
 }, socialChannelCallback));
 
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: process.env.BASE_URL + '/auth/facebook/callback'
+  callbackURL: process.env.BASE_URL + '/auth/facebook/callback',
 }, socialChannelCallback));
 
 // minskar storleken på payload

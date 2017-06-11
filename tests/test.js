@@ -9,8 +9,8 @@ var baseUrl = 'http://localhost:3000/';
 
 var options = {
   desiredCapabilities: {
-    browserName: 'firefox'
-  }
+    browserName: 'firefox',
+  },
 };
 
 describe('not authenticated user', function () {
@@ -20,12 +20,14 @@ describe('not authenticated user', function () {
       return browser.getUrl().should.be.equal(baseUrl + 'login');
     });
   });
+
   it('accessing /user/dashboard should get redirected to /login', function () {
     browser.url(baseUrl + 'user/dashboard');
     browser.waitUntil(function () {
       return browser.getUrl().should.be.equal(baseUrl + 'login');
     });
   });
+
   it('accessing /user/reports should get redirected to /login', function () {
     browser.url(baseUrl + 'user/reports');
     browser.waitUntil(function () {

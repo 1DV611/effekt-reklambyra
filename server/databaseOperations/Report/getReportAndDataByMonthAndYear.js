@@ -3,7 +3,7 @@ var getCurrentApiData = require('./../ApiData/getCurrentApiData');
 var getReport = require('./../Report/getReport');
 var currentMonthAndYear = require('../../helpers/currentMonthAndYear');
 var months = ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
-  'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'
+  'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December',
 ];
 var promises = [];
 var viewObj = {};
@@ -48,7 +48,7 @@ function getReportByMonthAnYear(user, query, month, year) {
     queries: query,
     month: months[month],
     year: year,
-    form: {}
+    form: {},
   };
 
   /** IF - Om nuvarande månads data efterfrågas så hämtas data inte från databasen utan direkt
@@ -59,27 +59,27 @@ function getReportByMonthAnYear(user, query, month, year) {
    * **/
   if (currentMonthAndYear(month, year)) {
     return new Promise(function (resolve, reject) {
-      return getCurrentApiData(user.id, startDate).then(function(r1) {
-        return getReport(user.id, previousDate).then(function(r2) {
-          return getReport(user.id, previousPreviousDate).then(function(r3) {
+      return getCurrentApiData(user.id, startDate).then(function (r1) {
+        return getReport(user.id, previousDate).then(function (r2) {
+          return getReport(user.id, previousPreviousDate).then(function (r3) {
             viewObj.form.data = [r1.data, r2.data, r3.data];
             viewObj.form.report = [r1.report, r2.report, r3.report];
             resolve(viewObj);
           });
         });
-      }).catch(function(err) { reject(err); });
+      }).catch(function (err) { reject(err); });
     });
   } else {
     return new Promise(function (resolve, reject) {
-      return getReport(user.id, startDate).then(function(r1) {
-        return getReport(user.id, previousDate).then(function(r2) {
-          return getReport(user.id, previousPreviousDate).then(function(r3) {
+      return getReport(user.id, startDate).then(function (r1) {
+        return getReport(user.id, previousDate).then(function (r2) {
+          return getReport(user.id, previousPreviousDate).then(function (r3) {
             viewObj.form.data = [r1.data, r2.data, r3.data];
             viewObj.form.report = [r1.report, r2.report, r3.report];
             resolve(viewObj);
           });
         });
-      }).catch(function(err) { reject(err) });
+      }).catch(function (err) { reject(err); });
     });
   }
 }

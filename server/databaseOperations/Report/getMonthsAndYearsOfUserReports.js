@@ -8,7 +8,7 @@ var dates;
 function getMonthsAndYearsOfUserReports(userID) {
   return new Promise(function (resolve, reject) {
     Report.find({
-      user: userID
+      user: userID,
     }).then(function (reports) {
       dates = {};
       reports.forEach(function (report) {
@@ -18,6 +18,7 @@ function getMonthsAndYearsOfUserReports(userID) {
           dates[report.startDate.getFullYear()] = [report.startDate.getMonth()];
         }
       });
+
       resolve(dates);
     }).catch(function (err) { reject(err); });
   });

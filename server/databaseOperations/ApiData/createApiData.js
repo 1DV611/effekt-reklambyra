@@ -22,7 +22,7 @@ function createApiData(report) {
     }).then(function (data) {
 
       var obj = {
-        report: report._id
+        report: report._id,
       };
 
       for (var prop in data) {

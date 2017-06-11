@@ -11,7 +11,7 @@ function createReport(userProfileId, month, year) {
         console.log('report is created');
         newReport = new Report({
           user: userProfileId,
-          startDate: startDate
+          startDate: startDate,
         });
 
         newReport.save();

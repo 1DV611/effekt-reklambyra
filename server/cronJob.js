@@ -34,11 +34,11 @@ function dailyUpdate(date) {
       // databasfunktion liknande createApiData som uppdaterar daglig API data genom att calla
       // callAPIs.js .daily metod
       // denna schemaläggs att köras dagligen med apiScheduler
-    })
-  })
+    });
+  });
 }
 
-function updateEach (APIAccess, date) {
+function updateEach(APIAccess, date) {
   var currentDate = epochToDate(date);
 
   createReport(APIAccess.user, currentDate.month, currentDate.year)

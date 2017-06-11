@@ -11,14 +11,14 @@ function getAllReports(profileId, fullYear) {
   if (fullYear === undefined) {
     return new Promise(function (resolve, reject) {
       Report.find({
-        user: profileId
+        user: profileId,
       }).then(function (reports) {
         userReports = [];
 
         reports.forEach(function (report) {
           userReports.push({
             user: report.user,
-            startDate: report.startDate
+            startDate: report.startDate,
           });
         });
 
@@ -35,14 +35,14 @@ function getAllReports(profileId, fullYear) {
     var lessThan = new Date(startDate.getFullYear() + 1, 0, 1).toISOString();
     Report.find({
       user: profileId,
-      startDate: { $gt: moreThan, $lt: lessThan }
+      startDate: { $gt: moreThan, $lt: lessThan },
     }).then(function (reports) {
       userReports = [];
 
       reports.forEach(function (report) {
         userReports.push({
           user: report.user,
-          startDate: report.startDate
+          startDate: report.startDate,
         });
       });
 

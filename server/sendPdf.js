@@ -11,7 +11,7 @@ function sendPdf(source, res) {
   // - phantomHtmlToPdf
   var converter = phantomHtmlToPdf;
 
-  return converter(source, res)
+  return converter(source, res);
 }
 
 /*
@@ -20,16 +20,17 @@ function sendPdf(source, res) {
  */
 function htmlPdf(html, res) {
 
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     var pdf = require('html-pdf');
     var config = {
-      orientation: 'landscape'
+      orientation: 'landscape',
     };
-    pdf.create(html, config).toStream(function(err, stream) {
+    pdf.create(html, config).toStream(function (err, stream) {
       if (err) {
         reject('htmlPdf(): Failed to produce pdf:');
         return;
       }
+
       setHeaders(res);
       stream.pipe(res);
     });
@@ -41,19 +42,20 @@ function htmlPdf(html, res) {
  * Skicka sedan resultatet
  */
 function phantomHtmlToPdf(html, res) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     var pdf = require('phantom-html-to-pdf')();
     var config = {
       html: '<head><meta charset="utf-8" /></head>' + html,
       paperSize: {
-         orientation: 'landscape'
-      }
-    }
-    pdf(config, function(err, f) {
+        orientation: 'landscape',
+      },
+    };
+    pdf(config, function (err, f) {
       if (err) {
         reject('phantomHtmlToPdf(): Failed to produce pdf:', err);
         return;
       }
+
       setHeaders(res);
       f.stream.pipe(res);
     });
@@ -64,8 +66,8 @@ function phantomHtmlToPdf(html, res) {
  * Presentera response-datan som pdf för klienten
  */
 function setHeaders(res) {
-      res.setHeader('Content-disposition', 'attachment; filename=rapport.pdf');
-      res.setHeader('Content-type', 'application/pdf');
+  res.setHeader('Content-disposition', 'attachment; filename=rapport.pdf');
+  res.setHeader('Content-type', 'application/pdf');
 }
 
 module.exports = sendPdf;

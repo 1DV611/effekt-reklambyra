@@ -9,7 +9,7 @@ function checkIfFileExists(userId, startDate) {
   return new Promise(function (resolve, reject) {
     return Report.findOne({
       user: userId,
-      startDate: { $gt: moreThan, $lt: lessThan }
+      startDate: { $gt: moreThan, $lt: lessThan },
     }).then(function (report) {
       if (report === null) {
         resolve(false);

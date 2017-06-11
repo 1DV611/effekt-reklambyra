@@ -7,17 +7,17 @@ const UserSchema = new Schema({
   profileId: {
     type: String,
     unique: [true, 'Profile id is already registered!'], // Is this set in Auth0?
-    required: [true, 'A profile id is required!']
+    required: [true, 'A profile id is required!'],
   },
   displayName: {
     type: String,
     unique: [true, 'Display name is already registered!'], // Is this set in Auth0?
-    required: [true, 'A display name is required!'] //  Is this set in Auth0?
+    required: [true, 'A display name is required!'], //  Is this set in Auth0?
   },
   admin: {
     type: Boolean,
-    required: [true, 'User status must be entered!']
-  }
+    required: [true, 'User status must be entered!'],
+  },
 });
 
 UserSchema.post('save', handleDuplicateKeyError);

@@ -10,7 +10,7 @@ dotenv.load();
 var Instagram = require('neo-instagram');
 var client = new Instagram({
   client_id: process.env.INSTAGRAM_CLIENT_ID,
-  client_secret: process.env.INSTAGRAM_CLIENT_SECRET
+  client_secret: process.env.INSTAGRAM_CLIENT_SECRET,
 });
 var relevantDate;
 
@@ -73,6 +73,6 @@ function countInstagramStatsFor(relevantMedias) {
     likes: totalLikes,
     comments: totalComments,
     tags: totalTags,
-    taggedUsers: totalTaggedUsers
+    taggedUsers: totalTaggedUsers,
   };
 }

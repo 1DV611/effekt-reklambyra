@@ -14,11 +14,12 @@ function getReport(userId, startDate) {
   return new Promise(function (resolve, reject) {
     return Report.findOne({
       user: userId,
-      startDate: { $gt: moreThan, $lt: lessThan }
+      startDate: { $gt: moreThan, $lt: lessThan },
     }).then(function (report) {
       if (report === null) {
         resolve({});
       }
+
       reportData = report;
       return report;
     }).then(function (report) {
