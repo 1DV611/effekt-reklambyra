@@ -1,5 +1,7 @@
+
 /*
- * Tar emot en kombination av html, css och javascript, skapar en pdf-data-ström som sedan skickas via response-objektet.
+ * Tar emot en kombination av html, css och javascript,
+ * skapar en pdf-data-ström som sedan skickas via response-objektet.
  */
 function sendPdf(source, res) {
   if (source == undefined) {

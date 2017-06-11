@@ -1,5 +1,6 @@
 var google = require('googleapis');
 var dotenv = require('dotenv');
+
 //  OBS! you need to enable each API you want to use at console.developers.google.com/apis
 var youtubeAnalytics = google.youtubeAnalytics('v1');
 var analytics = google.analytics('v3');
@@ -78,7 +79,7 @@ module.exports = function (accessObj, startDate, accessUser) {
     });
 
     var result = [youtubeViews(), analyticsBaseFigures(), analyticsMostVisited(),
-      analyticsTopLanding(), ];
+      analyticsTopLanding(),];
     Promise.all(result).then(function (values) {
 
       var returnObj = {
@@ -100,12 +101,14 @@ module.exports = function (accessObj, startDate, accessUser) {
 function youtubeViews() {
   return new Promise(function (resolve) {
     var obj = {};
+
     // using bracket notation since google requires dashes in some of their required params
     obj['end-date'] = endDateString;
     obj['start-date'] = startDateString;
     obj['ids'] = 'channel==MINE';
     obj['metrics'] = 'views';
     obj['auth'] = oauth2Client;
+
     // The api explorer is very useful: https://developers.google.com/apis-explorer
     youtubeAnalytics.reports.query(obj, function (err, body) {
       if (err || !body) {

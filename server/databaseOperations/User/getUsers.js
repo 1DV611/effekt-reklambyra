@@ -12,7 +12,7 @@ function getUsers() {
         usernames.push({
           profileId: user.profileId,
           displayName: user.displayName,
-          admin: user.admin
+          admin: user.admin,
         });
       });
 

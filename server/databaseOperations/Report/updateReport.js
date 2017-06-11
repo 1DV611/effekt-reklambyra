@@ -23,7 +23,8 @@ function updateReport(userProfileId, month, year, summary, optimization, recomme
       { new: true },
       function (error, matchingReport) {
         if (error) reject('updateReport(): ' + error);
-        if (matchingReport === null) reject('updateReport(): No report found with userProfileId ' + userProfileId + ' and startDate ' + startDate + '.');
+        if (matchingReport === null) reject('updateReport(): No report found with userProfileId '
+            + userProfileId + ' and startDate ' + startDate + '.');
         resolve(matchingReport);
       }
     );

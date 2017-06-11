@@ -17,7 +17,7 @@ function handleLogin(profile) {
       newUser = new User({
         profileId: profile.id,
         displayName: profile.displayName,
-        admin: profile.admin
+        admin: profile.admin,
       });
 
       newUser.save(function (error) {

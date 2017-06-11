@@ -47,6 +47,7 @@ function filterByMonthYear(recentMedias) {
   var relevantMedias = [];
   recentMedias.forEach(function (media) {
     var mediaDate = epochToDate(media.created_time);
+
     // checks the media creation date to ensure it matches the intended period.
     if (mediaDate.month === relevantDate.month && mediaDate.year === relevantDate.year) {
       relevantMedias.push(media);

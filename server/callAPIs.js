@@ -32,6 +32,7 @@ var APIResultsToObject = require('./../server/helpers/APIResultsToObject');
 function allAPIsMonthly(access, startDateInUnix) {
   return new Promise(function (resolve, reject) {
     var promises = [];
+
     // för APIer där data måste hämtas både månadsvis och dagligen har
     // dessa en monthly och en daily metod här ska monthly användas för sådana APIer
     if (access.twitter) {

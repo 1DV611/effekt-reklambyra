@@ -1,7 +1,8 @@
 'use strict';
 
 // lägg till egenskaper som ni vill ha krypterade här
-var propertiesToEncrypt = ['username', 'password', 'pubID', 'secret_api_key', 'site_guid', 'accessToken', 'access_token', 'refreshToken', 'refresh_token', 'id_token'];
+var propertiesToEncrypt = ['username', 'password', 'pubID', 'secret_api_key', 'site_guid',
+    'accessToken', 'access_token', 'refreshToken', 'refresh_token', 'id_token',];
 var encrypt = require('./encrypt');
 
 /**
@@ -25,13 +26,13 @@ module.exports = function (profile) {
         for (var subProperty in profile['extraParams']) {
 
           if (propertiesToEncrypt.indexOf(subProperty) > 0) {
-            profile['extraParams'][subProperty] = encrypt.encryptText(profile['extraParams'][subProperty])
+            profile['extraParams'][subProperty] = encrypt.encryptText(profile['extraParams'][subProperty]);
           }
         }
 
       }
 
-      access[property] = profile[property]
+      access[property] = profile[property];
     }
   }
 
