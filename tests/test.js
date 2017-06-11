@@ -2,7 +2,7 @@ var webdriverio = require('webdriverio');
 var mocha = require('mocha');
 var assert = require('assert');
 
-// Populate process.env
+// Hämta process.env
 require('dotenv').config();
 
 var baseUrl = 'http://localhost:3000/';
