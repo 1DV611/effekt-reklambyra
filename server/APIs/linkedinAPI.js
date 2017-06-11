@@ -23,11 +23,11 @@ module.exports = function (profile, startDate) {
 
     linkedin.companies.asAdmin(function (err, isAdminFor) {
       if (err) {
-        return resolve({ linkedin: { error: err.message}});
+        return resolve({ linkedin: { error: err.message } });
       }
 
       if (isAdminFor.status === 401) {
-        return resolve({ linkedin: { error: isAdminFor.message}});
+        return resolve({ linkedin: { error: isAdminFor.message } });
 
       }
 
@@ -48,7 +48,7 @@ function getCompanyStatsFor(companyPage) {
   var returnObj = {
     name: companyPage.name,
     // sparar id iom att name kan bytas så för att alltid kunna återkoppla data till page
-    id: companyPage.id
+    id: companyPage.id,
   };
 
   return new Promise(function (resolve) {
@@ -86,7 +86,7 @@ function interactionsForMonth(viewsByMonth) {
       engagement: value.engagement,
       impressions: value.impressions,
       likes: value.likes,
-      shares: value.shares
+      shares: value.shares,
     };
   }
 
@@ -116,5 +116,6 @@ function getForRelevantMonth(values) {
       result = value;
     }
   });
+
   return result;
 }

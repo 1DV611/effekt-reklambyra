@@ -15,7 +15,7 @@ particular provider handled differently.
  */
 standardRedirectSettings = {
   failureRedirect: process.env.BASE_URL + '/auth/fail',
-  successRedirect: process.env.BASE_URL + '/auth/social-channel-token'
+  successRedirect: process.env.BASE_URL + '/auth/social-channel-token',
 };
 
 /**
@@ -28,9 +28,9 @@ router.get('/google',
   passport.authenticate('google', {
     scope: ['profile', 'https://www.googleapis.com/auth/analytics.readonly',
       'https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/adsense.readonly',
-      'https://www.googleapis.com/auth/youtube.readonly'],
+      'https://www.googleapis.com/auth/youtube.readonly',],
     prompt: 'consent',
-    accessType: 'offline'
+    accessType: 'offline',
   }));
 
 router.get('/google/callback',
@@ -40,7 +40,7 @@ router.get('/google/callback',
 router.get('/instagram',
   ensureLoggedIn,
   passport.authenticate('instagram', {
-    scope: ['likes', 'basic', 'public_content', 'follower_list', 'comments', 'relationships']
+    scope: ['likes', 'basic', 'public_content', 'follower_list', 'comments', 'relationships'],
   }));
 
 router.get('/instagram/callback',
@@ -50,7 +50,7 @@ router.get('/instagram/callback',
 router.get('/linkedin',
   ensureLoggedIn,
   passport.authenticate('linkedin', {
-    scope: ['r_basicprofile', 'w_share', 'r_emailaddress', 'rw_company_admin']
+    scope: ['r_basicprofile', 'w_share', 'r_emailaddress', 'rw_company_admin'],
   }));
 
 router.get('/linkedin/callback',
@@ -87,8 +87,8 @@ router.get('/addthis',
       inputs: [
         { title: 'Username', name: 'username' },
         { title: 'Password', name: 'password' },
-        { title: 'Public ID', name: 'pubID' }
-      ]
+        { title: 'Public ID', name: 'pubID' },
+      ],
     };
     res.render('authInput', { api: api });
   });
@@ -99,7 +99,7 @@ router.post('/addthis/callback',
       { provider: 'addthis',
         username: req.body.username,
         password: req.body.password,
-        pubID: req.body.pubID
+        pubID: req.body.pubID,
       });
     res.redirect('/user/settings');
   });
@@ -111,8 +111,8 @@ router.get('/tynt',
       name: 'tynt',
       inputs: [
         { title: 'Secret API Key', name: 'secret_api_key' },
-        { title: 'Site GUID', name: 'site_guid' }
-      ]
+        { title: 'Site GUID', name: 'site_guid' },
+      ],
     };
     res.render('authInput', { api: api });
   });
@@ -122,7 +122,7 @@ router.post('/tynt/callback',
     updateSocialChannelProfile(req.session.authZeroUserID,
       { provider: 'tynt',
         secret_api_key: req.body.secret_api_key,
-        site_guid: req.body.site_guid
+        site_guid: req.body.site_guid,
       });
     res.redirect('/user/settings');
   });

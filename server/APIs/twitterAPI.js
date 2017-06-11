@@ -11,7 +11,7 @@ var client = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
   access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
 module.exports = function (profile) {
@@ -33,8 +33,8 @@ module.exports = function (profile) {
 
       var returnObj = {
         twitter: {
-          followers: result.followers_count
-        }
+          followers: result.followers_count,
+        },
       };
       resolve(returnObj);
     });

@@ -11,23 +11,23 @@ var monthToNumber = require('./helpers/monthToNumber.js');
  * Skapar en kombination av html, css och javascript som fungerar som underlag för en pdf-rapport. Kombinationen baseras till stor del på filen views/preview.handlebars, vilket gör att ändringar i denna fil påverkar funktionens resultat.
  */
 function generateHtmlForPdf(user, query, month, year, summary, optimization, recommendation) {
-  return new Promise(function(resolve, reject) {
-  getReportAndDataByMonthAndYear(user, query, monthToNumber(month), year).then(function(context) {
-    var obj = {
-      viewObj: context,
-      queries: context.queries
-    };
-    readFromFile('./views/preview.handlebars')
-      .then(function(fileContent) {
-        return fillHandlebarsContext(obj, fileContent);
-      })
-      .then(addCss)
-      .then(function(cssHtml) {
-        var finalHtml = postProcess(cssHtml, summary, optimization, recommendation);
-        resolve(finalHtml);
-      })
-      .catch(function(err) { reject(err); });
-    });
+  return new Promise(function (resolve, reject) {
+    getReportAndDataByMonthAndYear(user, query, monthToNumber(month), year).then(function (context) {
+        var obj = {
+          viewObj: context,
+          queries: context.queries,
+        };
+        readFromFile('./views/preview.handlebars')
+          .then(function (fileContent) {
+            return fillHandlebarsContext(obj, fileContent);
+          })
+          .then(addCss)
+          .then(function (cssHtml) {
+            var finalHtml = postProcess(cssHtml, summary, optimization, recommendation);
+            resolve(finalHtml);
+          })
+          .catch(function (err) { reject(err); });
+      });
   });
 }
 
@@ -35,12 +35,12 @@ function generateHtmlForPdf(user, query, month, year, summary, optimization, rec
  * Läser data från angiven fil
  */
 function readFromFile(path) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     fs.readFile(path, 'utf-8', function (err, data) {
       if (err) reject(err);
       resolve(data);
     });
-  })
+  });
 }
 
 /*
@@ -48,7 +48,7 @@ function readFromFile(path) {
  * Vilka css-filer som refereras styrs av filen views/preview.handlebars.
  */
 function addCss(html) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     var external_refs = " \
       <link inline href='css/light-bootstrap-dashboard.css'> \
       <link inline href='css/toogle-switch.css'> \
@@ -58,7 +58,7 @@ function addCss(html) {
     ";
     inline(external_refs, { rootpath: path.resolve('client') }, function (err, inlines) {
       if (err) reject(err);
-      resolve(inlines+html);
+      resolve(inlines + html);
     });
   });
 }

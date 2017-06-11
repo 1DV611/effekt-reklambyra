@@ -20,7 +20,7 @@ function getMediaSettingsForDashboard(userId) {
     }
   };
 
-// Hantera state förändring
+  // Hantera state förändring
   request.open('GET', '/user/' + userId + '/access', true);
   request.send();
 }
@@ -28,7 +28,6 @@ function getMediaSettingsForDashboard(userId) {
 function getActiveMedia() {
   var input = document.getElementById('customer');
   var choosenFromDataList = '';
-
 
   function checkExists() {
     var dataList = document.getElementById('customer-datalist');
@@ -40,6 +39,7 @@ function getActiveMedia() {
         match = true;
       }
     }
+
     return match;
   }
 

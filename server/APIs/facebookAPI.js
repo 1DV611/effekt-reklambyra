@@ -17,9 +17,9 @@ module.exports = function (profile) {
     graph.setAccessToken(token);
 
     graph.extendAccessToken({
-      "access_token":    token,
-       "client_id":      process.env.FACEBOOK_CLIENT_ID,
-       "client_secret":  process.env.FACEBOOK_CLIENT_SECRET
+      access_token:    token,
+      client_id:      process.env.FACEBOOK_CLIENT_ID,
+      client_secret:  process.env.FACEBOOK_CLIENT_SECRET,
     }, function (err, facebookRes) {
       console.log(facebookRes);
     });
@@ -36,8 +36,8 @@ module.exports = function (profile) {
       // (no pages with likes?) need a real account to test
       var returnObj = {
         facebook: {
-          likes: 42
-        }
+          likes: 42,
+        },
       };
 
       resolve(returnObj);

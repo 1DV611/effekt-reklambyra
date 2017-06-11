@@ -8,12 +8,12 @@ const ApiDataSchema = new Schema({
   timestamp: {
     type: Date,
     required: true,
-    default: Date.now },
+    default: Date.now, },
   updated: { type: Date },
   report: {
     type: Schema.Types.ObjectId,
     ref: 'Report',
-    required: [true, 'A report reference is required!'] },
+    required: [true, 'A report reference is required!'], },
   adwords: { type: Object },
   facebook: { type: Object },
   youtube: { type: Object },
@@ -23,7 +23,7 @@ const ApiDataSchema = new Schema({
   analytics: { type: Object },
   linkedin: { type: Object },
   moz: { type: Object },
-  instagram: { type: Object }
+  instagram: { type: Object },
 });
 
 ApiDataSchema.post('save', handleDuplicateKeyError);

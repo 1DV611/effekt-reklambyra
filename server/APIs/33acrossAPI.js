@@ -14,7 +14,7 @@ var andCallback = '&callback=';
 var callbackName = 'callbackName';
 var andStartTime = '&start_time=';
 //var twentyFourHoursInUnixTime = 86400;
-var start_time = 86400// - twentyFourHoursInUnixTime;
+var start_time = 86400;// - twentyFourHoursInUnixTime;
 var andEndTime = '&end_time=';
 
 var secret_api_key;
@@ -44,12 +44,12 @@ function monthly(access, unixTimeStamp) {
       var results = [socialAPI(relevantDate)];
 
       Promise.all(results).then(function (result) {
-        var resultObj = {across: {monthly: result}};
+        var resultObj = { across: { monthly: result } };
         resolve(resultObj);
       });
 
     } else {
-      resolve({across: {error: relevantDate.full + ' är mer än 12 veckor ifrån ' + currentDate.full }})
+      resolve({ across: { error: relevantDate.full + ' är mer än 12 veckor ifrån ' + currentDate.full } });
     }
   });
 }
@@ -61,7 +61,7 @@ function daily(access) {
 
   return new Promise(function (resolve) {
     Promise.all(results).then(function (result) {
-      var resultObj = {across: {daily: result}};
+      var resultObj = { across: { daily: result } };
       resolve(resultObj);
     });
   });
@@ -75,7 +75,7 @@ function pageCopiesAPI() {
 
     request(queryString, function (err, res, body) {
       if (err || !body) {
-        return resolve({error: '33across page copies API error: ' + err.message});
+        return resolve({ error: '33across page copies API error: ' + err.message });
       }
 
       var obj = JSON.parse(body);
@@ -98,7 +98,7 @@ function pageCopiesAPI() {
       });
 
       var returnObj = {
-        pageCopies: resultObj
+        pageCopies: resultObj,
       };
 
       resolve(returnObj);
@@ -116,7 +116,7 @@ function socialAPI(date) {
     // t ex 2017-03-26, 2017-04-30, 2017-05-21
     request(queryString, function (err, res, body) {
       if (err || !body) {
-        return resolve({error: '33across social API error: ' + err.message});
+        return resolve({ error: '33across social API error: ' + err.message });
       }
 
       try {
@@ -124,7 +124,7 @@ function socialAPI(date) {
         resolve(filterForMonth(obj, date));
       } catch (e) {
         console.error(e);
-        resolve({error: e.message})
+        resolve({ error: e.message });
       }
 
     });
@@ -134,7 +134,7 @@ function socialAPI(date) {
 function filterForMonth(results, date) {
   var returnObj = {
     shares: 0,
-    visitors: 0
+    visitors: 0,
   };
 
   results.data.forEach(function (result) {

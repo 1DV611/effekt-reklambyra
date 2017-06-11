@@ -11,13 +11,13 @@ function updateReport(userProfileId, month, year, summary, optimization, recomme
   updateObj = {
     summary: summary, // string
     optimization: optimization, // string
-    recommendation: recommendation // string
+    recommendation: recommendation, // string
   };
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     Report.findOneAndUpdate(
       {
         user: userProfileId,
-        startDate: { $gt: moreThan, $lt: lessThan }
+        startDate: { $gt: moreThan, $lt: lessThan },
       },
       updateObj,
       { new: true },

@@ -18,9 +18,8 @@ var endpoints = ['/shares/day.json?period=month&pubid=',
   '/sharers/day.json?period=month&pubid=',
   // '/influencers/day.json?period=month&pubid=', ger en tom array
   '/clickers/day.json?period=month&pubid=',
-  '/users/day.json?period=month&pubid='
+  '/users/day.json?period=month&pubid=',
 ];
-
 
 module.exports = function (access, startDate) {
   var username = access.username;
@@ -35,19 +34,19 @@ module.exports = function (access, startDate) {
 
     // addThis ger bara data för senaste två månaderna.
 
-      var resultPromises = [];
+    var resultPromises = [];
 
-      endpoints.forEach(function (endpoint) {
-        resultPromises.push(requestAPIData(APIurl, endpoint, pubID));
-      });
+    endpoints.forEach(function (endpoint) {
+      resultPromises.push(requestAPIData(APIurl, endpoint, pubID));
+    });
 
-      Promise.all(resultPromises).then(function (result) {
-        var returnObj = {
-          addThis: result
-        };
+    Promise.all(resultPromises).then(function (result) {
+      var returnObj = {
+        addThis: result,
+      };
 
-        resolve(returnObj);
-      });
+      resolve(returnObj);
+    });
   });
 };
 
@@ -60,7 +59,7 @@ function requestAPIData(APIurl, endpoint, pubID) {
         if (parsedBody.error) return resolve({ error: 'addThis API error: ' + parsedBody.error.message });
       }
 
-      if (err) return resolve({ error: 'addThis API error: ' + err.message});
+      if (err) return resolve({ error: 'addThis API error: ' + err.message });
 
       resolve(toFilterByMonth(parsedBody));
     });
@@ -76,7 +75,7 @@ function toFilterByMonth(APIData) {
 
   //sparar data för sharers, clickers, users, shares, clicks
   APIData.forEach(function (day) {
-    var dataYearMonth = day.date.slice(0,4);
+    var dataYearMonth = day.date.slice(0, 4);
     console.log(day.date);
 
     if (dataYearMonth === desiredYearMonth) {

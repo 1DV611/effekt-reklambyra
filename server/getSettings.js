@@ -11,7 +11,7 @@ var allMediaNames = [
   'linkedin',
   'moz',
   'tynt',
-  'twitter'
+  'twitter',
 ];
 
 /*
@@ -26,7 +26,7 @@ function getSettings(req, res) {
       medias = allMediaNames.map(function (mediaName) {
         return {
           name: mediaName,
-          isActive: apiAccessIntersection(allMediaNames, apiAccessKeys).includes(mediaName)
+          isActive: apiAccessIntersection(allMediaNames, apiAccessKeys).includes(mediaName),
         };
       });
 

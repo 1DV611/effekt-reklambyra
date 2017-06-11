@@ -13,14 +13,14 @@ var updateObj;
  */
 function updateSocialChannelProfile(sessionUserID, profile) {
   updateObj = {
-    updated: Date.now()
+    updated: Date.now(),
   };
 
   //  If - Inaktiverar medier som anges i array för användaren
   //  Else - sparar och uppdaterar medier för användaren
   if (Array.isArray(profile)) {
     updateObj = {
-      $unset: {}
+      $unset: {},
     };
 
     profile.forEach(function (media) {
@@ -31,7 +31,7 @@ function updateSocialChannelProfile(sessionUserID, profile) {
 
     queryObj = {
       provider: profile.provider,
-      access: encryptSensitiveProfileProperties(profile)
+      access: encryptSensitiveProfileProperties(profile),
     };
 
     updateObj[queryObj.provider] = queryObj;
@@ -45,6 +45,7 @@ function updateSocialChannelProfile(sessionUserID, profile) {
       if (error) {
         console.log(error);
       }
+
       if (matchingApiAccess === null) {
         console.log('No user to save token to');
       }

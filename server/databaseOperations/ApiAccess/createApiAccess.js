@@ -7,7 +7,7 @@ var ApiAccess = require('../schemas/ApiAccess');
  */
 function createApiAccess(newUserProfileId) {
   var newApiAccess = new ApiAccess({
-    user: newUserProfileId
+    user: newUserProfileId,
   });
 
   newApiAccess.save(function (error) {

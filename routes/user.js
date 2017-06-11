@@ -153,7 +153,7 @@ router.get('/:user/access',
       'linkedin',
       'moz',
       'tynt',
-      'twitter'
+      'twitter',
     ];
 
     if (req.user.admin) {
@@ -164,9 +164,10 @@ router.get('/:user/access',
           medias = allMediaNames.map(function (mediaName) {
             return {
               name: mediaName,
-              isActive: apiAccessIntersection(allMediaNames, apiAccessKeys).includes(mediaName)
+              isActive: apiAccessIntersection(allMediaNames, apiAccessKeys).includes(mediaName),
             };
           });
+
           res.status(200).json({ medias: medias });
         }).catch(function (err) {
           res.status(500).json({ error: err });
@@ -179,9 +180,10 @@ router.get('/:user/access',
           medias = allMediaNames.map(function (mediaName) {
             return {
               name: mediaName,
-              isActive: apiAccessIntersection(allMediaNames, apiAccessKeys).includes(mediaName)
+              isActive: apiAccessIntersection(allMediaNames, apiAccessKeys).includes(mediaName),
             };
           });
+
           res.status(200).json({ medias: medias });
         }).catch(function (err) {
           res.status(500).json({ error: err });
