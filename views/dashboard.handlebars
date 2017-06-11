@@ -174,18 +174,11 @@
             </div>
             <br>
             <div class="left-button-div">
-                <a id="previewButton" href="" onclick="changeHrefPreview()" class="btn btn-default">Förhandsvisa månadsrapport</a>
+                <a id="previewButton" href="" onclick="changeHrefForPreview()" class="btn btn-default">Förhandsvisa månadsrapport</a>
             </div>
 
             <br>
 
-            <!--- Möjlig utvigning av dashboard (ej fullt ut testad):
-            {{#if this.user.admin}}
-                <div class="left-button-div">
-                    <a id="showAllReportsButton" href="" onclick="changeHrefReports()" class="btn btn-default">Visa alla månadsrapporterna</a>
-                </div>
-            {{/if}}
-            --->
             {{#if user.admin}}
             <script src="/js/lib/dashboardAjax/adminGetUsersForAutoComplete.js"></script>
             <script src="/js/lib/dashboardAjax/adminPopulateForSelectedUser.js"></script>
