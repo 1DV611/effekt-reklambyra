@@ -8,7 +8,10 @@ var getReportAndDataByMonthAndYear = require('./../server/databaseOperations/Rep
 var monthToNumber = require('./helpers/monthToNumber.js');
 
 /**
- * Skapar en kombination av html, css och javascript som fungerar som underlag för en pdf-rapport. Kombinationen baseras till stor del på filen views/preview.handlebars, vilket gör att ändringar i denna fil påverkar funktionens resultat.
+ * Skapar en kombination av html, css och javascript
+ * som fungerar som underlag för en pdf-rapport.
+ * Kombinationen baseras till stor del på filen views/preview.handlebars,
+ * vilket gör att ändringar i denna fil påverkar funktionens resultat.
  */
 function generateHtmlForPdf(user, query, month, year, summary, optimization, recommendation) {
   return new Promise(function (resolve, reject) {

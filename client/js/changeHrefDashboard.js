@@ -1,5 +1,8 @@
+
 /**
- * Lägger på månad, år, kund, alla aktiva medier och features från dashboard-sidan på href:en för att preview-vyn ska veta
+ * Lägger på månad, år, kund,
+ * alla aktiva medier och features från dashboard-sidan på href:en
+ * för att preview-vyn ska veta
  * vad som ska visas.
  */
 
@@ -31,7 +34,11 @@ function changeHrefForPreview() {
 
   // Lägg till månad, år och kund på href:en utifrån det som matats in på dashboard-sidan:
 
-  var href = '/user/report/' + months.value + '/' + years.value + '?customer=' + customer.value + '&month=' + monthNames[month] + '&previousMonth=' + monthNames[previousMonth] + '&monthBeforePreviousMonth=' + monthNames[monthBeforePreviousMonth] + '&year=' + years.value;
+  var href = '/user/report/' + months.value + '/' + years.value + '?customer=' + customer.value
+      + '&month=' + monthNames[month]
+      + '&previousMonth=' + monthNames[previousMonth]
+      + '&monthBeforePreviousMonth=' + monthNames[monthBeforePreviousMonth]
+      + '&year=' + years.value;
 
   // Koppla till alla media och feature-inputs på dashboard-sidan:
 

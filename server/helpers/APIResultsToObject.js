@@ -3,7 +3,7 @@ var APIResultsToObject = function (results) {
 
   results.forEach(function (result) {
     for (var property in result) {
-        obj[property] = result[property];
+      obj[property] = result[property];
     }
   });
 

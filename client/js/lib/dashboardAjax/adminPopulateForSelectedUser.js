@@ -4,7 +4,7 @@ function getReportMonths(userId, year) {
   var monthsArray = [];
 
   // Hantera state förändring
-  request.onreadystatechange = function() {
+  request.onreadystatechange = function () {
     var months = document.getElementById('months');
 
     months.options.length = 0;
@@ -22,11 +22,11 @@ function getReportMonths(userId, year) {
         });
 
         uniqueMonths.sort(function (a, b) {
-          return b - a
+          return b - a;
         });
 
         var namesOf = ['januari', 'februari', 'mars', 'april', 'maj', 'juni',
-          'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
+          'juli', 'augusti', 'september', 'oktober', 'november', 'december',];
 
         // Loop over the JSON array.
         uniqueMonths.forEach(function (item) {
@@ -97,7 +97,6 @@ function getSelected() {
   var input = document.getElementById('customer');
   var choosenFromDataList = '';
 
-
   function checkExists() {
     var dataList = document.getElementById('customer-datalist');
     var i;
@@ -108,6 +107,7 @@ function getSelected() {
         match = true;
       }
     }
+
     return match;
   }
 

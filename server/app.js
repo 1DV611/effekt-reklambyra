@@ -3,6 +3,7 @@ var express = require('express');
 var app = express();
 
 var dotenv = require('dotenv');
+
 // måste anropas innan en process.env.VARIABLE används, laddar environment variables
 dotenv.load();
 
@@ -38,7 +39,6 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 // the helpers object is imported from a separate file in views/helpers.js
 var hbs = exphbs.create(hbsHelpers);

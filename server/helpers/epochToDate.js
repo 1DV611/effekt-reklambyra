@@ -15,7 +15,6 @@ module.exports = function (unixTimeStamp) {
   var month = date.getMonth();
   var addedMonth = month + 1;
 
-
   return {
     // full sparas iaf andra datum funktioner skulle behövas senare
     full: date,
@@ -23,7 +22,7 @@ module.exports = function (unixTimeStamp) {
     addedMonth: addedMonth,
     year: date.getFullYear(),
     monthWithZeroString: month > 9 ? month : '0' + month,
-    addedMonthWithZeroString: addedMonth > 9 ? addedMonth : '0' + addedMonth
-  }
+    addedMonthWithZeroString: addedMonth > 9 ? addedMonth : '0' + addedMonth,
+  };
 
 };

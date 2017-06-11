@@ -30,27 +30,28 @@ function addDate() {
  */
 function seedDatabase(access) {
   delayedArrayLoop(timeStamps.dates, function (timeStamp) {
-    cronJob.updateEach(access, timeStamp)
+    cronJob.updateEach(access, timeStamp);
   }, 10000);
 }
 
 function seedEntireDatabase() {
   delayedArrayLoop(timeStamps.dates, function (timeStamp) {
-    cronJob.monthly(timeStamp)
+    cronJob.monthly(timeStamp);
   }, 10000);
 }
 
 function forUser(id) {
-  apiAccess.findOne({user: id}).then(function (access) {
+  apiAccess.findOne({ user: id }).then(function (access) {
 
-    // tar bort apier som inte ger historisk data for att undvika att de populerar databasen med samma manader.
+    // tar bort apier som inte ger historisk data,
+    // for att undvika att de populerar databasen med samma manader.
     if (access) {
       var historicalOnly = access._doc;
       historicalOnly.twitter = null;
       historicalOnly.tynt = null;
       seedDatabase(historicalOnly);
     } else {
-      console.error('no access returned')
+      console.error('no access returned');
     }
 
   });
