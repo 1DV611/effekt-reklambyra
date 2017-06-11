@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * * Module dependencies.
+ * * Modulberoenden.
  */
 
 const app = require('./server/app');
@@ -9,20 +9,20 @@ const debug = require('debug')('nodejs-regular-webapp2:server');
 const http = require('http');
 
 /**
- * Get port from environment and store in Express.
+ * Hämta porten från miljövariablen och spara i Express.
  */
 
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
- * Create HTTP server.
+ * Skapa en HTTP server.
  */
 
 const server = http.createServer(app);
 
 /**
- * Listen on provided port, on all network interfaces.
+ * Lyssna på given port, för alla nätverksinterface.
  */
 
 server.listen(port);
@@ -30,19 +30,19 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 /**
- * Normalize a port into a number, string, or false.
+ * Normalisera en port till ett nummer, sträng, eller false.
  */
 
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
   if (isNaN(port)) {
-    // named pipe
+    // Namngiven lina
     return val;
   }
 
   if (port >= 0) {
-    // port number
+    // portnummer
     return port;
   }
 
@@ -50,7 +50,7 @@ function normalizePort(val) {
 }
 
 /**
- * Event listener for HTTP server "error" event.
+ * Event-lyssnare för HTTP server "error"-event.
  */
 
 function onError(error) {
@@ -62,7 +62,7 @@ function onError(error) {
       ? 'Pipe ' + port
       : 'Port ' + port;
 
-  // handle specific listen errors with friendly messages
+  // Hantera specifika kopplingsfel med vänliga meddelanden.
   switch (error.code) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
@@ -78,7 +78,7 @@ function onError(error) {
 }
 
 /**
- * Event listener for HTTP server "listening" event.
+ * Event-lyssnare för HTTP server "listening"-event.
  */
 
 function onListening() {
