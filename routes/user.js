@@ -136,64 +136,8 @@ router.get('/:user/reports/:fullyear',
     }
   });
 
-/**
- * Hämtar apiobject för specifik användare för dashboard - ej klar
- * används till dashboarden för admin
- */
-router.get('/:user/access',
-  ensureLoggedIn,
-  function (req, res) {
-    var apiAccessKeys;
-    var medias;
-    var allMediaNames = [
-      'addthis',
-      'facebook',
-      'google',
-      'instagram',
-      'linkedin',
-      'moz',
-      'tynt',
-      'twitter',
-    ];
-
-    if (req.user.admin) {
-      getUserAccess(req.params.user)
-        .then(function (apiAccess) {
-          apiAccessKeys = Object.keys(apiAccess._doc);
-
-          medias = allMediaNames.map(function (mediaName) {
-            return {
-              name: mediaName,
-              isActive: apiAccessIntersection(allMediaNames, apiAccessKeys).includes(mediaName),
-            };
-          });
-
-          res.status(200).json({ medias: medias });
-        }).catch(function (err) {
-          res.status(500).json({ error: err });
-        });
-    } else {
-      getUserAccess(req.session.authZeroUserID)
-        .then(function (apiAccess) {
-          apiAccessKeys = Object.keys(apiAccess._doc);
-
-          medias = allMediaNames.map(function (mediaName) {
-            return {
-              name: mediaName,
-              isActive: apiAccessIntersection(allMediaNames, apiAccessKeys).includes(mediaName),
-            };
-          });
-
-          res.status(200).json({ medias: medias });
-        }).catch(function (err) {
-          res.status(500).json({ error: err });
-        });
-    }
-  });
-
 //  hämtar inställningssida för inloggad användare
 router.get('/settings',
-
   ensureLoggedIn,
   getSettings);
 
