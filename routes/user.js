@@ -276,21 +276,4 @@ router.post('/pdf',
   }
 );
 
-//  testa att skapa rapport - använd i cronJob?
-router.get('/test/:month/:year',
-  ensureLoggedIn,
-  function (req, res) {
-    createReport(req.user.id, req.params.month, req.params.year)
-      .then(function (report) {
-        if (report !== undefined) {
-          createApiData(report);
-          res.render('reports', { user: req.user });
-        } else {
-          res.render('500', { err: 'Report already exists.' });
-        }
-      }).catch(function (err) {
-        res.render('500', { err: err });
-      });
-  });
-
 module.exports = router;
