@@ -7,6 +7,15 @@ var dotenv = require('dotenv');
 // måste anropas innan en process.env.VARIABLE används, laddar environment variables
 dotenv.load();
 
+// används för att logga fel, ändra LOGGING_LEVEL till debug för att skriva allt till console.
+var winston = require('winston');
+winston.level = process.env.LOGGING_LEVEL;
+winston.add(winston.transports.File, {
+  filename: 'errors.log', // uppdatera .gitignore vid namnbyte
+  handleExceptions: true,
+  humanReadableUnhandledException: true
+});
+
 var passport = require('./auth');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');

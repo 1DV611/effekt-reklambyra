@@ -12,6 +12,7 @@ var decrypt = require('../helpers/decrypt');
 var OAuth2Client = google.auth.OAuth2;
 
 dotenv.load();
+var errorHandler = require('../errorHandler');
 
 // you can register your app and get google client id's and secret at: console.developers.google.com
 var CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
@@ -79,8 +80,10 @@ module.exports = function (accessObj, startDate, accessUser) {
     });
 
     var result = [youtubeViews(), analyticsBaseFigures(), analyticsMostVisited(),
-      analyticsTopLanding(),];
+      analyticsTopLanding()];
     Promise.all(result).then(function (values) {
+      var errorCheck = Object.keys(values);
+      if (errorCheck.indexOf('error') > 0) errorHandler.APIResolve(accessObj, values, 'google');
 
       var returnObj = {
         youtube: values[0],

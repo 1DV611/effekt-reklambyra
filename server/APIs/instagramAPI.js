@@ -3,6 +3,7 @@
 var dotenv = require('dotenv');
 var epochToDate = require('../helpers/epochToDate');
 var decrypt = require('../helpers/decrypt');
+var errorHandler = require('../errorHandler');
 
 dotenv.load();
 
@@ -34,7 +35,7 @@ module.exports = function (access, timeStamp) {
     client.get('users/self/media/recent', tokenObj).then(function (user) {
 
       if (!user.data)  {
-        console.error(user);
+        errorHandler.APIResolve(access, user, 'instagram');
       }
 
       var returnObj = { instagram: filterByMonthYear(user.data) };

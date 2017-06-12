@@ -1,5 +1,6 @@
 'use strict';
 
+var errorHandler = require('../errorHandler');
 var request = require('request');
 var dotenv = require('dotenv');
 var epochToDate = require('../helpers/epochToDate');
@@ -44,12 +45,16 @@ function monthly(access, unixTimeStamp) {
       var results = [socialAPI(relevantDate)];
 
       Promise.all(results).then(function (result) {
+        if (result.error) errorHandler.APIResolve(access, result, '33across');
+
         var resultObj = { across: { monthly: result } };
         resolve(resultObj);
       });
 
     } else {
-      resolve({ across: { error: relevantDate.full + ' är mer än 12 veckor ifrån ' + currentDate.full } });
+      var e = relevantDate.full + ' är mer än 12 veckor ifrån ' + currentDate.full;
+      resolve({ across: { error: e } });
+      errorHandler.log(e, '33accross api called with date past 12w');
     }
   });
 }
