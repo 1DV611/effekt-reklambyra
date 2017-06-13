@@ -5,6 +5,7 @@ var nodeLinkedin = require('node-linkedin')(process.env.LINKEDIN_CLIENT_ID, proc
 var linkedin;
 var dateHelper = require('../helpers/epochToDate');
 var decrypt = require('../helpers/decrypt');
+var errorHandler = require('../errorHandler');
 var relevantDate;
 
 module.exports = function (profile, startDate) {
@@ -23,10 +24,12 @@ module.exports = function (profile, startDate) {
 
     linkedin.companies.asAdmin(function (err, isAdminFor) {
       if (err) {
+        errorHandler.APIResolve(profile, err, 'linkedin asAdmin');
         return resolve({ linkedin: { error: err.message } });
       }
 
       if (isAdminFor.status === 401) {
+        errorHandler.APIResolve(profile, isAdminFor, 'linkedin asAdmin');
         return resolve({ linkedin: { error: isAdminFor.message } });
 
       }
@@ -36,6 +39,9 @@ module.exports = function (profile, startDate) {
       });
 
       Promise.all(result).then(function (linkedInData) {
+        var errorCheck = Object.keys(linkedInData);
+        if (errorCheck.indexOf('error') > 0) errorHandler.APIResolve(profile, linkedInData, 'linkedin');
+
         var returnObj = { linkedin: linkedInData[0] }; // promise.all ger en array, iaf fler API calls läggs till
         resolve(returnObj);
       });

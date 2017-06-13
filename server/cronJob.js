@@ -1,5 +1,6 @@
 'use strict';
 
+var errorHandler = require('./errorHandler');
 var getAPIAccesses = require('./databaseOperations/ApiAccess/getAPIAccesses');
 var createReport = require('./databaseOperations/Report/createReport');
 var createApiData = require('./databaseOperations/ApiData/createApiData');
@@ -18,7 +19,7 @@ function monthlyUpdate(date) {
           updateEach(APIAccess, date);
         });
       }).catch(function (error) {
-    throw error;
+        errorHandler.log(error, 'cronJob monthly');
   });
 
   //  Creates report + data per for each user in db based on activated providers
@@ -35,6 +36,8 @@ function dailyUpdate(date) {
       // callAPIs.js .daily metod
       // denna schemaläggs att köras dagligen med apiScheduler
     });
+  }).catch(function (error) {
+    errorHandler.log(error, 'cronJob daily');
   });
 }
 
@@ -47,10 +50,8 @@ function updateEach(APIAccess, date) {
         createApiData(report);
       }
     }).catch(function (error) {
-      throw error;
+    errorHandler.log(error, 'cronJob updateEach');
     });
-
-  //  createApiData(createReport(APIAccess.user, currentDate.month, currentDate.year));
 }
 
 exports.monthly = monthlyUpdate;

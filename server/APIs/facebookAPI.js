@@ -13,7 +13,7 @@ module.exports = function (profile) {
   var id = profile.profile._json.id;
   var token = decrypt.decryptText(profile.accessToken);
 
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
 
     graph.setAccessToken(token);
 

@@ -6,6 +6,7 @@ var dateToEpoch = require('../helpers/dateToEpoch');
 var relevantDate;
 var decrypt = require('../helpers/decrypt');
 var dotenv = require('dotenv');
+var errorHandler = require('../errorHandler');
 
 dotenv.load();
 
@@ -41,6 +42,8 @@ module.exports = function (access, startDate) {
     });
 
     Promise.all(resultPromises).then(function (result) {
+      if (result.error) errorHandler.APIResolve(access, result, 'addThis');
+
       var returnObj = {
         addThis: result,
       };
