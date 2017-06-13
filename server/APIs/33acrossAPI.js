@@ -128,7 +128,7 @@ function socialAPI(date) {
         var obj = JSON.parse(body);
         resolve(filterForMonth(obj, date));
       } catch (e) {
-        console.error(e);
+        errorHandler.log(e, '33across API');
         resolve({ error: e.message });
       }
 

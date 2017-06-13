@@ -1,5 +1,6 @@
 'use strict';
 
+var errorHandler = require('./errorHandler');
 var googleAPI = require('./APIs/googleAPI');
 var instagramAPI = require('./APIs/instagramAPI');
 var linkedinAPI = require('./APIs/linkedinAPI');
@@ -81,6 +82,7 @@ function allAPIsMonthly(access, startDateInUnix) {
        */
       resolve(APIResultsToObject(apiData));
     }).catch(function (error) {
+      errorHandler.log(error, 'callAPIs monthly caught error');
       reject(error);
     });
   });
@@ -95,7 +97,7 @@ function allAPIsMonthly(access, startDateInUnix) {
  * De APIer som behöver daglig data har en .daily metod som alltid ska användas här.
  */
 function allAPIsDaily(access) {
-  return new Promise(function (resolve) {
+  return new Promise(function (resolve, reject) {
     var promises = [];
 
     if (access.tynt) {
@@ -105,6 +107,7 @@ function allAPIsDaily(access) {
     Promise.all(promises).then(function (dailyAPIData) {
       resolve(APIResultsToObject(dailyAPIData));
     }).catch(function (error) {
+      errorHandler.log(error, 'callAPIs daily caught error');
       reject(error);
     });
   });
